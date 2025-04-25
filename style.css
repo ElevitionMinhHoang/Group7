@@ -74,10 +74,10 @@ footer {
 .about-content img {
   max-width: 100%;
   width: 100%;
-  max-width: 450px 800px;
+  max-width: 450px 900px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  height: auto;
+  text-align: center;
  
 }
 
