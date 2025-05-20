@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Khuyến mãi MFC</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff6f0;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      background-color: #ff6600;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    section {
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    /* Dùng flexbox để xếp ngang */
+    .promo-grid {
+      display: flex;
+      flex-wrap: wrap; /* cho xuống hàng khi ko vừa */
+      gap: 20px; /* khoảng cách giữa các combo */
+      justify-content: center; /* căn giữa */
+    }
+
+    .promo-box {
+      background-color: #ffe0cc;
+      border-left: 6px solid #ff6600;
+      border-radius: 8px;
+      padding: 15px;
+      width: 280px; /* chiều rộng cố định cho hình chữ nhật */
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: background-color 0.3s;
+      cursor: default;
+    }
+
+    .promo-box:hover {
+      background-color: #ffd1b3;
+    }
+
+    .promo-box h2 {
+      margin: 0 0 12px 0;
+      color: #cc3300;
+      font-size: 20px;
+      min-height: 60px; /* để các tiêu đề combo cùng cao */
+    }
+
+    .promo-box p {
+      flex-grow: 1;
+      font-size: 14px;
+      line-height: 1.4;
+      margin-bottom: 15px;
+      color: #4d2600;
+    }
+
+    .btn-order {
+      align-self: flex-start; /* nút đặt ngay bên trái */
+      padding: 8px 18px;
+      background-color: #ff6600;
+      color: white;
+      border-radius: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      user-select: none;
+      transition: background-color 0.3s;
+    }
+
+    .btn-order:hover {
+      background-color: #cc3300;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #d63300;
+    }
+
+    footer {
+      background-color: #ff6600;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🎉 Ưu Đãi Cực Cháy Cùng MFC 🎉</h1>
+  <p>Ăn Ngon Không Lo Giá!</p>
+</header>
+
+<section>
+
+  <div class="promo-grid">
+
+    <div class="promo-box">
+      <h2>🍗 Gọi Combo – Tặng Thêm Nước</h2>
+      <p>Mua <span class="highlight">1 combo bất kỳ</span> – Tặng ngay <span class="highlight">1 ly nước yêu thích</span>! Càng nhiều combo – càng nhiều nước!</p>
+      <a href="chitiet-combo1.html" class="btn-order">Đặt ngay</a>
+    </div>
+
+    <div class="promo-box">
+      <h2>🧑‍🤝‍🧑 Càng Đông – Càng Vui – Quà Càng Chất!</h2>
+      <p><span class="highlight">2 người:</span> Tặng 1 phần khoai<br/>
+         <span class="highlight">3 người:</span> Tặng 1 ly nước siêu to<br/>
+         <span class="highlight">4 người trở lên:</span> Tặng ngay combo mini trị giá 49K<br/>
+         <em>Lưu ý: Gọi từ 1 combo/người trở lên.</em></p>
+      <a href="chitiet-combo2.html" class="btn-order">Đặt ngay</a>
+    </div>
+
+    <div class="promo-box">
+      <h2>📸 Check-in Là Có Quà</h2>
+      <p>Chỉ cần check-in tại quán và đăng ảnh kèm hashtag <span class="highlight">#GaRanMFC</span> để nhận ngay <span class="highlight">voucher giảm 30K</span> cho lần sau!</p>
+      <a href="chitiet-combo3.html" class="btn-order">Đặt ngay</a>
+    </div>
+
+    <div class="promo-box">
+      <h2>🎁 Tích Điểm – Nhận Quà To</h2>
+      <p>Với mỗi hóa đơn từ <span class="highlight">99K</span>, bạn sẽ được tích điểm đổi quà ngẫu nhiên cực hấp dẫn như gà miễn phí, combo full set, voucher giảm giá, và nhiều món bí ẩn khác!</p>
+      <a href="chitiet-combo4.html" class="btn-order">Đặt ngay</a>
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+  © 2025 MFC Vietnam | Khuyến mãi có thể thay đổi theo thời điểm – xem thêm tại fanpage chính thức.
+</footer>
+
+</body>
+</html>
