@@ -20,65 +20,86 @@
     }
 
     section {
-      padding: 20px;
-      max-width: 1000px;
+      padding: 30px 20px;
+      max-width: 1200px;
       margin: auto;
     }
 
-    /* Dùng flexbox để xếp ngang */
     .promo-grid {
       display: flex;
-      flex-wrap: wrap; /* cho xuống hàng khi ko vừa */
-      gap: 20px; /* khoảng cách giữa các combo */
-      justify-content: center; /* căn giữa */
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
     }
 
     .promo-box {
-      background-color: #ffe0cc;
-      border-left: 6px solid #ff6600;
-      border-radius: 8px;
-      padding: 15px;
-      width: 280px; /* chiều rộng cố định cho hình chữ nhật */
-      box-sizing: border-box;
+      background-color: #fff;
+      border: 1px solid #ffd2b3;
+      border-radius: 12px;
+      width: 280px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      transition: background-color 0.3s;
-      cursor: default;
+      cursor: pointer;
+      outline: none;
+      user-select: none;
+      object-fit: contain;
+      background-color: #fff6f0;
     }
 
     .promo-box:hover {
-      background-color: #ffd1b3;
+      transform: translateY(-5px);
     }
 
     .promo-box h2 {
-      margin: 0 0 12px 0;
-      color: #cc3300;
-      font-size: 20px;
-      min-height: 60px; /* để các tiêu đề combo cùng cao */
+      text-align: center; /* Căn giữa tiêu đề */
     }
 
-    .promo-box p {
-      flex-grow: 1;
-      font-size: 14px;
-      line-height: 1.4;
-      margin-bottom: 15px;
+    .promo-img {
+      width: 100%;
+      height: 280px;
+      object-fit: contain;
+      pointer-events: none; /* không gây cản click */
+    }
+
+    .promo-title {
+      font-size: 18px;
+      color: #cc3300;
+      font-weight: bold;
+      min-height: 50px;
+      padding: 16px;
+      user-select: text;
+    }
+
+    .promo-desc {
+      display: none;
+      padding: 0 16px 16px 16px;
       color: #4d2600;
+      font-size: 14px;
+      line-height: 1.5;
+      user-select: text;
     }
 
     .btn-order {
-      align-self: flex-start; /* nút đặt ngay bên trái */
-      padding: 8px 18px;
+      display: inline-block;
+      padding: 8px 16px;
       background-color: #ff6600;
       color: white;
       border-radius: 20px;
       font-weight: bold;
       text-decoration: none;
-      user-select: none;
+      text-align: center;
       transition: background-color 0.3s;
+      margin: 16px;
+      align-self: flex-start;
+      user-select: none;
+      cursor: pointer;
+      margin: 0 auto;
     }
 
-    .btn-order:hover {
+    .btn-order:hover, .btn-order:focus {
       background-color: #cc3300;
     }
 
@@ -87,13 +108,6 @@
       color: #d63300;
     }
 
-    footer {
-      background-color: #ff6600;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      margin-top: 40px;
-    }
   </style>
 </head>
 <body>
@@ -104,43 +118,86 @@
 </header>
 
 <section>
-
   <div class="promo-grid">
 
-    <div class="promo-box">
-      <h2>🍗 Gọi Combo – Tặng Thêm Nước</h2>
-      <p>Mua <span class="highlight">1 combo bất kỳ</span> – Tặng ngay <span class="highlight">1 ly nước yêu thích</span>! Càng nhiều combo – càng nhiều nước!</p>
-      <a href="chitiet-combo1.html" class="btn-order">Đặt ngay</a>
+    <div class="promo-box" tabindex="0" aria-expanded="false" aria-label="Ưu đãi Gọi Combo – Tặng Thêm Nước. Nhấn Enter để xem chi tiết">
+      <img src="images/Khuyenmai1.jpg" alt="Gọi combo - tặng thêm nước" class="promo-img" />
+      <div class="promo-title">🍗 Gọi Combo – Tặng Thêm Nước</div>
+      <div class="promo-desc">
+        <p>Mua <span class="highlight">1 combo bất kỳ</span> – Tặng ngay <span class="highlight">1 ly nước yêu thích</span>! Càng nhiều combo – càng nhiều nước!</p>
+      </div>
+      <a href="Khuyenmai1.html" class="btn-order" tabindex="0">Đặt ngay</a>
     </div>
 
-    <div class="promo-box">
-      <h2>🧑‍🤝‍🧑 Càng Đông – Càng Vui – Quà Càng Chất!</h2>
-      <p><span class="highlight">2 người:</span> Tặng 1 phần khoai<br/>
-         <span class="highlight">3 người:</span> Tặng 1 ly nước siêu to<br/>
-         <span class="highlight">4 người trở lên:</span> Tặng ngay combo mini trị giá 49K<br/>
-         <em>Lưu ý: Gọi từ 1 combo/người trở lên.</em></p>
-      <a href="chitiet-combo2.html" class="btn-order">Đặt ngay</a>
+    <div class="promo-box" tabindex="0" aria-expanded="false" aria-label="Ưu đãi Càng Đông – Càng Vui – Quà Càng Chất. Nhấn Enter để xem chi tiết">
+      <img src="images/Khuyenmai2.jpg" alt="Càng đông càng vui" class="promo-img" />
+      <div class="promo-title">🧑‍🤝‍🧑 Càng Đông – Càng Vui – Quà Càng Chất!</div>
+      <div class="promo-desc">
+        <p>
+          <span class="highlight">2 người:</span> Tặng 1 phần khoai<br/>
+          <span class="highlight">3 người:</span> Tặng 1 ly nước siêu to<br/>
+          <span class="highlight">4 người trở lên:</span> Tặng ngay combo mini trị giá 49K<br/>
+          <em>Lưu ý: Gọi từ 1 combo/người trở lên.</em>
+        </p>
+      </div>
+      <a href="chitiet-combo2.html" class="btn-order" tabindex="0">Đặt ngay</a>
     </div>
 
-    <div class="promo-box">
-      <h2>📸 Check-in Là Có Quà</h2>
-      <p>Chỉ cần check-in tại quán và đăng ảnh kèm hashtag <span class="highlight">#GaRanMFC</span> để nhận ngay <span class="highlight">voucher giảm 30K</span> cho lần sau!</p>
-      <a href="chitiet-combo3.html" class="btn-order">Đặt ngay</a>
+    <div class="promo-box" tabindex="0" aria-expanded="false" aria-label="Ưu đãi Check-in Là Có Quà. Nhấn Enter để xem chi tiết">
+      <img src="images/Khuyenmai3.jpg" alt="Check-in có quà" class="promo-img" />
+      <div class="promo-title">📸 Check-in Là Có Quà</div>
+      <div class="promo-desc">
+        <p>Check-in tại quán và đăng ảnh kèm hashtag <span class="highlight">#GaRanMFC</span> để nhận ngay <span class="highlight">voucher giảm 30K</span> cho lần sau!</p>
+      </div>
+      <a href="chitiet-combo3.html" class="btn-order" tabindex="0">Đặt ngay</a>
     </div>
 
-    <div class="promo-box">
-      <h2>🎁 Tích Điểm – Nhận Quà To</h2>
-      <p>Với mỗi hóa đơn từ <span class="highlight">99K</span>, bạn sẽ được tích điểm đổi quà ngẫu nhiên cực hấp dẫn như gà miễn phí, combo full set, voucher giảm giá, và nhiều món bí ẩn khác!</p>
-      <a href="chitiet-combo4.html" class="btn-order">Đặt ngay</a>
+    <div class="promo-box" tabindex="0" aria-expanded="false" aria-label="Ưu đãi Tích Điểm – Nhận Quà To. Nhấn Enter để xem chi tiết">
+      <img src="images/Khuyenmai4.jpg" alt="Tích điểm nhận thưởng" class="promo-img" />
+      <div class="promo-title">🎁 Tích Điểm – Nhận Quà To</div>
+      <div class="promo-desc">
+        <p>Với mỗi hóa đơn từ <span class="highlight">99K</span>, bạn được tích điểm đổi quà ngẫu nhiên: gà miễn phí, combo full set, voucher giảm giá, và nhiều món bí ẩn khác!</p>
+      </div>
+      <a href="chitiet-combo4.html" class="btn-order" tabindex="0">Đặt ngay</a>
     </div>
 
   </div>
-
 </section>
 
-<footer>
-  © 2025 MFC Vietnam | Khuyến mãi có thể thay đổi theo thời điểm – xem thêm tại fanpage chính thức.
-</footer>
+
+<script>
+  // Chọn tất cả promo-box
+  document.querySelectorAll('.promo-box').forEach(box => {
+    const desc = box.querySelector('.promo-desc');
+
+    // Click vào promo-box (ngoại trừ nút Đặt ngay) sẽ toggle mô tả
+    box.addEventListener('click', (e) => {
+      if(e.target.classList.contains('btn-order')) return; // không ẩn hiện khi bấm nút Đặt ngay
+
+      const isVisible = desc.style.display === 'block';
+
+      // Ẩn tất cả các mô tả khác
+      document.querySelectorAll('.promo-desc').forEach(d => d.style.display = 'none');
+      document.querySelectorAll('.promo-box').forEach(b => b.setAttribute('aria-expanded', 'false'));
+
+      if(!isVisible) {
+        desc.style.display = 'block';
+        box.setAttribute('aria-expanded', 'true');
+      } else {
+        desc.style.display = 'none';
+        box.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Bật/tắt mô tả khi nhấn Enter hoặc Space trên promo-box
+    box.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        box.click();
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
