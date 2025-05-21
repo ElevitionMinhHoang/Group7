@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Khuyến mãi MFC</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff6f0;
+      margin: 0;
+      padding: 40px 20px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #cc3300;
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+    }
+
+    .promo-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .promo-item {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .promo-item:hover {
+      transform: translateY(-4px);
+    }
+
+    .promo-item img {
+      width: 100%;
+      height: 350px;
+      display: block;
+      pointer-events: none;
+      object-fit: cover;
+    }
+
+    .promo-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #cc3300;
+      padding: 12px 16px;
+      min-height: 60px;
+    }
+
+    .promo-button {
+      display: inline-block;
+      margin-bottom: 16px;
+      background-color: #ff6600;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .promo-button:hover {
+      background-color: #cc3300;
+    }
+
+   .pagination {
+      position: fixed; /* cố định dưới cùng */
+      bottom: 20px;    /* cách mép dưới 20px */
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff6f0;
+      border: 1px solid #cc3300;
+      border-radius: 30px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      color: #cc3300;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 12px; /* nhỏ hơn */
+      font-size: 14px;   /* chữ nhỏ hơn */
+      z-index: 100;      /* đảm bảo nằm trên cùng */
+    }
+
+
+    .Khuyen_mai_page1.active {
+      background: #cc3300;
+      color: #fff6f0;
+      font-weight: 700;
+      animation: jump 0.3s ease;
+    }
+
+    .Khuyen_mai_page1 {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .button {
+      padding: 4px 8px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+}
+
+    .Khuyen_mai_page1:hover,
+    .button:hover{
+      opacity: 0.8;
+    }
+
+    @keyframes jump{
+      from {transform: translateY(10px);}
+      to {transform: translateY(0);}
+    }
+    
+  </style>
+</head>
+<body>
+
+  <h1>🎉 Chương trình khuyến mãi</h1>
+
+  <div class="promo-grid">
+    <div class="promo-item">
+      <img src="images/Khuyenmai1.jpg" alt="Gọi Combo - Tặng Thêm Nước">
+      <div class="promo-title">Gọi Combo - Tặng Thêm Nước</div>
+      <a href="Khuyenmai1.html" class="promo-button">Xem thêm</a>
+    </div>
+    <div class="promo-item">
+      <img src="images/Khuyenmai2.jpg" alt="Càng Đông - Càng Vui - Quà Càng Chất">
+      <div class="promo-title">Càng Đông - Càng Vui - Quà Càng Chất</div>
+      <a href="Khuyenmai2.html" class="promo-button">Xem thêm</a>
+    </div>
+    <div class="promo-item">
+      <img src="images/Khuyenmai3.jpg" alt="Check-in Là Có Quà">
+      <div class="promo-title">Check-in Là Có Quà</div>
+      <a href="Khuyenmai3.html" class="promo-button">Xem thêm</a>
+    </div>
+    <div class="promo-item">
+      <img src="images/Khuyenmai4.jpg" alt="Tích Điểm Nhận Quà Bất Ngờ">
+      <div class="promo-title">Tích Điểm Nhận Quà Bất Ngờ</div>
+      <a href="Khuyenmai4.html" class="promo-button">Xem thêm</a>
+    </div>
+  </div>
+
+   <div class="pagination">
+      <div class="button prev">< prev</div>
+      <div class="Khuyen_mai_page1 active">1</div>
+      <div class="Khuyen_mai_page2">2</div>
+      <div class="button next">next ></div>
+   </div>
+
+     <script src="script.js"></script>
+
+</body>
+</html>
