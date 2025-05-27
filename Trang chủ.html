@@ -1,50 +1,161 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Giới thiệu - MFC</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <title>Trang chủ - Gà Rán HOÀNG</title>
 </head>
 <body>
 
-  <header>
-    <h1>MFC - Thức ăn nhanh</h1>
-    <p>Ngon như Gà Hàn - Giao tận bàn</p>
-  </header>
+    <!-- Thanh điều hướng -->
 
-  <nav>
-    <a href="Trang chủ.html">Trang chủ</a>
-    <a href="tranggioithieu.html">Giới thiệu</a>
-    <a href="SanPham.html">Sản Phẩm</a>
-    <a href="Khuyen_mai.html">Khuyến mãi</a>
-  </nav>
+<nav style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: orange;
+    padding: 10px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+">
 
-  <div class="about-section">
-    <h2>Lịch sử</h2>
-    <p class="intro">
-      MFC là thương hiệu gà sạch – hảo hạng với sứ mệnh mang đến những bữa ăn chất lượng, chuẩn vị Hàn Quốc, nhưng vẫn phù hợp khẩu vị người Việt. Được thành lập từ năm 2024, MFC không ngừng phát triển với niềm tin: **Ngon – Sạch – Đáng tin cậy**.
-    </p>
-    <div class="about-content">
-      <img src="https://scontent.fhan14-1.fna.fbcdn.net/v/t39.30808-6/481120895_122145036326547148_8177663601084856826_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=101&ccb=1-7&_nc_sid=833d8c&_nc_ohc=jgsRXtmbN80Q7kNvwE5ElIS&_nc_oc=AdkkTzgxTxB22Xc0bWXSyqrL-Wv1XSRKZ6i5eiOnZ08lXEbFfjnolwWaVLYuYoAvpc_Jyheeq-SWiDMgNkl9Vlii&_nc_pt=1&_nc_zt=23&_nc_ht=scontent.fhan14-1.fna&_nc_gid=raDCbAdZa4Hvf-OvhUXTfg&oh=00_AfHawFH-pwa36QJpGxyCK-E4zttLAt2nbPvGgOTBNXwgZQ&oe=6811A57B" alt="Gà MFC" />
-      <div>
-        <h3>Giá trị cốt lõi</h3>
-        <ul>
-          <li>✔️ Gà tươi 100%, có nguồn gốc rõ ràng</li>
-          <li>✔️ Quy trình chế biến an toàn, khép kín</li>
-          <li>✔️ Hương vị độc quyền, giao hàng tận nơi</li>
-          <li>✔️ Dịch vụ tận tâm, phục vụ chuyên nghiệp</li>
-        </ul>
-        <p>
-          MFC luôn mang lại sự hài lòng tuyệt đối cho khách hàng trong từng bữa ăn.
-        </p>
-      </div>
+    <!-- Logo -->
+    <div style="flex-shrink: 0;">
+        <a href="mfc.html" style="display: flex; align-items: center;">
+            <img src="mfc.jpg" alt="Logo" height="50">
+        </a>
     </div>
-  </div>
 
-  <footer class="footer">
-    <p>© 2025 MFC - Thức ăn nhanh | Hotline: 0975459348 | Địa chỉ: 122 Phố Chùa Bộc,Quang Trung, Đống Đa, Hà Nội</p>
-  </footer>
+    <!-- Menu chính -->
+    <div style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        flex: 1;
+    ">
+        <a href="#" style="color: white; font-weight: bold; text-decoration: none;">Trang chủ</a>
+        <a href="#" style="color: white; font-weight: bold; text-decoration: none;">Thực đơn</a>
+        <a href="#" style="color: white; font-weight: bold; text-decoration: none;">Khuyến mãi</a>
+        <a href="#" style="color: white; font-weight: bold; text-decoration: none;">Liên hệ</a>
+    </div>
+
+    <!-- Giỏ hàng / Tài khoản -->
+    <div style="flex-shrink: 0;">
+        <a href="#" style="color: white; font-weight: bold; text-decoration: none;">🛒 Giỏ hàng / Tài khoản</a>
+    </div>
+
+</nav>
+
+    <hr>
+
+    <!-- Banner -->
+    <section>
+        <h2>
+            <img src="banner.png" alt="Banner quảng cáo" style="width: 100%; max-width: 1920px; height: auto; display: block; margin: 0 auto;" />
+        </h2>
+       
+    </section>
+
+    <!-- Tiêu đề "VỀ CHÚNG TÔI" dạng thanh cam -->
+<div style="background-color: #F68B1F; color: white; text-align: center; padding: 20px; font-size: 28px; font-weight: bold; position: relative;">
+  VỀ CHÚNG TÔI
+  <div style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+              width: 0; height: 0; border-left: 10px solid transparent;
+              border-right: 10px solid transparent; border-top: 10px solid #F68B1F;">
+  </div>
+</div>
+
+<!-- Giới thiệu -->
+<section style="display: flex; align-items: flex-start; justify-content: space-between; padding: 40px 0;">
+    <div style="max-width: 50%; padding-top: 30px;"> <!-- Thêm padding-top để điều chỉnh vị trí -->
+        <h2 style="font-size: 28px; margin-bottom: 10px;">ĐÔI NÉT VỀ THƯƠNG HIỆU GÀ RÁN MFC</h2>
+        <p><strong>Gà Rán MFC</strong> là thương hiệu ẩm thực ra đời với sứ mệnh mang đến trải nghiệm vị giác tuyệt vời từ những miếng gà rán nóng hổi, giòn tan. Chúng tôi chú trọng từ khâu chọn nguyên liệu tươi sạch mỗi ngày đến phong cách phục vụ tận tâm, chuyên nghiệp.</p>
+        <p>Ra đời với triết lý <strong>"Vị ngon – từ sự tử tế"</strong>, MFC nhanh chóng trở thành điểm đến quen thuộc của các tín đồ mê gà rán. Thương hiệu hướng đến những bạn trẻ năng động, yêu thích ẩm thực đường phố chất lượng và giá cả hợp lý.</p>
+        <p>Còn chờ gì nữa, cùng MFC khám phá hương vị giòn rụm không thể chối từ ngay hôm nay!</p>
+    </div>
+    <div style="max-width: 45%;">
+        <img src="gthieuga.png" alt="Gà rán MFC" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    </div>
+</section>
+
+
+
+
+    <!-- Best Seller -->
+    <section style="max-width: 1200px; margin: 0 auto; padding: 40px 20px; background-color: #fff9f5; font-family: 'Arial', sans-serif;">
+    <h2 style="text-align: center; font-size: 32px; color: #e74c3c; margin-bottom: 40px;">🔥 BEST SELLER - MÓN NGON ĐỊNH MỆNH</h2>
+    
+    <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+        <!-- Sản phẩm 1 -->
+        <div style="width: 23%; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <img src="garankhoai.jpg" alt="Combo Gà Rán" style="width: 100%; height: 180px; object-fit: cover;">
+            <div style="padding: 15px;">
+                <h3 style="font-size: 18px; margin: 10px 0; color: #333;">Combo Gà Rán + Khoai Tây</h3>
+                <p style="color: #e74c3c; font-weight: bold; font-size: 20px;">đ89.000</p>
+            </div>
+        </div>
+
+        <!-- Sản phẩm 2 -->
+        <div style="width: 23%; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <img src="combo-ga-cay.jpg" alt="Combo Gà Cay" style="width: 100%; height: 180px; object-fit: cover;">
+            <div style="padding: 15px;">
+                <h3 style="font-size: 18px; margin: 10px 0; color: #333;">Combo Gà Cay + Pepsi</h3>
+                <p style="color: #e74c3c; font-weight: bold; font-size: 20px;">đ99.000</p>
+            </div>
+        </div>
+
+        <!-- Sản phẩm 3 -->
+        <div style="width: 23%; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <img src="ga-gion.jpg" alt="Gà Giòn" style="width: 100%; height: 180px; object-fit: cover;">
+            <div style="padding: 15px;">
+                <h3 style="font-size: 18px; margin: 10px 0; color: #333;">Gà Giòn Truyền Thống</h3>
+                <p style="color: #e74c3c; font-weight: bold; font-size: 20px;">đ120.000</p>
+            </div>
+        </div>
+
+        <!-- Sản phẩm 4 -->
+        <div style="width: 23%; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <img src="ga-pho-mai.jpg" alt="Gà Phô Mai" style="width: 100%; height: 180px; object-fit: cover;">
+            <div style="padding: 15px;">
+                <h3 style="font-size: 18px; margin: 10px 0; color: #333;">Gà Phô Mai + Khoai Lắc</h3>
+                <p style="color: #e74c3c; font-weight: bold; font-size: 20px;">đ109.000</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px;">
+        <button style="background-color: #e74c3c; color: white; border: none; padding: 12px 30px; font-size: 16px; border-radius: 25px; cursor: pointer;">XEM THÊM THỰC ĐƠN</button>
+    </div>
+</section>
+
+    <!-- New -->
+    <section style="padding: 20px; background-color: #f8f8f8;">
+    <h2 style="text-align: center; color: #d9534f;"> Sản phẩm mới</h2>
+    <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+        <div style="text-align: center; margin: 15px; border: 1px solid #ddd; border-radius: 10px; background-color: #fff; padding: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+            <img src="combo1.jpg" alt="Combo Family" style="width: 150px; height: auto; border-radius: 10px;"/>
+            <h3 style="color: #333;">Combo Family</h3>
+        </div>
+        <div style="text-align: center; margin: 15px; border: 1px solid #ddd; border-radius: 10px; background-color: #fff; padding: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+            <img src="sandwich.jpg" alt="Sandwich Gà Nướng Mật Ong" style="width: 150px; height: auto; border-radius: 10px;"/>
+            <h3 style="color: #333;">Sandwich Gà Nướng Mật Ong</h3>
+        </div>
+        <div style="text-align: center; margin: 15px; border: 1px solid #ddd; border-radius: 10px; background-color: #fff; padding: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+            <img src="combo2.jpg" alt="Combo Sinh Viên" style="width: 150px; height: auto; border-radius: 10px;"/>
+            <h3 style="color: #333;">Combo Sinh Viên</h3>
+        </div>
+    </div>
+</section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Gà Rán HOÀNG. Tất cả các quyền được bảo lưu.</p>
+    </footer>
 
 </body>
 </html>
