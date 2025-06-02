@@ -3,159 +3,622 @@
 <head>
     <meta charset="UTF-8">
     <title>Trang chủ - Gà Rán HOÀNG</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background-color: #f9f9f9; /* Nền xám rất nhạt cho body */
+            color: #333;
+        }
+
+        /* --- NAVIGATION BAR --- */
+        .fixed-navbar {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background-color: orange; padding: 10px 40px; display: flex;
+            align-items: center; justify-content: space-between;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            transition: padding 0.3s ease, background-color 0.3s ease;
+        }
+        .fixed-navbar .logo-link { display: flex; align-items: center; text-decoration: none;}
+        .fixed-navbar .logo-image { height: 50px; transition: height 0.3s ease;}
+        .fixed-navbar .main-menu { display: flex; justify-content: center; align-items: center; gap: 30px; flex: 1;}
+        .fixed-navbar .nav-link { color: white; font-weight: bold; text-decoration: none; font-size: 16px; padding: 5px 0;}
+        .fixed-navbar .nav-link:hover { text-decoration: underline; }
+        .fixed-navbar .user-actions { flex-shrink: 0; }
+
+        .page-content-wrapper { /* Sẽ được JS set padding-top */ }
+
+        /* --- HERO CAROUSEL --- */
+        .hero-carousel {
+            position: relative;
+            width: 100%;
+            /* height: 500px; Chiều cao có thể điều chỉnh theo ảnh hoặc cố định */
+            overflow: hidden;
+            background-color: #e0e0e0; /* Fallback bg */
+             /* padding-top sẽ được JS thiết lập nếu navbar đè lên */
+        }
+        .hero-carousel .slides-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%; /* Hoặc chiều cao cố định */
+        }
+        .hero-carousel .slide {
+            min-width: 100%;
+            position: relative; /* For text overlay */
+            /* height: 500px; Nên để ảnh quyết định chiều cao hoặc set cố định */
+        }
+        .hero-carousel .slide img {
+            width: 100%;
+            height: auto; /* Hoặc 100% nếu slide có chiều cao cố định */
+            object-fit: cover; /* Để ảnh che phủ toàn bộ slide */
+            display: block;
+        }
+        .hero-carousel .slide-content {
+            position: absolute;
+            bottom: 10%;
+            left: 5%;
+            color: white;
+            background-color: rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 50%;
+        }
+        .hero-carousel .slide-content h2 { font-size: 2.5em; margin-bottom: 10px; text-shadow: 1px 1px 2px black;}
+        .hero-carousel .slide-content p { font-size: 1.2em; margin-bottom: 15px; }
+        .hero-carousel .slide-content .cta-button {
+            background-color: orange; color: white; padding: 10px 20px;
+            text-decoration: none; border-radius: 5px; font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .hero-carousel .slide-content .cta-button:hover { background-color: #e69500; }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 20px;
+        }
+        .carousel-nav button {
+            background-color: rgba(0,0,0,0.5); color: white; border: none;
+            font-size: 2em; padding: 5px 10px; cursor: pointer;
+            border-radius: 5px; transition: background-color 0.3s;
+        }
+        .carousel-nav button:hover { background-color: rgba(0,0,0,0.8); }
+        .carousel-dots {
+            position: absolute; bottom: 20px; left: 50%;
+            transform: translateX(-50%); display: flex; gap: 8px;
+        }
+        .carousel-dots .dot {
+            width: 12px; height: 12px; background-color: rgba(255,255,255,0.5);
+            border-radius: 50%; cursor: pointer; transition: background-color 0.3s;
+        }
+        .carousel-dots .dot.active { background-color: white; }
+
+
+        /* --- KEY ACTIONS / ORDER NOW SECTION --- */
+        .key-actions-section {
+            padding: 40px 20px;
+            background-color: #fff;
+            text-align: center;
+        }
+        .key-actions-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .action-card {
+            background-color: #fff1e0; /* Light orange */
+            padding: 25px;
+            border-radius: 10px;
+            flex: 1;
+            min-width: 250px; /* Min width for each card */
+            text-decoration: none;
+            color: #d95300; /* Dark orange text */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+        }
+        .action-card i { font-size: 3em; margin-bottom: 15px; }
+        .action-card h3 { font-size: 1.5em; font-weight: 600; }
+
+
+        /* --- "VỀ CHÚNG TÔI" TITLE BAR --- */
+        .section-title-bar {
+            background-color: #F68B1F; color: white; text-align: center;
+            padding: 20px; font-size: 28px; font-weight: bold; position: relative;
+        }
+        .section-title-bar .triangle-down {
+            position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+            width: 0; height: 0; border-left: 10px solid transparent;
+            border-right: 10px solid transparent; border-top: 10px solid #F68B1F;
+        }
+
+        /* --- "GIỚI THIỆU" (ABOUT US) SECTION --- */
+        .about-us-section {
+            display: flex; align-items: flex-start; justify-content: space-between;
+            gap: 30px; padding: 50px 5%; max-width: 1400px; margin: 30px auto;
+            background-color: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .about-us-section .text-column { flex: 1; max-width: 55%; }
+        .about-us-section .text-column h2 { font-size: 28px; margin-bottom: 20px; color: #333; font-weight:700; }
+        .about-us-section .text-column p { font-size: 16px; line-height: 1.7; margin-bottom: 15px; color: #555; }
+        .about-us-section .image-column { flex-shrink: 0; width: 40%; max-width: 500px; }
+        .about-us-section .image-column img { width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+        /* --- PRODUCTS SECTION (COMMON STYLES FOR BEST SELLER & NEW) --- */
+        .products-section {
+            max-width: 1200px; margin: 50px auto; padding: 40px 20px;
+            background-color: #fff; border-radius: 8px;
+        }
+        .products-section.new-products { background-color: #f0f0f0; /* Slightly different bg for variety */ }
+
+        .products-section .section-heading {
+            text-align: center; font-size: 32px; color: #e74c3c;
+            margin-bottom: 40px; font-weight: 700;
+        }
+        .products-section .section-heading.new-products-heading { color: #d9534f; }
+
+        .product-grid {
+            display: grid;
+            /* grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); More flexible */
+            grid-template-columns: repeat(4, 1fr); /* For Best Seller */
+            gap: 25px;
+        }
+        .product-grid.new-products-grid {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* More items or smaller cards */
+            justify-items: center;
+        }
+
+        .product-card {
+            background: white; border-radius: 10px; overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex; flex-direction: column;
+        }
+         .product-card:hover { /* General hover for all product cards */
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+        }
+        .product-card.new-product-item {
+            max-width: 280px; /* For smaller new product cards */
+            text-align: center; padding: 15px;
+        }
+        .product-card .product-image {
+            width: 100%; height: 200px; object-fit: cover; display: block;
+        }
+        .product-card.new-product-item .product-image {
+            width: 180px; height: 180px; border-radius: 8px; margin: 0 auto 10px auto;
+        }
+        .product-card .product-info { padding: 15px; flex-grow: 1; display:flex; flex-direction:column; }
+        .product-card.new-product-item .product-info { padding: 0; }
+
+        .product-card .product-name {
+            font-size: 18px; margin-bottom: 8px; color: #333; font-weight: 600;
+            line-height: 1.3; min-height: 2.6em; /* for 2 lines of text */
+        }
+        .product-card.new-product-item .product-name { font-size: 17px; min-height: 0; }
+        .product-card .product-price {
+            color: #e74c3c; font-weight: bold; font-size: 20px; margin-top: auto; /* Pushes price to bottom */
+        }
+        .product-card .product-cta {
+            margin-top: 15px;
+        }
+        .product-card .btn-product-order {
+            background-color: orange; color: white; border: none;
+            padding: 8px 15px; font-size: 15px; border-radius: 20px;
+            cursor: pointer; text-decoration: none; font-weight: 500;
+            display: inline-block; transition: background-color 0.3s ease;
+        }
+        .product-card .btn-product-order:hover { background-color: #e69500; }
+
+
+        .products-section .view-more-button-container { text-align: center; margin-top: 40px; }
+        .btn-view-more {
+            background-color: #e74c3c; color: white; border: none;
+            padding: 12px 30px; font-size: 16px; border-radius: 25px;
+            cursor: pointer; text-decoration: none; font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .btn-view-more:hover { background-color: #c0392b; transform: translateY(-2px); }
+
+        /* --- FOOTER --- */
+        /* --- FOOTER (Giữ nguyên từ trước) --- */
+    footer { background-color: orange; color: #fff; padding: 50px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; }
+    .footer-column { flex: 1; min-width: 280px; margin-bottom: 30px; padding: 0 15px; }
+    .footer-column h4 { font-size: 20px; font-weight: bold; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 10px; }
+    .footer-column p { font-size: 16px; line-height: 1.8; margin-bottom: 8px; }
+    .footer-column a { color: #fff; text-decoration: none; }
+    .footer-column a:hover { text-decoration: underline; }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .product-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .fixed-navbar { padding: 10px 20px; flex-direction: column; align-items: flex-start; }
+            .fixed-navbar .main-menu { flex-direction: column; gap: 10px; width: 100%; align-items: flex-start; margin-top: 10px; }
+            .fixed-navbar .user-actions { margin-top: 10px; align-self: flex-start; }
+            
+            .hero-carousel .slide-content { max-width: 80%; left: 50%; transform: translateX(-50%); text-align: center; }
+            .hero-carousel .slide-content h2 { font-size: 1.8em; }
+            .hero-carousel .slide-content p { font-size: 1em; }
+
+            .about-us-section { flex-direction: column; align-items: center; text-align:center; padding: 30px 5%; }
+            .about-us-section .text-column, .about-us-section .image-column { max-width: 100%; width: 100%; }
+            
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
+            .product-grid.new-products-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+            
+            .site-footer { padding: 30px 20px; }
+            .footer-column { min-width: calc(50% - 30px); }
+        }
+        @media (max-width: 480px) {
+            .product-grid { grid-template-columns: 1fr; }
+            .footer-column { min-width: 100%; }
+            .key-actions-grid { flex-direction: column; }
+            .action-card { min-width: 100%; }
+        }
+
+    </style>
 </head>
 <body>
+    <nav class="fixed-navbar" id="mainNavbar">
+        <div class="logo-container">
+            <a href="index.html" class="logo-link">
+                <img src="mfc.jpg" alt="Logo Gà Rán HOÀNG" class="logo-image" id="navbarLogo">
+            </a>
+        </div>
+        <div class="main-menu">
+            <a href="index.html" class="nav-link">Trang chủ</a>
+            <a href="#" class="nav-link">Thực đơn</a>
+            <a href="Khuyen_mai_MFC/Khuyen_mai_page1.html" class="nav-link">Khuyến mãi</a>
+            <a href="tranglienhe.html" class="nav-link">Liên hệ</a>
+        </div>
+        <div class="user-actions">
+            <a href="tendangnhap.html" class="nav-link">🛒 Giỏ hàng / Tài khoản</a>
+        </div>
+    </nav>
 
-    <!-- Thanh điều hướng -->
+    <div class="page-content-wrapper">
+        <section class="hero-carousel" id="heroCarousel">
+            <div class="slides-container">
+                <div class="slide">
+                    <img src="https://via.placeholder.com/1920x600/FFD700/000000?text=Banner+Khuyen+Mai+1" alt="Banner Khuyến Mãi 1">
+                    <div class="slide-content">
+                        <h2>Gà Rán Giòn Tan - Ưu Đãi Cực Sốc!</h2>
+                        <p>Combo gia đình chỉ từ 199K, nhanh tay đặt ngay!</p>
+                        <a href="#" class="cta-button">Xem Ngay</a>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="https://via.placeholder.com/1920x600/FFA07A/FFFFFF?text=Banner+Mon+Moi+2" alt="Banner Món Mới 2">
+                     <div class="slide-content">
+                        <h2>Thưởng Thức Món Mới - Burger Siêu Đẫm</h2>
+                        <p>Hương vị bùng nổ, thử là ghiền!</p>
+                        <a href="#" class="cta-button">Khám Phá</a>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="https://via.placeholder.com/1920x600/ADD8E6/000000?text=Banner+App+Order+3" alt="Banner App Order 3">
+                     <div class="slide-content">
+                        <h2>Đặt Hàng Qua App - Ngập Tràn Ưu Đãi</h2>
+                        <p>Tải app Gà Rán HOÀNG nhận ngay voucher giảm giá.</p>
+                        <a href="#" class="cta-button">Tải App</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-nav">
+                <button class="prev">&#10094;</button>
+                <button class="next">&#10095;</button>
+            </div>
+            <div class="carousel-dots"></div>
+        </section>
 
-<nav style="
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: orange;
-    padding: 10px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    box-sizing: border-box;
-">
+        <section class="key-actions-section">
+            <div class="key-actions-grid">
+                <a href="#" class="action-card">
+                    <i class='bx bxs-dish'></i>
+                    <h3>Xem Thực Đơn</h3>
+                </a>
+                <a href="Khuyen_mai_MFC/Khuyen_mai_page1.html" class="action-card">
+                    <i class='bx bxs-purchase-tag'></i>
+                    <h3>Ưu Đãi Hôm Nay</h3>
+                </a>
+                <a href="tranglienhe.html" class="action-card">
+                    <i class='bx bxs-map-alt'></i>
+                    <h3>Tìm Cửa Hàng</h3>
+                </a>
+            </div>
+        </section>
 
-    <!-- Logo -->
-    <div style="flex-shrink: 0;">
-        <a href="mfc.html" style="display: flex; align-items: center;">
-            <img src="mfc.jpg" alt="Logo" height="50">
-        </a>
+        <div class="section-title-bar">
+            VỀ CHÚNG TÔI
+            <div class="triangle-down"></div>
+        </div>
+        <section class="about-us-section">
+            <div class="text-column">
+                <h2>ĐÔI NÉT VỀ THƯƠNG HIỆU GÀ RÁN MFC</h2>
+                <p><strong>Gà Rán MFC</strong> là thương hiệu ẩm thực ra đời với sứ mệnh mang đến trải nghiệm vị giác tuyệt vời từ những miếng gà rán nóng hổi, giòn tan. Chúng tôi chú trọng từ khâu chọn nguyên liệu tươi sạch mỗi ngày đến phong cách phục vụ tận tâm, chuyên nghiệp.</p>
+                <p>Ra đời với triết lý <strong>"Vị ngon – từ sự tử tế"</strong>, MFC nhanh chóng trở thành điểm đến quen thuộc của các tín đồ mê gà rán. Thương hiệu hướng đến những bạn trẻ năng động, yêu thích ẩm thực đường phố chất lượng và giá cả hợp lý.</p>
+            </div>
+            <div class="image-column">
+                <img src="gthieuga.png" alt="Hình ảnh giới thiệu Gà rán MFC">
+            </div>
+        </section>
+
+        <section class="products-section best-seller-section">
+            <h2 class="section-heading">🔥 BEST SELLER - MÓN NGON ĐỊNH MỆNH</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="garankhoai.jpg" alt="Combo Gà Rán và Khoai Tây" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">Combo Gà Rán + Khoai Tây</h3>
+                        <p class="product-price">đ89.000</p>
+                        <div class="product-cta"><a href="#" class="btn-product-order">Đặt Ngay</a></div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="combo-ga-cay.jpg" alt="Combo Gà Cay và Pepsi" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">Combo Gà Cay + Pepsi</h3>
+                        <p class="product-price">đ99.000</p>
+                        <div class="product-cta"><a href="#" class="btn-product-order">Đặt Ngay</a></div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="ga-gion.jpg" alt="Gà Giòn Truyền Thống" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">Gà Giòn Truyền Thống (3 miếng)</h3>
+                        <p class="product-price">đ120.000</p>
+                        <div class="product-cta"><a href="#" class="btn-product-order">Đặt Ngay</a></div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="ga-pho-mai.jpg" alt="Gà Phô Mai và Khoai Lắc" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">Gà Phô Mai Tuyết + Khoai Lắc</h3>
+                        <p class="product-price">đ109.000</p>
+                        <div class="product-cta"><a href="#" class="btn-product-order">Đặt Ngay</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="view-more-button-container">
+                <a href="#" class="btn-view-more">XEM THÊM THỰC ĐƠN</a>
+            </div>
+        </section>
+
+        <section class="products-section new-products-section">
+            <h2 class="section-heading new-products-heading">Sản Phẩm Mới Hấp Dẫn</h2>
+            <div class="product-grid new-products-grid">
+                <div class="product-card new-product-item">
+                    <img src="combo1.jpg" alt="Combo Family" class="product-image"/>
+                    <div class="product-info">
+                        <h3 class="product-name">Combo Family Vui Vẻ</h3>
+                         <div class="product-cta"><a href="#" class="btn-product-order">Chi Tiết</a></div>
+                    </div>
+                </div>
+                <div class="product-card new-product-item">
+                    <img src="sandwich.jpg" alt="Sandwich Gà Nướng Mật Ong" class="product-image"/>
+                    <div class="product-info">
+                        <h3 class="product-name">Sandwich Gà Nướng Mật Ong</h3>
+                         <div class="product-cta"><a href="#" class="btn-product-order">Chi Tiết</a></div>
+                    </div>
+                </div>
+                <div class="product-card new-product-item">
+                    <img src="combo2.jpg" alt="Combo Sinh Viên" class="product-image"/>
+                    <div class="product-info">
+                        <h3 class="product-name">Combo Sinh Viên Tiết Kiệm</h3>
+                         <div class="product-cta"><a href="#" class="btn-product-order">Chi Tiết</a></div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <!-- Menu chính -->
-    <div style="
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 30px;
-        flex: 1;
-    ">
-        <a href="#" style="color: white; font-weight: bold; text-decoration: none;">Trang chủ</a>
-        <a href="#" style="color: white; font-weight: bold; text-decoration: none;">Thực đơn</a>
-        <a href="#" style="color: white; font-weight: bold; text-decoration: none;">Khuyến mãi</a>
-        <a href="#" style="color: white; font-weight: bold; text-decoration: none;">Liên hệ</a>
+     <footer>
+    <div class="footer-column">
+      <h4>Phương Thức Liên Lạc</h4>
+      <p><strong>Facebook:</strong> <a href="https://www.facebook.com/profile.php?id=100090290842650&mibextid=LQQJ4d" target="_blank">Mr. Fried Chicken - MFC</a></p>
+      <p><strong>Số điện thoại:</strong> <a href="tel:0975459348">0975459348</a></p>
+      <p><strong>Địa chỉ:</strong> 112 P. Chùa Bộc, Quang Trung, Đống Đa, Hà Nội, Việt Nam</p>
     </div>
-
-    <!-- Giỏ hàng / Tài khoản -->
-    <div style="flex-shrink: 0;">
-        <a href="tendangnhap.html" style="color: white; font-weight: bold; text-decoration: none;">🛒 Giỏ hàng / Tài khoản</a>
+    <div class="footer-column">
+      <h4>Chính Sách</h4>
+      <p><a href="#">Liên hệ</a></p>
+      <p><a href="#">Chính sách & Quy định chung</a></p>
+      <p><a href="#">Thanh toán khi đặt hàng</a></p>
+      <p><a href="#">Chính sách hoạt động</a></p>
+      <p><a href="#">Bảo mật thông tin</a></p>
     </div>
-
-</nav>
-
-    <hr>
-
-    <!-- Banner -->
-    <section>
-        <h2>
-            <img src="banner.png" alt="Banner quảng cáo" style="width: 100%; max-width: 1920px; height: auto; display: block; margin: 0 auto;" />
-        </h2>
-       
-    </section>
-
-    <!-- Tiêu đề "VỀ CHÚNG TÔI" dạng thanh cam -->
-<div style="background-color: #F68B1F; color: white; text-align: center; padding: 20px; font-size: 28px; font-weight: bold; position: relative;">
-  VỀ CHÚNG TÔI
-  <div style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
-              width: 0; height: 0; border-left: 10px solid transparent;
-              border-right: 10px solid transparent; border-top: 10px solid #F68B1F;">
-  </div>
-</div>
-
-<!-- Giới thiệu -->
-<section style="display: flex; align-items: flex-start; justify-content: space-between; padding: 40px 0;">
-    <div style="max-width: 50%; padding-top: 30px;"> <!-- Thêm padding-top để điều chỉnh vị trí -->
-        <h2 style="font-size: 28px; margin-bottom: 10px;">ĐÔI NÉT VỀ THƯƠNG HIỆU GÀ RÁN MFC</h2>
-        <p><strong>Gà Rán MFC</strong> là thương hiệu ẩm thực ra đời với sứ mệnh mang đến trải nghiệm vị giác tuyệt vời từ những miếng gà rán nóng hổi, giòn tan. Chúng tôi chú trọng từ khâu chọn nguyên liệu tươi sạch mỗi ngày đến phong cách phục vụ tận tâm, chuyên nghiệp.</p>
-        <p>Ra đời với triết lý <strong>"Vị ngon – từ sự tử tế"</strong>, MFC nhanh chóng trở thành điểm đến quen thuộc của các tín đồ mê gà rán. Thương hiệu hướng đến những bạn trẻ năng động, yêu thích ẩm thực đường phố chất lượng và giá cả hợp lý.</p>
-        <p>Còn chờ gì nữa, cùng MFC khám phá hương vị giòn rụm không thể chối từ ngay hôm nay!</p>
+     <div class="footer-column">
+        <h4>Giờ Mở Cửa</h4>
+        <p>Thứ 2 - Chủ Nhật: 09:00 - 22:00</p>
+        <p>(Kể cả ngày lễ)</p>
     </div>
-    <div style="max-width: 45%;">
-        <img src="gthieuga.png" alt="Gà rán MFC" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-    </div>
-</section>
+  </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const nav = document.getElementById('mainNavbar');
+    const navLogo = document.getElementById('navbarLogo');
+    const pageContentWrapper = document.querySelector('.page-content-wrapper');
+    const heroCarouselElement = document.getElementById('heroCarousel');
 
 
+    let initialNavPaddingTopBottom = 10;
+    let initialNavPaddingLeftRight = 40;
+    let initialLogoHeight = 50;
 
+    if (navLogo) initialLogoHeight = navLogo.offsetHeight || 50;
+    if (nav) {
+        const computedStyle = window.getComputedStyle(nav);
+        const paddingValues = computedStyle.padding.split(" ");
+        if (paddingValues.length === 1) initialNavPaddingTopBottom = parseFloat(paddingValues[0]);
+        if (paddingValues.length >= 2) {
+            initialNavPaddingTopBottom = parseFloat(paddingValues[0]);
+            initialNavPaddingLeftRight = parseFloat(paddingValues[1]);
+        }
+    }
 
-    <!-- Best Seller -->
-    <section style="max-width: 1200px; margin: 0 auto; padding: 40px 20px; background-color: #fff9f5; font-family: 'Arial', sans-serif;">
-    <h2 style="text-align: center; font-size: 32px; color: #e74c3c; margin-bottom: 40px;">🔥 BEST SELLER - MÓN NGON ĐỊNH MỆNH</h2>
+    function adjustPageContentPadding() {
+        if (nav && pageContentWrapper) {
+            // The first element inside wrapper is heroCarousel, it should not have extra top padding
+            // pageContentWrapper will handle space for navbar
+            pageContentWrapper.style.paddingTop = nav.offsetHeight + 'px';
+        }
+    }
     
-    <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
-        <!-- Sản phẩm 1 -->
-        <div style="width: 23%; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-            <img src="garankhoai.jpg" alt="Combo Gà Rán" style="width: 100%; height: 180px; object-fit: cover;">
-            <div style="padding: 15px;">
-                <h3 style="font-size: 18px; margin: 10px 0; color: #333;">Combo Gà Rán + Khoai Tây</h3>
-                <p style="color: #e74c3c; font-weight: bold; font-size: 20px;">đ89.000</p>
-            </div>
-        </div>
+    adjustPageContentPadding();
+    window.addEventListener('resize', adjustPageContentPadding);
 
-        <!-- Sản phẩm 2 -->
-        <div style="width: 23%; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-            <img src="combo-ga-cay.jpg" alt="Combo Gà Cay" style="width: 100%; height: 180px; object-fit: cover;">
-            <div style="padding: 15px;">
-                <h3 style="font-size: 18px; margin: 10px 0; color: #333;">Combo Gà Cay + Pepsi</h3>
-                <p style="color: #e74c3c; font-weight: bold; font-size: 20px;">đ99.000</p>
-            </div>
-        </div>
+    window.addEventListener('scroll', function() {
+        if (!nav || !navLogo) return;
+        if (window.scrollY > 50) {
+            nav.style.backgroundColor = 'rgba(255, 165, 0, 0.9)';
+            nav.style.padding = `5px ${initialNavPaddingLeftRight}px`;
+            navLogo.style.height = (initialLogoHeight * 0.8) + 'px';
+        } else {
+            nav.style.backgroundColor = 'orange';
+            nav.style.padding = `${initialNavPaddingTopBottom}px ${initialNavPaddingLeftRight}px`;
+            navLogo.style.height = initialLogoHeight + 'px';
+        }
+        adjustPageContentPadding();
+    });
 
-        <!-- Sản phẩm 3 -->
-        <div style="width: 23%; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-            <img src="ga-gion.jpg" alt="Gà Giòn" style="width: 100%; height: 180px; object-fit: cover;">
-            <div style="padding: 15px;">
-                <h3 style="font-size: 18px; margin: 10px 0; color: #333;">Gà Giòn Truyền Thống</h3>
-                <p style="color: #e74c3c; font-weight: bold; font-size: 20px;">đ120.000</p>
-            </div>
-        </div>
+    // Hero Carousel Logic
+    if (heroCarouselElement) {
+        const slidesContainer = heroCarouselElement.querySelector('.slides-container');
+        const slides = Array.from(heroCarouselElement.querySelectorAll('.slide'));
+        const prevButton = heroCarouselElement.querySelector('.prev');
+        const nextButton = heroCarouselElement.querySelector('.next');
+        const dotsContainer = heroCarouselElement.querySelector('.carousel-dots');
+        let currentIndex = 0;
+        let slideInterval;
 
-        <!-- Sản phẩm 4 -->
-        <div style="width: 23%; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-            <img src="ga-pho-mai.jpg" alt="Gà Phô Mai" style="width: 100%; height: 180px; object-fit: cover;">
-            <div style="padding: 15px;">
-                <h3 style="font-size: 18px; margin: 10px 0; color: #333;">Gà Phô Mai + Khoai Lắc</h3>
-                <p style="color: #e74c3c; font-weight: bold; font-size: 20px;">đ109.000</p>
-            </div>
-        </div>
-    </div>
+        function updateCarousel() {
+            slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+            // Update dots
+            if (dotsContainer) {
+                 Array.from(dotsContainer.children).forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            }
+        }
+        
+        function createDots() {
+            if(!dotsContainer) return;
+            slides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    currentIndex = index;
+                    updateCarousel();
+                    resetInterval();
+                });
+                dotsContainer.appendChild(dot);
+            });
+        }
 
-    <div style="text-align: center; margin-top: 40px;">
-        <button style="background-color: #e74c3c; color: white; border: none; padding: 12px 30px; font-size: 16px; border-radius: 25px; cursor: pointer;">XEM THÊM THỰC ĐƠN</button>
-    </div>
-</section>
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateCarousel();
+        }
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            updateCarousel();
+        }
+        function startInterval() {
+            slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        }
+        function resetInterval() {
+            clearInterval(slideInterval);
+            startInterval();
+        }
 
-    <!-- New -->
-    <section style="padding: 20px; background-color: #f8f8f8;">
-    <h2 style="text-align: center; color: #d9534f;"> Sản phẩm mới</h2>
-    <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
-        <div style="text-align: center; margin: 15px; border: 1px solid #ddd; border-radius: 10px; background-color: #fff; padding: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-            <img src="combo1.jpg" alt="Combo Family" style="width: 150px; height: auto; border-radius: 10px;"/>
-            <h3 style="color: #333;">Combo Family</h3>
-        </div>
-        <div style="text-align: center; margin: 15px; border: 1px solid #ddd; border-radius: 10px; background-color: #fff; padding: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-            <img src="sandwich.jpg" alt="Sandwich Gà Nướng Mật Ong" style="width: 150px; height: auto; border-radius: 10px;"/>
-            <h3 style="color: #333;">Sandwich Gà Nướng Mật Ong</h3>
-        </div>
-        <div style="text-align: center; margin: 15px; border: 1px solid #ddd; border-radius: 10px; background-color: #fff; padding: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-            <img src="combo2.jpg" alt="Combo Sinh Viên" style="width: 150px; height: auto; border-radius: 10px;"/>
-            <h3 style="color: #333;">Combo Sinh Viên</h3>
-        </div>
-    </div>
-</section>
+        if (slides.length > 0) {
+            if (prevButton) prevButton.addEventListener('click', () => { prevSlide(); resetInterval(); });
+            if (nextButton) nextButton.addEventListener('click', () => { nextSlide(); resetInterval(); });
+            createDots();
+            startInterval();
+            updateCarousel(); // Initial display
+        }
+    }
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Gà Rán HOÀNG. Tất cả các quyền được bảo lưu.</p>
-    </footer>
 
+    // Product card hover effects (already good from previous, ensure selectors are right)
+    const productCards = document.querySelectorAll('.product-card'); // General selector for all product cards
+    productCards.forEach(item => {
+        // The :hover pseudo-class in CSS handles visual changes now for simplicity.
+        // JS can be used for more complex interactions if needed.
+        // This also simplifies the JS, relying on CSS transitions.
+    });
+
+
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            if (this.getAttribute('href') === '#') {
+                e.preventDefault(); return;
+            }
+            try {
+                const targetElement = document.querySelector(this.getAttribute('href'));
+                if (targetElement) {
+                    e.preventDefault();
+                    const navbarHeight = document.getElementById('mainNavbar').offsetHeight || 70;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+            } catch (error) { console.warn('Smooth scroll error:', error); }
+        });
+    });
+
+    // Back to Top Button
+    const backToTopButton = document.createElement('button');
+    backToTopButton.innerHTML = "<i class='bx bx-chevron-up'></i>"; // Use icon
+    Object.assign(backToTopButton.style, {
+        position: 'fixed', bottom: '30px', right: '30px',
+        backgroundColor: 'orange', color: 'white',
+        border: 'none', borderRadius: '50%',
+        width: '50px', height: '50px', fontSize: '28px', /* Adjusted for icon */
+        cursor: 'pointer', display: 'none', zIndex: '1001',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+        lineHeight: '50px', textAlign: 'center' /* Center icon */
+    });
+    document.body.appendChild(backToTopButton);
+    window.addEventListener('scroll', () => {
+        backToTopButton.style.display = (window.pageYOffset > 200) ? 'block' : 'none';
+    });
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    console.log("Gà Rán HOÀNG JavaScript (Jollibee Inspired) initialized!");
+});
+</script>
 </body>
 </html>
