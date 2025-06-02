@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MFC Login Form</title>
+  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Login Form -->
+    <form id="loginForm">
+      <h1>Login</h1>
+      <div id="loginInfo" style="color:red; margin-bottom:10px; display:none;"></div>
+      <div>
+        <input type="text" name="username" placeholder="Username" required autocomplete="username" />
+        <i class='bx bxs-user'></i>
+      </div>
+      <div>
+        <input type="password" name="password" placeholder="Password" required autocomplete="current-password" />
+        <i class='bx bxs-lock-alt'></i>
+      </div>
+      <div>
+        <label><input type="checkbox" name="rememberMe"> Nhớ mật khẩu</label>
+        <a href="#" id="forgotPasswordLink">Quên mật khẩu?</a>
+      </div>
+      <button type="submit">Login</button>
+      <div>
+        <p>Chưa có tài khoản? <a href="#" id="showRegisterForm">Register</a></p>
+      </div>
+    </form>
+
+    <!-- Registration Form -->
+    <form id="registerForm" style="display:none;" novalidate>
+      <h1>Register</h1>
+      <div id="registerInfo" style="color:red; margin-bottom:10px; display:none;"></div>
+      <div>
+        <input type="text" name="regUsername" placeholder="Username" required autocomplete="username" />
+        <i class='bx bxs-user'></i>
+      </div>
+      <div>
+        <input type="email" name="regEmail" placeholder="Email" required autocomplete="email" />
+        <i class='bx bxs-envelope'></i>
+      </div>
+      <div>
+        <input type="password" name="regPassword" placeholder="Password" required autocomplete="new-password" />
+        <i class='bx bxs-lock-alt'></i>
+      </div>
+      <button type="submit">Register</button>
+      <div>
+        <p>Đã có tài khoản? <a href="#" id="showLoginForm">Back to Login</a></p>
+      </div>
+    </form>
+  </div>
+
+  <!-- Forgot password modal -->
+  <div id="forgotModal" role="dialog" aria-modal="true" aria-labelledby="forgotModalTitle" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.7); justify-content:center; align-items:center;">
+    <div style="background:#fff; padding:20px; margin:auto; max-width:320px;">
+      <h2 id="forgotModalTitle">Quên mật khẩu</h2>
+      <p>Vui lòng nhập email để đặt lại mật khẩu của bạn.</p>
+      <input type="email" id="forgotEmail" placeholder="Email của bạn" required style="width:100%; padding:8px; margin-bottom:12px;" />
+      <button id="submitForgot" style="padding:10px 0; width:100%;">Gửi yêu cầu</button>
+      <button id="closeForgotModal" style="margin-top:10px; background:none; border:none; color:blue; cursor:pointer; text-decoration:underline;">Hủy</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const loginForm = document.getElementById('loginForm');
+      const registerForm = document.getElementById('registerForm');
+      const showRegisterLink = document.getElementById('showRegisterForm');
+      const showLoginLink = document.getElementById('showLoginForm');
+      const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+      const forgotModal = document.getElementById('forgotModal');
+      const closeForgotModalBtn = document.getElementById('closeForgotModal');
+      const submitForgotBtn = document.getElementById('submitForgot');
+      const forgotEmailInput = document.getElementById('forgotEmail');
+      const loginInfo = document.getElementById('loginInfo');
+      const registerInfo = document.getElementById('registerInfo');
+
+      // Function to get URL parameter
+      function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+      }
+
+      // Redirect after login using returnUrl query param or fallback
+      function redirectAfterLogin() {
+        const returnUrl = getQueryParam('returnUrl');
+        if (returnUrl) {
+          // Decode URI component to handle URL encoding
+          window.location.href = decodeURIComponent(returnUrl);
+        } else {
+          window.location.href = 'Trang chủ.html'; // default redirect
+        }
+      }
+
+      function showLogin() {
+        registerForm.style.display = 'none';
+        loginForm.style.display = 'block';
+        clearMessages();
+        loginForm.reset();
+        registerForm.reset();
+      }
+      function showRegister() {
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'block';
+        clearMessages();
+        loginForm.reset();
+        registerForm.reset();
+      }
+
+      function clearMessages() {
+        loginInfo.style.display = 'none';
+        loginInfo.textContent = '';
+        registerInfo.style.display = 'none';
+        registerInfo.textContent = '';
+      }
+
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        clearMessages();
+
+        const username = loginForm.username.value.trim();
+        const password = loginForm.password.value.trim();
+
+        if (username === '' || password === '') {
+          loginInfo.style.color = 'red';
+          loginInfo.textContent = 'Vui lòng nhập đầy đủ Username và Password.';
+          loginInfo.style.display = 'block';
+          return;
+        }
+
+        // Simulate login success and redirect accordingly
+        redirectAfterLogin();
+      });
+
+      registerForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        clearMessages();
+
+        const username = registerForm.regUsername.value.trim();
+        const email = registerForm.regEmail.value.trim();
+        const password = registerForm.regPassword.value.trim();
+
+        if (username === '' || email === '' || password === '') {
+          registerInfo.style.color = 'red';
+          registerInfo.textContent = 'Vui lòng điền đầy đủ thông tin đăng ký.';
+          registerInfo.style.display = 'block';
+          return;
+        }
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+          registerInfo.style.color = 'red';
+          registerInfo.textContent = 'Email không hợp lệ.';
+          registerInfo.style.display = 'block';
+          return;
+        }
+
+        // Simulate registration success
+        registerInfo.style.color = 'green';
+        registerInfo.textContent = 'Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.';
+        registerInfo.style.display = 'block';
+
+        // Return to login after 3 seconds
+        setTimeout(() => {
+          showLogin();
+        }, 3000);
+      });
+
+      showRegisterLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        showRegister();
+      });
+
+      showLoginLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        showLogin();
+      });
+
+      forgotPasswordLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        forgotEmailInput.value = '';
+        forgotModal.style.display = 'flex';
+        forgotEmailInput.focus();
+      });
+
+      closeForgotModalBtn.addEventListener('click', function() {
+        forgotModal.style.display = 'none';
+      });
+
+      submitForgotBtn.addEventListener('click', function() {
+        const email = forgotEmailInput.value.trim();
+        if (email === '') {
+          alert('Vui lòng nhập email để tiếp tục.');
+          forgotEmailInput.focus();
+          return;
+        }
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+          alert('Vui lòng nhập email hợp lệ.');
+          forgotEmailInput.focus();
+          return;
+        }
+
+        alert(`Yêu cầu đặt lại mật khẩu đã được gửi tới email: ${email}`);
+        forgotModal.style.display = 'none';
+      });
+
+      // Close modal by clicking outside content
+      forgotModal.addEventListener('click', function(e) {
+        if (e.target === forgotModal) {
+          forgotModal.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
