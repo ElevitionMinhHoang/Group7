@@ -34,7 +34,47 @@
         .fixed-navbar .main-menu { display: flex; justify-content: center; align-items: center; gap: 30px; flex: 1;}
         .fixed-navbar .nav-link { color: white; font-weight: bold; text-decoration: none; font-size: 16px; padding: 5px 0;}
         .fixed-navbar .nav-link:hover { text-decoration: underline; }
-        .fixed-navbar .user-actions { flex-shrink: 0; }
+        
+        /* CSS MỚI CHO USER ACTIONS (GIỎ HÀNG & TÀI KHOẢN) */
+        .fixed-navbar .user-actions {
+            display: flex; /* Sắp xếp các icon theo hàng ngang */
+            align-items: center;
+            gap: 25px; /* Khoảng cách giữa các icon, bạn có thể điều chỉnh */
+            flex-shrink: 0; /* Đảm bảo user-actions không bị co lại */
+        }
+
+        .fixed-navbar .nav-action-icon {
+            color: white;
+            font-size: 26px; /* Kích thước của icon, có thể điều chỉnh */
+            text-decoration: none;
+            position: relative; /* Cần cho việc định vị "badge" số lượng */
+            display: flex; /* Giúp icon dễ click hơn */
+            align-items: center;
+            padding: 5px; /* Tăng vùng click cho icon */
+        }
+
+        .fixed-navbar .nav-action-icon:hover {
+            opacity: 0.8; /* Hiệu ứng mờ nhẹ khi di chuột */
+        }
+
+        .fixed-navbar .cart-item-count {
+            position: absolute;
+            top: 0px;      /* Điều chỉnh vị trí badge so với icon giỏ hàng */
+            right: -3px;     /* Điều chỉnh vị trí badge so với icon giỏ hàng */
+            background-color: red;
+            color: white;
+            border-radius: 50%; /* Tạo hình tròn */
+            padding: 1px 5px;   /* Kích thước badge */
+            font-size: 0.7em; /* Cỡ chữ số lượng */
+            font-weight: bold;
+            line-height: 1;
+            min-width: 16px; /* Đảm bảo badge tròn đều dù chỉ có 1 chữ số */
+            text-align: center;
+            border: 1px solid white; /* Viền trắng nhỏ cho badge (tùy chọn) */
+            box-shadow: 0 0 3px rgba(0,0,0,0.3); /* Bóng đổ nhẹ cho badge (tùy chọn) */
+        }
+        /* KẾT THÚC CSS MỚI CHO USER ACTIONS */
+
 
         .page-content-wrapper { /* Sẽ được JS set padding-top */ }
 
@@ -42,9 +82,9 @@
         .hero-carousel {
             position: relative;
             width: 100%;
-            height: 60vh; /* Đặt chiều cao cho carousel, ví dụ 60% chiều cao khung nhìn */
+            height: 60vh; 
             overflow: hidden;
-            background-color: #e0e0e0; /* Fallback bg nếu ảnh không tải được */
+            background-color: #e0e0e0; 
         }
         .hero-carousel .slides-container {
             display: flex;
@@ -56,7 +96,7 @@
             min-width: 100%;
             width: 100%;
             height: 100%;
-            position: relative; /* For text overlay */
+            position: relative; 
         }
         .hero-carousel .slide img {
             width: 100%;
@@ -68,16 +108,15 @@
         /* --- SLIDE CONTENT - MINIMALIST STYLE --- */
         .hero-carousel .slide-content {
             position: absolute;
-            bottom: 15%; /* Vị trí của nút từ cạnh dưới banner, có thể điều chỉnh */
+            bottom: 15%; 
             left: 50%;
-            transform: translateX(-50%); /* Căn giữa nút theo chiều ngang */
-            
-            background-color: transparent; /* Không có nền cho container của nút */
-            padding: 0;                 /* Không có padding cho container */
-            border-radius: 0;           /* Không cần bo góc cho container */
-            max-width: none;            /* Để nút tự quyết định chiều rộng */
-            box-shadow: none;           /* Không có bóng đổ cho container */
-            text-align: center;         /* Đảm bảo nút được căn giữa nếu là inline-block */
+            transform: translateX(-50%); 
+            background-color: transparent; 
+            padding: 0;                 
+            border-radius: 0;           
+            max-width: none;            
+            box-shadow: none;           
+            text-align: center;         
         }
 
         .hero-carousel .slide-content h2,
@@ -87,7 +126,7 @@
         /* --- KẾT THÚC SLIDE CONTENT MINIMALIST --- */
 
 
-        /* === CSS CHO NÚT CTA TRONG HERO CAROUSEL (Giữ nguyên từ lần trước) === */
+        /* === CSS CHO NÚT CTA TRONG HERO CAROUSEL === */
         .hero-carousel .slide-content .cta-button {
             display: inline-block;
             background-color: #ffc72c; 
@@ -314,15 +353,16 @@
         @media (max-width: 768px) {
             .fixed-navbar { padding: 10px 20px; flex-direction: column; align-items: flex-start; }
             .fixed-navbar .main-menu { flex-direction: column; gap: 10px; width: 100%; align-items: flex-start; margin-top: 10px; }
-            .fixed-navbar .user-actions { margin-top: 10px; align-self: flex-start; }
+            .fixed-navbar .user-actions { 
+                margin-top: 10px; 
+                align-self: flex-start; /* Căn chỉnh user-actions sang trái khi navbar xếp chồng */
+                /* Hoặc align-self: center; để căn giữa nếu muốn */
+            }
             
             .hero-carousel .slide-content { 
-                /* Giữ nguyên các điều chỉnh responsive cho .slide-content nếu cần, 
-                   ví dụ: thay đổi `bottom` hoặc kích thước nút trên màn hình nhỏ.
-                   Hiện tại, nó sẽ được căn giữa và không có nền. */
-                bottom: 10%; /* Có thể điều chỉnh lại vị trí nút trên mobile */
+                bottom: 10%; 
             }
-            .hero-carousel .slide-content .cta-button { /* Điều chỉnh nút trên mobile nếu cần */
+            .hero-carousel .slide-content .cta-button { 
                 font-size: 1em; 
                 padding: 12px 25px;
             }
@@ -337,8 +377,22 @@
             .footer-column { min-width: calc(50% - 30px); }
         }
         @media (max-width: 480px) {
+            .fixed-navbar .user-actions {
+                /* Đảm bảo user-actions hiển thị tốt trên màn hình rất nhỏ */
+                gap: 15px; /* Giảm khoảng cách nếu cần */
+            }
+            .fixed-navbar .nav-action-icon {
+                font-size: 22px; /* Giảm kích thước icon một chút */
+            }
+            .fixed-navbar .cart-item-count {
+                font-size: 0.65em;
+                padding: 1px 4px;
+                min-width: 14px;
+            }
+
+
             .hero-carousel .slide-content {
-                 bottom: 8%; /* Điều chỉnh lại vị trí nút trên mobile rất nhỏ */
+                 bottom: 8%; 
             }
             .hero-carousel .slide-content .cta-button { 
                 font-size: 0.9em; 
@@ -367,7 +421,13 @@
             <a href="tranglienhe.html" class="nav-link">Liên hệ</a>
         </div>
         <div class="user-actions">
-            <a href="tendangnhap.html" class="nav-link">🛒 Giỏ hàng / Tài khoản</a>
+            <a href="giohang.html" class="nav-action-icon" aria-label="Giỏ hàng">
+                <i class='bx bxs-cart'></i>
+                <span class="cart-item-count">0</span> 
+            </a>
+            <a href="tendangnhap.html" class="nav-action-icon" aria-label="Tài khoản">
+                <i class='bx bxs-user-circle'></i>
+            </a>
         </div>
     </nav>
 
@@ -571,7 +631,7 @@ document.addEventListener('DOMContentLoaded', function() {
             nav.style.padding = `${initialNavPaddingTopBottom}px ${initialNavPaddingLeftRight}px`;
             navLogo.style.height = initialLogoHeight + 'px';
         }
-        adjustPageContentPadding(); // Call this to ensure padding is correct during scroll if navbar height changes
+        adjustPageContentPadding(); 
     });
 
     // Hero Carousel Logic
@@ -585,7 +645,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let slideInterval;
 
         function updateCarousel() {
-            if (!slidesContainer) return; // Guard clause
+            if (!slidesContainer) return; 
             slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
             if (dotsContainer) {
                  Array.from(dotsContainer.children).forEach((dot, index) => {
@@ -595,8 +655,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         function createDots() {
-            if(!dotsContainer || slides.length === 0) return; // Guard clause
-            dotsContainer.innerHTML = ''; // Clear existing dots
+            if(!dotsContainer || slides.length === 0) return; 
+            dotsContainer.innerHTML = ''; 
             slides.forEach((_, index) => {
                 const dot = document.createElement('div');
                 dot.classList.add('dot');
@@ -619,7 +679,7 @@ document.addEventListener('DOMContentLoaded', function() {
             updateCarousel();
         }
         function startInterval() {
-            if (slides.length > 1) { // Only start interval if there's more than one slide
+            if (slides.length > 1) { 
                  slideInterval = setInterval(nextSlide, 5000);
             }
         }
@@ -633,7 +693,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (nextButton) nextButton.addEventListener('click', () => { nextSlide(); resetInterval(); });
             createDots();
             startInterval();
-            updateCarousel(); // Initial display
+            updateCarousel(); 
         }
     }
 
@@ -659,7 +719,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Back to Top Button
     const backToTopButton = document.createElement('button');
-    backToTopButton.innerHTML = "<i class='bx bx-chevron-up'></i>"; // Use icon
+    backToTopButton.innerHTML = "<i class='bx bx-chevron-up'></i>"; 
     Object.assign(backToTopButton.style, {
         position: 'fixed', bottom: '30px', right: '30px',
         backgroundColor: 'orange', color: 'white',
