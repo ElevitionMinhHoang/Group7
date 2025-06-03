@@ -42,45 +42,94 @@
         .hero-carousel {
             position: relative;
             width: 100%;
-            /* height: 500px; Chiều cao có thể điều chỉnh theo ảnh hoặc cố định */
+            height: 60vh; /* Đặt chiều cao cho carousel, ví dụ 60% chiều cao khung nhìn */
             overflow: hidden;
-            background-color: #e0e0e0; /* Fallback bg */
-             /* padding-top sẽ được JS thiết lập nếu navbar đè lên */
+            background-color: #e0e0e0; /* Fallback bg nếu ảnh không tải được */
         }
         .hero-carousel .slides-container {
             display: flex;
             transition: transform 0.5s ease-in-out;
-            height: 100%; /* Hoặc chiều cao cố định */
+            width: 100%;
+            height: 100%;
         }
         .hero-carousel .slide {
             min-width: 100%;
+            width: 100%;
+            height: 100%;
             position: relative; /* For text overlay */
-            /* height: 500px; Nên để ảnh quyết định chiều cao hoặc set cố định */
         }
         .hero-carousel .slide img {
             width: 100%;
-            height: auto; /* Hoặc 100% nếu slide có chiều cao cố định */
-            object-fit: cover; /* Để ảnh che phủ toàn bộ slide */
+            height: 100%;
+            object-fit: cover;
             display: block;
         }
+
+        /* --- SLIDE CONTENT - MINIMALIST STYLE --- */
         .hero-carousel .slide-content {
             position: absolute;
-            bottom: 10%;
-            left: 5%;
-            color: white;
-            background-color: rgba(0,0,0,0.5);
-            padding: 20px;
-            border-radius: 8px;
-            max-width: 50%;
+            bottom: 15%; /* Vị trí của nút từ cạnh dưới banner, có thể điều chỉnh */
+            left: 50%;
+            transform: translateX(-50%); /* Căn giữa nút theo chiều ngang */
+            
+            background-color: transparent; /* Không có nền cho container của nút */
+            padding: 0;                 /* Không có padding cho container */
+            border-radius: 0;           /* Không cần bo góc cho container */
+            max-width: none;            /* Để nút tự quyết định chiều rộng */
+            box-shadow: none;           /* Không có bóng đổ cho container */
+            text-align: center;         /* Đảm bảo nút được căn giữa nếu là inline-block */
         }
-        .hero-carousel .slide-content h2 { font-size: 2.5em; margin-bottom: 10px; text-shadow: 1px 1px 2px black;}
-        .hero-carousel .slide-content p { font-size: 1.2em; margin-bottom: 15px; }
+
+        .hero-carousel .slide-content h2,
+        .hero-carousel .slide-content p {
+            display: none; /* Ẩn tiêu đề H2 và đoạn văn P */
+        }
+        /* --- KẾT THÚC SLIDE CONTENT MINIMALIST --- */
+
+
+        /* === CSS CHO NÚT CTA TRONG HERO CAROUSEL (Giữ nguyên từ lần trước) === */
         .hero-carousel .slide-content .cta-button {
-            background-color: orange; color: white; padding: 10px 20px;
-            text-decoration: none; border-radius: 5px; font-weight: bold;
-            transition: background-color 0.3s;
+            display: inline-block;
+            background-color: #ffc72c; 
+            color: white;
+            font-family: 'Inter', sans-serif; 
+            font-size: 1.1em; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            text-align: center;
+            text-decoration: none;
+            padding: 14px 32px; 
+            border: none; 
+            border-radius: 6px; 
+            box-shadow: 0 3px 0px #f39200, 
+                        0 5px 8px rgba(0, 0, 0, 0.15); 
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, 
+                        transform 0.15s ease-in-out, 
+                        box-shadow 0.15s ease-in-out;
+            user-select: none; 
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
-        .hero-carousel .slide-content .cta-button:hover { background-color: #e69500; }
+
+        .hero-carousel .slide-content .cta-button:hover,
+        .hero-carousel .slide-content .cta-button:focus {
+            background-color: #fbb700; 
+            transform: translateY(-2px) scale(1.02); 
+            box-shadow: 0 4px 0px #e08600, 
+                        0 7px 10px rgba(0, 0, 0, 0.2); 
+            outline: none; 
+        }
+
+        .hero-carousel .slide-content .cta-button:active {
+            transform: translateY(1px) scale(0.98); 
+            background-color: #f39c12; 
+            box-shadow: 0 1px 0px #e08600, 
+                        0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        /* === KẾT THÚC CSS CHO NÚT CTA === */
+
 
         .carousel-nav {
             position: absolute;
@@ -90,23 +139,30 @@
             justify-content: space-between;
             transform: translateY(-50%);
             padding: 0 20px;
+            z-index: 10;
         }
         .carousel-nav button {
-            background-color: rgba(0,0,0,0.5); color: white; border: none;
-            font-size: 2em; padding: 5px 10px; cursor: pointer;
-            border-radius: 5px; transition: background-color 0.3s;
+            background-color: rgba(0,0,0,0.4); color: white; border: none;
+            font-size: 1.8em;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 40px; height: 40px;
+            line-height: 1;
+            transition: background-color 0.3s;
         }
-        .carousel-nav button:hover { background-color: rgba(0,0,0,0.8); }
+        .carousel-nav button:hover { background-color: rgba(0,0,0,0.7); }
         .carousel-dots {
             position: absolute; bottom: 20px; left: 50%;
-            transform: translateX(-50%); display: flex; gap: 8px;
+            transform: translateX(-50%); display: flex; gap: 10px;
+            z-index: 10;
         }
         .carousel-dots .dot {
-            width: 12px; height: 12px; background-color: rgba(255,255,255,0.5);
+            width: 12px; height: 12px; background-color: rgba(255,255,255,0.6);
             border-radius: 50%; cursor: pointer; transition: background-color 0.3s;
+            border: 1px solid rgba(0,0,0,0.2);
         }
-        .carousel-dots .dot.active { background-color: white; }
-
+        .carousel-dots .dot.active { background-color: orange; border-color: orange; }
 
         /* --- KEY ACTIONS / ORDER NOW SECTION --- */
         .key-actions-section {
@@ -182,7 +238,6 @@
 
         .product-grid {
             display: grid;
-            /* grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); More flexible */
             grid-template-columns: repeat(4, 1fr); /* For Best Seller */
             gap: 25px;
         }
@@ -197,7 +252,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex; flex-direction: column;
         }
-         .product-card:hover { /* General hover for all product cards */
+           .product-card:hover { /* General hover for all product cards */
             transform: translateY(-5px);
             box-shadow: 0 6px 15px rgba(0,0,0,0.12);
         }
@@ -244,7 +299,6 @@
         .btn-view-more:hover { background-color: #c0392b; transform: translateY(-2px); }
 
         /* --- FOOTER --- */
-        /* --- FOOTER (Giữ nguyên từ trước) --- */
     footer { background-color: orange; color: #fff; padding: 50px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; }
     .footer-column { flex: 1; min-width: 280px; margin-bottom: 30px; padding: 0 15px; }
     .footer-column h4 { font-size: 20px; font-weight: bold; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 10px; }
@@ -262,9 +316,17 @@
             .fixed-navbar .main-menu { flex-direction: column; gap: 10px; width: 100%; align-items: flex-start; margin-top: 10px; }
             .fixed-navbar .user-actions { margin-top: 10px; align-self: flex-start; }
             
-            .hero-carousel .slide-content { max-width: 80%; left: 50%; transform: translateX(-50%); text-align: center; }
-            .hero-carousel .slide-content h2 { font-size: 1.8em; }
-            .hero-carousel .slide-content p { font-size: 1em; }
+            .hero-carousel .slide-content { 
+                /* Giữ nguyên các điều chỉnh responsive cho .slide-content nếu cần, 
+                   ví dụ: thay đổi `bottom` hoặc kích thước nút trên màn hình nhỏ.
+                   Hiện tại, nó sẽ được căn giữa và không có nền. */
+                bottom: 10%; /* Có thể điều chỉnh lại vị trí nút trên mobile */
+            }
+            .hero-carousel .slide-content .cta-button { /* Điều chỉnh nút trên mobile nếu cần */
+                font-size: 1em; 
+                padding: 12px 25px;
+            }
+
 
             .about-us-section { flex-direction: column; align-items: center; text-align:center; padding: 30px 5%; }
             .about-us-section .text-column, .about-us-section .image-column { max-width: 100%; width: 100%; }
@@ -272,10 +334,17 @@
             .product-grid { grid-template-columns: repeat(2, 1fr); }
             .product-grid.new-products-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
             
-            .site-footer { padding: 30px 20px; }
             .footer-column { min-width: calc(50% - 30px); }
         }
         @media (max-width: 480px) {
+            .hero-carousel .slide-content {
+                 bottom: 8%; /* Điều chỉnh lại vị trí nút trên mobile rất nhỏ */
+            }
+            .hero-carousel .slide-content .cta-button { 
+                font-size: 0.9em; 
+                padding: 10px 20px;
+            }
+
             .product-grid { grid-template-columns: 1fr; }
             .footer-column { min-width: 100%; }
             .key-actions-grid { flex-direction: column; }
@@ -306,15 +375,14 @@
         <section class="hero-carousel" id="heroCarousel">
             <div class="slides-container">
                 <div class="slide">
-                    <img src="https://via.placeholder.com/1920x600/FFD700/000000?text=Banner+Khuyen+Mai+1" alt="Banner Khuyến Mãi 1">
+                    <img src="banner1.png" alt="Banner Khuyến Mãi 1">
                     <div class="slide-content">
                         <h2>Gà Rán Giòn Tan - Ưu Đãi Cực Sốc!</h2>
                         <p>Combo gia đình chỉ từ 199K, nhanh tay đặt ngay!</p>
-                        <a href="#" class="cta-button">Xem Ngay</a>
-                    </div>
+                        <a href="#" class="cta-button">Đặt Ngay</a> </div>
                 </div>
                 <div class="slide">
-                    <img src="https://via.placeholder.com/1920x600/FFA07A/FFFFFF?text=Banner+Mon+Moi+2" alt="Banner Món Mới 2">
+                    <img src="bogo.png" alt="Banner Món Mới 2">
                      <div class="slide-content">
                         <h2>Thưởng Thức Món Mới - Burger Siêu Đẫm</h2>
                         <p>Hương vị bùng nổ, thử là ghiền!</p>
@@ -322,7 +390,7 @@
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="https://via.placeholder.com/1920x600/ADD8E6/000000?text=Banner+App+Order+3" alt="Banner App Order 3">
+                    <img src="orderonl.jpg" alt="Banner App Order 3">
                      <div class="slide-content">
                         <h2>Đặt Hàng Qua App - Ngập Tràn Ưu Đãi</h2>
                         <p>Tải app Gà Rán HOÀNG nhận ngay voucher giảm giá.</p>
@@ -438,7 +506,7 @@
         </section>
     </div>
 
-     <footer>
+      <footer>
     <div class="footer-column">
       <h4>Phương Thức Liên Lạc</h4>
       <p><strong>Facebook:</strong> <a href="https://www.facebook.com/profile.php?id=100090290842650&mibextid=LQQJ4d" target="_blank">Mr. Fried Chicken - MFC</a></p>
@@ -485,8 +553,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function adjustPageContentPadding() {
         if (nav && pageContentWrapper) {
-            // The first element inside wrapper is heroCarousel, it should not have extra top padding
-            // pageContentWrapper will handle space for navbar
             pageContentWrapper.style.paddingTop = nav.offsetHeight + 'px';
         }
     }
@@ -505,7 +571,7 @@ document.addEventListener('DOMContentLoaded', function() {
             nav.style.padding = `${initialNavPaddingTopBottom}px ${initialNavPaddingLeftRight}px`;
             navLogo.style.height = initialLogoHeight + 'px';
         }
-        adjustPageContentPadding();
+        adjustPageContentPadding(); // Call this to ensure padding is correct during scroll if navbar height changes
     });
 
     // Hero Carousel Logic
@@ -519,8 +585,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let slideInterval;
 
         function updateCarousel() {
+            if (!slidesContainer) return; // Guard clause
             slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
-            // Update dots
             if (dotsContainer) {
                  Array.from(dotsContainer.children).forEach((dot, index) => {
                     dot.classList.toggle('active', index === currentIndex);
@@ -529,7 +595,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         function createDots() {
-            if(!dotsContainer) return;
+            if(!dotsContainer || slides.length === 0) return; // Guard clause
+            dotsContainer.innerHTML = ''; // Clear existing dots
             slides.forEach((_, index) => {
                 const dot = document.createElement('div');
                 dot.classList.add('dot');
@@ -552,7 +619,9 @@ document.addEventListener('DOMContentLoaded', function() {
             updateCarousel();
         }
         function startInterval() {
-            slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+            if (slides.length > 1) { // Only start interval if there's more than one slide
+                 slideInterval = setInterval(nextSlide, 5000);
+            }
         }
         function resetInterval() {
             clearInterval(slideInterval);
@@ -569,15 +638,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // Product card hover effects (already good from previous, ensure selectors are right)
-    const productCards = document.querySelectorAll('.product-card'); // General selector for all product cards
-    productCards.forEach(item => {
-        // The :hover pseudo-class in CSS handles visual changes now for simplicity.
-        // JS can be used for more complex interactions if needed.
-        // This also simplifies the JS, relying on CSS transitions.
-    });
-
-
     // Smooth scroll for internal links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -588,7 +648,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const targetElement = document.querySelector(this.getAttribute('href'));
                 if (targetElement) {
                     e.preventDefault();
-                    const navbarHeight = document.getElementById('mainNavbar').offsetHeight || 70;
+                    const navbarHeight = document.getElementById('mainNavbar') ? document.getElementById('mainNavbar').offsetHeight : 70;
                     const elementPosition = targetElement.getBoundingClientRect().top;
                     const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
                     window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
@@ -604,10 +664,10 @@ document.addEventListener('DOMContentLoaded', function() {
         position: 'fixed', bottom: '30px', right: '30px',
         backgroundColor: 'orange', color: 'white',
         border: 'none', borderRadius: '50%',
-        width: '50px', height: '50px', fontSize: '28px', /* Adjusted for icon */
+        width: '50px', height: '50px', fontSize: '28px',
         cursor: 'pointer', display: 'none', zIndex: '1001',
         boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-        lineHeight: '50px', textAlign: 'center' /* Center icon */
+        lineHeight: '50px', textAlign: 'center'
     });
     document.body.appendChild(backToTopButton);
     window.addEventListener('scroll', () => {
