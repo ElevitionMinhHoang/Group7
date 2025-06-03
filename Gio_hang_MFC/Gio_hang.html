@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Giỏ hàng</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fffaf0;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #ff9800;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 20px auto;
+      gap: 20px;
+    }
+
+    .cart-left, .cart-right {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .cart-left {
+      flex: 2;
+    }
+
+    .cart-right {
+      flex: 1;
+      background-color: #fff3e0;
+      border: 2px solid #ff9800;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #eee;
+      padding: 15px 0;
+    }
+
+    .cart-item img {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      margin-right: 15px;
+      object-fit: cover;
+    }
+
+    .item-info {
+      display: flex;
+    }
+
+    .item-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .item-name {
+      font-weight: bold;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .item-note {
+      font-style: italic;
+      font-size: 14px;
+      color: #757575;
+    }
+
+    .item-price {
+      color: #f57c00;
+      margin-top: 4px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .total {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: right;
+      margin-top: 20px;
+    }
+
+    .place-order {
+      background-color: #000;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    .place-order:hover {
+      background-color: #333;
+    }
+
+    .empty-cart {
+      font-style: italic;
+      color: #777;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>Giỏ hàng của bạn</header>
+
+  <div class="container">
+    <!-- Bên trái: Danh sách món -->
+    <div class="cart-left" id="ds-san-pham">
+      <!-- JavaScript sẽ chèn sản phẩm ở đây -->
+    </div>
+
+    <!-- Bên phải: Thông tin đơn hàng -->
+    <div class="cart-right">
+      <div class="form-group">
+        <label>Địa chỉ cửa hàng</label>
+        <div>Số 43 Chùa Bộc</div>
+      </div>
+
+      <div class="form-group">
+        <label>Địa chỉ của bạn</label>
+        <input type="text" placeholder="Nhập địa chỉ nhận hàng...">
+      </div>
+
+      <div class="form-group">
+        <label>Tùy chọn giao hàng</label>
+        <select>
+          <option>Ưu tiên (&lt; 20 phút)</option>
+          <option>Nhanh</option>
+          <option>Tiết kiệm</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Mã ưu đãi</label>
+        <input type="text" placeholder="Nhập mã giảm giá (nếu có)">
+      </div>
+
+      <div class="total">
+        Tổng cộng: <span id="tong-cong">0₫</span>
+      </div>
+
+      <button class="place-order">Đặt hàng</button>
+    </div>
+  </div>
+
+  <script>
+    const container = document.getElementById('ds-san-pham');
+    const gio = JSON.parse(localStorage.getItem('gioHang')) || [];
+
+    let tong = 0;
+
+    if (gio.length === 0) {
+      container.innerHTML = '<div class="empty-cart">Giỏ hàng trống.</div>';
+    } else {
+      gio.forEach(sp => {
+        const itemHTML = `
+          <div class="cart-item">
+            <div class="item-info">
+              <img src="https://via.placeholder.com/80" alt="${sp.ten}">
+              <div class="item-details">
+                <div class="item-name">${sp.ten}</div>
+                <div class="item-note">${sp.ghiChu}</div>
+                <div>Số lượng: ${sp.soLuong}</div>
+                <div class="item-price">${(sp.gia * sp.soLuong).toLocaleString()}₫</div>
+              </div>
+            </div>
+          </div>
+        `;
+        container.insertAdjacentHTML('beforeend', itemHTML);
+        tong += sp.gia * sp.soLuong;
+      });
+      document.getElementById('tong-cong').innerText = tong.toLocaleString() + '₫';
+    }
+  </script>
+</body>
+</html>
