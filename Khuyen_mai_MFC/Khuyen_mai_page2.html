@@ -1,230 +1,433 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <title>Khuyến mãi MFC</title>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Quicksand';
-      font-weight: 600;
-      background: url('images/background1.jpg') no-repeat center center fixed;
-      background-size: cover;
-      margin: 0;
-      padding: 40px 20px;
-      color: #333;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Khuyến mãi MFC - Trang 2</title> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"> <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { /* THÊM KHỐI NÀY */
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(255, 255, 255, 0.4); /* lớp phủ trắng mờ */
-      z-index: -1;
-    }
+        body {
+            font-family: 'Quicksand', Arial, sans-serif; /* Giữ lại font Quicksand cho body */
+            font-weight: 600;
+            background: url('images/background1.jpg') no-repeat center center fixed; /* Đường dẫn này đúng nếu images/ nằm trong Khuyen_mai_MFC/ */
+            background-size: cover;
+            margin: 0;
+            /* padding: 40px 20px; Sẽ được JS điều chỉnh padding-top, các padding khác có thể giữ lại nếu muốn */
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-bottom: 40px; /* Giữ lại padding bottom */
+            color: #333;
+            /* padding-top sẽ được JS quản lý */
+        }
 
-    h1 {
-      text-align: center;
-      color: #cc3300;
-      font-size: 2.5rem;
-      margin-bottom: 40px;
-    }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255, 255, 255, 0.4); /* lớp phủ trắng mờ */
+            z-index: -1;
+        }
 
-    .promo-grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-    }
+        /* --- NAVIGATION BAR STYLES (COPY TỪ TRANG TRƯỚC) --- */
+        .fixed-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: orange;
+            padding: 10px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            transition: padding 0.3s ease, background-color 0.3s ease, height 0.3s ease;
+            /* font-family: 'Inter', sans-serif; /* Bỏ comment nếu muốn navbar dùng font Inter */
+        }
+        .fixed-navbar .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .fixed-navbar .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .fixed-navbar .logo-image {
+            height: 50px;
+            width: auto;
+            transition: height 0.3s ease;
+            object-fit: contain;
+        }
+        .fixed-navbar .main-menu {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+        .fixed-navbar .main-menu .nav-link {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 5px 0;
+        }
+        .fixed-navbar .main-menu .nav-link:hover {
+            text-decoration: underline;
+        }
+        .fixed-navbar .user-actions {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        .fixed-navbar .user-actions .nav-action-icon {
+            color: white;
+            text-decoration: none;
+            font-size: 26px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 5px;
+        }
+        .fixed-navbar .user-actions .nav-action-icon:hover {
+            opacity: 0.8;
+        }
+        .fixed-navbar .cart-item-count {
+            position: absolute;
+            top: 0px;
+            right: -5px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 1px 5px;
+            font-size: 0.7em;
+            font-weight: bold;
+            line-height: 1;
+            min-width: 16px;
+            text-align: center;
+            border: 1px solid white;
+            box-shadow: 0 0 3px rgba(0,0,0,0.3);
+        }
+        /* Responsive cho Navbar */
+        @media (max-width: 768px) {
+            .fixed-navbar { padding: 10px 20px; flex-direction: column; align-items: flex-start; height: auto !important; }
+            .fixed-navbar .main-menu { flex-direction: column; gap: 10px; width: 100%; align-items: flex-start; margin-top: 10px; }
+            .fixed-navbar .user-actions { margin-top: 10px; align-self: flex-start; gap: 15px; }
+        }
+        @media (max-width: 480px) {
+            .fixed-navbar .user-actions .nav-action-icon {
+                font-size: 22px;
+            }
+            .fixed-navbar .cart-item-count {
+                font-size: 0.65em;
+                padding: 1px 4px;
+                min-width: 14px;
+            }
+        }
+        /* --- END OF NAVIGATION BAR STYLES --- */
 
-    .promo-item {
-      background-color: white;
-      border-radius: 18px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-      border: 2px solid #ffa000;
-      overflow: hidden;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+        h1 { /* Style cho H1 của bạn đã có */
+            text-align: center;
+            color: #cc3300;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            /* padding-top: 20px; /* Cân nhắc thêm padding-top cho H1 nếu cần sau khi navbar được thêm */
+        }
 
-    }
+        .promo-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
 
-    .promo-item:hover {
-      transform: scale(1.02);
-      box-shadow: 0 16px 32px rgba(255, 102, 0, 0.3);
-    }
+        .promo-item {
+            background-color: white;
+            border-radius: 18px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            border: 2px solid #ffa000;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-    .promo-item img {
-      width: 100%;
-      height: 350px;
-      display: block;
-      pointer-events: none;
-      object-fit: cover;
-      object-position: center center;
-    }
+        .promo-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 16px 32px rgba(255, 102, 0, 0.3);
+        }
 
-    .promo-title {
-      font-size: 1.3rem;
-      font-weight: 900;
-      color: #ff6600;
-      padding: 14px 16px;
-      min-height: 60px;
-    }
- 
+        .promo-item img {
+            width: 100%;
+            height: 350px;
+            display: block;
+            pointer-events: none;
+            object-fit: cover;
+            object-position: center center;
+        }
 
-    .promo-button {
-      position: relative;
-      display: inline-block;
-      margin-bottom: 16px;
-      background-color: #ff6600;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-weight: bold;
-      overflow: hidden;
-      transition: background-color 0.3s;
-      z-index: 0;
-      box-shadow: 0 4px 8px rgba(255, 160, 0, 0.4);
-      border: 2px solid #ffa000;
-    }
- 
-    .promo-button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -75%;
-      width: 50%;
-      height: 100%;
-      background: linear-gradient(
-        120deg,
-        rgba(255, 255, 255, 0.1) 0%,
-        rgba(255, 255, 255, 0.6) 50%,
-        rgba(255, 255, 255, 0.1) 100%
-      );
-      transform: skewX(-20deg);
-      z-index: 1;
-    }
+        .promo-title {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #ff6600;
+            padding: 14px 16px;
+            min-height: 60px;
+        }
 
-    .promo-button:hover::before {
-      animation: shine 0.9s ease forwards; 
-    }
-
-    @keyframes shine {
-      0% {
-        left: -75%;
-      }
-      100% {
-        left: 125%;
-      }
-    }
-
-
-    .pagination {
-      position: fixed; /* cố định dưới cùng */
-      bottom: 20px;    /* cách mép dưới 20px */
-      left: 50%;
-      transform: translateX(-50%);
-      background: #fff6f0;
-      border: 1px solid #cc3300;
-      border-radius: 30px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      color: #cc3300;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 4px 12px; /* nhỏ hơn */
-      font-size: 14px;   /* chữ nhỏ hơn */
-      z-index: 100;      /* đảm bảo nằm trên cùng */
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.5s ease;
-    }
-
-    .pagination.visible {
-      opacity: 1;
-      visibility: visible;
-    }
-
-
-    .Khuyen_mai_page2.active {
-      background: #cc3300;
-      color: #fff6f0;
-      font-weight: 700;
-      animation: jump 0.3s ease;
-    }
-
-    .Khuyen_mai_page2 {
-      font-family: 'Quicksand';
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      transition: opacity 0.3s ease;
-    }
-
-    .button {
-      padding: 4px 8px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: opacity 0.3s ease;
-    }
-
-    .Khuyen_mai_page2:hover,
-    .button:hover{
-      opacity: 0.8;
-    }
-
-    @keyframes jump{
-      from {transform: translateY(10px);}
-      to {transform: translateY(0);}
-    }
+        .promo-button {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 16px;
+            background-color: #ff6600;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            overflow: hidden;
+            transition: background-color 0.3s;
+            z-index: 0;
+            box-shadow: 0 4px 8px rgba(255, 160, 0, 0.4);
+            border: 2px solid #ffa000;
+        }
     
-  </style>
+        .promo-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.6) 50%,
+                rgba(255, 255, 255, 0.1) 100%
+            );
+            transform: skewX(-20deg);
+            z-index: 1;
+        }
+
+        .promo-button:hover::before {
+            animation: shine 0.9s ease forwards; 
+        }
+
+        @keyframes shine {
+            0% {
+                left: -75%;
+            }
+            100% {
+                left: 125%;
+            }
+        }
+
+        .pagination {
+            position: fixed; /* cố định dưới cùng */
+            bottom: 20px;      /* cách mép dưới 20px */
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff6f0;
+            border: 1px solid #cc3300;
+            border-radius: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: #cc3300;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 4px 12px; /* nhỏ hơn */
+            font-size: 14px;   /* chữ nhỏ hơn */
+            z-index: 100;      /* đảm bảo nằm trên cùng */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease;
+        }
+
+        .pagination.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* CSS cho pagination của bạn */
+        .Khuyen_mai_page1, .Khuyen_mai_page2 { /* Gộp style chung nếu có */
+            font-family: 'Quicksand', Arial, sans-serif; /* Sửa lại font nếu cần */
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        .Khuyen_mai_page1.active, .Khuyen_mai_page2.active { /* Style cho trang active */
+            background: #cc3300;
+            color: #fff6f0;
+            font-weight: 700;
+            animation: jump 0.3s ease;
+        }
+        .button { /* Style cho nút prev/next */
+            padding: 4px 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        .Khuyen_mai_page1:hover, .Khuyen_mai_page2:hover,
+        .button:hover{
+            opacity: 0.8;
+        }
+        @keyframes jump{
+            from {transform: translateY(10px);}
+            to {transform: translateY(0);}
+        }
+        
+    </style>
 </head>
 <body>
 
-
+<nav class="fixed-navbar" id="mainNavbar">
+    <div class="logo-container">
+        <a href="../index.html" class="logo-link">
+            <img src="../mfc.jpg" alt="Logo Gà Rán HOÀNG" class="logo-image" id="navbarLogo">
+        </a>
+    </div>
+    <div class="main-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="#" class="nav-link">Thực đơn</a> <a href="Khuyen_mai_page1.html" class="nav-link">Khuyến mãi</a> <a href="../tranglienhe.html" class="nav-link">Liên hệ</a>
+    </div>
+    <div class="user-actions">
+        <a href="../giohang.html" class="nav-action-icon" aria-label="Giỏ hàng"> <i class='bx bxs-cart'></i>
+            <span class="cart-item-count">0</span> </a>
+        <a href="../tendangnhap.html" class="nav-action-icon" aria-label="Tài khoản"> <i class='bx bxs-user-circle'></i>
+        </a>
+    </div>
+</nav>
 <h1>🎉 Chương trình khuyến mãi 🎉</h1>
 
 <div class="promo-grid">
-  <div class="promo-item">
-    <img src="images/Khuyenmai5.jpg" alt="Thêm sauce với chỉ 5K">
-    <div class="promo-title">Chọn sốt bất kì chỉ với 5K</div>
-    <a href="Khuyenmai5.html" class="promo-button">Xem thêm</a>
-  </div>
+    <div class="promo-item">
+        <img src="images/Khuyenmai5.jpg" alt="Thêm sauce với chỉ 5K">
+        <div class="promo-title">Chọn sốt bất kì chỉ với 5K</div>
+        <a href="Khuyenmai5.html" class="promo-button">Xem thêm</a>
+    </div>
 
-  <div class="promo-item">
-    <img src="images/Khuyenmai6.jpg" alt="Nhập học đầu năm">
-    <div class="promo-title">Điểm bao nhiêu giảm bấy nhiêu</div>
-    <a href="Khuyenmai6.html" class="promo-button">Xem thêm</a>
-  </div>
+    <div class="promo-item">
+        <img src="images/Khuyenmai6.jpg" alt="Nhập học đầu năm">
+        <div class="promo-title">Điểm bao nhiêu giảm bấy nhiêu</div>
+        <a href="Khuyenmai6.html" class="promo-button">Xem thêm</a>
+    </div>
 
-  <div class="promo-item">
-    <img src="images/Khuyenmai7.jpg" alt="Suất ăn cho bé">
-    <div class="promo-title">Suất ăn cho bé</div>
-    <a href="Khuyenmai7.html" class="promo-button">Xem thêm</a>
-  </div>
+    <div class="promo-item">
+        <img src="images/Khuyenmai7.jpg" alt="Suất ăn cho bé">
+        <div class="promo-title">Suất ăn cho bé</div>
+        <a href="Khuyenmai7.html" class="promo-button">Xem thêm</a>
+    </div>
 
-  <div class="promo-item">
-    <img src="images/Khuyenmai8.jpg" alt="Lẩu nóng hổi">
-    <div class="promo-title">Lẩu nóng hổi - Ăn không sợ đói</div>
-    <a href="Khuyenmai8.html" class="promo-button">Xem thêm</a>
-  </div>
+    <div class="promo-item">
+        <img src="images/Khuyenmai8.jpg" alt="Lẩu nóng hổi">
+        <div class="promo-title">Lẩu nóng hổi - Ăn không sợ đói</div>
+        <a href="Khuyenmai8.html" class="promo-button">Xem thêm</a>
+    </div>
 </div>
 
 
-   <div class="pagination">
-      <div class="button prev">< prev</div>
-      <div class="Khuyen_mai_page1">1</div>
-      <div class="Khuyen_mai_page2 active">2</div>
-      <div class="button next">next ></div>
-   </div>
+<div class="pagination">
+    <div class="button prev">&lt; prev</div>
+    <div class="Khuyen_mai_page1">1</div> <div class="Khuyen_mai_page2 active">2</div> <div class="button next">next &gt;</div>
+</div>
 
-     <script src="Khuyenmai.js"></script>
+<script src="Khuyenmai.js"></script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const nav = document.getElementById('mainNavbar');
+    const navLogo = document.getElementById('navbarLogo');
+
+    let initialNavPaddingTopBottom = 10;
+    let initialNavPaddingLeftRight = 40;
+    let initialLogoHeight = 50;
+
+    function getPixelValue(value) {
+        return value ? parseFloat(value) : 0;
+    }
+
+    if (nav) {
+        const computedStyle = window.getComputedStyle(nav);
+        initialNavPaddingTopBottom = getPixelValue(computedStyle.paddingTop);
+        initialNavPaddingLeftRight = getPixelValue(computedStyle.paddingLeft);
+    }
+    // Đảm bảo logo được load trước khi lấy chiều cao, hoặc dùng giá trị cố định
+    // Nếu logo không tải được, navLogo.offsetHeight có thể là 0
+    if (navLogo) {
+         // Chờ ảnh load hoặc dùng sự kiện load của ảnh để lấy chiều cao chính xác hơn
+        if (navLogo.complete && navLogo.naturalHeight !== 0) {
+            initialLogoHeight = navLogo.offsetHeight > 0 ? navLogo.offsetHeight : 50;
+        } else {
+            navLogo.onload = function() {
+                initialLogoHeight = navLogo.offsetHeight > 0 ? navLogo.offsetHeight : 50;
+                adjustBodyPaddingTop(); // Điều chỉnh lại sau khi logo tải xong
+            };
+            navLogo.onerror = function() { // Nếu ảnh lỗi
+                initialLogoHeight = 50; // Dùng chiều cao fallback
+                adjustBodyPaddingTop(); // Điều chỉnh lại
+            }
+        }
+         // Fallback nếu offsetHeight không lấy được ngay
+        if (initialLogoHeight === 0 && navLogo.offsetHeight > 0) {
+            initialLogoHeight = navLogo.offsetHeight;
+        } else if (initialLogoHeight === 0) {
+            initialLogoHeight = 50; // Giá trị mặc định nếu không thể lấy được
+        }
+    }
+
+
+    function adjustBodyPaddingTop() {
+        if (nav) {
+            const navHeight = nav.offsetHeight;
+            document.body.style.paddingTop = navHeight + 'px';
+        }
+    }
+
+    adjustBodyPaddingTop(); // Gọi khi DOM load
+    window.addEventListener('resize', adjustBodyPaddingTop); // Gọi khi resize
+    window.addEventListener('load', adjustBodyPaddingTop); // Gọi khi tất cả tài nguyên load xong
+
+    window.addEventListener('scroll', function() {
+        if (!nav || !navLogo) return;
+
+        let currentPaddingLeftRight = initialNavPaddingLeftRight;
+        const currentNavStyle = window.getComputedStyle(nav);
+        const paddingLRValue = currentNavStyle.paddingLeft;
+        if (paddingLRValue) {
+            currentPaddingLeftRight = parseFloat(paddingLRValue);
+        }
+        // Đảm bảo initialLogoHeight có giá trị hợp lý
+        let currentInitialLogoHeight = initialLogoHeight;
+        if (navLogo.offsetHeight > 0 && initialLogoHeight !== navLogo.offsetHeight && window.scrollY <=50) {
+             currentInitialLogoHeight = navLogo.offsetHeight; // Cập nhật nếu logo đã tải và có chiều cao khác
+        } else if (currentInitialLogoHeight === 0) {
+            currentInitialLogoHeight = 50; // Fallback
+        }
+
+
+        if (window.scrollY > 50) {
+            nav.style.backgroundColor = 'rgba(255, 165, 0, 0.9)';
+            nav.style.padding = '5px ' + currentPaddingLeftRight + 'px';
+            navLogo.style.height = (currentInitialLogoHeight * 0.8) + 'px';
+        } else {
+            nav.style.backgroundColor = 'orange';
+            nav.style.padding = initialNavPaddingTopBottom + 'px ' + currentPaddingLeftRight + 'px';
+            navLogo.style.height = currentInitialLogoHeight + 'px';
+        }
+        adjustBodyPaddingTop(); // Gọi lại sau khi thay đổi style navbar vì chiều cao có thể thay đổi
+    });
+});
+</script>
 </body>
 </html>
