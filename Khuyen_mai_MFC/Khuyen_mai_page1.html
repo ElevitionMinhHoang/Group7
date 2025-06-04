@@ -13,7 +13,7 @@
     }
 
     html {
-      height: 100%; /* Cho Sticky Footer */
+      height: 100%;
     }
 
     body {
@@ -21,28 +21,25 @@
       margin: 0;
       color: #333;
       
-      display: flex; /* Cho Sticky Footer */
-      flex-direction: column; /* Cho Sticky Footer */
-      min-height: 100vh; /* Cho Sticky Footer */
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; 
 
-      /* padding-top sẽ được JS điều chỉnh, giá trị này là dự phòng */
-      padding-top: 70px; 
-      /* padding-left và padding-right sẽ do các container con quản lý nếu cần */
+      padding-top: 110px; /* Sẽ được JS điều chỉnh, giá trị dự phòng */
+      /* padding-left và padding-right sẽ do .page-main-content-wrapper xử lý */
     }
 
-    /* Wrapper cho nội dung chính để đẩy footer xuống */
     .page-main-content-wrapper {
         flex-grow: 1;
-        padding-left: 20px; /* Thêm padding ngang cho nội dung chính */
+        padding-left: 20px;
         padding-right: 20px;
-        padding-bottom: 40px; /* Khoảng cách trên footer */
+        padding-bottom: 30px; 
     }
 
     h1 {
       text-align: center;
       color: #cc3300;
       font-size: 2.5rem;
-      margin-top: 0; /* Bỏ margin-top nếu padding-top của body/wrapper đã đủ */
       margin-bottom: 40px; 
     }
 
@@ -157,7 +154,7 @@
       100% {transform: translateY(0);}
     }
     
-    /* --- NAVIGATION BAR STYLES (Tham khảo từ trang Liên Hệ) --- */
+    /* --- NAVIGATION BAR STYLES --- */
     .fixed-navbar {
         position: fixed;
         top: 0;
@@ -165,18 +162,17 @@
         width: 100%;
         z-index: 1000;
         background-color: orange;
-        padding: 10px 40px; /* Quyết định chiều cao navbar cùng logo */
+        padding: 10px 40px; 
         display: flex;
         align-items: center;
         justify-content: space-between;
         box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        transition: padding 0.3s ease, background-color 0.3s ease;
+        transition: padding 0.3s ease, background-color 0.3s ease, height 0.3s ease;
     }
     
     .fixed-navbar .logo-container { 
         display: flex;
         align-items: center;
-        /* margin-right: 10px; /* Thêm nếu cần khoảng cách giữa logo và menu */
     }
 
     .fixed-navbar .logo-link { 
@@ -185,47 +181,47 @@
         text-decoration: none; 
     }
 
-    .fixed-navbar .logo-image { /* Class này cần có trên thẻ img logo */
+    .fixed-navbar .logo-image { 
         height: 50px; 
-        width: auto; /* Giữ tỷ lệ */
+        width: auto; 
         transition: height 0.3s ease;
-        object-fit: contain; /* Đảm bảo logo không bị méo và hiển thị trọn vẹn */
+        object-fit: contain;
     }
 
     .fixed-navbar .main-menu { 
-        flex: 1; /* Cho phép menu chiếm không gian giữa */
+        flex: 1; 
         display: flex; 
         justify-content: center; 
         align-items: center; 
         gap: 30px; 
     }
     
-    .fixed-navbar .main-menu .nav-link { /* Class này cần có trên các link menu */
+    .fixed-navbar .main-menu .nav-link { 
         color: white; 
         font-weight: bold; 
         text-decoration: none; 
         font-size: 16px; 
-        padding: 5px 0; /* Padding cho các link menu */
+        padding: 5px 0; 
     }
      .fixed-navbar .main-menu .nav-link:hover { 
         text-decoration: underline; 
     }
 
     .fixed-navbar .user-actions { 
-        flex-shrink: 0; /* Ngăn co lại */
+        flex-shrink: 0; 
         display: flex; 
         align-items: center;
-        gap: 25px; /* Khoảng cách giữa các icon */
+        gap: 25px; 
     }
     
-    .fixed-navbar .user-actions .nav-action-icon { /* Class cho các icon link */
+    .fixed-navbar .user-actions .nav-action-icon {
         color: white;
         text-decoration: none;
         font-size: 26px; 
-        position: relative; /* Cho badge */
+        position: relative; 
         display: flex;
         align-items: center;
-        padding: 5px; /* Tăng vùng click cho icon */
+        padding: 5px; 
     }
     .fixed-navbar .user-actions .nav-action-icon:hover {
         opacity: 0.8; 
@@ -250,7 +246,7 @@
 
     /* Responsive cho Navbar */
     @media (max-width: 768px) {
-      .fixed-navbar { padding: 10px 20px; flex-direction: column; align-items: flex-start; height: auto !important; /* Cho phép chiều cao tự động khi xếp chồng */ }
+      .fixed-navbar { padding: 10px 20px; flex-direction: column; align-items: flex-start; height: auto !important; }
       .fixed-navbar .main-menu { flex-direction: column; gap: 10px; width: 100%; align-items: flex-start; margin-top: 10px; }
       .fixed-navbar .user-actions { margin-top: 10px; align-self: flex-start; gap: 15px; }
       /* JS sẽ điều chỉnh padding-top của body */
@@ -274,7 +270,7 @@
         display: flex; 
         flex-wrap: wrap; 
         justify-content: space-between;
-        flex-shrink: 0; /* Cho Sticky Footer */
+        flex-shrink: 0; /* Quan trọng cho Sticky Footer */
     }
     .footer-column { 
         flex: 1; 
@@ -361,7 +357,9 @@
             <div class="page-number">2</div>       
             <div class="button next">next &gt;</div>
         </div>
-    </div> <footer>
+    </div> 
+
+   <footer>
     <div class="footer-column">
       <h4>Phương Thức Liên Lạc</h4>
       <p><strong>Facebook:</strong> <a href="https://www.facebook.com/profile.php?id=100090290842650&mibextid=LQQJ4d" target="_blank">Mr. Fried Chicken - MFC</a></p>
@@ -387,49 +385,43 @@
     document.addEventListener('DOMContentLoaded', function() {
       const nav = document.getElementById('mainNavbar'); 
       const navLogo = document.getElementById('navbarLogo');
-      // Không cần pageMainContentWrapper ở đây vì JS sẽ điều chỉnh padding-top của body
       
       let initialNavPaddingTopBottom = 10; 
       let initialNavPaddingLeftRight = 40; 
       let initialLogoHeight = 50; 
 
+      function getPixelValue(value) {
+          return value ? parseFloat(value) : 0;
+      }
+
       if (navLogo) {
-          // Đảm bảo rằng logo đã được render và có chiều cao bởi CSS
-          // trước khi lấy offsetHeight. Nếu không, nó có thể là 0.
-          // Dùng giá trị mặc định nếu offsetHeight không hợp lệ.
           initialLogoHeight = navLogo.offsetHeight > 0 ? navLogo.offsetHeight : 50;
       }
       if (nav) {
           const computedStyle = window.getComputedStyle(nav);
-          const paddingValues = computedStyle.padding.split(" ");
-          if (paddingValues.length === 1) { 
-            initialNavPaddingTopBottom = parseFloat(paddingValues[0]);
-            initialNavPaddingLeftRight = parseFloat(paddingValues[0]);
-          } else if (paddingValues.length >= 2) { 
-            initialNavPaddingTopBottom = parseFloat(paddingValues[0]);
-            initialNavPaddingLeftRight = parseFloat(paddingValues[1]);
-          }
+          initialNavPaddingTopBottom = getPixelValue(computedStyle.paddingTop); 
+          initialNavPaddingLeftRight = getPixelValue(computedStyle.paddingLeft); 
       }
 
       function adjustBodyPaddingTop() {
           if (nav) {
-              document.body.style.paddingTop = nav.offsetHeight + 'px'; 
+              const navHeight = nav.offsetHeight;
+              document.body.style.paddingTop = (navHeight + 10) + 'px'; // Thêm 10px buffer
+              // console.log('Navbar height:', navHeight, 'Body paddingTop:', document.body.style.paddingTop); 
           }
       }
       
-      // Gọi khi DOM đã sẵn sàng và sau khi tất cả tài nguyên (ảnh, font) đã tải xong
       adjustBodyPaddingTop(); 
       window.addEventListener('resize', adjustBodyPaddingTop);
-      window.addEventListener('load', adjustBodyPaddingTop); // Quan trọng để có offsetHeight chính xác
+      window.addEventListener('load', adjustBodyPaddingTop); 
 
 
       window.addEventListener('scroll', function() {
         if (!nav || !navLogo) return;
 
-        // Lấy padding ngang hiện tại để không bị ghi đè khi chỉ thay đổi padding dọc
-        let currentPaddingLeftRight = initialNavPaddingLeftRight; // Khởi tạo bằng giá trị ban đầu
+        let currentPaddingLeftRight = initialNavPaddingLeftRight; 
         const currentNavStyle = window.getComputedStyle(nav);
-        const paddingLRValue = currentNavStyle.paddingLeft; // Hoặc paddingRight
+        const paddingLRValue = currentNavStyle.paddingLeft; 
         if (paddingLRValue) {
             currentPaddingLeftRight = parseFloat(paddingLRValue);
         }
@@ -440,21 +432,19 @@
           navLogo.style.height = (initialLogoHeight * 0.8) + 'px';
         } else {
           nav.style.backgroundColor = 'orange';
-          nav.style.padding = initialNavPaddingTopBottom + 'px ' + initialNavPaddingLeftRight + 'px';
+          nav.style.padding = initialNavPaddingTopBottom + 'px ' + currentPaddingLeftRight + 'px';
           navLogo.style.height = initialLogoHeight + 'px';
         }
-        adjustBodyPaddingTop(); // Cập nhật padding body mỗi khi navbar thay đổi
+        adjustBodyPaddingTop(); 
       });
       
-      // Script pagination (giữ nguyên)
       const pageNumbers = document.querySelectorAll('.pagination .page-number');
       const prevButton = document.querySelector('.pagination .prev');
       const nextButton = document.querySelector('.pagination .next');
       let currentPage = 1; 
 
       pageNumbers.forEach((pn, index) => {
-          if (index === 0) { 
-          }
+          if (index === 0) {}
           pn.addEventListener('click', (e) => {
               const targetPage = parseInt(e.target.textContent);
               if (targetPage === currentPage) return; 
