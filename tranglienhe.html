@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hỗ trợ & Liên hệ - MR. Fried Chicken</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #f4f5f7; /* Màu nền xám rất nhạt cho trang */
+      color: #333;
+    }
+
+    /* --- NAVIGATION BAR STYLES (Giữ nguyên từ trước) --- */
+    .fixed-navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: orange;
+      padding: 10px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: padding 0.3s ease, background-color 0.3s ease;
+    }
+    .fixed-navbar .logo-container a { display: flex; align-items: center; text-decoration: none; }
+    .fixed-navbar .logo-container img { height: 50px; margin-right: 10px; transition: height 0.3s ease; }
+    .fixed-navbar .main-menu { flex: 1; display: flex; justify-content: center; align-items: center; gap: 30px; }
+    .fixed-navbar .main-menu a, .fixed-navbar .user-actions a { color: white; font-weight: bold; text-decoration: none; font-size: 16px; }
+    .fixed-navbar .main-menu a:hover, .fixed-navbar .user-actions a:hover { text-decoration: underline; }
+    .fixed-navbar .user-actions { flex-shrink: 0; }
+    /* --- END OF NAVIGATION BAR STYLES --- */
+
+    .page-container {
+        padding-top: 80px; /* Khoảng cách cho fixed navbar, điều chỉnh nếu navbar thay đổi chiều cao */
+    }
+
+    /* --- HERO SECTION (Search/Welcome) --- */
+    .help-hero {
+        background-color: #fff1e0; /* Màu cam nhạt */
+        padding: 60px 20px;
+        text-align: center;
+        border-bottom: 1px solid #ffe0b3;
+    }
+    .help-hero h1 {
+        font-size: 36px;
+        color: #d95300; /* Màu cam đậm */
+        margin-bottom: 20px;
+        font-weight: 700;
+    }
+    .search-bar-container {
+        max-width: 700px;
+        margin: 0 auto;
+        position: relative;
+    }
+    .search-bar-container input[type="search"] {
+        width: 100%;
+        padding: 18px 25px;
+        padding-left: 55px; /* Space for icon */
+        font-size: 18px;
+        border-radius: 50px; /* Bo tròn mạnh */
+        border: 1px solid #ffcc80;
+        outline: none;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .search-bar-container input[type="search"]:focus {
+        border-color: orange;
+        box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.2);
+    }
+    .search-bar-container .bx-search-alt-2 {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 24px;
+        color: #aaa;
+    }
+
+    /* --- MAIN CONTENT AREA --- */
+    .main-content {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .section-title {
+        font-size: 28px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 30px;
+        text-align: center;
+        position: relative;
+        padding-bottom: 10px;
+    }
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: orange;
+    }
+
+    /* --- CATEGORY CARDS --- */
+    .category-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-bottom: 50px;
+    }
+    .category-card {
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 25px;
+        text-align: left;
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+        text-decoration: none; /* Nếu thẻ a */
+        color: inherit; /* Nếu thẻ a */
+        display: block; /* Nếu thẻ a */
+    }
+    .category-card:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transform: translateY(-5px);
+    }
+    .category-card .card-icon {
+        font-size: 36px;
+        color: orange;
+        margin-bottom: 15px;
+    }
+    .category-card h3 {
+        font-size: 22px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 10px;
+    }
+    .category-card p {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #555;
+    }
+    .category-card ul {
+        list-style: none;
+        padding-left: 0;
+    }
+    .category-card ul li {
+        margin-bottom: 8px;
+    }
+    .category-card ul li a {
+        color: #bc5f45;
+        text-decoration: none;
+    }
+    .category-card ul li a:hover {
+        text-decoration: underline;
+    }
+
+
+    /* --- CONTACT FORM SECTION --- */
+    .contact-form-section {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+        margin-bottom: 50px;
+    }
+    .contact-form-section .form-group {
+        margin-bottom: 20px;
+    }
+    .contact-form-section label {
+        display: block;
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #333;
+    }
+    .contact-form-section input[type="text"],
+    .contact-form-section input[type="email"],
+    .contact-form-section textarea {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        outline: none;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .contact-form-section input[type="text"]:focus,
+    .contact-form-section input[type="email"]:focus,
+    .contact-form-section textarea:focus {
+        border-color: orange;
+        box-shadow: 0 0 0 2px rgba(255, 165, 0, 0.15);
+    }
+    .contact-form-section textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+    .contact-form-section button[type="submit"] {
+        background-color: orange;
+        color: white;
+        padding: 12px 25px;
+        font-size: 17px;
+        font-weight: 600;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .contact-form-section button[type="submit"]:hover {
+        background-color: #e69500;
+    }
+    
+    /* --- MAP SECTION --- */
+    .map-section iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    /* --- Gallery & Highlight (Nếu vẫn muốn giữ lại, có thể style lại) --- */
+    .highlight-gallery-section {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+        margin-bottom: 50px;
+    }
+    .highlight-gallery-section p {
+        font-size: 16px;
+        line-height: 1.7;
+        color: #555;
+        margin-bottom: 15px;
+    }
+    .image-gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        margin-top: 20px;
+    }
+    .image-gallery-grid img {
+        width: 100%;
+        height: auto;
+        border-radius: 6px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+
+    /* --- FOOTER (Giữ nguyên từ trước) --- */
+    footer { background-color: orange; color: #fff; padding: 50px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; }
+    .footer-column { flex: 1; min-width: 280px; margin-bottom: 30px; padding: 0 15px; }
+    .footer-column h4 { font-size: 20px; font-weight: bold; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 10px; }
+    .footer-column p { font-size: 16px; line-height: 1.8; margin-bottom: 8px; }
+    .footer-column a { color: #fff; text-decoration: none; }
+    .footer-column a:hover { text-decoration: underline; }
+
+    /* --- RESPONSIVE ADJUSTMENTS --- */
+    @media (max-width: 768px) {
+      .fixed-navbar { padding: 10px 20px; flex-direction: column; align-items: flex-start; }
+      .fixed-navbar .main-menu { flex-direction: column; gap: 10px; width: 100%; align-items: flex-start; margin-top: 10px; }
+      .fixed-navbar .user-actions { margin-top: 10px; align-self: flex-start; }
+      .page-container { padding-top: 160px; /* Adjusted for taller stacked navbar */ }
+      
+      .help-hero h1 { font-size: 28px; }
+      .search-bar-container input[type="search"] { font-size: 16px; padding: 15px 20px; padding-left: 45px; }
+      .search-bar-container .bx-search-alt-2 { left: 15px; font-size: 20px; }
+
+      .section-title { font-size: 24px; }
+      .category-grid { grid-template-columns: 1fr; /* Stack cards on mobile */ }
+    }
+
+  </style>
+</head>
+<body>
+  <nav class="fixed-navbar" id="mainNavbar">
+    <div class="logo-container">
+      <a href="index.html"> <img src="mfc.jpg" alt="MFC Logo" id="navbarLogo"></a>
+    </div>
+    <div class="main-menu">
+      <a href="index.html">Trang chủ</a>
+      <a href="Khuyen_mai_MFC/Khuyen_mai_page1.html">Khuyến mãi</a>
+      <a href="#">Thực đơn</a>
+      <a href="tranglienhe.html">Liên hệ</a>
+    </div>
+    <div class="user-actions">
+      <a href="tendangnhap.html">🛒 Giỏ hàng / Tài khoản</a>
+    </div>
+  </nav>
+
+  <div class="page-container">
+    <section class="help-hero">
+      <h1>Trung Tâm Hỗ Trợ MR. Fried Chicken</h1>
+      <p style="font-size: 18px; color: #555; margin-bottom: 30px;">Chúng tôi có thể giúp gì cho bạn?</p>
+      <div class="search-bar-container">
+        <i class='bx bx-search-alt-2'></i>
+        <input type="search" id="helpSearchInput" placeholder="Tìm kiếm câu hỏi, chủ đề...">
+      </div>
+    </section>
+
+    <main class="main-content">
+      <h2 class="section-title">Chủ đề hỗ trợ</h2>
+      
+      <section class="category-grid">
+        <div class="category-card">
+          <i class='bx bxs-info-circle card-icon'></i>
+          <h3>Thông tin chung & Địa chỉ</h3>
+          <ul>
+            <li><strong>Địa chỉ:</strong> 112 P. Chùa Bộc, Quang Trung, Đống Đa, Hà Nội</li>
+            <li><strong>Điện thoại:</strong> <a href="tel:0975459348">0975459348</a></li>
+            <li><strong>Facebook:</strong> <a href="https://www.facebook.com/profile.php?id=100090290842650&mibextid=LQQJ4d" target="_blank">Mr. Fried Chicken - MFC</a></li>
+            <li><strong>Giờ mở cửa:</strong> Thứ 2 - CN: 09:00 - 22:00</li>
+          </ul>
+          <div class="map-section" style="margin-top:20px;">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.640141194901!2d105.82319731539805!3d21.00704679386787!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac7fed561cc7%3A0x3238283711511b5!2zMTEyIFRQSCAzMiDEkMaw4budbmcgQ8O5YSwgUXVhbmcgVHJ1bmcsIMSQ4buRbmcgxJBhLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1685819888888!5m2!1svi!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <p style="font-size:0.8em; text-align:center; margin-top:5px;">Bản đồ đến quán</p>
+          </div>
+        </div>
+
+        <div class="category-card">
+          <i class='bx bxs-help-circle card-icon'></i>
+          <h3>Câu Hỏi Thường Gặp (FAQs)</h3>
+          <ul>
+            <li><a href="#faq-delivery">MFC có giao hàng không? Phí giao hàng?</a></li>
+            <li><a href="#faq-payment">MFC chấp nhận những hình thức thanh toán nào?</a></li>
+            <li><a href="#faq-booking">Tôi có thể đặt bàn trước không?</a></li>
+            <li><a href="#faq-promo">Làm sao để biết các chương trình khuyến mãi?</a></li>
+            </ul>
+        </div>
+
+        <div class="category-card">
+            <i class='bx bxs-store-alt card-icon'></i>
+            <h3>Về Không Gian Quán</h3>
+            <p>MFC sở hữu không gian ấm cúng, lý tưởng cho gia đình và bạn trẻ. Thiết kế với tông màu pastel, nội thất gỗ và ánh sáng dịu nhẹ, tạo cảm giác gần gũi.</p>
+            <p style="margin-top:10px;"><a href="#gallery-section" style="color:#bc5f45; font-weight:500;">Xem hình ảnh không gian</a></p>
+        </div>
+      </section>
+
+      <section id="contact-form-main" class="contact-form-section">
+        <h2 class="section-title">Gửi Yêu Cầu Hỗ Trợ / Phản Hồi</h2>
+        <form id="feedbackForm">
+          <div class="form-group">
+            <label for="name">Họ và Tên:</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Số điện thoại (Tùy chọn):</label>
+            <input type="text" id="phone" name="phone">
+          </div>
+          <div class="form-group">
+            <label for="subject">Chủ đề:</label>
+            <input type="text" id="subject" name="subject" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Nội dung:</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <button type="submit">Gửi Đi</button>
+        </form>
+      </section>
+      
+      <section id="faqs-details" class="contact-form-section" style="text-align:left;">
+          <h2 class="section-title">Trả Lời FAQs</h2>
+          <div id="faq-delivery" style="margin-bottom:20px;">
+              <h4><i class='bx bxs-package' style="color:orange; margin-right:5px;"></i>MFC có giao hàng không? Phí giao hàng?</h4>
+              <p>Có, MR. Fried Chicken có hỗ trợ giao hàng trong bán kính 5km. Phí giao hàng sẽ phụ thuộc vào khoảng cách và giá trị đơn hàng. Vui lòng liên hệ hotline 0975459348 để biết thêm chi tiết hoặc đặt hàng qua các ứng dụng giao đồ ăn.</p>
+          </div>
+          <div id="faq-payment" style="margin-bottom:20px;">
+              <h4><i class='bx bxs-credit-card' style="color:orange; margin-right:5px;"></i>MFC chấp nhận những hình thức thanh toán nào?</h4>
+              <p>Chúng tôi chấp nhận thanh toán bằng tiền mặt, chuyển khoản ngân hàng, và ví điện tử Momo, ZaloPay khi thanh toán tại quán. Đối với đơn hàng online, quý khách có thể thanh toán khi nhận hàng (COD) hoặc chuyển khoản trước.</p>
+          </div>
+           <div id="faq-booking" style="margin-bottom:20px;">
+              <h4><i class='bx bxs-calendar-check' style="color:orange; margin-right:5px;"></i>Tôi có thể đặt bàn trước không?</h4>
+              <p>Rất tiếc, hiện tại MFC chưa hỗ trợ đặt bàn trước. Tuy nhiên, không gian quán rộng rãi, chúng tôi luôn sẵn sàng chào đón bạn. Đối với các nhóm đông, bạn có thể gọi trước để chúng tôi sắp xếp tốt hơn.</p>
+          </div>
+          <div id="faq-promo" style="margin-bottom:20px;">
+              <h4><i class='bx bxs-discount' style="color:orange; margin-right:5px;"></i>Làm sao để biết các chương trình khuyến mãi?</h4>
+              <p>Bạn có thể theo dõi trang Facebook chính thức của Mr. Fried Chicken - MFC hoặc mục "Khuyến mãi" trên website của chúng tôi để cập nhật các ưu đãi mới nhất.</p>
+          </div>
+      </section>
+
+      <section id="gallery-section" class="highlight-gallery-section">
+        <h2 class="section-title">Hình Ảnh Không Gian Quán</h2>
+        <p>MFC – Quán ăn vặt gà rán không chỉ nổi bật với hương vị thơm ngon mà còn sở hữu không gian ấm cúng, đáng yêu, lý tưởng cho gia đình và các bạn trẻ. Thiết kế với tông màu pastel nhẹ nhàng, nội thất gỗ mộc mạc và ánh sáng dịu nhẹ, MFC tạo cảm giác gần gũi, thân thiện.</p>
+        <div class="image-gallery-grid">
+          <img src="https://scontent.fhan2-5.fna.fbcdn.net/v/t1.15752-9/494330750_1202540984646863_7994333041984720248_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=0024fc&_nc_ohc=Iwb52u-LDu8Q7kNvwGJ83pK&_nc_oc=AdnwH8SdmkxkwCENkw34uNgZsjcUI5k7SZmuwZfDGw_r1Fq4Q0KWBGUKL7DiX-oxlOUZYP_mRIYQhJhkmvblA9sj&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fhan2-5.fna&oh=03_Q7cD2QGV0LZcpakRckyKq4jUym5jkAPAZXlTvKxA2Fub6iMQeg&oe=685EA1C3" alt="Không gian quán 1">
+          <img src="https://scontent.fhan2-4.fna.fbcdn.net/v/t1.15752-9/495168698_122108329208147148_541426805072685686_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=0024fc&_nc_ohc=_B1iQpEw1T4Q7kNvgHX0g4L&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fhan2-4.fna&oh=03_Q7cD2QH0bL01N7jYV4w7h5iV32_Wq068b9pWk9sS8J4_y8vK1w&oe=685E83B0" alt="Không gian quán 2">
+          </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <div class="footer-column">
+      <h4>Phương Thức Liên Lạc</h4>
+      <p><strong>Facebook:</strong> <a href="https://www.facebook.com/profile.php?id=100090290842650&mibextid=LQQJ4d" target="_blank">Mr. Fried Chicken - MFC</a></p>
+      <p><strong>Số điện thoại:</strong> <a href="tel:0975459348">0975459348</a></p>
+      <p><strong>Địa chỉ:</strong> 112 P. Chùa Bộc, Quang Trung, Đống Đa, Hà Nội, Việt Nam</p>
+    </div>
+    <div class="footer-column">
+      <h4>Chính Sách</h4>
+      <p><a href="#">Liên hệ</a></p>
+      <p><a href="#">Chính sách & Quy định chung</a></p>
+      <p><a href="#">Thanh toán khi đặt hàng</a></p>
+      <p><a href="#">Chính sách hoạt động</a></p>
+      <p><a href="#">Bảo mật thông tin</a></p>
+    </div>
+     <div class="footer-column">
+        <h4>Giờ Mở Cửa</h4>
+        <p>Thứ 2 - Chủ Nhật: 09:00 - 22:00</p>
+        <p>(Kể cả ngày lễ)</p>
+    </div>
+  </footer>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const navbar = document.getElementById('mainNavbar');
+    const navbarLogo = document.getElementById('navbarLogo');
+    const pageContainer = document.querySelector('.page-container');
+
+    const defaultPaddingTopBottom = 10; // px
+    const defaultPaddingLeftRight = 40; // px
+    let defaultLogoHeight = 50; // px
+    if(navbarLogo) defaultLogoHeight = navbarLogo.offsetHeight || 50;
+
+
+    function adjustPagePadding() {
+        if (navbar && pageContainer) {
+            pageContainer.style.paddingTop = navbar.offsetHeight + 'px';
+        }
+    }
+    adjustPagePadding(); // Initial adjustment
+
+    window.addEventListener('scroll', function() {
+      if (!navbar || !navbarLogo) return;
+      if (window.scrollY > 50) {
+        navbar.style.backgroundColor = 'rgba(255, 165, 0, 0.9)';
+        navbar.style.padding = '5px ' + defaultPaddingLeftRight + 'px';
+        navbarLogo.style.height = (defaultLogoHeight * 0.8) + 'px';
+      } else {
+        navbar.style.backgroundColor = 'orange';
+        navbar.style.padding = defaultPaddingTopBottom + 'px ' + defaultPaddingLeftRight + 'px';
+        navbarLogo.style.height = defaultLogoHeight + 'px';
+      }
+      adjustPagePadding(); // Adjust padding on scroll if navbar height changes
+    });
+    
+    window.addEventListener('resize', adjustPagePadding); // Adjust on resize as well
+
+    // Smooth scroll for FAQ links
+    document.querySelectorAll('a[href^="#faq-"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                // Calculate offset considering the fixed navbar height
+                const navbarHeight = navbar ? navbar.offsetHeight : 0;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - navbarHeight - 20; // 20px extra space
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // Handle search input (dummy)
+    const helpSearchInput = document.getElementById('helpSearchInput');
+    if(helpSearchInput){
+        helpSearchInput.addEventListener('keypress', function(e){
+            if(e.key === 'Enter'){
+                e.preventDefault();
+                const query = helpSearchInput.value.trim();
+                if(query){
+                    alert('Tính năng tìm kiếm đang được phát triển. Bạn đã tìm: ' + query);
+                } else {
+                    alert('Vui lòng nhập nội dung tìm kiếm.');
+                }
+            }
+        });
+    }
+    
+    // Handle contact form submission (dummy)
+    const feedbackForm = document.getElementById('feedbackForm');
+    if(feedbackForm){
+        feedbackForm.addEventListener('submit', function(e){
+            e.preventDefault();
+            const name = feedbackForm.name.value;
+            const email = feedbackForm.email.value;
+            const subject = feedbackForm.subject.value;
+            const message = feedbackForm.message.value;
+            
+            alert(`Cảm ơn ${name} đã gửi phản hồi!\nChủ đề: ${subject}\nChúng tôi sẽ sớm liên hệ lại qua email: ${email}.\n(Đây là thông báo giả lập, form chưa gửi dữ liệu đi đâu cả.)`);
+            feedbackForm.reset();
+        });
+    }
+
+  });
+  </script>
+
+</body>
+</html>

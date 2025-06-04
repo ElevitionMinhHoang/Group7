@@ -76,9 +76,7 @@
       font-family: Arial, sans-serif;
       text-transform: uppercase;
     }
-
-
-
+   
     .btn-back {
       display: inline-block;
       background-color: #ff6600;
@@ -89,10 +87,45 @@
       font-weight: bold;
       transition: background-color 0.3s;
       width: fit-content;
+      position: relative;
+      overflow: hidden;
+      z-index: 0;
     }
+    
     .btn-back:hover {
       background-color: #cc3300;
     }
+
+    .btn-back::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: skewX(-20deg);
+      z-index: 1;
+    }
+
+    .btn-back:hover::before {
+      animation: shine 0.8s ease forwards;
+    }
+
+    @keyframes shine {
+      from {
+       left: -75%;
+      }
+      to {
+      left: 125%;
+      }
+    }
+
 
     @media (max-width: 768px) {
       .container {
