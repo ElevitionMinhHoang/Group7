@@ -3,20 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <title>Khuyến mãi MFC</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    html {
+      height: 100%; /* Cho Sticky Footer */
+    }
+
     body {
-      font-family: Arial, sans-serif;
       background-color: #fff6f0;
       margin: 0;
-      padding: 40px 20px;
       color: #333;
+      
+      display: flex; /* Cho Sticky Footer */
+      flex-direction: column; /* Cho Sticky Footer */
+      min-height: 100vh; /* Cho Sticky Footer */
+
+      /* padding-top sẽ được JS điều chỉnh, giá trị này là dự phòng */
+      padding-top: 70px; 
+      /* padding-left và padding-right sẽ do các container con quản lý nếu cần */
+    }
+
+    /* Wrapper cho nội dung chính để đẩy footer xuống */
+    .page-main-content-wrapper {
+        flex-grow: 1;
+        padding-left: 20px; /* Thêm padding ngang cho nội dung chính */
+        padding-right: 20px;
+        padding-bottom: 40px; /* Khoảng cách trên footer */
     }
 
     h1 {
       text-align: center;
       color: #cc3300;
       font-size: 2.5rem;
-      margin-bottom: 40px;
+      margin-top: 0; /* Bỏ margin-top nếu padding-top của body/wrapper đã đủ */
+      margin-bottom: 40px; 
     }
 
     .promo-grid {
@@ -54,6 +81,9 @@
       color: #cc3300;
       padding: 12px 16px;
       min-height: 60px;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
     }
 
     .promo-button {
@@ -73,32 +103,21 @@
     }
 
    .pagination {
-      position: fixed; /* cố định dưới cùng */
-      bottom: 20px;    /* cách mép dưới 20px */
-      left: 50%;
-      transform: translateX(-50%);
+      display: flex;
+      justify-content: center; 
+      align-items: center;
+      gap: 10px; 
+      padding: 15px; 
+      font-size: 14px;   
+      color: #cc3300;
+      margin-top: 40px; 
       background: #fff6f0;
       border: 1px solid #cc3300;
       border-radius: 30px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      color: #cc3300;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 4px 12px; /* nhỏ hơn */
-      font-size: 14px;   /* chữ nhỏ hơn */
-      z-index: 100;      /* đảm bảo nằm trên cùng */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); 
     }
 
-
-    .Khuyen_mai_page1.active {
-      background: #cc3300;
-      color: #fff6f0;
-      font-weight: 700;
-      animation: jump 0.3s ease;
-    }
-
-    .Khuyen_mai_page1 {
+    .pagination .page-number { 
       width: 30px;
       height: 30px;
       border-radius: 50%;
@@ -106,63 +125,348 @@
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    .pagination .page-number.active {
+      background: #cc3300;
+      color: #fff6f0;
+      font-weight: 700;
+      animation: jump 0.3s ease; 
+    }
+    
+    .pagination .page-number:not(.active):hover {
+        background-color: #fde0d6; 
     }
 
-    .button {
+    .pagination .button { 
       padding: 4px 8px;
       font-size: 14px;
       cursor: pointer;
       transition: opacity 0.3s ease;
-}
+      font-weight: bold; 
+    }
 
-    .Khuyen_mai_page1:hover,
-    .button:hover{
-      opacity: 0.8;
+    .pagination .button:hover{ 
+      opacity: 0.7;
     }
 
     @keyframes jump{
-      from {transform: translateY(10px);}
-      to {transform: translateY(0);}
+      0% {transform: translateY(0);}
+      50% {transform: translateY(-3px);} 
+      100% {transform: translateY(0);}
     }
     
+    /* --- NAVIGATION BAR STYLES (Tham khảo từ trang Liên Hệ) --- */
+    .fixed-navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background-color: orange;
+        padding: 10px 40px; /* Quyết định chiều cao navbar cùng logo */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        transition: padding 0.3s ease, background-color 0.3s ease;
+    }
+    
+    .fixed-navbar .logo-container { 
+        display: flex;
+        align-items: center;
+        /* margin-right: 10px; /* Thêm nếu cần khoảng cách giữa logo và menu */
+    }
+
+    .fixed-navbar .logo-link { 
+        display: flex; 
+        align-items: center; 
+        text-decoration: none; 
+    }
+
+    .fixed-navbar .logo-image { /* Class này cần có trên thẻ img logo */
+        height: 50px; 
+        width: auto; /* Giữ tỷ lệ */
+        transition: height 0.3s ease;
+        object-fit: contain; /* Đảm bảo logo không bị méo và hiển thị trọn vẹn */
+    }
+
+    .fixed-navbar .main-menu { 
+        flex: 1; /* Cho phép menu chiếm không gian giữa */
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        gap: 30px; 
+    }
+    
+    .fixed-navbar .main-menu .nav-link { /* Class này cần có trên các link menu */
+        color: white; 
+        font-weight: bold; 
+        text-decoration: none; 
+        font-size: 16px; 
+        padding: 5px 0; /* Padding cho các link menu */
+    }
+     .fixed-navbar .main-menu .nav-link:hover { 
+        text-decoration: underline; 
+    }
+
+    .fixed-navbar .user-actions { 
+        flex-shrink: 0; /* Ngăn co lại */
+        display: flex; 
+        align-items: center;
+        gap: 25px; /* Khoảng cách giữa các icon */
+    }
+    
+    .fixed-navbar .user-actions .nav-action-icon { /* Class cho các icon link */
+        color: white;
+        text-decoration: none;
+        font-size: 26px; 
+        position: relative; /* Cho badge */
+        display: flex;
+        align-items: center;
+        padding: 5px; /* Tăng vùng click cho icon */
+    }
+    .fixed-navbar .user-actions .nav-action-icon:hover {
+        opacity: 0.8; 
+    }
+    .fixed-navbar .cart-item-count {
+        position: absolute;
+        top: 0px; 
+        right: -5px; 
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        padding: 1px 5px;
+        font-size: 0.7em;
+        font-weight: bold;
+        line-height: 1;
+        min-width: 16px;
+        text-align: center;
+        border: 1px solid white;
+        box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    }
+    /* --- END OF NAVIGATION BAR STYLES --- */
+
+    /* Responsive cho Navbar */
+    @media (max-width: 768px) {
+      .fixed-navbar { padding: 10px 20px; flex-direction: column; align-items: flex-start; height: auto !important; /* Cho phép chiều cao tự động khi xếp chồng */ }
+      .fixed-navbar .main-menu { flex-direction: column; gap: 10px; width: 100%; align-items: flex-start; margin-top: 10px; }
+      .fixed-navbar .user-actions { margin-top: 10px; align-self: flex-start; gap: 15px; }
+      /* JS sẽ điều chỉnh padding-top của body */
+    }
+    @media (max-width: 480px) {
+        .fixed-navbar .user-actions .nav-action-icon {
+            font-size: 22px;
+        }
+        .fixed-navbar .cart-item-count {
+            font-size: 0.65em;
+            padding: 1px 4px;
+            min-width: 14px;
+        }
+    }
+
+    /* --- FOOTER STYLES --- */
+    footer { 
+        background-color: orange; 
+        color: #fff; 
+        padding: 50px 40px; 
+        display: flex; 
+        flex-wrap: wrap; 
+        justify-content: space-between;
+        flex-shrink: 0; /* Cho Sticky Footer */
+    }
+    .footer-column { 
+        flex: 1; 
+        min-width: 280px; 
+        margin-bottom: 30px; 
+        padding: 0 15px; 
+    }
+    .footer-column h4 { 
+        font-size: 20px; 
+        font-weight: bold; 
+        margin-bottom: 20px; 
+        border-bottom: 1px solid rgba(255,255,255,0.3); 
+        padding-bottom: 10px; 
+    }
+    .footer-column p { 
+        font-size: 16px; 
+        line-height: 1.8; 
+        margin-bottom: 8px; 
+    }
+    .footer-column a { 
+        color: #fff; 
+        text-decoration: none; 
+    }
+    .footer-column a:hover { 
+        text-decoration: underline; 
+    }
+    /* --- END OF FOOTER STYLES --- */
+
   </style>
 </head>
 <body>
+    <nav class="fixed-navbar" id="mainNavbar">
+        <div class="logo-container"> 
+            <a href="../index.html" class="logo-link">
+                <img src="../mfc.jpg" alt="Logo Gà Rán HOÀNG" class="logo-image" id="navbarLogo">
+            </a>
+        </div>
+        <div class="main-menu">
+            <a href="../index.html" class="nav-link">Trang chủ</a>
+            <a href="#" class="nav-link">Thực đơn</a>
+            <a href="Khuyen_mai_page1.html" class="nav-link">Khuyến mãi</a>
+            <a href="../tranglienhe.html" class="nav-link">Liên hệ</a>
+        </div>
+        <div class="user-actions">
+            <a href="../giohang.html" class="nav-action-icon" aria-label="Giỏ hàng">
+                <i class='bx bxs-cart'></i>
+                <span class="cart-item-count">0</span> 
+            </a>
+            <a href="../tendangnhap.html" class="nav-action-icon" aria-label="Tài khoản">
+                <i class='bx bxs-user-circle'></i>
+            </a>
+        </div>
+    </nav>
 
-  <h1>🎉 Chương trình khuyến mãi</h1>
+    <div class="page-main-content-wrapper">
+        <h1>🎉 Chương trình khuyến mãi</h1>
 
-  <div class="promo-grid">
-    <div class="promo-item">
-      <img src="images/Khuyenmai1.jpg" alt="Gọi Combo - Tặng Thêm Nước">
-      <div class="promo-title">Gọi Combo - Tặng Thêm Nước</div>
-      <a href="Khuyenmai1.html" class="promo-button">Xem thêm</a>
-    </div>
-    <div class="promo-item">
-      <img src="images/Khuyenmai2.jpg" alt="Càng Đông - Càng Vui - Quà Càng Chất">
-      <div class="promo-title">Càng Đông - Càng Vui - Quà Càng Chất</div>
-      <a href="Khuyenmai2.html" class="promo-button">Xem thêm</a>
-    </div>
-    <div class="promo-item">
-      <img src="images/Khuyenmai3.jpg" alt="Check-in Là Có Quà">
-      <div class="promo-title">Check-in Là Có Quà</div>
-      <a href="Khuyenmai3.html" class="promo-button">Xem thêm</a>
-    </div>
-    <div class="promo-item">
-      <img src="images/Khuyenmai4.jpg" alt="Tích Điểm Nhận Quà Bất Ngờ">
-      <div class="promo-title">Tích Điểm Nhận Quà Bất Ngờ</div>
-      <a href="Khuyenmai4.html" class="promo-button">Xem thêm</a>
-    </div>
-  </div>
+        <div class="promo-grid">
+            <div class="promo-item">
+            <img src="images/Khuyenmai1.jpg" alt="Gọi Combo - Tặng Thêm Nước">
+            <div class="promo-title">Gọi Combo - Tặng Thêm Nước</div>
+            <a href="Khuyenmai1.html" class="promo-button">Xem thêm</a>
+            </div>
+            <div class="promo-item">
+            <img src="images/Khuyenmai2.jpg" alt="Càng Đông - Càng Vui - Quà Càng Chất">
+            <div class="promo-title">Càng Đông - Càng Vui - Quà Càng Chất</div>
+            <a href="Khuyenmai2.html" class="promo-button">Xem thêm</a>
+            </div>
+            <div class="promo-item">
+            <img src="images/Khuyenmai3.jpg" alt="Check-in Là Có Quà">
+            <div class="promo-title">Check-in Là Có Quà</div>
+            <a href="Khuyenmai3.html" class="promo-button">Xem thêm</a>
+            </div>
+            <div class="promo-item">
+            <img src="images/Khuyenmai4.jpg" alt="Tích Điểm Nhận Quà Bất Ngờ">
+            <div class="promo-title">Tích Điểm Nhận Quà Bất Ngờ</div>
+            <a href="Khuyenmai4.html" class="promo-button">Xem thêm</a>
+            </div>
+        </div>
 
-   <div class="pagination">
-      <div class="button prev">< prev</div>
-      <div class="Khuyen_mai_page1 active">1</div>
-      <div class="Khuyen_mai_page2">2</div>
-      <div class="button next">next ></div>
-   </div>
+        <div class="pagination">
+            <div class="button prev">&lt; prev</div>
+            <div class="page-number active">1</div> 
+            <div class="page-number">2</div>       
+            <div class="button next">next &gt;</div>
+        </div>
+    </div> <footer>
+    <div class="footer-column">
+      <h4>Phương Thức Liên Lạc</h4>
+      <p><strong>Facebook:</strong> <a href="https://www.facebook.com/profile.php?id=100090290842650&mibextid=LQQJ4d" target="_blank">Mr. Fried Chicken - MFC</a></p>
+      <p><strong>Số điện thoại:</strong> <a href="tel:0975459348">0975459348</a></p>
+      <p><strong>Địa chỉ:</strong> 112 P. Chùa Bộc, Quang Trung, Đống Đa, Hà Nội, Việt Nam</p>
+    </div>
+    <div class="footer-column">
+      <h4>Chính Sách</h4>
+      <p><a href="#">Liên hệ</a></p>
+      <p><a href="#">Chính sách & Quy định chung</a></p>
+      <p><a href="#">Thanh toán khi đặt hàng</a></p>
+      <p><a href="#">Chính sách hoạt động</a></p>
+      <p><a href="#">Bảo mật thông tin</a></p>
+    </div>
+      <div class="footer-column">
+        <h4>Giờ Mở Cửa</h4>
+        <p>Thứ 2 - Chủ Nhật: 09:00 - 22:00</p>
+        <p>(Kể cả ngày lễ)</p>
+    </div>
+  </footer>
 
-     <script src="script.js"></script>
+   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const nav = document.getElementById('mainNavbar'); 
+      const navLogo = document.getElementById('navbarLogo');
+      // Không cần pageMainContentWrapper ở đây vì JS sẽ điều chỉnh padding-top của body
+      
+      let initialNavPaddingTopBottom = 10; 
+      let initialNavPaddingLeftRight = 40; 
+      let initialLogoHeight = 50; 
+
+      if (navLogo) {
+          // Đảm bảo rằng logo đã được render và có chiều cao bởi CSS
+          // trước khi lấy offsetHeight. Nếu không, nó có thể là 0.
+          // Dùng giá trị mặc định nếu offsetHeight không hợp lệ.
+          initialLogoHeight = navLogo.offsetHeight > 0 ? navLogo.offsetHeight : 50;
+      }
+      if (nav) {
+          const computedStyle = window.getComputedStyle(nav);
+          const paddingValues = computedStyle.padding.split(" ");
+          if (paddingValues.length === 1) { 
+            initialNavPaddingTopBottom = parseFloat(paddingValues[0]);
+            initialNavPaddingLeftRight = parseFloat(paddingValues[0]);
+          } else if (paddingValues.length >= 2) { 
+            initialNavPaddingTopBottom = parseFloat(paddingValues[0]);
+            initialNavPaddingLeftRight = parseFloat(paddingValues[1]);
+          }
+      }
+
+      function adjustBodyPaddingTop() {
+          if (nav) {
+              document.body.style.paddingTop = nav.offsetHeight + 'px'; 
+          }
+      }
+      
+      // Gọi khi DOM đã sẵn sàng và sau khi tất cả tài nguyên (ảnh, font) đã tải xong
+      adjustBodyPaddingTop(); 
+      window.addEventListener('resize', adjustBodyPaddingTop);
+      window.addEventListener('load', adjustBodyPaddingTop); // Quan trọng để có offsetHeight chính xác
+
+
+      window.addEventListener('scroll', function() {
+        if (!nav || !navLogo) return;
+
+        // Lấy padding ngang hiện tại để không bị ghi đè khi chỉ thay đổi padding dọc
+        let currentPaddingLeftRight = initialNavPaddingLeftRight; // Khởi tạo bằng giá trị ban đầu
+        const currentNavStyle = window.getComputedStyle(nav);
+        const paddingLRValue = currentNavStyle.paddingLeft; // Hoặc paddingRight
+        if (paddingLRValue) {
+            currentPaddingLeftRight = parseFloat(paddingLRValue);
+        }
+
+        if (window.scrollY > 50) {
+          nav.style.backgroundColor = 'rgba(255, 165, 0, 0.9)';
+          nav.style.padding = '5px ' + currentPaddingLeftRight + 'px'; 
+          navLogo.style.height = (initialLogoHeight * 0.8) + 'px';
+        } else {
+          nav.style.backgroundColor = 'orange';
+          nav.style.padding = initialNavPaddingTopBottom + 'px ' + initialNavPaddingLeftRight + 'px';
+          navLogo.style.height = initialLogoHeight + 'px';
+        }
+        adjustBodyPaddingTop(); // Cập nhật padding body mỗi khi navbar thay đổi
+      });
+      
+      // Script pagination (giữ nguyên)
+      const pageNumbers = document.querySelectorAll('.pagination .page-number');
+      const prevButton = document.querySelector('.pagination .prev');
+      const nextButton = document.querySelector('.pagination .next');
+      let currentPage = 1; 
+
+      pageNumbers.forEach((pn, index) => {
+          if (index === 0) { 
+          }
+          pn.addEventListener('click', (e) => {
+              const targetPage = parseInt(e.target.textContent);
+              if (targetPage === currentPage) return; 
+              document.querySelector('.pagination .page-number.active')?.classList.remove('active');
+              e.target.classList.add('active');
+              currentPage = targetPage;
+              console.log("Chuyển đến trang: ", currentPage);
+          });
+      });
+
+    });
+   </script>
 
 </body>
 </html>
