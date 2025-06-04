@@ -1,0 +1,1251 @@
+/* Tổng quan và Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif; /* Set default font for all elements */
+}
+
+:root {
+    --primary-color: #e44d26; /* Cam */
+    --secondary-color: #f79237; /* Cam nhạt hơn */
+    --text-dark: #333;
+    --text-light: #fefefe;
+    --bg-light: #fcfaf8; /* Màu nền nhẹ nhàng, giống cà phê */
+    --bg-dark-overlay: rgba(0, 0, 0, 0.6); /* Lớp phủ cho ảnh nền */
+    --accent-color: #ffcc00; /* Vàng sáng cho nổi bật */
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    padding-top: 90px; /* Giá trị dự phòng ban đầu, sẽ được JS điều chỉnh */
+    line-height: 1.6;
+    overflow-x: hidden; /* Tránh scroll ngang */
+    font-size: 16px; /* Base font size for better consistency */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Ensure all form inputs inherit font properties */
+input, textarea, button, select {
+    font-family: 'Inter', sans-serif;
+}
+
+.common-padding {
+    padding: 80px 5%;
+}
+
+.bg-light {
+    background-color: var(--bg-light);
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Section Titles */
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8em;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%; /* Center the underline */
+    transform: translateX(-50%); /* Center the underline */
+    width: 80px;
+    height: 4px;
+    background-color: var(--accent-color); /* Yellow underline */
+    border-radius: 2px;
+}
+
+.section-title.left-align { /* Class mới cho tiêu đề căn trái */
+    text-align: left;
+    transform: none; /* Bỏ transform để không bị lệch */
+    margin-left: 0; /* Đảm bảo không có margin tự động đẩy vào */
+}
+.section-title.left-align::after {
+    left: 0;
+    transform: none;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #d1441f; /* Manual darken */
+    border-color: #d1441f; /* Manual darken */
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text-light);
+    border: 2px solid var(--text-light);
+}
+
+.btn-secondary:hover {
+    background-color: var(--text-light);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.btn-primary-outline {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-primary-outline:hover {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    transform: translateY(-2px);
+}
+
+.btn-light-outline {
+    background-color: transparent;
+    color: var(--text-light);
+    border: 2px solid var(--text-light);
+}
+
+.btn-light-outline:hover {
+    background-color: var(--text-light);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.btn-small {
+    padding: 8px 18px;
+    font-size: 0.9em;
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+    border: none;
+}
+
+.btn-small:hover {
+    background-color: #e07f2a; /* Manual darken */
+}
+
+
+/* --- Fixed Navbar (Header) --- */
+.fixed-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #fff; /* Navbar màu trắng */
+    padding: 15px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    transition: padding 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.fixed-navbar.scrolled {
+    padding: 10px 40px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    background-color: #fff; /* Giữ màu trắng khi cuộn */
+}
+
+.fixed-navbar .logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.fixed-navbar .logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.fixed-navbar .logo-image {
+    height: 70px;
+    filter: brightness(0); /* Logo màu đen trên nền trắng */
+    transition: height 0.3s ease, filter 0.3s ease;
+}
+
+.fixed-navbar.scrolled .logo-image {
+    height: 55px;
+}
+
+/* Main menu */
+.main-menu {
+    display: flex; /* Make it visible */
+    gap: 30px;
+    flex-grow: 1; /* Allow it to take available space */
+    justify-content: center; /* Center the menu items */
+}
+
+.main-menu .nav-link {
+    color: var(--text-dark); /* Text color for nav links */
+    font-weight: 500;
+    font-size: 1.1em;
+    padding: 5px 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.main-menu .nav-link:hover,
+.main-menu .nav-link.active {
+    color: var(--primary-color);
+}
+
+.main-menu .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.main-menu .nav-link:hover::after,
+.main-menu .nav-link.active::after {
+    width: 100%;
+}
+
+
+.user-actions {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.user-actions .nav-action-icon {
+    color: var(--text-dark); /* Icon màu đen trên nền trắng */
+    font-size: 24px;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.user-actions .nav-action-icon:hover {
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+/* Hamburger menu (will be visible only on smaller screens) */
+.hamburger-menu {
+    display: none; /* Hidden by default for desktop */
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--text-dark);
+}
+
+/* Mobile menu (will be visible only on smaller screens) */
+.mobile-menu {
+    position: fixed;
+    top: 90px; /* Adjusted to be below the fixed navbar */
+    right: -300px; /* Initially hidden off-screen */
+    width: 280px;
+    height: calc(100% - 90px); /* Full height minus navbar */
+    background-color: #fff;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    z-index: 999;
+    transition: right 0.3s ease;
+    padding: 20px;
+    overflow-y: auto; /* Enable scrolling for long menus */
+    display: none; /* Hide by default, show with JS on mobile */
+}
+
+.mobile-menu.active {
+    right: 0; /* Slide in */
+}
+
+.mobile-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.mobile-menu ul li {
+    margin-bottom: 15px;
+}
+
+.mobile-menu ul li a {
+    display: block;
+    padding: 10px 15px;
+    color: var(--text-dark);
+    font-size: 1.1em;
+    font-weight: 500;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.mobile-menu ul li a:hover,
+.mobile-menu ul li a.active-mobile-link {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+}
+
+
+/* --- Full Screen Search and Navigation Overlay --- */
+.full-screen-search-overlay {
+    height: 100%;
+    width: 0; /* Hidden by default */
+    position: fixed;
+    z-index: 1001;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.95); /* Semi-transparent black background */
+    overflow-x: hidden;
+    transition: 0.5s; /* Smooth transition when opening/closing */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--text-light);
+}
+
+.full-screen-search-overlay.active {
+    width: 100%; /* Show overlay */
+}
+
+.overlay-close-btn {
+    position: absolute;
+    top: 30px;
+    right: 45px;
+    font-size: 60px;
+    cursor: pointer;
+    color: #ccc;
+    transition: 0.3s;
+}
+
+.overlay-close-btn:hover {
+    color: var(--primary-color);
+}
+
+.overlay-content {
+    position: relative;
+    top: 15%; /* Adjust vertical position */
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.overlay-search-box {
+    display: flex;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    margin-bottom: 40px;
+}
+
+.overlay-search-box input {
+    flex-grow: 1;
+    border: none;
+    padding: 18px 25px;
+    font-size: 1.2em;
+    outline: none;
+    background-color: transparent;
+    color: var(--text-dark);
+}
+
+.overlay-search-box input::placeholder {
+    color: #888;
+}
+
+.overlay-search-box button {
+    background-color: var(--primary-color);
+    border: none;
+    color: var(--text-light);
+    padding: 18px 20px;
+    font-size: 1.6em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.overlay-search-box button:hover {
+    background-color: #d1441f;
+}
+
+/* .overlay-main-menu,  */ /* Remove if you don't want main menu in overlay */
+.overlay-support-links, .overlay-user-actions {
+    margin-bottom: 30px;
+}
+
+/* .overlay-main-menu h3,  */ /* Remove if you don't want main menu in overlay */
+.overlay-support-links h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8em;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+/* .overlay-main-menu ul,  */ /* Remove if you don't want main menu in overlay */
+.overlay-support-links ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px 30px; /* Row and column gap */
+}
+
+/* .overlay-main-menu ul li a,  */ /* Remove if you don't want main menu in overlay */
+.overlay-support-links ul li a {
+    color: #ccc;
+    font-size: 1.2em;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+}
+
+/* .overlay-main-menu ul li a:hover, .overlay-main-menu ul li a.active,  */ /* Remove if you don't want main menu in overlay */
+.overlay-support-links ul li a:hover {
+    color: var(--text-light);
+    transform: translateY(-3px);
+}
+
+/* .overlay-main-menu ul li a i,  */ /* Remove if you don't want main menu in overlay */
+.overlay-support-links ul li a i {
+    font-size: 1.3em;
+}
+
+/* .overlay-user-actions { */ /* Remove if you don't want these actions in overlay */
+/* display: flex; */
+/* justify-content: center; */
+/* gap: 40px; */
+/* margin-top: 40px; */
+/* } */
+
+/* .overlay-user-actions .nav-action-icon { */ /* Remove if you don't want these actions in overlay */
+/* color: var(--text-light); */
+/* font-size: 1.2em; */
+/* display: flex; */
+/* align-items: center; */
+/* gap: 8px; */
+/* transition: color 0.3s ease, transform 0.3s ease; */
+/* } */
+
+/* .overlay-user-actions .nav-action-icon i { */ /* Remove if you don't want these actions in overlay */
+/* font-size: 1.8em; */
+/* } */
+
+/* .overlay-user-actions .nav-action-icon:hover { */ /* Remove if you don't want these actions in overlay */
+/* color: var(--accent-color); */
+/* transform: translateY(-3px); */
+/* } */
+
+
+/* --- Hero Section --- */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 500px; /* Adjusted height for banner */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    color: var(--text-light);
+    padding-top: 0; /* No longer need padding-top here as navbar is normal */
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px; /* Adjusted max width for better central alignment */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-content .hero-title {
+    font-size: 4em; /* Increased size for impact */
+    margin-bottom: 20px;
+}
+
+.hero-content .hero-subtitle {
+    font-size: 1.5em; /* Increased size */
+    margin-bottom: 40px;
+}
+
+.main-hero-search-box {
+    display: flex;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3); /* Stronger shadow */
+    margin-top: 30px;
+    max-width: 700px; /* Limit width to look good */
+}
+
+.main-hero-search-box input {
+    flex-grow: 1;
+    border: none;
+    padding: 18px 25px;
+    font-size: 1.1em;
+    outline: none;
+    background-color: transparent;
+    color: var(--text-dark);
+}
+
+.main-hero-search-box input::placeholder {
+    color: #888;
+}
+
+.main-hero-search-box button {
+    background-color: var(--primary-color);
+    border: none;
+    color: var(--text-light);
+    padding: 18px 20px;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.main-hero-search-box button:hover {
+    background-color: #d1441f;
+}
+
+
+/* --- Support Info Section --- */
+.support-info-section {
+    background-color: var(--bg-light);
+}
+
+.support-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.info-contact-card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-contact-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.info-contact-card .icon-circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: var(--text-light);
+    font-size: 35px;
+}
+
+.info-contact-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+}
+
+.info-contact-card p {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 5px;
+}
+.info-contact-card .contact-detail {
+    font-weight: 600;
+    color: var(--secondary-color);
+    margin-top: 10px;
+}
+.info-contact-card .contact-detail a {
+    color: inherit; /* Giữ màu của .contact-detail */
+    transition: color 0.3s ease;
+}
+.info-contact-card .contact-detail a:hover {
+    color: var(--primary-color); /* Change color on hover for contact links */
+}
+
+
+/* --- Map Section --- */
+.map-section {
+    background-color: var(--text-light);
+    max-width: 1200px; /* Ensure map doesn't get too wide */
+    margin: 0 auto; /* Center the map section */
+    padding-bottom: 0; /* Remove extra padding at the bottom if any from common-padding */
+}
+
+.map-embed {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    opacity: 0; /* Hidden initially for fade-in */
+    transition: opacity 1s ease-in-out;
+}
+.map-embed.fade-in {
+    opacity: 1;
+}
+
+.map-embed iframe {
+    border-radius: 8px; /* Áp dụng border-radius cho iframe */
+}
+
+.map-note {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+    font-size: 0.95em;
+    padding-bottom: 40px; /* Add some padding below note */
+}
+
+
+/* --- Testimonials Section --- */
+.testimonials-section {
+    background-color: var(--bg-light);
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.testimonial-card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.testimonial-card p {
+    font-style: italic;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.testimonial-card h4 {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.testimonial-card span {
+    font-size: 0.9em;
+    color: #888;
+}
+
+/* --- Feedback Form Section (New Position) --- */
+.feedback-form-section {
+    background-color: var(--bg-light);
+}
+
+.login-register-form {
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.login-register-form .form-description {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #666;
+}
+
+.login-register-form .form-group {
+    margin-bottom: 20px;
+}
+
+.login-register-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.login-register-form input[type="text"],
+.login-register-form input[type="password"],
+.login-register-form input[type="email"],
+.login-register-form input[type="tel"],
+.login-register-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+.login-register-form input[type="text"]:focus,
+.login-register-form input[type="password"]:focus,
+.login-register-form input[type="email"]:focus,
+.login-register-form input[type="tel"]:focus,
+.login-register-form textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* Validation styling for form inputs */
+input:invalid:not(:placeholder-shown),
+textarea:invalid:not(:placeholder-shown) {
+    border-color: #dc3545; /* Red for invalid */
+}
+
+input:valid:not(:placeholder-shown),
+textarea:valid:not(:placeholder-shown) {
+    border-color: #28a745; /* Green for valid */
+}
+
+
+.login-register-form .form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+.login-register-form .form-actions .btn {
+    flex: 1;
+}
+
+.login-register-form .forgot-password { /* This class will no longer be used but kept for consistency */
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+.login-register-form .forgot-password a {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+
+/* --- Call to Action Section --- */
+.cta-section {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    color: var(--text-light);
+    margin-top: 60px;
+}
+
+.cta-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    padding: 20px;
+}
+
+.cta-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8em;
+    margin-bottom: 20px;
+}
+
+.cta-content p {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+
+/* --- Footer --- */
+footer {
+    background-color: #222;
+    color: #eee;
+    padding: 60px 5%;
+    font-size: 0.95em;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-brand .footer-logo-link {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.footer-brand .footer-logo-image {
+    height: 80px;
+    filter: brightness(1.5);
+}
+
+.footer-brand p {
+    margin-bottom: 20px;
+    line-height: 1.8;
+    color: #bbb;
+}
+
+.social-icons a {
+    font-size: 28px;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+}
+
+/* Specific social icon colors */
+.social-icons .bx.bxl-facebook-circle {
+    color: #1877F2; /* Facebook Blue */
+}
+.social-icons .bx.bxl-instagram-alt {
+    color: #E4405F; /* Instagram Red-Pink */
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.social-icons .bx.bxl-tiktok {
+    color: #000; /* TikTok Black */
+    text-shadow: 2px 2px 0px #25F4EE, -2px -2px 0px #FE2C55; /* TikTok cyan and magenta shadow */
+}
+
+
+.footer-column h4 {
+    font-size: 1.3em;
+    margin-bottom: 25px;
+    color: var(--accent-color);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-column h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+    color: #bbb;
+    transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+    color: var(--text-light);
+}
+
+.footer-contact p {
+    margin-bottom: 10px;
+    color: #bbb;
+    display: flex;
+    align-items: center;
+}
+
+.footer-contact p i {
+    margin-right: 10px;
+    color: var(--primary-color);
+    font-size: 20px;
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid #333;
+    padding-top: 25px;
+    margin-top: 40px;
+    color: #999;
+}
+
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+    .fixed-navbar {
+        padding: 10px 25px;
+    }
+    .user-actions {
+        gap: 15px;
+    }
+    .main-menu { /* Hide main menu on smaller screens */
+        display: none;
+    }
+    .hamburger-menu { /* Show hamburger menu on smaller screens */
+        display: block;
+    }
+    .mobile-menu { /* Show mobile menu on smaller screens */
+        display: block;
+    }
+
+    .hero-title {
+        font-size: 3em;
+    }
+    .hero-subtitle {
+        font-size: 1.2em;
+    }
+    .main-hero-search-box {
+        max-width: 600px;
+    }
+    .main-hero-search-box input {
+        padding: 12px 20px;
+        font-size: 1em;
+    }
+    .main-hero-search-box button {
+        padding: 12px 18px;
+        font-size: 1.3em;
+    }
+
+    /* Overlay adjustments */
+    .overlay-close-btn {
+        font-size: 50px;
+        top: 20px;
+        right: 30px;
+    }
+    .overlay-content {
+        width: 90%;
+        top: 10%;
+    }
+    .overlay-search-box input {
+        padding: 15px 20px;
+        font-size: 1em;
+    }
+    .overlay-search-box button {
+        padding: 15px 18px;
+        font-size: 1.4em;
+    }
+    /* .overlay-main-menu h3,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links h3 {
+        font-size: 1.6em;
+    }
+    /* .overlay-main-menu ul li a,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links ul li a {
+        font-size: 1.1em;
+    }
+    /* .overlay-user-actions { */ /* Remove if you don't want these actions in overlay */
+    /* gap: 20px; */
+    /* } */
+
+
+    .map-section {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+    .section-title.left-align {
+        text-align: center;
+    }
+    .section-title.left-align::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .login-register-form .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .login-register-form .form-actions .btn {
+        width: 100%;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-column {
+        min-width: unset;
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .footer-column h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .footer-brand, .footer-links, .footer-policy, .footer-contact {
+        align-items: center;
+    }
+    .social-icons {
+        justify-content: center;
+    }
+    .footer-contact p {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .common-padding {
+        padding: 60px 4%;
+    }
+    .section-title {
+        font-size: 2.2em;
+        margin-bottom: 40px;
+    }
+    .hero-section {
+        height: 400px;
+    }
+    .hero-title {
+        font-size: 2.8em;
+    }
+    .hero-subtitle {
+        font-size: 1.2em;
+    }
+
+    /* Overlay adjustments */
+    .overlay-content {
+        width: 95%;
+    }
+    .overlay-search-box input {
+        padding: 12px 15px;
+        font-size: 0.95em;
+    }
+    .overlay-search-box button {
+        padding: 12px 15px;
+        font-size: 1.2em;
+    }
+    /* .overlay-main-menu h3,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links h3 {
+        font-size: 1.4em;
+    }
+    /* .overlay-main-menu ul li a,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links ul li a {
+        font-size: 1em;
+    }
+    /* .overlay-user-actions { */ /* Remove if you don't want these actions in overlay */
+    /* flex-direction: column; */
+    /* gap: 15px; */
+    /* } */
+
+
+    .support-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    .info-contact-card {
+        padding: 25px;
+    }
+    .info-contact-card .icon-circle {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+    }
+    .info-contact-card h3 {
+        font-size: 1.3em;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+    .testimonial-card {
+        padding: 25px;
+    }
+
+    .cta-section {
+        height: 300px;
+    }
+    .cta-content h2 {
+        font-size: 2.2em;
+    }
+    .cta-content p {
+        font-size: 1em;
+        margin-bottom: 25px;
+    }
+
+    footer {
+        padding: 40px 4%;
+    }
+    .footer-column {
+        margin-bottom: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding-top: 80px;
+    }
+    .fixed-navbar {
+        padding: 10px 15px;
+    }
+    .fixed-navbar .logo-image {
+        height: 50px;
+    }
+    .fixed-navbar.scrolled .logo-image {
+        height: 40px; /* Make logo smaller on scroll for mobile */
+    }
+    .user-actions {
+        gap: 10px;
+    }
+    .nav-action-icon {
+        font-size: 22px;
+    }
+    .hamburger-menu {
+        font-size: 28px;
+    }
+    .common-padding {
+        padding: 40px 3%;
+    }
+    .section-title {
+        font-size: 1.8em;
+        margin-bottom: 30px;
+    }
+    .hero-section {
+        height: 350px;
+    }
+    .hero-title {
+        font-size: 2.2em;
+    }
+    .hero-subtitle {
+        font-size: 1em;
+    }
+    .main-hero-search-box {
+        max-width: 100%;
+    }
+    .main-hero-search-box input {
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+    .main-hero-search-box button {
+        padding: 10px 15px;
+        font-size: 1.2em;
+    }
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+
+    /* Overlay adjustments for smallest screens */
+    .overlay-close-btn {
+        font-size: 40px;
+        top: 15px;
+        right: 20px;
+    }
+    .overlay-search-box input {
+        padding: 10px 12px;
+        font-size: 0.9em;
+    }
+    .overlay-search-box button {
+        padding: 10px 12px;
+        font-size: 1.1em;
+    }
+    /* .overlay-main-menu h3,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links h3 {
+        font-size: 1.2em;
+        margin-bottom: 15px;
+    }
+    /* .overlay-main-menu ul li a,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links ul li a {
+        font-size: 0.9em;
+        flex-direction: column; /* Stack icon and text */
+        gap: 5px;
+    }
+    /* .overlay-main-menu ul li a i,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links ul li a i {
+        font-size: 1.2em;
+    }
+    /* .overlay-user-actions .nav-action-icon { */ /* Remove if you don't want these actions in overlay */
+    /* font-size: 1em; */
+    /* } */
+    /* .overlay-user-actions .nav-action-icon i { */ /* Remove if you don't want these actions in overlay */
+    /* font-size: 1.5em; */
+    /* } */
+
+
+    .support-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .map-section {
+        width: 100%;
+    }
+
+    .cta-section {
+        height: 250px;
+    }
+    .cta-content h2 {
+        font-size: 1.8em;
+    }
+    .cta-content p {
+        font-size: 0.9em;
+    }
+    footer {
+        padding: 30px 3%;
+    }
+    .footer-column h4 {
+        font-size: 1.2em;
+    }
+    .footer-bottom {
+        padding-top: 15px;
+        margin-top: 25px;
+        font-size: 0.85em;
+    }
+}
