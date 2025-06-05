@@ -15,9 +15,9 @@
       background: url('images/background1.jpg') no-repeat center center fixed;
       background-size: cover;
       margin: 0;
-      padding-left: 20px; /* Hoặc giá trị mong muốn */
-      padding-right: 20px; /* Hoặc giá trị mong muốn */
-      padding-bottom: 40px; /* Hoặc giá trị mong muốn */
+      padding-left: 20px; 
+      padding-right: 20px; 
+      padding-bottom: 40px; 
       color: #333;
     }
     body::before {
@@ -37,108 +37,169 @@
     }
 
 
-        /* --- NAVIGATION BAR STYLES --- */
-        /* Đảm bảo CSS cho .fixed-navbar và các thành phần con giống với trang mẫu */
+/* --- THANH ĐIỀU HƯỚNG --- */
+/* === THANH MENU CHÍNH === */
+/* --- THANH TRANG CHỦ  CHÍNH --- */
+.fixed-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1001; /* Đã cập nhật z-index để nằm trên thanh phụ */
+    background-color: orange;
+    padding: 10px 40px; /* Đảm bảo padding chuẩn */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: padding 0.3s ease, background-color 0.3s ease, height 0.3s ease; /* Thêm height vào transition */
+    height: 70px; /* Đặt chiều cao cố định cho thanh chính */
+}
+.fixed-navbar .logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+.fixed-navbar .logo-image {
+    height: 50px;
+    transition: height 0.3s ease;
+}
+.fixed-navbar .main-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex: 1;
+}
+.fixed-navbar .nav-link {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 5px 10px; /* Điều chỉnh padding để tạo không gian cho nền và khung */
+    border-radius: 8px; /* Bo tròn góc */
+    transition: transform 0.2s ease-out, text-shadow 0.2s, background-color 0.2s ease, color 0.2s ease;
+    display: inline-block;
+    position: relative; /* Cần thiết cho pseudo-element */
+    z-index: 1; /* Đảm bảo link nằm trên pseudo-element */
+}
+
+/* Style cho nav-link active (trang hiện tại) */
+.fixed-navbar .nav-link.active {
+    background-color: white; /* Nền trắng */
+    color: #D70F17; /* Chữ đỏ */
+    text-decoration: none; /* Bỏ gạch chân nếu có */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Thêm đổ bóng nhẹ */
+    transform: none; /* Đảm bảo không bị dịch chuyển khi active */
+    text-shadow: none; /* Bỏ text-shadow khi active */
+}
+
+/* Style khi hover các nav-link, áp dụng cả cho link active */
+.fixed-navbar .nav-link:hover {
+    text-decoration: none; /* Bỏ gạch chân khi hover nếu muốn chỉ dùng khung */
+    transform: translateY(-3px) scale(1.05); /* Hiệu ứng dịch chuyển và phóng to */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.7); /* Hiệu ứng đổ bóng chữ */
+    /* Không cần padding ở đây nữa vì đã có ở .nav-link ban đầu */
+}
+
+/* Thêm khung bằng pseudo-element */
+.fixed-navbar .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent; /* Khởi tạo viền trong suốt */
+    border-radius: 8px; /* Bo tròn góc khung */
+    transition: border-color 0.2s ease-out, transform 0.2s ease-out, opacity 0.2s ease-out;
+    z-index: -1; /* Đảm bảo khung nằm dưới chữ */
+    pointer-events: none; /* Đảm bảo không cản trở sự kiện click */
+    opacity: 0; /* Ẩn khung ban đầu */
+    transform: scale(0.8); /* Khởi tạo nhỏ hơn để có hiệu ứng phóng to khi hover */
+}
+
+/* Hiển thị khung khi hover */
+.fixed-navbar .nav-link:hover::before {
+    border-color: white; /* Màu viền khi hover */
+    opacity: 1; /* Hiển thị khung */
+    transform: scale(1); /* Phóng to ra kích thước thật */
+}
+
+/* Đảm bảo hiệu ứng cuộn vẫn hoạt động tốt trên link active */
+.fixed-navbar.scrolled .nav-link.active {
+    background-color: white;
+    color: #D70F17;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.fixed-navbar .user-actions {
+    display: flex;
+    align-items: center;
+    gap: 25px; 
+    flex-shrink: 0; 
+}
+.fixed-navbar .nav-action-icon {
+    color: white;
+    font-size: 26px;
+    text-decoration: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+.fixed-navbar .nav-action-icon:hover {
+    opacity: 0.8;
+}
+.fixed-navbar .cart-item-count {
+    position: absolute;
+    top: 0px; 
+    right: -3px; 
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 1px 5px;
+    font-size: 0.7em;
+    font-weight: bold;
+    line-height: 1;
+    min-width: 16px;
+    text-align: center;
+    border: 1px solid white;
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 992px) {
     .fixed-navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      background-color: orange;
-      padding: 10px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      transition: padding 0.3s ease, background-color 0.3s ease, height 0.3s ease;
+        padding: 10px 25px;
     }
-    .fixed-navbar .logo-container {
-      display: flex;
-      align-items: center;
+    .user-actions {
+        gap: 15px;
     }
-    .fixed-navbar .logo-link {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
+    .main-menu { /* Hide main menu on smaller screens */
+        display: none;
+    }
+  }
+@media (max-width: 480px) {
+    body {
+        padding-top: 80px;
+    }
+    .fixed-navbar {
+        padding: 10px 15px;
     }
     .fixed-navbar .logo-image {
-      height: 50px;
-      width: auto;
-      transition: height 0.3s ease;
-      object-fit: contain;
+        height: 50px;
     }
-    .fixed-navbar .main-menu {
-      flex: 1; /* Quan trọng để chiếm không gian giữa */
-      display: flex;
-      justify-content: center; /* Căn giữa các mục menu */
-      align-items: center;
-      gap: 30px;
+    .fixed-navbar.scrolled .logo-image {
+        height: 40px; /* Make logo smaller on scroll for mobile */
     }
-    .fixed-navbar .main-menu .nav-link {
-      color: white;
-      font-weight: bold;
-      text-decoration: none;
-      font-size: 16px;
-      padding: 5px 0;
+    .user-actions {
+        gap: 10px;
     }
-    .fixed-navbar .main-menu .nav-link:hover {
-      text-decoration: underline;
+    .nav-action-icon {
+        font-size: 22px;
     }
-    .fixed-navbar .user-actions {
-      flex-shrink: 0; /* Ngăn co lại */
-      display: flex;
-      align-items: center;
-      gap: 25px;
-    }
-    .fixed-navbar .user-actions .nav-action-icon {
-      color: white;
-      text-decoration: none;
-      font-size: 26px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      padding: 5px;
-    }
-    .fixed-navbar .user-actions .nav-action-icon:hover {
-      opacity: 0.8;
-    }
-    .fixed-navbar .cart-item-count {
-      position: absolute;
-      top: 0px;
-      right: -5px;
-      background-color: red;
-      color: white;
-      border-radius: 50%;
-      padding: 1px 5px;
-      font-size: 0.7em;
-      font-weight: bold;
-      line-height: 1;
-      min-width: 16px;
-      text-align: center;
-      border: 1px solid white;
-      box-shadow: 0 0 3px rgba(0,0,0,0.3);
-    }
-        /* --- END OF NAVIGATION BAR STYLES --- */
-
-
-        /* Responsive styles giữ nguyên */
-    @media (max-width: 768px) {
-      .fixed-navbar { padding: 10px 20px; flex-direction: column; align-items: flex-start; height: auto !important; }
-      .fixed-navbar .main-menu { flex-direction: column; gap: 10px; width: 100%; align-items: flex-start; margin-top: 10px; }
-      .fixed-navbar .user-actions { margin-top: 10px; align-self: flex-start; gap: 15px; }
-      }
-    @media (max-width: 480px) {
-      .fixed-navbar .user-actions .nav-action-icon {
-          font-size: 22px;
-        }
-      .fixed-navbar .cart-item-count {
-          font-size: 0.65em;
-          padding: 1px 4px;
-          min-width: 14px;
-         }
-    }
-
+  }
 
 /* Vùng bọc toàn bộ banner để căn giữa nội dung */
     .promo-banner .container {
@@ -172,18 +233,6 @@
   z-index: 0;
 }
 
-/* Nội dung chữ nằm trên lớp phủ */
-.banner-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;          
-  text-align: center;
-  z-index: 2;  /* phải cao hơn lớp phủ */
-}
-
-
 
         /* CSS cho .promo-grid, .promo-item, .pagination, ... giữ nguyên */
     .promo-grid {
@@ -195,50 +244,83 @@
       margin-top: 20px;
     }
         /* ... (các style khác đã cung cấp ở lần trước) ... */
+    .promo-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        margin-top: 20px;
+    }
+
     .promo-item {
-      background-color: white;
-      border-radius: 18px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-      border: 2px solid #ffa000;
-      overflow: hidden;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background-color: white;
+        border-radius: 18px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        border: 2px solid #ffa000;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
+    /* Khuyến mãi lẻ (1,3) - ảnh trái, nội dung phải */
+    .promo-item:nth-child(odd) {
+        flex-direction: row;
+    }
+
+    /* Khuyến mãi chẵn (2,4) - ảnh phải, nội dung trái */
+    .promo-item:nth-child(even) {
+        flex-direction: row-reverse;
+    }
+
     .promo-item:hover {
-      transform: scale(1.02);
-      box-shadow: 0 16px 32px rgba(255, 102, 0, 0.3);
+        transform: scale(1.02);
+        box-shadow: 0 16px 32px rgba(255, 102, 0, 0.3);
     }
+
     .promo-item img {
-      width: 100%;
-      height: 350px;
-      display: block;
-      pointer-events: none;
-      object-fit: cover;
-      object-position: center center;
+        width: 50%;
+        height: 350px;
+        object-fit: cover;
+        object-position: center center;
     }
+
+    .promo-content {
+        width: 50%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
     .promo-title {
-      font-size: 1.3rem;
-      font-weight: 900;
-      color: #ff6600;
-      padding: 14px 16px;
-      min-height: 60px;
+        font-size: 1.3rem;
+        font-weight: 900;
+        color: #ff6600;
+        padding: 14px 16px;
+        margin-bottom: 20px;
+        text-align: center;
     }
+
     .promo-button {
-      position: relative;
-      display: inline-block;
-      margin-bottom: 16px;
-      background-color: #ff6600;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-weight: bold;
-      overflow: hidden;
-      transition: background-color 0.3s;
-      z-index: 0;
-      box-shadow: 0 4px 8px rgba(255, 160, 0, 0.4);
-      border: 2px solid #ffa000;
+        position: relative;
+        display: inline-block;
+        margin-bottom: 16px;
+        background-color: #ff6600;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-weight: bold;
+        overflow: hidden;
+        transition: background-color 0.3s;
+        z-index: 0;
+        box-shadow: 0 4px 8px rgba(255, 160, 0, 0.4);
+        border: 2px solid #ffa000;
     }
+
     .promo-button::before {
       content: '';
       position: absolute;
@@ -325,15 +407,16 @@
 <nav class="fixed-navbar" id="mainNavbar">
     <div class="logo-container">
         <a href="index.html" class="logo-link">
-            <img src="..//mfc.jpg" alt="Logo Gà Rán HOÀNG" class="logo-image" id="navbarLogo">
+            <img src="../mfc.jpg" alt="Logo Gà Rán HOÀNG" class="logo-image" id="navbarLogo">
         </a>
     </div>
     <div class="main-menu">
-        <a href="..//index.html" class="nav-link">Trang chủ</a>
+        <a href="../index.html" class="nav-link">Trang chủ</a>
         <a href="#" class="nav-link">Thực đơn</a>
         <a href="Khuyenmai1.html" class="nav-link">Khuyến mãi</a>
-        <a href="..//tranglienhe.html" class="nav-link">Liên hệ</a>
+        <a href="../tranglienhe.html" class="nav-link">Liên hệ</a>
     </div>
+    <!-- Đảm bảo phần user-actions có đầy đủ -->
     <div class="user-actions">
         <a href="giohang.html" class="nav-action-icon" aria-label="Giỏ hàng">
             <i class='bx bxs-cart'></i>
@@ -349,35 +432,46 @@
 <div class="promo-banner">
   <div class="container">
     <img src="images/Banner_khuyenmai.jpg" alt="Banner Image" />
-    <div class="banner-content">
-      <h1>KHUYẾN MÃI</h1>
-      <p>SIÊU ƯU Đ</p>
-    </div>
   </div>
 </div>
 
 
 
 <div class="promo-grid">
+    <!-- Khuyến mãi 1 - ảnh trái, nội dung phải -->
     <div class="promo-item">
         <img src="images/Khuyenmai1.jpg" alt="Gọi Combo - Tặng Thêm Nước">
-        <div class="promo-title">Gọi Combo - Tặng Thêm Nước</div>
-        <a href="Khuyenmai1.html" class="promo-button">Xem thêm</a>
+        <div class="promo-content">
+            <div class="promo-title">Gọi Càng Nhiều Combo - Càng Tặng Thêm Nhiều Nước</div>
+            <a href="Khuyenmai1.html" class="promo-button">Xem thêm</a>
+        </div>
     </div>
+    
+    <!-- Khuyến mãi 2 - ảnh phải, nội dung trái -->
     <div class="promo-item">
         <img src="images/Khuyenmai2.jpg" alt="Càng Đông - Càng Vui - Quà Càng Chất">
-        <div class="promo-title">Càng Đông - Càng Vui - Quà Càng Chất</div>
-        <a href="Khuyenmai2.html" class="promo-button">Xem thêm</a>
+        <div class="promo-content">
+            <div class="promo-title"> Đi Càng Đông - Ăn Càng Vui - Quà Càng Chất</div>
+            <a href="Khuyenmai2.html" class="promo-button">Xem thêm</a>
+        </div>
     </div>
+    
+    <!-- Khuyến mãi 3 - ảnh trái, nội dung phải -->
     <div class="promo-item">
         <img src="images/Khuyenmai3.jpg" alt="Check-in Là Có Quà">
-        <div class="promo-title">Check-in Là Có Quà</div>
-        <a href="Khuyenmai3.html" class="promo-button">Xem thêm</a>
+        <div class="promo-content">
+            <div class="promo-title">Check-in Ngay Tại Quán - Nhận Quà Liền Tay</div>
+            <a href="Khuyenmai3.html" class="promo-button">Xem thêm</a>
+        </div>
     </div>
+    
+    <!-- Khuyến mãi 4 - ảnh phải, nội dung trái -->
     <div class="promo-item">
         <img src="images/Khuyenmai4.jpg" alt="Tích Điểm Nhận Quà Bất Ngờ">
-        <div class="promo-title">Tích Điểm Nhận Quà Bất Ngờ</div>
-        <a href="Khuyenmai4.html" class="promo-button">Xem thêm</a>
+        <div class="promo-content">
+            <div class="promo-title">Tích Điểm Đủ Dấu - Nhận Quà Bất Ngờ</div>
+            <a href="Khuyenmai4.html" class="promo-button">Xem thêm</a>
+        </div>
     </div>
 </div>
 
