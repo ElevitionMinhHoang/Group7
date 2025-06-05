@@ -11,15 +11,15 @@
 <body>
   <nav class="fixed-navbar" id="mainNavbar">
     <div class="logo-container">
-      <a href="index.html" class="logo-link">
-        <img src="https://lh3.googleusercontent.com/fife/ALs6j_GV9_DpzbzHblVxIyYfsG3nJK0qWxAPIiUUCioH2Sx_rAzHsw8Hw-nl1vMnX5fUZ9dSDTQTD33NWj6QqsRCi5lszQrNVGbhPWTyq7PqCNmLOqakZSYD5sGC5NknPkFs1TxbAG0kOkFAl2uNdetiyu7ZojCb-Ao6Jc_mtw1rSE1XyWhTIab062dln7h1" alt="MFC Logo" class="logo-image" id="navbarLogo">
-      </a>
+        <a href="index.html" class="logo-link">
+            <img src="https://lh3.googleusercontent.com/fife/ALs6j_GV9_DpzbzHblVxIyYfsG3nJK0qWxAPIiUUCioH2Sx_rAzHsw8Hw-nl1vMnX5fUZ9dSDTQTD33NWj6QqsRCi5lszQrNVGbhPWTyq7PqCNmLOqakZSYD5sGC5NknPkFs1TxbAG0kOkFAl2uNdetiyu7ZojCb-Ao6Jc_mtw1rSE1XyWhTIab062dln7h1" alt="MFC Logo" class="logo-image" id="navbarLogo">
+        </a>
     </div>
     <div class="main-menu">
-      <a href="index.html" class="nav-link">Trang chủ</a>
-      <a href="Khuyen_mai_MFC/Khuyen_mai_page1.html" class="nav-link">Khuyến mãi</a>
-      <a href="#" class="nav-link">Thực đơn</a>
-      <a href="tranglienhe.html" class="nav-link active">Liên hệ</a>
+        <a href="index.html" class="nav-link">Trang chủ</a>
+        <a href="#" class="nav-link">Thực đơn</a>
+        <a href="Khuyen_mai_MFC/Khuyen_mai_page1.html" class="nav-link">Khuyến mãi</a>
+        <a href="tranglienhe.html" class="nav-link">Liên hệ</a>
     </div>
     <div class="user-actions">
         <a href="#" class="nav-action-icon" aria-label="Giỏ hàng" id="cartIconLink">
@@ -28,21 +28,33 @@
         <a href="#" class="nav-action-icon" aria-label="Tài khoản">
             <i class='bx bx-user-circle'></i>
         </a>
-        <div class="hamburger-menu" id="hamburgerMenu">
-            <i class='bx bx-menu'></i>
+    </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+    <ul>
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="ThucDon.html">Thực đơn</a></li>
+        <li><a href="Khuyen_mai_MFC/Khuyen_mai_page1.html">Khuyến mãi</a></li>
+        <li><a href="tranglienhe.html" class="active-mobile-link">Liên hệ </a></li>
+    </ul>
+</div>
+
+<div class="full-screen-search-overlay" id="fullScreenSearchOverlay">
+    <div class="overlay-close-btn" id="overlayCloseBtn"><i class='bx bx-x'></i></div>
+    <div class="overlay-content">
+        <div class="overlay-support-links">
+            <h3>Hỗ trợ nhanh</h3>
+            <ul>
+                <li><a href="#cartIconLinkOverlay" class="overlay-nav-link scroll-to-element"><i class='bx bx-notepad'></i> Đặt hàng & Giao hàng</a></li>
+                <li><a href="#feedbackForm" class="overlay-nav-link scroll-to-element"><i class='bx bx-user'></i> Vấn đề tài khoản</a></li>
+                <li><a href="#feedbackForm" class="overlay-nav-link scroll-to-element"><i class='bx bx-bulb'></i> Đóng góp & Gợi ý</a></li>
+                <li><a href="#faq-section" class="overlay-nav-link scroll-to-element"><i class='bx bx-help-circle'></i> Câu hỏi thường gặp</a></li> <li><a href="tel:0975459348" class="overlay-nav-link"><i class='bx bxs-phone'></i> Hotline: 0975459348</a></li>
+                <li><a href="mailto:support@mfc.com" class="overlay-nav-link"><i class='bx bxs-envelope'></i> Email: support@mfc.com</a></li>
+            </ul>
         </div>
     </div>
-  </nav>
-
-  <div class="mobile-menu" id="mobileMenu">
-      <ul>
-          <li><a href="index.html">Trang chủ</a></li>
-          <li><a href="#">Thực đơn</a></li>
-          <li><a href="Khuyen_mai_MFC/Khuyen_mai_page1.html">Khuyến mãi</a></li>
-          <li><a href="tranglienhe.html" class="active-mobile-link">Liên hệ </a></li>
-      </ul>
-  </div>
-
+</div>
   <div class="full-screen-search-overlay" id="fullScreenSearchOverlay">
       <div class="overlay-close-btn" id="overlayCloseBtn"><i class='bx bx-x'></i></div>
       <div class="overlay-content">
@@ -64,16 +76,10 @@
       </div>
   </div>
 
-  <section class="hero-section" style="background-image: url('https://i.pinimg.com/736x/8a/b4/4a/8ab44ab86b9eb06a2505b8a4c8cefae2.jpg');">
-    <div class="hero-overlay"></div>
-    <div class="hero-content"> 
-      <h1 class="hero-title">MR. Fried Chicken</h1> 
-      <p class="hero-subtitle">Hương vị giòn tan, chuẩn vị Gà Rán Mỹ</p> 
-      </div>
+  <section class="hero-section" style="background-image: url('anhlienhe1.png');">
   </section>
 
   <section class="support-info-section common-padding bg-light scroll-reveal" id="support-info-section">
-    <h2 class="section-title">Hỗ trợ khách hàng</h2>
     <div class="support-grid">
       <div class="info-contact-card">
         <div class="icon-circle"><i class='bx bxs-phone'></i></div>
@@ -103,7 +109,7 @@
         <div class="icon-circle"><i class='bx bx-bulb'></i></div>
         <h3>Đóng góp & Gợi ý</h3>
         <p>Chúng tôi luôn lắng nghe ý kiến của bạn</p>
-        <p class="contact-detail"><a href="#feedbackForm" class="scroll-to-element">Sử dụng biểu mẫu</a></p>
+        <p class="contact-detail"><a href="#feedback-form-section" class="scroll-to-element">Sử dụng biểu mẫu</a></p>
       </div>
       <div class="info-contact-card">
         <div class="icon-circle"><i class='bx bx-help-circle'></i></div>
@@ -171,7 +177,7 @@
   </section>
   <section class="feedback-form-section common-padding bg-light scroll-reveal" id="feedback-form-section">
     <div class="login-register-form">
-      <h2 class="section-title left-align">Gửi phản hồi cho chúng tôi</h2> 
+      <h2 class="section-title ">Gửi phản hồi cho chúng tôi</h2> 
       <p class="form-description">Chúng tôi luôn lắng nghe để phục vụ bạn tốt hơn!</p>
       <form action="#" method="POST" id="feedbackForm">
         <div class="form-group">
@@ -218,9 +224,9 @@
             <h4>Thông tin</h4>
             <ul>
                 <li><a href="index.html">Trang chủ</a></li>
-                <li><a href="#">Thực đơn</a></li>
-                <li><a href="tranglienhe.html">Liên hệ & Hỗ trợ</a></li>
-<li><a href="Khuyen_mai_MFC/Khuyen_mai_page1.html">Khuyến mãi</a></li>
+                <li><a href="#">Thực đơn</a></li><li>
+                  <a href="Khuyen_mai_MFC/Khuyen_mai_page1.html">Khuyến mãi</a></li>
+                <li><a href="tranglienhe.html">Liên hệ </a></li>
         </div>
 
         <div class="footer-column footer-policy">
@@ -230,7 +236,6 @@
                 <li><a href="#">Chính sách bảo mật thông tin</a></li>
                 <li><a href="#">Chính sách giao hàng</a></li>
                 <li><a href="#">Chính sách đổi trả & hoàn tiền</a></li>
-                <li><a href="#">Điều khoản sử dụng</a></li>
             </ul>
         </div>
 
@@ -246,7 +251,6 @@
         <p>© 2025 MR. Fried Chicken. All rights reserved.</p>
     </div>
   </footer>
-
   <script src="tranglienhescript.js"></script>
 </body>
 </html>

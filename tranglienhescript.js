@@ -148,27 +148,49 @@ document.addEventListener('DOMContentLoaded', function() {
             let errorMessages = [];
 
             function validateField(inputElement, errorMessage) {
+                let currentErrorMessage = null;
+                // First, check basic HTML5 validity (required, pattern etc.)
                 if (!inputElement.value.trim()) {
-                    inputElement.classList.add('invalid-input');
-                    return errorMessage;
+                    currentErrorMessage = errorMessage;
+                } else if (inputElement.checkValidity && !inputElement.checkValidity()) {
+                    currentErrorMessage = inputElement.title || 'Giá trị không hợp lệ.';
                 }
-                if (inputElement.checkValidity && !inputElement.checkValidity()) {
-                    inputElement.classList.add('invalid-input');
-                    return inputElement.title || 'Giá trị không hợp lệ.';
+
+                // Specific validation for email and phone for better correctness
+                if (inputElement.id === 'email') {
+                    // A more robust email regex
+                    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    if (!emailRegex.test(inputElement.value.trim())) {
+                        currentErrorMessage = 'Vui lòng nhập địa chỉ email hợp lệ (ví dụ: email@example.com).';
+                    }
+                } else if (inputElement.id === 'phone') {
+                    // Vietnamese phone number regex (10 digits, common mobile prefixes: 03, 05, 07, 08, 09)
+                    // Allows numbers like 0912345678 or 84912345678
+                    const phoneRegex = /^(0|84)(3|5|7|8|9)\d{8}$/;
+                    if (!phoneRegex.test(inputElement.value.trim())) {
+                        currentErrorMessage = 'Vui lòng nhập số điện thoại hợp lệ (ví dụ: 0912345678 hoặc 84912345678).';
+                    }
                 }
-                inputElement.classList.remove('invalid-input');
-                return null;
+
+                if (currentErrorMessage) {
+                    inputElement.classList.add('invalid-input');
+                    return currentErrorMessage;
+                } else {
+                    inputElement.classList.remove('invalid-input');
+                    return null;
+                }
             }
+
 
             let error;
 
             error = validateField(nameInput, 'Vui lòng nhập tên của bạn.');
             if (error) { allValid = false; errorMessages.push(error); }
 
-            error = validateField(emailInput, 'Vui lòng nhập địa chỉ email hợp lệ.');
+            error = validateField(emailInput, 'Vui lòng nhập địa chỉ email hợp lệ.'); // This message will be overridden by custom one if regex fails
             if (error) { allValid = false; errorMessages.push(error); }
 
-            error = validateField(phoneInput, 'Vui lòng nhập số điện thoại hợp lệ (10 hoặc 11 chữ số).');
+            error = validateField(phoneInput, 'Vui lòng nhập số điện thoại hợp lệ (10 hoặc 11 chữ số).'); // This message will be overridden by custom one if regex fails
             if (error) { allValid = false; errorMessages.push(error); }
 
             error = validateField(subjectInput, 'Vui lòng nhập chủ đề.');
@@ -310,19 +332,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Force a reflow to ensure browser has applied the new padding and calculated correct scrollHeight
                 // This is crucial for accurate scrollHeight calculation when padding changes
                 answer.offsetHeight; // This line forces the browser to re-calculate layout
-                
+
                 // Calculate the actual height of the content (including applied padding)
                 answer.style.maxHeight = answer.scrollHeight + 'px';
 
-                // Scroll to the element after a short delay to allow expansion
-                setTimeout(() => {
-                    // Get current offset after navbar might have changed height (e.g., scrolled)
-                    const offset = navbar ? navbar.offsetHeight + 20 : 0;
-                    window.scrollTo({
-                        top: question.offsetTop - offset, // Scroll to the question, not the answer itself
-                        behavior: 'smooth'
-                    });
-                }, 400); // Match this delay to your CSS transition duration for max-height
+                // Check if the clicked question is out of view before scrolling
+                const questionRect = question.getBoundingClientRect();
+                const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+
+                // Define a threshold for "out of view" to avoid unnecessary scrolling
+                const scrollThreshold = 20; // Scroll if element is within 20px of top/bottom edge
+
+                const isQuestionTooHigh = questionRect.top < 0 + scrollThreshold;
+                const isQuestionTooLow = questionRect.bottom > viewportHeight - scrollThreshold;
+                const isAnswerTooLow = questionRect.bottom + answer.scrollHeight > viewportHeight - scrollThreshold;
+
+
+                if (isQuestionTooHigh || isQuestionTooLow || isAnswerTooLow) {
+                    setTimeout(() => {
+                        const offset = navbar ? navbar.offsetHeight + 20 : 0; // Add navbar height + some margin
+                        window.scrollTo({
+                            top: question.offsetTop - offset,
+                            behavior: 'smooth'
+                        });
+                    }, 400); // Match this delay to your CSS transition duration for max-height
+                }
             }
         });
     });

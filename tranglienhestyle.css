@@ -166,34 +166,58 @@ input, textarea, button, select {
 
 /* --- NAVIGATION BAR --- */
 .fixed-navbar {
-    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-    background-color: orange; padding: 10px 40px; display: flex;
-    align-items: center; justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: orange;
+    padding: 15px 50px; /* Tăng padding để thanh to lên */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     transition: padding 0.3s ease, background-color 0.3s ease;
 }
-.fixed-navbar .logo-link { display: flex; align-items: center; text-decoration: none;}
-.fixed-navbar .logo-image { height: 50px; transition: height 0.3s ease;}
-.fixed-navbar .main-menu { display: flex; justify-content: center; align-items: center; gap: 30px; flex: 1;}
+
+.fixed-navbar .logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.fixed-navbar .logo-image {
+    height: 60px; /* Tăng chiều cao logo */
+    transition: height 0.3s ease;
+}
+
+.fixed-navbar .main-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px; /* Tăng khoảng cách giữa các mục menu */
+    flex: 1;
+}
+
 .fixed-navbar .nav-link {
     color: white;
     font-weight: bold;
     text-decoration: none;
-    font-size: 16px;
-    padding: 5px 0;
+    font-size: 18px; /* Tăng kích thước font chữ cho menu chính */
+    padding: 7px 0; /* Tăng padding dọc */
     transition: transform 0.2s ease-out, text-shadow 0.2s ease-out, border 0.2s ease-out, padding 0.2s ease-out;
     display: inline-block;
-    position: relative; /* Cần thiết cho pseudo-element */
-    z-index: 1; /* Đảm bảo link nằm trên pseudo-element */
-}
-.fixed-navbar .nav-link:hover {
-    text-decoration: none; /* Bỏ gạch chân khi hover nếu muốn chỉ dùng khung */
-    transform: translateY(-3px) scale(1.05);
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
-    padding: 5px 15px; /* Tăng padding để tạo không gian cho khung */
+    position: relative;
+    z-index: 1;
 }
 
-/* Thêm khung bằng pseudo-element */
+.fixed-navbar .nav-link:hover {
+    text-decoration: none;
+    transform: translateY(-3px) scale(1.05);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); /* Tăng độ sáng text-shadow */
+    padding: 7px 18px; /* Tăng padding để tạo không gian cho khung */
+}
+
 .fixed-navbar .nav-link::before {
     content: '';
     position: absolute;
@@ -201,82 +225,76 @@ input, textarea, button, select {
     left: 0;
     right: 0;
     bottom: 0;
-    border: 2px solid transparent; /* Khởi tạo viền trong suốt */
-    border-radius: 8px; /* Bo tròn góc khung */
+    border: 2px solid transparent;
+    border-radius: 8px;
     transition: border-color 0.2s ease-out, transform 0.2s ease-out, opacity 0.2s ease-out;
-    z-index: -1; /* Đảm bảo khung nằm dưới chữ */
-    pointer-events: none; /* Đảm bảo không cản trở sự kiện click */
-    opacity: 0; /* Ẩn khung ban đầu */
-    transform: scale(0.8); /* Khởi tạo nhỏ hơn để có hiệu ứng phóng to khi hover */
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0.8);
 }
 
 .fixed-navbar .nav-link:hover::before {
-    border-color: white; /* Màu viền khi hover */
-    opacity: 1; /* Hiển thị khung */
-    transform: scale(1); /* Phóng to ra kích thước thật */
+    border-color: white;
+    opacity: 1;
+    transform: scale(1);
 }
-/* Main menu */
-.main-menu {
+
+/* --- CSS MỚI CHO USER ACTIONS (GIỎ HÀNG & TÀI KHOẢN) --- */
+.fixed-navbar .user-actions {
     display: flex;
-    gap: 30px;
-    flex-grow: 1;
-    justify-content: center;
-}
-
-.main-menu .nav-link {
-    color: var(--text-light);
-    font-weight: 500;
-    font-size: 1.1em;
-    padding: 5px 0;
-    position: relative;
-    transition: color 0.3s ease;
-}
-
-.main-menu .nav-link:hover,
-.main-menu .nav-link.active {
-    color: var(--accent-color);
-}
-
-.main-menu .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--accent-color);
-    transition: width 0.3s ease;
-}
-
-.main-menu .nav-link:hover::after,
-.main-menu .nav-link.active::after {
-    width: 100%;
-}
-
-.user-actions {
-    display: flex;
-    gap: 25px;
     align-items: center;
+    gap: 30px; /* Tăng khoảng cách giữa các icon */
+    flex-shrink: 0;
 }
 
-.user-actions .nav-action-icon {
-    color: var(--text-light);
-    font-size: 24px;
+.fixed-navbar .nav-action-icon {
+    color: white;
+    font-size: 30px; /* Tăng kích thước icon */
     text-decoration: none;
-    transition: color 0.3s ease, transform 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px; /* Tăng vùng click cho icon */
+    border-radius: 50%;
+    
+    /* Thêm transitions cho hiệu ứng hover */
+    transition: transform 0.2s ease-out, color 0.2s ease-out, filter 0.2s ease-out;
+    z-index: 1; 
 }
 
-.user-actions .nav-action-icon:hover {
-    color: var(--accent-color);
-    transform: translateY(-2px);
+.fixed-navbar .nav-action-icon:hover {
+    transform: translateY(-3px) scale(1.15); /* Tăng nhẹ hiệu ứng phóng to */
+    color: white;
+    filter: brightness(1.5) drop-shadow(0 0 7px rgba(255, 255, 255, 0.7)); /* Làm sáng và đổ bóng rõ hơn */
+}
+
+.fixed-navbar .cart-item-count {
+    position: absolute;
+    top: -2px; /* Điều chỉnh vị trí số lượng giỏ hàng */
+    right: -5px; /* Điều chỉnh vị trí số lượng giỏ hàng */
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px; /* Tăng padding */
+    font-size: 0.8em; /* Tăng kích thước font */
+    font-weight: bold;
+    line-height: 1;
+    min-width: 18px; /* Tăng kích thước tối thiểu */
+    text-align: center;
+    border: 1px solid white;
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    transition: none;
 }
 
 /* Hamburger menu (will be visible only on smaller screens) */
 .hamburger-menu {
-    display: none;
+    display: none; /* Hidden by default */
     font-size: 28px;
     cursor: pointer;
     color: var(--text-light);
+    margin-left: 15px; /* Add some space from other icons */
 }
 
 /* Mobile menu (will be visible only on smaller screens) */
@@ -292,11 +310,12 @@ input, textarea, button, select {
     transition: right 0.3s ease;
     padding: 20px;
     overflow-y: auto;
-    display: none;
+    display: none; /* Changed to display:none; to be handled by JS */
 }
 
 .mobile-menu.active {
     right: 0;
+    display: block; /* Show when active */
 }
 
 .mobile-menu ul {
@@ -493,7 +512,7 @@ input, textarea, button, select {
 
 /* --- Support Info Section --- */
 .support-info-section {
-    background-color: var(--bg-light);
+    background-color: var(--bg-light); /* Giữ màu nền sáng nhẹ */
 }
 
 .support-grid {
@@ -571,7 +590,7 @@ input, textarea, button, select {
 
 /* --- Map Section --- */
 .map-section {
-    background-color: var(--bg-light);
+    background-color: #FFFFFF; /* Màu nền trắng tinh khiết */
     max-width: 1200px;
     margin: 0 auto;
     padding-bottom: 0;
@@ -605,7 +624,7 @@ input, textarea, button, select {
 
 /* --- Testimonials Section --- */
 .testimonials-section {
-    background-color: var(--bg-light);
+    background-color: var(--bg-light); /* Giữ màu nền sáng nhẹ */
     padding-bottom: 100px; /* Thêm padding dưới để tạo khoảng trống */
 }
 
@@ -651,7 +670,7 @@ input, textarea, button, select {
 
 /* --- FAQ Section --- */
 .faq-section {
-    background-color: var(--bg-light);
+    background-color: #FFFFFF; /* Màu nền trắng tinh khiết */
     padding-bottom: 100px; /* Thêm padding dưới */
 }
 
@@ -707,7 +726,7 @@ input, textarea, button, select {
 
 .faq-answer {
     padding: 0 25px; /* Padding ngang khi ẩn */
-    font-size: 1em;
+    font-size: 0.9em;
     color: #555;
     max-height: 0; /* Ban đầu ẩn đi */
     overflow: hidden; /* Ẩn nội dung bị tràn */
@@ -716,7 +735,7 @@ input, textarea, button, select {
 }
 
 .faq-answer.active {
-    padding: 15px 30px 20px; /* Padding khi mở rộng - này sẽ áp dụng tức thì */
+    padding: 15px 15px; /* Padding khi mở rộng - này sẽ áp dụng tức thì */
     max-width: 100%;
     position: relative;
     z-index: 10;
@@ -731,7 +750,7 @@ input, textarea, button, select {
 
 /* --- Feedback Form Section --- */
 .feedback-form-section {
-    background-color: #ECF0F1; /* Nền hơi xám cho phần form */
+    background-color: var(--bg-light); /* Giữ màu nền sáng nhẹ */
     padding-top: 100px; /* Thêm padding trên */
 }
 
@@ -948,10 +967,10 @@ footer {
         display: none;
     }
     .hamburger-menu {
-        display: block;
+        display: block; /* Show hamburger on smaller screens */
     }
     .mobile-menu {
-        display: block;
+        display: block; /* Show mobile menu on smaller screens for proper JS toggle */
     }
 
     .hero-title {
@@ -1201,4 +1220,73 @@ footer {
         margin-top: 25px;
         font-size: 0.85em;
     }
+}
+
+/* --- HERO CAROUSEL --- */
+.hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    overflow: hidden;
+    background-color: #e0e0e0;
+}
+.hero-carousel .slides-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+    height: 100%;
+}
+.hero-carousel .slide {
+    min-width: 100%;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.hero-carousel .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- SLIDE CONTENT - MINIMALIST STYLE --- */
+.hero-carousel .slide-content {
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: transparent;
+    padding: 0;             
+    border-radius: 0;            
+    max-width: none;            
+    box-shadow: none;            
+    text-align: center;         
+}
+
+.hero-carousel .slide-content h2,
+.hero-carousel .slide-content p {
+    display: none; /* Ẩn tiêu đề H2 và đoạn văn P */
+}
+/* --- KẾT THÚC SLIDE CONTENT MINIMALIST --- */
+
+
+/* --- CSS CHO NÚT CTA TRONG HERO CAROUSEL --- */
+.hero-carousel .slide-content .cta-button {
+    position: relative; /* Essential for positioning the pseudo-element */
+    display: inline-block;
+    background-color: #ffc72c;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1em;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 3px 0px #f39200,
+                0 5px 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    overflow: hidden; /* Crucial to contain the shine effect within the button */
 }
