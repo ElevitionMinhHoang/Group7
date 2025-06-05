@@ -1,0 +1,1397 @@
+/* Tổng quan và Reset - Adopted from tranglienhe.html's styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif; /* Set default font for all elements */
+}
+
+:root {
+    --primary-color: #E67E22; /* Màu cam đậm hơn, nổi bật hơn */
+    --secondary-color: #F39C12; /* Màu cam vàng */
+    --accent-color: #FFD700; /* Vàng kim loại cho các điểm nhấn */
+    --text-dark: #2C3E50; /* Màu chữ tối cho nội dung chính */
+    --text-light: #ECF0F1; /* Màu chữ sáng cho nền tối */
+    --bg-light: #F4F6F7; /* Nền sáng nhẹ */
+    --bg-dark-overlay: rgba(0, 0, 0, 0.7); /* Lớp phủ cho ảnh nền */
+    --footer-bg: #34495E; /* Màu xanh than đậm cho footer */
+    --footer-text-color: #ECF0F1; /* Màu chữ sáng cho footer */
+    --footer-link-color: #FFD700; /* Vàng kim loại cho link footer */
+    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --card-hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    --border-color-light: #D5DBDB; /* Border nhẹ */
+    --support-card-bg: #FFFFFF; /* Nền cho thẻ hỗ trợ */
+    --support-card-hover-bg: #EAECEE; /* Nền hover cho thẻ hỗ trợ */
+    --icon-circle-bg: var(--primary-color);
+    --icon-circle-hover-bg: var(--secondary-color);
+    /* For RGB value of primary color, if needed by JS or specific components */
+    --primary-color-rgb: 230, 126, 34;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    padding-top: 90px; /* Adjusted to match tranglienhe.html navbar height */
+    line-height: 1.6;
+    overflow-x: hidden;
+    font-size: 16px;
+    display: flex; /* Added for footer push */
+    flex-direction: column; /* Added for footer push */
+    min-height: 100vh; /* Added for footer push */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+input, textarea, button, select {
+    font-family: 'Inter', sans-serif;
+}
+
+.common-padding {
+    padding: 80px 5%;
+}
+
+.bg-light {
+    background-color: var(--bg-light);
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Section Titles - Adopted from tranglienhe.html's styles */
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8em;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--accent-color);
+    border-radius: 2px;
+}
+
+.section-title.left-align {
+    text-align: left;
+    /* transform: none; /* This was causing issues with ::after positioning */
+    margin-left: 0;
+}
+.section-title.left-align::after {
+    left: 0;
+    transform: none;
+}
+
+
+/* Buttons - Adopted from tranglienhe.html's styles */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #D35400; /* Darker orange for hover */
+    border-color: #D35400;
+    transform: translateY(-2px);
+}
+
+.btn-secondary { /* Assuming this is for contrast on dark backgrounds if needed */
+    background-color: transparent;
+    color: var(--text-light);
+    border: 2px solid var(--text-light);
+}
+
+.btn-secondary:hover {
+    background-color: var(--text-light);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.btn-primary-outline {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-primary-outline:hover {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    transform: translateY(-2px);
+}
+
+
+/* --- NAVIGATION BAR --- (Copied from tranglienhe.html styles) */
+.fixed-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: orange; /* This is from tranglienhe, if you prefer white from your original, change it */
+    padding: 15px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: padding 0.3s ease, background-color 0.3s ease, height 0.3s ease; /* Added height transition */
+    /* height: 90px; /* Example fixed height, adjust as per your design for tranglienhe */
+}
+/* Script-controlled scrolled state if you use JS to add a class like 'scrolled' */
+.fixed-navbar.scrolled {
+    padding: 10px 50px; /* Reduced padding */
+    /* height: 70px; /* Reduced height */
+    background-color: rgba(255, 165, 0, 0.95); /* Slightly transparent orange */
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
+}
+
+.fixed-navbar .logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.fixed-navbar .logo-image {
+    height: 60px; /* Default logo height from tranglienhe */
+    transition: height 0.3s ease;
+}
+.fixed-navbar.scrolled .logo-image {
+    height: 50px; /* Smaller logo when scrolled */
+}
+
+
+.fixed-navbar .main-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    flex: 1;
+}
+
+.fixed-navbar .nav-link {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 7px 0;
+    transition: transform 0.2s ease-out, text-shadow 0.2s ease-out, border 0.2s ease-out, padding 0.2s ease-out;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+}
+
+.fixed-navbar .nav-link:hover {
+    text-decoration: none;
+    transform: translateY(-3px) scale(1.05);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+    padding: 7px 18px;
+}
+
+.fixed-navbar .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    transition: border-color 0.2s ease-out, transform 0.2s ease-out, opacity 0.2s ease-out;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.fixed-navbar .nav-link:hover::before {
+    border-color: white;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.fixed-navbar .user-actions {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-shrink: 0;
+}
+
+.fixed-navbar .nav-action-icon {
+    color: white;
+    font-size: 30px;
+    text-decoration: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 50%;
+    transition: transform 0.2s ease-out, color 0.2s ease-out, filter 0.2s ease-out;
+    z-index: 1;
+}
+
+.fixed-navbar .nav-action-icon:hover {
+    transform: translateY(-3px) scale(1.15);
+    color: white;
+    filter: brightness(1.5) drop-shadow(0 0 7px rgba(255, 255, 255, 0.7));
+}
+
+/* Hamburger menu (for responsiveness) */
+.hamburger-menu {
+    display: none;
+    font-size: 28px; /* From tranglienhe.html styles */
+    cursor: pointer;
+    color: white; /* Match nav-link color */
+    margin-left: 15px;
+}
+
+/* Mobile menu (for responsiveness) */
+.mobile-menu {
+    position: fixed;
+    top: 90px; /* Adjust if navbar height changes, should match body padding-top */
+    right: -300px; /* Start off-screen */
+    width: 280px;
+    height: calc(100% - 90px); /* Full height minus navbar */
+    background-color: var(--primary-color);
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    z-index: 999;
+    transition: right 0.3s ease;
+    padding: 20px;
+    overflow-y: auto;
+    display: none; /* Initially hidden, JS will toggle */
+}
+
+.mobile-menu.active {
+    right: 0; /* Slide in */
+    display: block;
+}
+
+.mobile-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.mobile-menu ul li {
+    margin-bottom: 15px;
+}
+
+.mobile-menu ul li a {
+    display: block;
+    padding: 10px 15px;
+    color: var(--text-light);
+    font-size: 1.1em;
+    font-weight: 500;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.mobile-menu ul li a:hover,
+.mobile-menu ul li a.active-mobile-link { /* active-mobile-link from tranglienhe */
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+}
+
+/* Full Screen Search and Navigation Overlay - Copied from tranglienhe.html styles */
+.full-screen-search-overlay {
+    height: 100%;
+    width: 0; /* Initially hidden */
+    position: fixed;
+    z-index: 1001;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.95);
+    overflow-x: hidden;
+    transition: 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--text-light);
+}
+
+.full-screen-search-overlay.active {
+    width: 100%; /* Show overlay */
+}
+
+.overlay-close-btn {
+    position: absolute;
+    top: 30px;
+    right: 45px;
+    font-size: 60px;
+    cursor: pointer;
+    color: #ccc;
+    transition: 0.3s;
+}
+
+.overlay-close-btn:hover {
+    color: var(--primary-color);
+}
+
+.overlay-content {
+    position: relative;
+    /* top: 15%; Removed to allow flex centering to work better */
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+    margin-top: 30px; /* Retained margin */
+}
+
+.overlay-search-box {
+    display: flex;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    margin-bottom: 40px;
+}
+
+.overlay-search-box input {
+    flex-grow: 1;
+    border: none;
+    padding: 18px 25px;
+    font-size: 1.2em;
+    outline: none;
+    background-color: transparent;
+    color: var(--text-dark);
+}
+
+.overlay-search-box input::placeholder {
+    color: #888;
+}
+
+.overlay-search-box button {
+    background-color: var(--primary-color);
+    border: none;
+    color: var(--text-light);
+    padding: 18px 20px;
+    font-size: 1.6em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.overlay-search-box button:hover {
+    background-color: #D35400; /* Darker primary */
+}
+
+.overlay-support-links { /* Removed .overlay-user-actions as it wasn't in tranglienhe.html's overlay */
+    margin-bottom: 30px;
+}
+
+.overlay-support-links h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8em;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.overlay-support-links ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px 30px; /* From tranglienhe.html */
+}
+
+.overlay-support-links ul li a {
+    color: #ccc; /* From tranglienhe.html */
+    font-size: 1.2em; /* From tranglienhe.html */
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: flex; /* From tranglienhe.html */
+    align-items: center; /* From tranglienhe.html */
+    gap: 8px; /* From tranglienhe.html */
+}
+
+.overlay-support-links ul li a:hover {
+    color: var(--text-light); /* From tranglienhe.html */
+    transform: translateY(-3px); /* From tranglienhe.html */
+}
+
+.overlay-support-links ul li a i {
+    font-size: 1.3em; /* From tranglienhe.html */
+}
+
+/* Page Container and Main Content - Retaining this structure for content below navbar */
+.page-container {
+    flex: 1; /* Allows it to grow and push the footer down */
+    width: 100%;
+    /* padding-top: 0; body already has padding-top for fixed navbar */
+    display: flex;
+    flex-direction: column; /* To stack multiple content sections like policy, faq etc. */
+    align-items: center; /* Center content horizontally */
+    padding-bottom: 50px; /* Add some space before the footer */
+}
+
+/* Main content will be specific sections like .policy-section, .faq-section */
+.main-content { /* General wrapper for content sections if needed, or apply to individual sections */
+    width: 90%;
+    max-width: 1200px; /* Max width for content */
+    background-color: #fff; /* Default background for content blocks */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+    margin-top: 30px; /* Space from navbar or previous section */
+}
+
+
+/* --- Styles for specific page content like Policy, FAQ, Contact, Map from your original CSS (to be kept) --- */
+
+/* Specific styles for the Policy Page */
+.policy-section { /* This can act as a .main-content block */
+    width: 90%;
+    max-width: 1200px; /* Consistent max-width */
+    background-color: #fff;
+    padding: 30px;     /* Consistent padding */
+    border-radius: 10px; /* Consistent border-radius */
+    box-shadow: var(--card-shadow); /* Consistent shadow */
+    margin: 30px auto; /* Centering and spacing */
+}
+
+.policy-section h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5em;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.policy-section h1::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--secondary-color);
+    border-radius: 5px;
+}
+
+.policy-item {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f9f9f9; /* Slightly different from --bg-light for contrast */
+    border-left: 5px solid var(--primary-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.policy-item h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8em;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color-light);
+    padding-bottom: 10px;
+}
+
+.policy-item ul {
+    list-style: disc; /* Keeping disc for policy items */
+    margin-left: 25px;
+    padding: 0; /* Reset padding if any was inherited */
+}
+
+.policy-item ul li {
+    margin-bottom: 10px;
+    font-size: 1.1em; /* Slightly larger for readability */
+    line-height: 1.7;
+    color: var(--text-dark);
+}
+
+.policy-item ul li ul {
+    list-style: circle;
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+/* FAQ Section - Retained from your CSS */
+.faq-section { /* This can act as a .main-content block */
+    width: 90%;
+    max-width: 900px; /* Max width for FAQ */
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+    margin: 30px auto; /* Centering and spacing */
+}
+
+.faq-section h2 { /* Using the global .section-title might be better for consistency */
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2em;
+    color: var(--primary-color);
+    margin-bottom: 40px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.faq-section h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--secondary-color);
+    border-radius: 5px;
+}
+
+.faq-search-bar {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.faq-search-bar input {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px 20px;
+    border: 1px solid var(--border-color-light);
+    border-radius: 25px;
+    font-size: 1.1em;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.faq-search-bar input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(var(--primary-color-rgb), 0.2);
+}
+
+.faq-item {
+    border: 1px solid var(--border-color-light);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow); /* Applied consistent shadow */
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #f0f0f0; /* Light grey for question */
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.15em;
+    color: var(--text-dark);
+    transition: background-color 0.3s ease;
+}
+
+.faq-question:hover {
+    background-color: #e0e0e0; /* Darker grey on hover */
+}
+
+.faq-question.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.faq-question .toggle-icon {
+    font-size: 1.5em;
+    transition: transform 0.3s ease;
+}
+
+.faq-question.active .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    background-color: #fff;
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+}
+
+.faq-answer p {
+    padding-top: 15px; /* Added for spacing within answer */
+    padding-bottom: 15px; /* Added for spacing within answer */
+    font-size: 1em;
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.faq-answer.active {
+    max-height: 500px; /* Increased max-height for potentially longer answers */
+    padding: 15px 20px; /* Ensure padding is applied when active */
+}
+
+/* Contact Section - Retained from your CSS */
+.contact-section { /* This can act as a .main-content block or part of it */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    padding: 20px; /* Padding for the section itself */
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+    /* No background or shadow here, applied to inner cards */
+}
+
+.contact-info, .contact-form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-info {
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+}
+
+.contact-form {
+    flex: 2;
+    min-width: 300px; /* Adjusted for better responsiveness */
+    max-width: 700px;
+}
+
+.contact-info h2, .contact-form h2 { /* Using .section-title might be better */
+    font-family: 'Playfair Display', serif;
+    font-size: 2em;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.contact-info h2::after, .contact-form h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--secondary-color);
+    border-radius: 5px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: var(--text-dark);
+}
+
+.info-item i {
+    font-size: 1.5em;
+    color: var(--primary-color);
+    margin-right: 15px;
+    min-width: 30px;
+    text-align: center;
+}
+
+.info-item a {
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.info-item a:hover {
+    color: var(--primary-color);
+}
+
+.social-icons { /* This class is also in the footer, ensure no conflicts or make them more specific */
+    margin-top: 20px;
+    display: flex;
+    justify-content: center; /* Center icons in contact info */
+    gap: 15px;
+}
+.contact-info .social-icons a { /* Specific to contact info */
+    font-size: 2em;
+    color: var(--text-dark); /* Default color */
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+.contact-info .social-icons a:hover {
+    color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color-light);
+    border-radius: 8px;
+    font-size: 1em;
+    color: var(--text-dark);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(var(--primary-color-rgb), 0.2);
+    outline: none;
+}
+
+textarea {
+    min-height: 120px;
+}
+
+.submit-button { /* Consider using .btn .btn-primary for consistency */
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 25px; /* Unique radius */
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    align-self: center;
+    margin-top: 10px;
+}
+
+.submit-button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Map Section - Retained from your CSS */
+.map-section { /* This can act as a .main-content block */
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto; /* Consistent margin */
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+}
+
+.map-section h2 { /* Using .section-title might be better */
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2em;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.map-section h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--secondary-color);
+    border-radius: 5px;
+}
+
+.map-container {
+    width: 100%;
+    height: 450px;
+    border-radius: 10px; /* Match section radius */
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Inner shadow for map */
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Support Info Cards (if used on other pages, distinct from tranglienhe.html's .support-info-section) */
+.support-info-cards-general { /* Renamed to avoid conflict if tranglienhe styles are also present */
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px; /* Or common-padding */
+    flex-wrap: wrap;
+}
+
+.info-contact-card-general { /* Renamed */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+    padding: 25px;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.info-contact-card-general:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-hover-shadow);
+}
+
+.info-contact-card-general i {
+    font-size: 3.5em;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.info-contact-card-general h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5em;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.info-contact-card-general p {
+    font-size: 1em;
+    color: #555; /* Slightly different from --text-dark */
+    margin-bottom: 15px;
+}
+
+.info-contact-card-general .card-button { /* Consider using .btn .btn-primary */
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px; /* Unique radius */
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.info-contact-card-general .card-button:hover {
+    background-color: var(--secondary-color);
+}
+
+
+/* --- Footer --- (Copied from tranglienhe.html styles) */
+footer { /* Changed from .footer to just footer */
+    background-color: var(--footer-bg);
+    color: var(--footer-text-color);
+    padding: 60px 5%;
+    font-size: 0.95em;
+    margin-top: auto; /* Pushes footer to bottom if content is short */
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px; /* Increased gap from tranglienhe */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 250px; /* From tranglienhe */
+    margin-bottom: 20px; /* Consistent margin */
+}
+
+/* Specific styling for footer brand/about from tranglienhe */
+.footer-brand .footer-logo-link {
+    display: block; /* was flex in original, block is simpler for centered logo */
+    margin-bottom: 15px;
+    /* text-align: center; /* If logo needs centering in its column on mobile */
+}
+
+.footer-brand .footer-logo-image {
+    height: 80px; /* from tranglienhe */
+    filter: brightness(1.5); /* from tranglienhe, adjust if logo is dark */
+}
+
+.footer-brand p {
+    margin-bottom: 20px; /* from tranglienhe */
+    line-height: 1.8;
+    color: var(--footer-text-color); /* from tranglienhe */
+}
+
+/* Social icons in footer from tranglienhe */
+.footer-column .social-icons { /* More specific selector for footer */
+    margin-top: 20px; /* Spacing for social icons */
+    display: flex; /* Align icons in a row */
+    gap: 15px; /* Spacing between icons */
+    /* justify-content: center; /* If they should be centered under text */
+}
+
+.footer-column .social-icons a {
+    font-size: 28px; /* from tranglienhe */
+    /* margin-right: 15px; /* Replaced by gap */
+    transition: color 0.3s ease, transform 0.3s ease;
+    color: var(--footer-link-color); /* Default color for icons from tranglienhe */
+}
+/* Specific social icon colors from tranglienhe */
+.footer-column .social-icons .bx.bxl-facebook-circle { color: #1877F2;}
+.footer-column .social-icons .bx.bxl-instagram-alt {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+.footer-column .social-icons .bx.bxl-tiktok {
+    color: #000; /* Base color for TikTok */
+    text-shadow: 2px 2px 0px #25F4EE, -2px -2px 0px #FE2C55; /* TikTok effect */
+}
+.footer-column .social-icons a:hover {
+    transform: translateY(-3px); /* from tranglienhe */
+    /* Potentially change color on hover if not using branded colors */
+    /* color: white; */
+}
+
+
+.footer-column h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3em;
+    color: var(--footer-link-color);
+    margin-bottom: 25px; /* from tranglienhe */
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-column h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    background-color: var(--accent-color); /* from tranglienhe */
+    border-radius: 0; /* Original had none, tranglienhe had 5px */
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+    color: var(--footer-text-color);
+    text-decoration: none;
+    font-size: 0.95em;
+    transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+    color: var(--footer-link-color);
+}
+
+.footer-contact p {
+    display: flex;
+    align-items: center; /* Align icon with first line of text from tranglienhe */
+    margin-bottom: 15px; /* from tranglienhe */
+    font-size: 0.95em;
+}
+
+.footer-contact p i {
+    font-size: 20px; /* from tranglienhe */
+    margin-right: 10px;
+    color: var(--footer-link-color);
+    flex-shrink: 0;
+}
+
+.footer-contact p a {
+    color: var(--footer-text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-contact p a:hover {
+    color: var(--footer-link-color);
+}
+
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* from tranglienhe */
+    padding-top: 25px; /* from tranglienhe */
+    margin-top: 40px; /* from tranglienhe */
+    text-align: center;
+    font-size: 0.9em;
+    color: var(--footer-text-color); /* from tranglienhe */
+}
+
+/* CSS cho nội dung trang chính sách - Retained from your CSS */
+.policy-page-title { /* This is likely a main title for the policy page itself */
+    font-family: 'Inter', sans-serif; /* Consistent font */
+    font-size: 2.6em;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.policy-page-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 4px;
+    background-color: var(--primary-color); /* Or --accent-color */
+    border-radius: 2px;
+}
+
+.policy-content-area { /* This could be styled like .main-content or .policy-section */
+    max-width: 900px;
+    margin: 30px auto; /* Centering */
+    background-color: #fff;
+    padding: 30px 30px 30px 35px; /* Specific padding */
+    border-radius: 6px; /* Slightly different radius */
+    box-shadow: var(--card-shadow);
+    border-left: 5px solid var(--primary-color); /* Specific border */
+}
+
+.policy-content-area h2 {
+    font-family: 'Inter', sans-serif; /* Consistent font */
+    font-weight: 700;
+    color: var(--text-dark);
+    font-size: 1.7em;
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+.policy-content-area h2:first-of-type {
+    margin-top: 0;
+}
+
+.policy-content-area p {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-dark);
+    font-size: 1em;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.policy-content-area ul {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-dark);
+    font-size: 1em;
+    line-height: 1.8;
+    margin-bottom: 15px;
+    list-style-type: disc;
+    padding-left: 20px; /* Indent for bullet points */
+}
+
+.policy-content-area ul li {
+    margin-bottom: 8px;
+}
+
+.policy-content-area strong {
+    font-weight: 600; /* Standard bold */
+    color: var(--text-dark); /* Ensure it's not overridden */
+}
+
+/* --- Responsive Design --- (Copied from tranglienhe.html styles and adapted) */
+@media (max-width: 992px) {
+    .fixed-navbar {
+        padding: 10px 25px;
+    }
+    .fixed-navbar.scrolled {
+        padding: 8px 25px;
+    }
+    .fixed-navbar .logo-image {
+        height: 55px;
+    }
+    .fixed-navbar.scrolled .logo-image {
+        height: 45px;
+    }
+
+    .fixed-navbar .main-menu {
+        display: none; /* Hide desktop menu */
+    }
+    .hamburger-menu {
+        display: block; /* Show hamburger */
+    }
+    .mobile-menu {
+        display: block; /* Ensure it's block for JS to toggle right property */
+        top: 75px; /* Adjust if scrolled navbar height is different */
+        height: calc(100% - 75px);
+    }
+    body {
+        padding-top: 75px; /* Match navbar height */
+    }
+
+    .fixed-navbar .user-actions {
+        gap: 15px;
+    }
+
+    .overlay-close-btn {
+        font-size: 50px;
+        top: 20px;
+        right: 30px;
+    }
+    .overlay-content {
+        width: 90%;
+        /* top: 10%; */
+    }
+    .overlay-search-box input {
+        padding: 15px 20px;
+        font-size: 1em;
+    }
+    .overlay-search-box button {
+        padding: 15px 18px;
+        font-size: 1.4em;
+    }
+    .overlay-support-links h3 {
+        font-size: 1.6em;
+    }
+    .overlay-support-links ul li a {
+        font-size: 1.1em;
+    }
+
+    .section-title.left-align {
+        text-align: center;
+    }
+    .section-title.left-align::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    /* Footer adjustments */
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-column {
+        min-width: unset;
+        width: 100%;
+        margin-bottom: 30px;
+        align-items: center; /* Center content within column */
+    }
+    .footer-column h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .footer-brand .footer-logo-link,
+    .footer-column .social-icons,
+    .footer-contact p {
+        justify-content: center; /* Center items like logo and icons */
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 70px; /* Adjust for potentially smaller navbar */
+    }
+    .fixed-navbar {
+        padding: 8px 15px;
+    }
+    .fixed-navbar.scrolled {
+        padding: 5px 15px;
+    }
+     .fixed-navbar .logo-image {
+        height: 50px;
+    }
+    .fixed-navbar.scrolled .logo-image {
+        height: 40px;
+    }
+    .mobile-menu {
+        top: 70px; /* Match body padding-top */
+        height: calc(100% - 70px);
+    }
+
+    .common-padding {
+        padding: 60px 4%;
+    }
+    .section-title {
+        font-size: 2.2em;
+        margin-bottom: 40px;
+    }
+
+    .overlay-content { width: 95%; }
+    .overlay-search-box input { padding: 12px 15px; font-size: 1em; }
+    .overlay-search-box button { padding: 12px 15px; font-size: 1.2em; }
+    .overlay-support-links h3 { font-size: 1.4em; }
+    .overlay-support-links ul li a { font-size: 1em; }
+
+    .contact-section {
+        flex-direction: column;
+        align-items: center;
+    }
+    .contact-info, .contact-form {
+        width: 100%;
+        max-width: 500px; /* Max width for single column contact cards */
+    }
+    .map-container { height: 350px; }
+
+    .footer-column { margin-bottom: 25px; }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding-top: 65px; /* Further adjustment for smallest screens */
+    }
+    .fixed-navbar {
+        padding: 5px 10px;
+    }
+    .fixed-navbar.scrolled {
+        padding: 5px 10px; /* Minimal padding */
+    }
+    .fixed-navbar .logo-image { height: 45px; }
+    .fixed-navbar.scrolled .logo-image { height: 35px; }
+
+    .mobile-menu {
+        top: 65px; /* Match body padding-top */
+        height: calc(100% - 65px);
+        width: 100%; /* Full width mobile menu */
+        right: -100%;
+    }
+    .mobile-menu.active {
+        right: 0;
+    }
+
+
+    .fixed-navbar .user-actions { gap: 10px; }
+    .fixed-navbar .nav-action-icon { font-size: 22px; padding: 5px;}
+    .hamburger-menu { font-size: 24px; }
+
+    .common-padding { padding: 40px 3%; }
+    .section-title { font-size: 1.8em; margin-bottom: 30px; }
+
+    .btn { padding: 10px 20px; font-size: 0.9em; }
+
+    .overlay-close-btn { font-size: 40px; top: 15px; right: 20px; }
+    .overlay-search-box input { padding: 10px 12px; font-size: 0.9em; }
+    .overlay-search-box button { padding: 10px 12px; font-size: 1.1em; }
+    .overlay-support-links h3 { font-size: 1.2em; margin-bottom: 15px; }
+    .overlay-support-links ul { gap: 10px; } /* Reduced gap */
+    .overlay-support-links ul li a {
+        font-size: 0.9em;
+        flex-direction: column; /* Stack icon and text */
+        gap: 5px;
+        padding: 8px; /* Add some padding */
+    }
+    .overlay-support-links ul li a i { font-size: 1.2em; }
+
+    .map-container { height: 300px; }
+    .policy-section h1, .faq-section h2, .contact-info h2, .contact-form h2, .map-section h2 { font-size: 1.6em; }
+    .policy-item h2 { font-size: 1.3em; }
+    .policy-item ul li, .faq-answer p, .form-group label, .form-group input, .form-group textarea { font-size: 0.9em; }
+
+
+    footer { padding: 30px 3%; }
+    .footer-column h4 { font-size: 1.2em; }
+    .footer-bottom { padding-top: 15px; margin-top: 25px; font-size: 0.85em; }
+}
+/* === PHẦN CSS TRONG FILE Cacchinhsach.css CẦN ĐIỀU CHỈNH === */
+
+/* --- Footer --- */
+/* ... các style khác của footer ... */
+
+.footer-column .social-icons {
+    margin-top: 20px;
+    display: flex; /* Giữ display: flex */
+    gap: 15px;    /* Giữ gap để có khoảng cách đều */
+    justify-content: flex-start; /* ĐẢM BẢO CĂN TRÁI CHO DESKTOP */
+    /* Các thuộc tính khác nếu có */
+}
+
+.footer-column .social-icons a {
+    font-size: 28px;
+    /* margin-right: 15px; /* Không cần nếu đã dùng gap */
+    display: inline-block; /* Giữ hoặc đảm bảo để icon hiển thị đúng */
+    color: var(--footer-link-color);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* ... các style khác cho màu icon cụ thể ... */
+
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+    /* ... các style responsive khác ... */
+
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center; /* Giúp căn giữa các block con nếu chúng là inline-block */
+    }
+
+    .footer-column {
+        /* ... */
+        align-items: center; /* Căn giữa các items con của .footer-column (nếu .footer-column là flex container theo chiều dọc) */
+    }
+
+    .footer-column .social-icons {
+        justify-content: center; /* CĂN GIỮA ICON TRÊN TABLET VÀ MOBILE */
+        /* display: inline-flex; /* Có thể dùng inline-flex để block social-icons tự căn giữa bởi text-align:center của cha */
+                                /* Hoặc để display:flex và .footer-column sẽ căn giữa block này */
+    }
+    
+    /* ... các style responsive khác ... */
+}
+
+/* Tương tự cho @media (max-width: 768px) và @media (max-width: 480px) nếu có khai báo riêng cho .social-icons */
+@media (max-width: 768px) {
+    .footer-column .social-icons {
+        justify-content: center; /* Đảm bảo căn giữa */
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-column .social-icons {
+        justify-content: center; /* Đảm bảo căn giữa */
+    }
+}
+
+/* === KẾT THÚC PHẦN ĐIỀU CHỈNH === */
