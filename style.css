@@ -19,7 +19,7 @@ body {
     align-items: center; justify-content: space-between;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     transition: padding 0.3s ease, background-color 0.3s ease;
-}
+}z
 .fixed-navbar .logo-link { display: flex; align-items: center; text-decoration: none;}
 .fixed-navbar .logo-image { height: 50px; transition: height 0.3s ease;}
 .fixed-navbar .main-menu { display: flex; justify-content: center; align-items: center; gap: 30px; flex: 1;}
@@ -194,41 +194,159 @@ body {
 }
 .carousel-dots .dot.active { background-color: orange; border-color: orange; }
 
-/* --- KEY ACTIONS / ORDER NOW SECTION --- */
+/* --- KEY ACTIONS / ICON CARD SECTION (Ý TƯỞNG 2) --- */
 .key-actions-section {
-    padding: 40px 20px;
-    background-color: #fff;
-    text-align: center;
+    padding: 60px 20px; /* Tăng padding để section thoáng hơn */
+    background-color: #f8f9fa; /* Nền xám rất nhạt cho toàn bộ section */
 }
+
 .key-actions-grid {
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    max-width: 1000px;
-    margin: 0 auto;
+    justify-content: space-around; /* Các card cách đều nhau */
+    align-items: stretch; /* Các card sẽ có chiều cao bằng nhau nếu nội dung khác nhau */
+    gap: 30px; /* Khoảng cách giữa các card */
+    flex-wrap: wrap; /* Cho phép xuống dòng trên màn hình nhỏ */
+    max-width: 1200px; /* Giới hạn chiều rộng của grid */
+    margin: 0 auto; /* Căn giữa grid */
 }
-.action-card {
-    background-color: #fff1e0; /* Light orange */
-    padding: 25px;
-    border-radius: 10px;
-    flex: 1;
-    min-width: 250px; /* Min width for each card */
+
+.icon-action-card {
+    border-radius: 20px; /* Bo góc lớn hơn cho card */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07); /* Bóng đổ mềm mại hơn */
     text-decoration: none;
-    color: #d95300; /* Dark orange text */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 40px 25px 35px 25px; /* Padding bên trong card */
+    text-align: center;
+    width: calc(33.333% - 20px); /* Tính toán cho 3 card trên một hàng với gap 30px */
+    min-width: 290px; /* Chiều rộng tối thiểu để card không quá hẹp */
+    transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                background-color 0.3s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center; /* Căn giữa nội dung theo chiều dọc */
+    min-height: 320px; /* Chiều cao tối thiểu để các card trông cân đối */
 }
-.action-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.12);
-}
-.action-card i { font-size: 3em; margin-bottom: 15px; }
-.action-card h3 { font-size: 1.5em; font-weight: 600; }
 
+/* ---- MÀU SẮC CHO TỪNG CARD - ĐIỀU CHỈNH CHO PHÙ HỢP THƯƠNG HIỆU CỦA BẠN ---- */
+.icon-action-card.card-bg-menu {
+    background-color: #FFF3E0; /* Màu cam rất nhạt (ví dụ) */
+    color: #A35D00; /* Màu chữ/text phụ tối hơn để dễ đọc */
+}
+.icon-action-card.card-bg-menu .icon-action-card-icon i {
+    color: #FF8F00; /* Màu cam đậm hơn cho icon */
+}
+.icon-action-card.card-bg-menu:hover {
+    background-color: #FFEBCD; /* Màu nền sáng hơn khi hover */
+    box-shadow: 0 12px 28px rgba(255, 143, 0, 0.18); /* Bóng đổ với màu liên quan */
+}
+
+.icon-action-card.card-bg-deals {
+    background-color: #E0F2F7; /* Màu xanh ngọc rất nhạt (ví dụ) */
+    color: #004D40;
+}
+.icon-action-card.card-bg-deals .icon-action-card-icon i {
+    color: #00796B; /* Màu xanh ngọc đậm hơn cho icon */
+}
+.icon-action-card.card-bg-deals:hover {
+    background-color: #D4EDF3;
+    box-shadow: 0 12px 28px rgba(0, 121, 107, 0.18);
+}
+
+.icon-action-card.card-bg-store {
+    background-color: #F3E5F5; /* Màu tím rất nhạt (ví dụ) */
+    color: #4A148C;
+}
+.icon-action-card.card-bg-store .icon-action-card-icon i {
+    color: #8E24AA; /* Màu tím đậm hơn cho icon */
+}
+.icon-action-card.card-bg-store:hover {
+    background-color: #EADDFC;
+    box-shadow: 0 12px 28px rgba(142, 36, 170, 0.18);
+}
+/* ---- KẾT THÚC PHẦN MÀU SẮC ---- */
+
+.icon-action-card:hover {
+    transform: translateY(-10px) scale(1.03); /* Hiệu ứng nổi và phóng to nhẹ nhàng */
+}
+
+.icon-action-card-icon {
+    margin-bottom: 28px; /* Khoảng cách lớn hơn dưới icon */
+}
+
+.icon-action-card-icon i { /* Style cho Boxicon */
+    font-size: 5.5rem; /* Icon rất lớn, thu hút */
+    transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+/* Nếu bạn dùng ảnh cho icon, hãy style cho thẻ img thay vì i:
+.icon-action-card-icon img {
+    max-height: 90px; // Hoặc kích thước mong muốn
+    width: auto;
+    transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+*/
+
+.icon-action-card:hover .icon-action-card-icon i,
+.icon-action-card:hover .icon-action-card-icon img {
+    transform: rotate(-6deg) scale(1.2); /* Hiệu ứng icon nghiêng và phóng to vui nhộn */
+}
+
+.icon-action-card-title {
+    font-size: 1.45rem; /* Cỡ chữ tiêu đề */
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: inherit; /* Kế thừa màu từ .icon-action-card để phù hợp với nền */
+}
+
+.icon-action-card-description {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: inherit; /* Kế thừa màu */
+    opacity: 0.85; /* Mô tả có thể hơi mờ hơn tiêu đề */
+    max-width: 230px; /* Giới hạn chiều rộng mô tả để không quá dài dòng */
+}
+
+/* Responsive cho icon-action-card (Ý TƯỞNG 2) */
+@media (max-width: 1024px) { /* Điều chỉnh cho tablet và màn hình nhỏ hơn */
+    .key-actions-grid {
+        gap: 25px;
+    }
+    .icon-action-card {
+        width: calc(50% - 12.5px); /* 2 card một hàng */
+        min-height: 290px; /* Điều chỉnh chiều cao tối thiểu */
+        padding: 35px 20px;
+    }
+    .icon-action-card-icon i {
+        font-size: 4.8rem; /* Giảm kích thước icon một chút */
+    }
+    .icon-action-card-title {
+        font-size: 1.35rem;
+    }
+}
+
+@media (max-width: 680px) { /* Điều chỉnh cho mobile */
+    .key-actions-section {
+        padding: 40px 15px;
+    }
+    .icon-action-card {
+        width: 100%; /* 1 card một hàng */
+        min-height: auto; /* Chiều cao tự động */
+        padding: 30px 20px;
+        margin-bottom: 20px; /* Khoảng cách giữa các card khi xếp chồng */
+    }
+    .icon-action-card:last-child {
+        margin-bottom: 0;
+    }
+    .icon-action-card-icon i {
+        font-size: 4.2rem; /* Giảm kích thước icon thêm */
+    }
+    .icon-action-card-title {
+        font-size: 1.3rem;
+    }
+    .icon-action-card-description {
+        font-size: 0.9rem;
+    }
+}
 
 /* --- "VỀ CHÚNG TÔI" TITLE BAR --- */
 .section-title-bar {

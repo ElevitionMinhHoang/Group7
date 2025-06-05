@@ -6,7 +6,850 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="style.css"> {/* */}
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background-color: #f9f9f9; /* Nền xám rất nhạt cho body */
+            color: #333;
+        }
+
+/* --- NAVIGATION BAR --- */
+.fixed-navbar {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+    background-color: orange; padding: 10px 40px; display: flex;
+    align-items: center; justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: padding 0.3s ease, background-color 0.3s ease;
+}
+.fixed-navbar .logo-link { display: flex; align-items: center; text-decoration: none;}
+.fixed-navbar .logo-image { height: 50px; transition: height 0.3s ease;}
+.fixed-navbar .main-menu { display: flex; justify-content: center; align-items: center; gap: 30px; flex: 1;}
+.fixed-navbar .nav-link { 
+    color: white; 
+    font-weight: bold; 
+    text-decoration: none; 
+    font-size: 16px; 
+    padding: 5px 0;
+    transition: transform 0.2s ease-out, text-shadow 0.2s ease-out, border 0.2s ease-out, padding 0.2s ease-out; 
+    display: inline-block; 
+    position: relative; /* Cần thiết cho pseudo-element */
+    z-index: 1; /* Đảm bảo link nằm trên pseudo-element */
+}
+.fixed-navbar .nav-link:hover { 
+    text-decoration: none; /* Bỏ gạch chân khi hover nếu muốn chỉ dùng khung */
+    transform: translateY(-3px) scale(1.05); 
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.7); 
+    padding: 5px 15px; /* Tăng padding để tạo không gian cho khung */
+}
+
+/* Thêm khung bằng pseudo-element */
+.fixed-navbar .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent; /* Khởi tạo viền trong suốt */
+    border-radius: 8px; /* Bo tròn góc khung */
+    transition: border-color 0.2s ease-out, transform 0.2s ease-out, opacity 0.2s ease-out;
+    z-index: -1; /* Đảm bảo khung nằm dưới chữ */
+    pointer-events: none; /* Đảm bảo không cản trở sự kiện click */
+    opacity: 0; /* Ẩn khung ban đầu */
+    transform: scale(0.8); /* Khởi tạo nhỏ hơn để có hiệu ứng phóng to khi hover */
+}
+
+.fixed-navbar .nav-link:hover::before {
+    border-color: white; /* Màu viền khi hover */
+    opacity: 1; /* Hiển thị khung */
+    transform: scale(1); /* Phóng to ra kích thước thật */
+}
+
+     /* --- CSS MỚI CHO USER ACTIONS (GIỎ HÀNG & TÀI KHOẢN) --- */
+.fixed-navbar .user-actions {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    flex-shrink: 0;
+}
+
+.fixed-navbar .nav-action-icon {
+    color: white; /* Màu mặc định của icon */
+    font-size: 26px;
+    text-decoration: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Căn giữa icon trong vùng padding */
+    padding: 5px; /* Tăng vùng click cho icon */
+    border-radius: 50%; /* Giữ bo tròn nếu sau này muốn thêm hiệu ứng nền */
+    
+    /* Thêm transitions cho hiệu ứng hover */
+    transition: transform 0.2s ease-out, color 0.2s ease-out, filter 0.2s ease-out; /* Thay text-shadow bằng filter để làm sáng icon */
+    z-index: 1; 
+}
+
+.fixed-navbar .nav-action-icon:hover {
+    transform: translateY(-3px) scale(1.1); /* Nổi lên và phóng to icon */
+    color: white; /* Giữ nguyên màu trắng hoặc hơi ngả vàng rất nhẹ */
+    filter: brightness(1.3) drop-shadow(0 0 5px rgba(255, 255, 255, 0.5)); /* Làm sáng icon và thêm đổ bóng trắng nhẹ nhàng */
+}
+
+/* Pseudo-element cho khung viền của icon (đã bị bỏ đi như mong muốn của bạn) */
+/* (Các đoạn CSS này đã được bình luận để bỏ viền) */
+
+.fixed-navbar .cart-item-count {
+    position: absolute;
+    top: 0px;
+    right: -3px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 1px 5px;
+    font-size: 0.7em;
+    font-weight: bold;
+    line-height: 1;
+    min-width: 16px;
+    text-align: center;
+    border: 1px solid white;
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    transition: none;
+}
+        /* --- HERO CAROUSEL --- */
+        .hero-carousel {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            overflow: hidden;
+            background-color: #e0e0e0;
+        }
+        .hero-carousel .slides-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 100%;
+            height: 100%;
+        }
+        .hero-carousel .slide {
+            min-width: 100%;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .hero-carousel .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* --- SLIDE CONTENT - MINIMALIST STYLE --- */
+        .hero-carousel .slide-content {
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: transparent;
+            padding: 0;             
+            border-radius: 0;            
+            max-width: none;            
+            box-shadow: none;            
+            text-align: center;         
+        }
+
+        .hero-carousel .slide-content h2,
+        .hero-carousel .slide-content p {
+            display: none; /* Ẩn tiêu đề H2 và đoạn văn P */
+        }
+        /* --- KẾT THÚC SLIDE CONTENT MINIMALIST --- */
+
+
+        /* === CSS CHO NÚT CTA TRONG HERO CAROUSEL === */
+        .hero-carousel .slide-content .cta-button {
+            display: inline-block;
+            background-color: #ffc72c;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1em;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+            text-decoration: none;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 6px;
+            box-shadow: 0 3px 0px #f39200,
+                        0 5px 8px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out,
+                        transform 0.15s ease-in-out,
+                        box-shadow 0.15s ease-in-out;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .hero-carousel .slide-content .cta-button:hover,
+        .hero-carousel .slide-content .cta-button:focus {
+            background-color: #fbb700;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 4px 0px #e08600,
+                        0 7px 10px rgba(0, 0, 0, 0.2);
+            outline: none;
+        }
+
+        .hero-carousel .slide-content .cta-button:active {
+            transform: translateY(1px) scale(0.98);
+            background-color: #f39c12;
+            box-shadow: 0 1px 0px #e08600,
+                        0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        /* === KẾT THÚC CSS CHO NÚT CTA === */
+
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 20px;
+            z-index: 10;
+        }
+        .carousel-nav button {
+            background-color: rgba(0,0,0,0.4); color: white; border: none;
+            font-size: 1.8em;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 40px; height: 40px;
+            line-height: 1;
+            transition: background-color 0.3s;
+        }
+        .carousel-nav button:hover { background-color: rgba(0,0,0,0.7); }
+        .carousel-dots {
+            position: absolute; bottom: 20px; left: 50%;
+            transform: translateX(-50%); display: flex; gap: 10px;
+            z-index: 10;
+        }
+        .carousel-dots .dot {
+            width: 12px; height: 12px; background-color: rgba(255,255,255,0.6);
+            border-radius: 50%; cursor: pointer; transition: background-color 0.3s;
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+        .carousel-dots .dot.active { background-color: orange; border-color: orange; }
+
+        /* --- KEY ACTIONS / ICON CARD SECTION (Ý TƯỞNG 2) --- */
+        .key-actions-section {
+            padding: 60px 20px; /* Tăng padding để section thoáng hơn */
+            background-color: #f8f9fa; /* Nền xám rất nhạt cho toàn bộ section */
+        }
+
+        .key-actions-grid {
+            display: flex;
+            justify-content: space-around; /* Các card cách đều nhau */
+            align-items: stretch; /* Các card sẽ có chiều cao bằng nhau nếu nội dung khác nhau */
+            gap: 30px; /* Khoảng cách giữa các card */
+            flex-wrap: wrap; /* Cho phép xuống dòng trên màn hình nhỏ */
+            max-width: 1200px; /* Giới hạn chiều rộng của grid */
+            margin: 0 auto; /* Căn giữa grid */
+        }
+
+        .icon-action-card {
+            border-radius: 20px; /* Bo góc lớn hơn cho card */
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07); /* Bóng đổ mềm mại hơn */
+            text-decoration: none;
+            padding: 40px 25px 35px 25px; /* Padding bên trong card */
+            text-align: center;
+            width: calc(33.333% - 20px); /* Tính toán cho 3 card trên một hàng với gap 30px */
+            min-width: 290px; /* Chiều rộng tối thiểu để card không quá hẹp */
+            transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                        box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                        background-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Căn giữa nội dung theo chiều dọc */
+            min-height: 320px; /* Chiều cao tối thiểu để các card trông cân đối */
+        }
+
+       /* ---- MÀU SẮC CHO TỪNG CARD - ĐIỀU CHỈNH CHO PHÙ HỢP THƯƠNG HIỆU CỦA BẠN ---- */
+.icon-action-card.card-bg-menu {
+    background-image: url(anhnnen.jpg); /* Sử dụng background-image */
+    background-size: cover; /* Đảm bảo ảnh phủ hết thẻ */
+    background-position: center; /* Căn giữa ảnh */
+    position: relative; /* Quan trọng để overlay hoạt động */
+    color: white; /* Đổi màu chữ/text phụ thành trắng để dễ đọc trên nền tối */
+    z-index: 0; /* Đảm bảo nội dung nằm trên overlay */
+}
+
+/* Thêm lớp phủ (overlay) để làm tối ảnh nền */
+.icon-action-card.card-bg-menu::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Lớp phủ đen với độ mờ 40% */
+    border-radius: 20px; /* Đảm bảo overlay cũng bo góc theo card */
+    z-index: -1; /* Đặt overlay dưới nội dung nhưng trên ảnh nền */
+    transition: background-color 0.3s ease; /* Thêm transition cho hiệu ứng hover của overlay */
+}
+
+.icon-action-card.card-bg-menu .icon-action-card-icon i {
+    color: rgb(220, 140, 74); /* Đổi màu icon thành trắng */
+    /* Có thể thêm text-shadow nhẹ nếu muốn icon nổi bật hơn nữa */
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.icon-action-card.card-bg-menu .icon-action-card-title,
+.icon-action-card.card-bg-menu .icon-action-card-description {
+    color: white; /* Đảm bảo tiêu đề và mô tả cũng màu trắng */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7); /* Thêm bóng đổ để chữ nổi bật trên ảnh */
+}
+
+
+.icon-action-card.card-bg-menu:hover {
+    /* Khi hover, chỉ cần thay đổi hiệu ứng của overlay và card chính, không cần background-color */
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25); /* Bóng đổ mạnh hơn, màu tối để phù hợp với nền tối */
+}
+
+/* Hiệu ứng hover cho overlay (làm cam sáng ảnh khi hover) */
+.icon-action-card.card-bg-menu:hover::before {
+    background-color: rgba(242, 103, 33, 0.7); /* Tăng độ mờ của overlay khi hover */
+}
+/* ---- KẾT THÚC PHẦN MÀU SẮC ---- */
+/* Card "Ưu Đãi Hôm Nay" - HIỆU ỨNG HOVER LÀM SÁNG ẢNH NỀN */
+.icon-action-card.card-bg-deals {
+    background-image: url(anhnenuudai.jpg); /* Đặt đường dẫn đến ảnh nền của thẻ ưu đãi */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: white; /* Chữ và nội dung sẽ là màu trắng */
+    z-index: 0;
+}
+
+/* Thêm lớp phủ (overlay) tối hơn ban đầu */
+.icon-action-card.card-bg-deals::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Lớp phủ đen với độ mờ 40% (tối hơn ban đầu) */
+    border-radius: 20px;
+    z-index: -1; /* Đặt overlay dưới nội dung nhưng trên ảnh nền */
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển mượt mà */
+}
+
+.icon-action-card.card-bg-deals .icon-action-card-icon i {
+    color: rgb(85, 239, 231); /* Đổi màu icon thành trắng */
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.icon-action-card.card-bg-deals .icon-action-card-title,
+.icon-action-card.card-bg-deals .icon-action-card-description {
+    color: white; /* Đảm bảo tiêu đề và mô tả cũng màu trắng */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7); /* Thêm bóng đổ để chữ nổi bật trên ảnh */
+}
+
+.icon-action-card.card-bg-deals:hover {
+    /* Giữ hiệu ứng bóng đổ nếu bạn thích */
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+/* Hiệu ứng hover cho overlay: làm cho nó trong suốt hơn (sáng hơn) */
+.icon-action-card.card-bg-deals:hover::before {
+    background-color: rgba(74, 225, 207, 0.3); /* Giảm độ mờ của overlay khi hover (làm sáng ảnh) */
+}
+/* ---- KẾT THÚC PHẦN MÀU SẮC ---- */
+
+        /* Card "Tìm Cửa Hàng" - Bổ sung cho hiển thị ảnh nền rõ ràng và hiệu ứng hover tương tự */
+.icon-action-card.card-bg-store {
+    background-image: url(anhnnenmuasam.jpg); /* Đặt đường dẫn đến ảnh nền của thẻ tìm cửa hàng */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: white; /* Chữ và nội dung sẽ là màu trắng */
+    z-index: 0;
+}
+
+/* Thêm lớp phủ (overlay) tương tự cho thẻ tìm cửa hàng */
+.icon-action-card.card-bg-store::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Lớp phủ đen với độ mờ 40% (tối hơn ban đầu) */
+    border-radius: 20px;
+    z-index: -1; /* Đặt overlay dưới nội dung nhưng trên ảnh nền */
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển mượt mà */
+}
+
+.icon-action-card.card-bg-store .icon-action-card-icon i {
+    color: rgb(198, 60, 201); /* Đổi màu icon thành trắng */
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.icon-action-card.card-bg-store .icon-action-card-title,
+.icon-action-card.card-bg-store .icon-action-card-description {
+    color: white; /* Đảm bảo tiêu đề và mô tả cũng màu trắng */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7); /* Thêm bóng đổ để chữ nổi bật trên ảnh */
+}
+
+.icon-action-card.card-bg-store:hover {
+    /* Khi hover, giữ hiệu ứng bóng đổ nếu bạn thích */
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+/* Hiệu ứng hover cho overlay của thẻ tìm cửa hàng: làm cho nó trong suốt hơn (sáng hơn) */
+.icon-action-card.card-bg-store:hover::before {
+    background-color: rgba(212, 90, 206, 0.3); /* Giảm độ mờ của overlay khi hover (làm sáng ảnh) */
+}
+/* ---- KẾT THÚC PHẦN MÀU SẮC ---- */
+        .icon-action-card:hover {
+            transform: translateY(-10px) scale(1.03); /* Hiệu ứng nổi và phóng to nhẹ nhàng */
+        }
+
+        .icon-action-card-icon {
+            margin-bottom: 28px; /* Khoảng cách lớn hơn dưới icon */
+        }
+
+        .icon-action-card-icon i { /* Style cho Boxicon */
+            font-size: 5.5rem; /* Icon rất lớn, thu hút */
+            transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        /* Nếu bạn dùng ảnh cho icon, hãy style cho thẻ img thay vì i:
+        .icon-action-card-icon img {
+            max-height: 90px; // Hoặc kích thước mong muốn
+            width: auto;
+            transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        */
+
+        .icon-action-card:hover .icon-action-card-icon i,
+        .icon-action-card:hover .icon-action-card-icon img {
+            transform: rotate(-6deg) scale(1.2); /* Hiệu ứng icon nghiêng và phóng to vui nhộn */
+        }
+
+        .icon-action-card-title {
+            font-size: 1.45rem; /* Cỡ chữ tiêu đề */
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: inherit; /* Kế thừa màu từ .icon-action-card để phù hợp với nền */
+        }
+
+        .icon-action-card-description {
+            font-size: 0.92rem;
+            line-height: 1.5;
+            color: inherit; /* Kế thừa màu */
+            opacity: 0.85; /* Mô tả có thể hơi mờ hơn tiêu đề */
+            max-width: 230px; /* Giới hạn chiều rộng mô tả để không quá dài dòng */
+        }
+
+        /* Responsive cho icon-action-card (Ý TƯỞNG 2) */
+        @media (max-width: 1024px) { /* Điều chỉnh cho tablet và màn hình nhỏ hơn */
+            .key-actions-grid {
+                gap: 25px;
+            }
+            .icon-action-card {
+                width: calc(50% - 12.5px); /* 2 card một hàng */
+                min-height: 290px; /* Điều chỉnh chiều cao tối thiểu */
+                padding: 35px 20px;
+            }
+            .icon-action-card-icon i {
+                font-size: 4.8rem; /* Giảm kích thước icon một chút */
+            }
+            .icon-action-card-title {
+                font-size: 1.35rem;
+            }
+        }
+
+        @media (max-width: 680px) { /* Điều chỉnh cho mobile */
+            .key-actions-section {
+                padding: 40px 15px;
+            }
+            .icon-action-card {
+                width: 100%; /* 1 card một hàng */
+                min-height: auto; /* Chiều cao tự động */
+                padding: 30px 20px;
+                margin-bottom: 20px; /* Khoảng cách giữa các card khi xếp chồng */
+            }
+            .icon-action-card:last-child {
+                margin-bottom: 0;
+            }
+            .icon-action-card-icon i {
+                font-size: 4.2rem; /* Giảm kích thước icon thêm */
+            }
+            .icon-action-card-title {
+                font-size: 1.3rem;
+            }
+            .icon-action-card-description {
+                font-size: 0.9rem;
+            }
+        }
+
+
+        /* --- "VỀ CHÚNG TÔI" TITLE BAR --- */
+        .section-title-bar {
+            background-color: #F68B1F; color: white; text-align: center;
+            padding: 20px; font-size: 28px; font-weight: bold; position: relative;
+        }
+        .section-title-bar .triangle-down {
+            position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+            width: 0; height: 0; border-left: 10px solid transparent;
+            border-right: 10px solid transparent; border-top: 10px solid #F68B1F;
+        }
+
+        /* --- "GIỚI THIỆU" (ABOUT US) SECTION --- */
+        .about-us-section {
+            display: flex; align-items: flex-start; justify-content: space-between;
+            gap: 30px; padding: 50px 5%; max-width: 1400px; margin: 30px auto;
+            background-color: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .about-us-section .text-column { flex: 1; max-width: 55%; }
+        .about-us-section .text-column h2 { font-size: 28px; margin-bottom: 20px; color: #333; font-weight:700; }
+        .about-us-section .text-column p { font-size: 16px; line-height: 1.7; margin-bottom: 15px; color: #555; }
+        .about-us-section .image-column { flex-shrink: 0; width: 40%; max-width: 500px; }
+        .about-us-section .image-column img { width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+       /* --- PRODUCTS SECTION (COMMON STYLES FOR BEST SELLER & NEW) --- */
+.products-section {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 40px 20px;
+    background-color: #fff;
+    border-radius: 8px;
+}
+.products-section.new-products-section { /* Đổi tên class từ .new-products sang .new-products-section để rõ ràng hơn */
+    background-color: #f0f0f0; /* Slightly different bg for variety */
+}
+
+.products-section .section-heading {
+    text-align: center;
+    font-size: 32px;
+    color: #e74c3c;
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+.products-section .section-heading.new-products-heading {
+    color: #d9534f;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* For Best Seller */
+    gap: 25px;
+    justify-content: center; /* Căn giữa các item trong grid */
+    align-items: stretch; /* Đảm bảo các card có chiều cao bằng nhau */
+}
+.product-grid.new-products-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Điều chỉnh minmax để card có kích thước tốt hơn trên nhiều màn hình */
+    justify-items: center;
+    align-items: stretch; /* Rất quan trọng để các card cùng hàng có chiều cao bằng nhau */
+}
+
+.product-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none; /* Đảm bảo thẻ a không bị gạch chân */
+    color: inherit; /* Kế thừa màu chữ */
+    height: 100%; /* Đảm bảo card chiếm toàn bộ chiều cao của ô grid */
+    /* === THÊM MỚI: Thúc đẩy hardware acceleration === */
+    transform: translateZ(0);
+}
+.product-card:hover { /* General hover for all product cards */
+    /* === CẬP NHẬT: Giữ translateZ(0) khi hover === */
+    transform: translateY(-5px) translateZ(0);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+}
+.product-card.new-product-item {
+    /* Đã bỏ max-width: 280px; để grid tự quyết định chiều rộng */
+    text-align: center;
+    padding: 15px; /* Tăng padding để nội dung có không gian */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Đẩy tên và nút xuống dưới */
+    min-height: 320px; /* Thêm chiều cao tối thiểu để các card có vẻ đồng đều */
+}
+
+/* Quan trọng: Đảm bảo ảnh luôn có kích thước cố định và được căn giữa trong card */
+.product-card .product-image {
+    width: 100%;
+    height: 200px; /* Giữ nguyên chiều cao cố định cho ảnh best seller */
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease; /* Thêm transition cho hiệu ứng zoom */
+}
+.product-card.new-product-item .product-image {
+    width: 180px; /* Kích thước cố định cho ảnh sản phẩm mới */
+    height: 180px;
+    border-radius: 8px;
+    margin: 0 auto 15px auto; /* Căn giữa ảnh và tăng khoảng cách dưới ảnh */
+    object-fit: cover; /* Đảm bảo ảnh được cover trong khung hình */
+    transition: transform 0.3s ease; /* Thêm transition cho hiệu ứng zoom */
+}
+
+/* Hiệu ứng zoom ảnh khi hover */
+.product-card.new-product-item:hover .product-image {
+    transform: scale(1.05); /* Phóng to ảnh nhẹ nhàng khi hover */
+}
+
+.product-card .product-info {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Đảm bảo tên và nút đẩy về hai phía nếu có giá */
+    align-items: center; /* Căn giữa nội dung trong product-info */
+    text-align: center; /* Căn giữa text trong product-info */
+}
+.product-card.new-product-item .product-info {
+    padding: 0 10px 10px 10px; /* Điều chỉnh padding cho phù hợp */
+    flex-grow: 1; /* Cho phép giãn nở để đẩy nút xuống cuối */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Đẩy tên lên, nút xuống */
+    align-items: center; /* Căn giữa các item trong product-info */
+}
+
+.product-card .product-name {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 600;
+    line-height: 1.3;
+    /* min-height: 2.6em; */ /* Bỏ min-height nếu không cần cố định 2 dòng, để nội dung tự co giãn */
+    flex-grow: 1; /* Quan trọng: Cho phép tên sản phẩm chiếm không gian còn lại */
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc nếu có 1 dòng */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    text-align: center; /* Đảm bảo text được căn giữa */
+    padding: 0 5px; /* Thêm padding ngang nhẹ để text không chạm viền */
+}
+.product-card.new-product-item .product-name {
+    font-size: 17px;
+    margin-bottom: 10px; /* Điều chỉnh khoảng cách dưới tên */
+    min-height: 0; /* Bỏ min-height nếu không cần cố định chiều cao */
+    flex-grow: 1; /* Cho phép giãn nở */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-card .product-price {
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: auto; /* Pushes price to bottom */
+    margin-bottom: 10px; /* Thêm khoảng cách dưới giá */
+}
+.product-card.new-product-item .product-price {
+    /* Sản phẩm mới không có giá trực tiếp, nếu có hãy bật lại */
+    display: none;
+}
+
+.product-card .product-cta {
+    margin-top: 15px; /* Khoảng cách trên nút */
+    width: 100%; /* Đảm bảo nút chiếm đủ chiều rộng */
+}
+.product-card.new-product-item .product-cta {
+    margin-top: auto; /* Đẩy nút xuống dưới cùng */
+    width: auto; /* Giữ nguyên chiều rộng tự động cho nút */
+}
+
+.product-card .btn-product-order {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 10px 20px; /* Tăng padding nút để trông lớn hơn */
+    font-size: 16px; /* Tăng font size nút */
+    border-radius: 25px; /* Bo tròn nút nhiều hơn */
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600; /* Đậm hơn */
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Thêm bóng đổ nhẹ */
+}
+.product-card .btn-product-order:hover {
+    background-color: #e69500;
+    transform: translateY(-2px); /* Hiệu ứng nổi lên khi hover */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Bóng đổ đậm hơn khi hover */
+}
+.product-card .btn-product-order:active {
+    transform: translateY(0); /* Nhấn xuống */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .product-grid.new-products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    .product-card.new-product-item .product-image {
+        width: 160px;
+        height: 160px;
+    }
+}
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .product-grid.new-products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Giảm minmax cho mobile */
+    }
+    .product-card.new-product-item .product-image {
+        width: 140px; /* Giảm kích thước ảnh trên mobile */
+        height: 140px;
+    }
+    .product-card .product-name, .product-card.new-product-item .product-name {
+        font-size: 16px;
+    }
+    .product-card .btn-product-order {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+}
+@media (max-width: 480px) {
+    .product-grid {
+        grid-template-columns: 1fr; /* 1 cột trên màn hình siêu nhỏ */
+    }
+    .product-card.new-product-item {
+        max-width: 250px; /* Giới hạn chiều rộng card trên mobile */
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .product-card.new-product-item .product-image {
+        width: 160px; /* Đảm bảo ảnh đủ lớn trên 1 cột */
+        height: 160px;
+    }
+}
+
+/* Các CSS khác giữ nguyên */
+
+        /* --- FOOTER --- */
+        footer { background-color: orange; color: #fff; padding: 50px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; }
+        .footer-column { flex: 1; min-width: 280px; margin-bottom: 30px; padding: 0 15px; }
+        .footer-column h4 { font-size: 20px; font-weight: bold; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 10px; }
+        .footer-column p { font-size: 16px; line-height: 1.8; margin-bottom: 8px; }
+        .footer-column a { color: #fff; text-decoration: none; }
+        .footer-column a:hover { text-decoration: underline; }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .product-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .fixed-navbar { padding: 10px 20px; flex-direction: column; align-items: flex-start; }
+            .fixed-navbar .main-menu { flex-direction: column; gap: 10px; width: 100%; align-items: flex-start; margin-top: 10px; }
+            .fixed-navbar .user-actions { 
+                margin-top: 10px; 
+                align-self: flex-start; /* Căn chỉnh user-actions sang trái khi navbar xếp chồng */
+            }
+            
+            .hero-carousel .slide-content { 
+                bottom: 10%; 
+            }
+            .hero-carousel .slide-content .cta-button { 
+                font-size: 1em; 
+                padding: 12px 25px;
+            }
+
+
+            .about-us-section { flex-direction: column; align-items: center; text-align:center; padding: 30px 5%; }
+            .about-us-section .text-column, .about-us-section .image-column { max-width: 100%; width: 100%; }
+            
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
+            .product-grid.new-products-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+            
+            .footer-column { min-width: calc(50% - 30px); }
+        }
+        @media (max-width: 480px) {
+            .fixed-navbar .user-actions {
+                gap: 15px; /* Giảm khoảng cách nếu cần */
+            }
+            .fixed-navbar .nav-action-icon {
+                font-size: 22px; /* Giảm kích thước icon một chút */
+            }
+            .fixed-navbar .cart-item-count {
+                font-size: 0.65em;
+                padding: 1px 4px;
+                min-width: 14px;
+            }
+
+            .hero-carousel .slide-content {
+                 bottom: 8%; 
+            }
+            .hero-carousel .slide-content .cta-button { 
+                font-size: 0.9em; 
+                padding: 10px 20px;
+            }
+
+            .product-grid { grid-template-columns: 1fr; }
+            .footer-column { min-width: 100%; }
+        }
+        /* --- STYLING RIÊNG CHO BEST SELLER SECTION VỚI ẢNH NỀN --- */
+        .products-section.best-seller-section {
+            position: relative; 
+            background-image: url('background.jpg'); 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+
+        .products-section.best-seller-section::before {
+            content: ""; 
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6); 
+            border-radius: 8px; 
+            z-index: 1; 
+        }
+
+        .products-section.best-seller-section > .section-heading,
+        .products-section.best-seller-section > .product-grid,
+        .products-section.best-seller-section > .view-more-button-container {
+            position: relative; 
+            z-index: 2; 
+        }
+
+        .products-section.best-seller-section .section-heading {
+            color: white; 
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); 
+        }
+
+        .products-section.best-seller-section .product-card {
+            background: rgba(255, 255, 255, 0.95); 
+        }
+    </style>
 </head>
 <body>
     <nav class="fixed-navbar" id="mainNavbar">
@@ -17,12 +860,12 @@
         </div>
         <div class="main-menu">
             <a href="index.html" class="nav-link">Trang chủ</a>
-            <a href="#" class="nav-link">Thực đơn</a>
+            <a href="ThucDon.html" class="nav-link">Thực đơn</a>
             <a href="Khuyen_mai_MFC/Khuyen_mai_page1.html" class="nav-link">Khuyến mãi</a>
             <a href="tranglienhe.html" class="nav-link">Liên hệ</a>
         </div>
         <div class="user-actions">
-            <a href="giohang.html" class="nav-action-icon" aria-label="Giỏ hàng">
+            <a href="Gio_hang_MFC/Gio_hang.html" class="nav-action-icon" aria-label="Giỏ hàng">
                 <i class='bx bxs-cart'></i>
                 <span class="cart-item-count">0</span> 
             </a>
@@ -40,10 +883,10 @@
                     <div class="slide-content">
                         <h2>Gà Rán Giòn Tan - Ưu Đãi Cực Sốc!</h2>
                         <p>Combo gia đình chỉ từ 199K, nhanh tay đặt ngay!</p>
-                        <a href="#" class="cta-button">Đặt Ngay</a> </div>
+                        <a href="Gio_hang_MFC/Gio_hang.html" class="cta-button">Đặt Ngay</a> </div>
                 </div>
                 <div class="slide">
-                    <img src="bogo.png" alt="Banner Món Mới 2">
+                    <img src="banno.png" alt="Banner Món Mới 2">
                      <div class="slide-content">
                         <h2>Thưởng Thức Món Mới - Burger Siêu Đẫm</h2>
                         <p>Hương vị bùng nổ, thử là ghiền!</p>
@@ -66,22 +909,33 @@
             <div class="carousel-dots"></div>
         </section>
 
-        <section class="key-actions-section">
-            <div class="key-actions-grid">
-                <a href="#" class="action-card">
-                    <i class='bx bxs-dish'></i>
-                    <h3>Xem Thực Đơn</h3>
-                </a>
-                <a href="Khuyen_mai_MFC/Khuyen_mai_page1.html" class="action-card">
-                    <i class='bx bxs-purchase-tag'></i>
-                    <h3>Ưu Đãi Hôm Nay</h3>
-                </a>
-                <a href="tranglienhe.html" class="action-card">
-                    <i class='bx bxs-map-alt'></i>
-                    <h3>Tìm Cửa Hàng</h3>
-                </a>
-            </div>
-        </section>
+       <section class="key-actions-section">
+    <div class="key-actions-grid">
+
+        <a href="ThucDon.html" class="icon-action-card card-bg-menu"> <div class="icon-action-card-icon">
+                <i class='bx bxs-food-menu'></i>
+                </div>
+            <h3 class="icon-action-card-title">Xem Thực Đơn</h3>
+            <p class="icon-action-card-description">Món ngon đa dạng, tha hồ lựa chọn!</p>
+        </a>
+
+        <a href="Khuyen_mai_MFC/Khuyen_mai_page1.html" class="icon-action-card card-bg-deals">
+            <div class="icon-action-card-icon">
+                <i class='bx bxs-purchase-tag-alt'></i>
+                </div>
+            <h3 class="icon-action-card-title">Ưu Đãi Hôm Nay</h3>
+            <p class="icon-action-card-description">Khuyến mãi hấp dẫn, tiết kiệm mỗi ngày!</p>
+        </a>
+
+        <a href="tranglienhe.html" class="icon-action-card card-bg-store"> <div class="icon-action-card-icon">
+                <i class='bx bxs-store-alt'></i>
+                </div>
+            <h3 class="icon-action-card-title">Tìm Cửa Hàng</h3>
+            <p class="icon-action-card-description">Ghé MFC gần nhất thưởng thức gà giòn!</p>
+        </a>
+
+    </div>
+</section>
 
         <div class="section-title-bar">
             VỀ CHÚNG TÔI
@@ -106,7 +960,7 @@
                     <div class="product-info">
                         <h3 class="product-name">Combo Gà Rán + Khoai Tây</h3>
                         <p class="product-price">đ89.000</p>
-                        <div class="product-cta"><a href="#" class="btn-product-order">Đặt Ngay</a></div>
+                        <div class="product-cta"><a href="ThucDon.html#combo-ga-ran-khoai-tay" class="btn-product-order">Đặt Ngay</a></div>
                     </div>
                 </div>
                 <div class="product-card">
@@ -114,7 +968,7 @@
                     <div class="product-info">
                         <h3 class="product-name">Combo Gà Cay + Pepsi</h3>
                         <p class="product-price">đ99.000</p>
-                        <div class="product-cta"><a href="#" class="btn-product-order">Đặt Ngay</a></div>
+                        <div class="product-cta"><a href="ThucDon.html#combo-ga-cay-pepsi" class="btn-product-order">Đặt Ngay</a></div>
                     </div>
                 </div>
                 <div class="product-card">
@@ -122,7 +976,7 @@
                     <div class="product-info">
                         <h3 class="product-name">Gà Giòn Truyền Thống</h3>
                         <p class="product-price">đ120.000</p>
-                        <div class="product-cta"><a href="#" class="btn-product-order">Đặt Ngay</a></div>
+                        <div class="product-cta"><a href="ThucDon.html#ga-gion-truyen-thong" class="btn-product-order">Đặt Ngay</a></div>
                     </div>
                 </div>
                 <div class="product-card">
@@ -130,12 +984,12 @@
                     <div class="product-info">
                         <h3 class="product-name">Gà Phô Mai + Khoai Lắc</h3>
                         <p class="product-price">đ109.000</p>
-                        <div class="product-cta"><a href="#" class="btn-product-order">Đặt Ngay</a></div>
+                        <div class="product-cta"><a href="ThucDon.html#ga-pho-mai-khoai-lac" class="btn-product-order">Đặt Ngay</a></div>
                     </div>
                 </div>
             </div>
             <div class="view-more-button-container">
-                <a href="#" class="btn-view-more">XEM THÊM THỰC ĐƠN</a>
+                <a href="ThucDon.html" class="btn-view-more">XEM THÊM THỰC ĐƠN</a>
             </div>
         </section>
 
@@ -146,28 +1000,27 @@
                     <img src="combo1.jpg" alt="Combo Family" class="product-image"/>
                     <div class="product-info">
                         <h3 class="product-name">Combo Family Vui Vẻ</h3>
-                         <div class="product-cta"><a href="#" class="btn-product-order">Chi Tiết</a></div>
+                         <div class="product-cta"><a href="ThucDon.html#combo-family" class="btn-product-order">Chi Tiết</a></div>
                     </div>
                 </div>
                 <div class="product-card new-product-item">
                     <img src="sandwich.jpg" alt="Sandwich Gà Nướng Mật Ong" class="product-image"/>
                     <div class="product-info">
                         <h3 class="product-name">Sandwich Gà Nướng Mật Ong</h3>
-                         <div class="product-cta"><a href="#" class="btn-product-order">Chi Tiết</a></div>
+                         <div class="product-cta"><a href="ThucDon.html#sandwich-ga-nuong" class="btn-product-order">Chi Tiết</a></div>
                     </div>
                 </div>
                 <div class="product-card new-product-item">
                     <img src="combo2.jpg" alt="Combo Sinh Viên" class="product-image"/>
                     <div class="product-info">
                         <h3 class="product-name">Combo Sinh Viên Tiết Kiệm</h3>
-                         <div class="product-cta"><a href="#" class="btn-product-order">Chi Tiết</a></div>
+                         <div class="product-cta"><a href="ThucDon.html#combo-sinh-vien" class="btn-product-order">Chi Tiết</a></div>
                     </div>
                 </div>
                 <div class="product-card new-product-item">
-                    <img src="#" alt="Combo Ronaldo" class="product-image"/>
-                    <div class="product-info">
+                    <img src="placeholder-ronaldo.jpg" alt="Combo Ronaldo" class="product-image"/> <div class="product-info">
                         <h3 class="product-name">Combo Ronaldo</h3>
-                         <div class="product-cta"><a href="#" class="btn-product-order">Chi Tiết</a></div>
+                         <div class="product-cta"><a href="ThucDon.html#combo-ronaldo" class="btn-product-order">Chi Tiết</a></div>
                     </div>
                 </div>
             </div>
@@ -185,10 +1038,7 @@
       <h4>Chính Sách</h4>
       <p><a href="tranglienhe.html">Liên hệ</a></p>
       <p><a href="Chinhsach.html">Chính sách & Quy định chung</a></p>
-      <p><a href="#">Thanh toán khi đặt hàng</a></p>
-      <p><a href="#">Chính sách hoạt động</a></p>
-      <p><a href="#">Bảo mật thông tin</a></p>
-    </div>
+      <p><a href="Chinhsach.html#quy-dinh-thanh-toan">Thanh toán khi đặt hàng</a></p> <p><a href="Chinhsach.html#dieu-khoan-su-dung">Chính sách hoạt động</a></p> <p><a href="Chinhsach.html#chinh-sach-bao-mat">Bảo mật thông tin</a></p> </div>
      <div class="footer-column">
         <h4>Giờ Mở Cửa</h4>
         <p>Thứ 2 - Chủ Nhật: 09:00 - 22:00</p>
@@ -196,6 +1046,163 @@
     </div>
   </footer>
 
-<script src="js.js"></script> 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const nav = document.getElementById('mainNavbar');
+        const navLogo = document.getElementById('navbarLogo');
+        const pageContentWrapper = document.querySelector('.page-content-wrapper');
+        const heroCarouselElement = document.getElementById('heroCarousel');
+
+        let initialNavPaddingTopBottom = 10;
+        let initialNavPaddingLeftRight = 40;
+        let initialLogoHeight = 50;
+
+        if (navLogo) initialLogoHeight = navLogo.offsetHeight || 50;
+        if (nav) {
+            const computedStyle = window.getComputedStyle(nav);
+            const paddingValues = computedStyle.padding.split(" ");
+            if (paddingValues.length === 1) initialNavPaddingTopBottom = parseFloat(paddingValues[0]);
+            if (paddingValues.length >= 2) {
+                initialNavPaddingTopBottom = parseFloat(paddingValues[0]);
+                initialNavPaddingLeftRight = parseFloat(paddingValues[1]);
+            }
+        }
+
+        function adjustPageContentPadding() {
+            if (nav && pageContentWrapper) {
+                pageContentWrapper.style.paddingTop = nav.offsetHeight + 'px';
+            }
+        }
+        
+        adjustPageContentPadding();
+        window.addEventListener('resize', adjustPageContentPadding);
+
+        window.addEventListener('scroll', function() {
+            if (!nav || !navLogo) return;
+            if (window.scrollY > 50) {
+                nav.style.backgroundColor = 'rgba(255, 165, 0, 0.9)';
+                nav.style.padding = `5px ${initialNavPaddingLeftRight}px`;
+                navLogo.style.height = (initialLogoHeight * 0.8) + 'px';
+            } else {
+                nav.style.backgroundColor = 'orange';
+                nav.style.padding = `${initialNavPaddingTopBottom}px ${initialNavPaddingLeftRight}px`;
+                navLogo.style.height = initialLogoHeight + 'px';
+            }
+            adjustPageContentPadding(); 
+        });
+
+        // Hero Carousel Logic
+        if (heroCarouselElement) {
+            const slidesContainer = heroCarouselElement.querySelector('.slides-container');
+            const slides = Array.from(heroCarouselElement.querySelectorAll('.slide'));
+            const prevButton = heroCarouselElement.querySelector('.prev');
+            const nextButton = heroCarouselElement.querySelector('.next');
+            const dotsContainer = heroCarouselElement.querySelector('.carousel-dots');
+            let currentIndex = 0;
+            let slideInterval;
+
+            function updateCarousel() {
+                if (!slidesContainer || slides.length === 0) return; 
+                slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+                if (dotsContainer) {
+                     Array.from(dotsContainer.children).forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentIndex);
+                    });
+                }
+            }
+            
+            function createDots() {
+                if(!dotsContainer || slides.length === 0) return; 
+                dotsContainer.innerHTML = ''; 
+                slides.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.classList.add('dot');
+                    if (index === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => {
+                        currentIndex = index;
+                        updateCarousel();
+                        resetInterval();
+                    });
+                    dotsContainer.appendChild(dot);
+                });
+            }
+
+            function nextSlide() {
+                if (slides.length === 0) return;
+                currentIndex = (currentIndex + 1) % slides.length;
+                updateCarousel();
+            }
+            function prevSlide() {
+                if (slides.length === 0) return;
+                currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+                updateCarousel();
+            }
+            function startInterval() {
+                if (slides.length > 1) { 
+                     slideInterval = setInterval(nextSlide, 5000);
+                }
+            }
+            function resetInterval() {
+                clearInterval(slideInterval);
+                startInterval();
+            }
+
+            if (slides.length > 0) {
+                if (prevButton) prevButton.addEventListener('click', () => { prevSlide(); resetInterval(); });
+                if (nextButton) nextButton.addEventListener('click', () => { nextSlide(); resetInterval(); });
+                createDots();
+                startInterval();
+                updateCarousel(); 
+            }
+        }
+
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') === '#') { // Bỏ qua nếu href chỉ là "#"
+                    // Bạn có thể muốn e.preventDefault() ở đây nếu không muốn hành vi mặc định
+                    return; 
+                }
+                try {
+                    // Thử lấy ID từ href (ví dụ: #section1 -> section1)
+                    const targetId = this.getAttribute('href').substring(1);
+                    if (!targetId) return; // Nếu không có ID (ví dụ href="#") thì bỏ qua
+
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        const navbarHeight = document.getElementById('mainNavbar') ? document.getElementById('mainNavbar').offsetHeight : 70;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+                        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                    }
+                } catch (error) { console.warn('Smooth scroll error:', error); }
+            });
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.createElement('button');
+        backToTopButton.innerHTML = "<i class='bx bx-chevron-up'></i>"; 
+        Object.assign(backToTopButton.style, {
+            position: 'fixed', bottom: '30px', right: '30px',
+            backgroundColor: 'orange', color: 'white',
+            border: 'none', borderRadius: '50%',
+            width: '50px', height: '50px', fontSize: '28px',
+            cursor: 'pointer', display: 'none', zIndex: '1001',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+            lineHeight: '50px', textAlign: 'center'
+        });
+        document.body.appendChild(backToTopButton);
+        window.addEventListener('scroll', () => {
+            backToTopButton.style.display = (window.pageYOffset > 200) ? 'block' : 'none';
+        });
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        console.log("Gà Rán MFC");
+    });
+</script> 
 </body>
 </html>
