@@ -164,49 +164,57 @@ input, textarea, button, select {
     background-color: #E67E22;
 }
 
-/* --- Fixed Navbar (Header) --- */
+/* --- NAVIGATION BAR --- */
 .fixed-navbar {
-    position: fixed;
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+    background-color: orange; padding: 10px 40px; display: flex;
+    align-items: center; justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: padding 0.3s ease, background-color 0.3s ease;
+}
+.fixed-navbar .logo-link { display: flex; align-items: center; text-decoration: none;}
+.fixed-navbar .logo-image { height: 50px; transition: height 0.3s ease;}
+.fixed-navbar .main-menu { display: flex; justify-content: center; align-items: center; gap: 30px; flex: 1;}
+.fixed-navbar .nav-link {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 5px 0;
+    transition: transform 0.2s ease-out, text-shadow 0.2s ease-out, border 0.2s ease-out, padding 0.2s ease-out;
+    display: inline-block;
+    position: relative; /* Cần thiết cho pseudo-element */
+    z-index: 1; /* Đảm bảo link nằm trên pseudo-element */
+}
+.fixed-navbar .nav-link:hover {
+    text-decoration: none; /* Bỏ gạch chân khi hover nếu muốn chỉ dùng khung */
+    transform: translateY(-3px) scale(1.05);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+    padding: 5px 15px; /* Tăng padding để tạo không gian cho khung */
+}
+
+/* Thêm khung bằng pseudo-element */
+.fixed-navbar .nav-link::before {
+    content: '';
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: var(--primary-color);
-    padding: 15px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    transition: padding 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent; /* Khởi tạo viền trong suốt */
+    border-radius: 8px; /* Bo tròn góc khung */
+    transition: border-color 0.2s ease-out, transform 0.2s ease-out, opacity 0.2s ease-out;
+    z-index: -1; /* Đảm bảo khung nằm dưới chữ */
+    pointer-events: none; /* Đảm bảo không cản trở sự kiện click */
+    opacity: 0; /* Ẩn khung ban đầu */
+    transform: scale(0.8); /* Khởi tạo nhỏ hơn để có hiệu ứng phóng to khi hover */
 }
 
-.fixed-navbar.scrolled {
-    padding: 10px 40px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-    background-color: var(--primary-color);
+.fixed-navbar .nav-link:hover::before {
+    border-color: white; /* Màu viền khi hover */
+    opacity: 1; /* Hiển thị khung */
+    transform: scale(1); /* Phóng to ra kích thước thật */
 }
-
-.fixed-navbar .logo-container {
-    display: flex;
-    align-items: center;
-}
-
-.fixed-navbar .logo-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-}
-
-.fixed-navbar .logo-image {
-    height: 70px;
-    filter: brightness(1.8);
-    transition: height 0.3s ease, filter 0.3s ease;
-}
-
-.fixed-navbar.scrolled .logo-image {
-    height: 55px;
-}
-
 /* Main menu */
 .main-menu {
     display: flex;
@@ -657,7 +665,8 @@ input, textarea, button, select {
     border: 1px solid var(--border-color-light);
     border-radius: 8px;
     margin-bottom: 15px;
-    overflow: hidden;
+    overflow: visible; /* Giữ visible để không cắt nội dung nếu max-height bị thiếu */
+    position: relative;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
@@ -697,22 +706,27 @@ input, textarea, button, select {
 }
 
 .faq-answer {
-    padding: 0 25px;
+    padding: 0 25px; /* Padding ngang khi ẩn */
     font-size: 1em;
     color: #555;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
-}
-
-.faq-answer p {
-    padding-top: 15px; /* Add padding to top of text in answer */
-    padding-bottom: 20px;
+    max-height: 0; /* Ban đầu ẩn đi */
+    overflow: hidden; /* Ẩn nội dung bị tràn */
+    /* Only transition max-height, padding changes instantly on class change */
+    transition: max-height 0.4s ease-out; /* Hiệu ứng chuyển động mượt mà cho chiều cao */
 }
 
 .faq-answer.active {
-    max-height: 1000px; /* Tăng max-height để đảm bảo chứa đủ nội dung, kể cả câu trả lời dài */
-    padding: 15px 25px 20px;
+    padding: 15px 30px 20px; /* Padding khi mở rộng - này sẽ áp dụng tức thì */
+    max-width: 100%;
+    position: relative;
+    z-index: 10;
+    border-radius: 6px;
+    overflow: visible; /* Cho phép nội dung tràn ra nếu max-height bị thiếu */
+}
+
+.faq-answer p {
+    padding-top: 0; /* Đặt padding top của p về 0 vì đã có padding trên faq-answer */
+    padding-bottom: 0; /* Đặt padding bottom của p về 0 vì đã có padding trên faq-answer */
 }
 
 /* --- Feedback Form Section --- */

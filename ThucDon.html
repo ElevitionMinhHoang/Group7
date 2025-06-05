@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thực đơn Mr. Fried Chicken</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        /* Reset cơ bản và box-sizing */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0;
+            background: #fff8e1; /* Màu nền bạn đã chọn */
+            scroll-behavior: smooth;
+            /* padding-top sẽ được JS điều chỉnh */
+        }
+
+        /* --- THANH ĐIỀU HƯỚNG CHÍNH --- */
+        .fixed-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1001; /* Quan trọng: Nằm trên thanh phụ */
+            background-color: orange; /* Màu nền thanh chính */
+            padding: 10px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            transition: padding 0.3s ease, background-color 0.3s ease, height 0.3s ease;
+        }
+        .fixed-navbar .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .fixed-navbar .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .fixed-navbar .logo-image {
+            height: 50px; 
+            transition: height 0.3s ease;
+            object-fit: contain;
+        }
+        .fixed-navbar .main-menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex: 1; 
+        }
+        .fixed-navbar .nav-link {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 5px 0;
+        }
+        .fixed-navbar .nav-link.active, /* Thêm style cho link active của trang hiện tại */
+        .fixed-navbar .nav-link:hover {
+            text-decoration: underline;
+        }
+        .fixed-navbar .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 25px; 
+            flex-shrink: 0; 
+        }
+        .fixed-navbar .nav-action-icon {
+            color: white;
+            font-size: 26px;
+            text-decoration: none;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 5px;
+        }
+        .fixed-navbar .nav-action-icon:hover {
+            opacity: 0.8;
+        }
+        .fixed-navbar .cart-item-count {
+            position: absolute;
+            top: 0px; 
+            right: -3px; 
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 1px 5px;
+            font-size: 0.7em;
+            font-weight: bold;
+            line-height: 1;
+            min-width: 16px;
+            text-align: center;
+            border: 1px solid white;
+            box-shadow: 0 0 3px rgba(0,0,0,0.3);
+        }
+
+        /* --- THANH MENU PHỤ (DANH MỤC MÓN ĂN) --- */
+        .navbar { 
+            position: fixed;
+            /* top: SẼ ĐƯỢC JAVASCRIPT ĐẶT */
+            left: 0;
+            width: 100%;
+            background-color: #ffffff; /* Nền trắng như ảnh KFC */
+            display: flex;
+            justify-content: center; 
+            padding: 0 10px; 
+            z-index: 1000; /* Nằm dưới thanh chính */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12); 
+            overflow-x: auto; 
+            white-space: nowrap; 
+            height: 48px; 
+            align-items: center;
+        }
+
+        .navbar a {
+            margin: 0 8px; 
+            padding: 0 10px; 
+            text-decoration: none;
+            color: #5f6368; 
+            font-weight: 600; 
+            font-size: 0.875rem; /* 14px */
+            border-bottom: 3px solid transparent; 
+            transition: color 0.2s ease, border-bottom-color 0.2s ease;
+            height: 100%; 
+            display: flex; 
+            align-items: center; 
+        }
+
+        .navbar a.active {
+            color: #D70F17; /* Màu đỏ KFC cho mục active */
+            border-bottom-color: #D70F17; 
+            font-weight: 700;
+        }
+
+        .navbar a:hover {
+            color: #D70F17; 
+        }
+
+        /* --- NỘI DUNG CHÍNH --- */
+        main {
+            /* padding-top SẼ ĐƯỢC JAVASCRIPT ĐIỀU CHỈNH */
+        }
+
+        .section {
+            padding: 20px 20px 40px 20px; 
+            /* scroll-margin-top Sẽ được JS đặt */
+        }
+
+        .section h2 {
+            text-align: center;
+            color: #D70F17; /* Màu đỏ KFC */
+            margin-bottom: 30px; 
+            font-size: 2rem; 
+            padding-top: 30px; 
+            font-weight: 700;
+        }
+
+        /* --- GRID VÀ CARD HIỂN THỊ MÓN ĂN --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); 
+            gap: 25px; 
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px; 
+            padding: 0; 
+            text-align: center;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08); 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            overflow: hidden; 
+            transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .card img {
+            width: 100%;
+            height: 190px; 
+            object-fit: cover;
+            margin-bottom: 0; 
+        }
+        .card-content { 
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; 
+            justify-content: space-between; 
+        }
+
+        .card h3 {
+            margin: 0 0 8px;
+            font-size: 1.1rem; 
+            font-weight: 600; 
+            color: #202124; 
+            line-height: 1.35;
+            min-height: 2.7em; 
+        }
+
+        .card p { 
+            color: #D70F17; 
+            font-weight: bold;
+            font-size: 1.2rem; 
+            margin-top: 10px; 
+        }
+
+        .card p.description { 
+            color: #5f6368; 
+            font-size: 0.8rem; 
+            font-weight: normal;
+            margin: 5px 0 10px;
+            flex-grow: 1; 
+            line-height: 1.4;
+            min-height: 1.4em; 
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .fixed-navbar {
+                padding: 10px 20px;
+            }
+             .fixed-navbar .main-menu {
+                gap: 15px;
+            }
+            .navbar { 
+                justify-content: flex-start; 
+                padding: 0 10px;
+                height: 44px;
+            }
+            .navbar a {
+                font-size: 0.825rem;
+                padding: 0 12px;
+                line-height: calc(44px - 3px); /* (height - border-bottom) */
+            }
+            .section h2 {
+                font-size: 1.7rem;
+            }
+             .grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+            .card img {
+                height: 160px;
+            }
+             .card h3 {
+                font-size: 1rem;
+                min-height: 2.6em;
+            }
+            .card p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .fixed-navbar .main-menu {
+                display: none; /* Ẩn menu chính trên mobile nhỏ, bạn có thể làm menu hamburger sau */
+            }
+            .fixed-navbar {
+                justify-content: space-between; /* Logo và user actions sẽ ở hai đầu */
+            }
+            
+            .navbar a {
+                font-size: 0.8rem;
+                margin: 0 5px;
+                padding: 0 8px;
+            }
+            .section h2 {
+                font-size: 1.5rem;
+                 padding-top: 20px;
+            }
+             .grid {
+                grid-template-columns: 1fr; /* 1 cột trên mobile rất nhỏ */
+                gap: 15px;
+            }
+            .card img {
+                height: 180px; /* Tăng lại chút cho 1 cột */
+            }
+             .card h3 {
+                font-size: 1rem; /* Giữ nguyên hoặc tăng chút */
+                 min-height: auto; /* Cho phép chiều cao tự động */
+            }
+            .card p {
+                font-size: 1.05rem;
+            }
+             .card p.description {
+                font-size: 0.75rem;
+            }
+        }
+        /* --- Footer --- */
+footer {
+    background-color: #222;
+    color: #eee;
+    padding: 60px 5%;
+    font-size: 0.95em;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-brand .footer-logo-link {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.footer-brand .footer-logo-image {
+    height: 80px;
+    filter: brightness(1.5);
+}
+
+.footer-brand p {
+    margin-bottom: 20px;
+    line-height: 1.8;
+    color: #bbb;
+}
+
+.social-icons a {
+    font-size: 28px;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+}
+
+/* Specific social icon colors */
+.social-icons .bx.bxl-facebook-circle {
+    color: #1877F2; /* Facebook Blue */
+}
+.social-icons .bx.bxl-instagram-alt {
+    color: #E4405F; /* Instagram Red-Pink */
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.social-icons .bx.bxl-tiktok {
+    color: #000; /* TikTok Black */
+    text-shadow: 2px 2px 0px #25F4EE, -2px -2px 0px #FE2C55; /* TikTok cyan and magenta shadow */
+}
+
+
+.footer-column h4 {
+    font-size: 1.3em;
+    margin-bottom: 25px;
+    color: var(--accent-color);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-column h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+    color: #bbb;
+    transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+    color: var(--text-light);
+}
+
+.footer-contact p {
+    margin-bottom: 10px;
+    color: #bbb;
+    display: flex;
+    align-items: center;
+}
+
+.footer-contact p i {
+    margin-right: 10px;
+    color: var(--primary-color);
+    font-size: 20px;
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid #333;
+    padding-top: 25px;
+    margin-top: 40px;
+    color: #999;
+}
+
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+    .fixed-navbar {
+        padding: 10px 25px;
+    }
+    .user-actions {
+        gap: 15px;
+    }
+    .main-menu { /* Hide main menu on smaller screens */
+        display: none;
+    }
+    .hamburger-menu { /* Show hamburger menu on smaller screens */
+        display: block;
+    }
+    .mobile-menu { /* Show mobile menu on smaller screens */
+        display: block;
+    }
+
+    .hero-title {
+        font-size: 3em;
+    }
+    .hero-subtitle {
+        font-size: 1.2em;
+    }
+    .main-hero-search-box {
+        max-width: 600px;
+    }
+    .main-hero-search-box input {
+        padding: 12px 20px;
+        font-size: 1em;
+    }
+    .main-hero-search-box button {
+        padding: 12px 18px;
+        font-size: 1.3em;
+    }
+
+    /* Overlay adjustments */
+    .overlay-close-btn {
+        font-size: 50px;
+        top: 20px;
+        right: 30px;
+    }
+    .overlay-content {
+        width: 90%;
+        top: 10%;
+    }
+    .overlay-search-box input {
+        padding: 15px 20px;
+        font-size: 1em;
+    }
+    .overlay-search-box button {
+        padding: 15px 18px;
+        font-size: 1.4em;
+    }
+    /* .overlay-main-menu h3,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links h3 {
+        font-size: 1.6em;
+    }
+    /* .overlay-main-menu ul li a,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links ul li a {
+        font-size: 1.1em;
+    }
+    /* .overlay-user-actions { */ /* Remove if you don't want these actions in overlay */
+    /* gap: 20px; */
+    /* } */
+
+
+    .map-section {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+    .section-title.left-align {
+        text-align: center;
+    }
+    .section-title.left-align::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .login-register-form .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .login-register-form .form-actions .btn {
+        width: 100%;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-column {
+        min-width: unset;
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .footer-column h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .footer-brand, .footer-links, .footer-policy, .footer-contact {
+        align-items: center;
+    }
+    .social-icons {
+        justify-content: center;
+    }
+    .footer-contact p {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .common-padding {
+        padding: 60px 4%;
+    }
+    .section-title {
+        font-size: 2.2em;
+        margin-bottom: 40px;
+    }
+    .hero-section {
+        height: 400px;
+    }
+    .hero-title {
+        font-size: 2.8em;
+    }
+    .hero-subtitle {
+        font-size: 1.2em;
+    }
+
+    /* Overlay adjustments */
+    .overlay-content {
+        width: 95%;
+    }
+    .overlay-search-box input {
+        padding: 12px 15px;
+        font-size: 0.95em;
+    }
+    .overlay-search-box button {
+        padding: 12px 15px;
+        font-size: 1.2em;
+    }
+    /* .overlay-main-menu h3,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links h3 {
+        font-size: 1.4em;
+    }
+    /* .overlay-main-menu ul li a,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links ul li a {
+        font-size: 1em;
+    }
+    /* .overlay-user-actions { */ /* Remove if you don't want these actions in overlay */
+    /* flex-direction: column; */
+    /* gap: 15px; */
+    /* } */
+
+
+    .support-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    .info-contact-card {
+        padding: 25px;
+    }
+    .info-contact-card .icon-circle {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+    }
+    .info-contact-card h3 {
+        font-size: 1.3em;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+    .testimonial-card {
+        padding: 25px;
+    }
+
+    .cta-section {
+        height: 300px;
+    }
+    .cta-content h2 {
+        font-size: 2.2em;
+    }
+    .cta-content p {
+        font-size: 1em;
+        margin-bottom: 25px;
+    }
+
+    footer {
+        padding: 40px 4%;
+    }
+    .footer-column {
+        margin-bottom: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding-top: 80px;
+    }
+    .fixed-navbar {
+        padding: 10px 15px;
+    }
+    .fixed-navbar .logo-image {
+        height: 50px;
+    }
+    .fixed-navbar.scrolled .logo-image {
+        height: 40px; /* Make logo smaller on scroll for mobile */
+    }
+    .user-actions {
+        gap: 10px;
+    }
+    .nav-action-icon {
+        font-size: 22px;
+    }
+    .hamburger-menu {
+        font-size: 28px;
+    }
+    .common-padding {
+        padding: 40px 3%;
+    }
+    .section-title {
+        font-size: 1.8em;
+        margin-bottom: 30px;
+    }
+    .hero-section {
+        height: 350px;
+    }
+    .hero-title {
+        font-size: 2.2em;
+    }
+    .hero-subtitle {
+        font-size: 1em;
+    }
+    .main-hero-search-box {
+        max-width: 100%;
+    }
+    .main-hero-search-box input {
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+    .main-hero-search-box button {
+        padding: 10px 15px;
+        font-size: 1.2em;
+    }
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+
+    /* Overlay adjustments for smallest screens */
+    .overlay-close-btn {
+        font-size: 40px;
+        top: 15px;
+        right: 20px;
+    }
+    .overlay-search-box input {
+        padding: 10px 12px;
+        font-size: 0.9em;
+    }
+    .overlay-search-box button {
+        padding: 10px 12px;
+        font-size: 1.1em;
+    }
+    /* .overlay-main-menu h3,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links h3 {
+        font-size: 1.2em;
+        margin-bottom: 15px;
+    }
+    /* .overlay-main-menu ul li a,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links ul li a {
+        font-size: 0.9em;
+        flex-direction: column; /* Stack icon and text */
+        gap: 5px;
+    }
+    /* .overlay-main-menu ul li a i,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links ul li a i {
+        font-size: 1.2em;
+    }
+    /* .overlay-user-actions .nav-action-icon { */ /* Remove if you don't want these actions in overlay */
+    /* font-size: 1em; */
+    /* } */
+    /* .overlay-user-actions .nav-action-icon i { */ /* Remove if you don't want these actions in overlay */
+    /* font-size: 1.5em; */
+    /* } */
+
+
+    .support-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .map-section {
+        width: 100%;
+    }
+
+    .cta-section {
+        height: 250px;
+    }
+    .cta-content h2 {
+        font-size: 1.8em;
+    }
+    .cta-content p {
+        font-size: 0.9em;
+    }
+    footer {
+        padding: 30px 3%;
+    }
+    .footer-column h4 {
+        font-size: 1.2em;
+    }
+    .footer-bottom {
+        padding-top: 15px;
+        margin-top: 25px;
+        font-size: 0.85em;
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="fixed-navbar" id="mainNavbar">
+            <div class="logo-container">
+                <a href="index.html" class="logo-link"> <img src="mfc.jpg" alt="Logo Gà Rán HOÀNG" class="logo-image" id="navbarLogo"> </a>
+            </div>
+            <div class="main-menu">
+                <a href="index.html" class="nav-link">Trang chủ</a> <a href="ThucDon.html" class="nav-link active">Thực đơn</a> <a href="../Khuyen_mai_MFC/Khuyen_mai_page1.html" class="nav-link">Khuyến mãi</a> <a href="../tranglienhe.html" class="nav-link">Liên hệ</a> </div>
+            <div class="user-actions">
+                <a href="../giohang.html" class="nav-action-icon" aria-label="Giỏ hàng"> <i class='bx bxs-cart'></i>
+                    <span class="cart-item-count">0</span>
+                </a>
+                <a href="../tendangnhap.html" class="nav-action-icon" aria-label="Tài khoản"> <i class='bx bxs-user-circle'></i>
+                </a>
+            </div>
+        </nav>
+        <nav class="navbar" id="secondaryNavbar">
+            <a href="#ga" class="active">GÀ VUI VẺ</a>
+            <a href="#combo">COMBO SIÊU HỜI</a>
+            <a href="#lau">LẨU NGON</a>
+            <a href="#phan-an-phu">PHẦN ĂN PHỤ</a>
+            <a href="#nuoc">ĐỒ UỐNG</a>
+        </nav>
+    </header>
+
+    <main id="mainContent">
+        <section id="ga" class="section">
+            <h2>GÀ VUI VẺ</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="images/DuiGaRan.jpg" alt="Đùi gà rán">
+                    <div class="card-content">
+                        <h3>ĐÙI GÀ RÁN</h3>
+                        <p>35,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/canh-ga-ran.jpg" alt="Cánh gà rán">
+                     <div class="card-content">
+                        <h3>CÁNH GÀ RÁN</h3>
+                        <p>35,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/canh-ga-nuong.jpg" alt="Cánh gà nướng">
+                    <div class="card-content">
+                        <h3>CÁNH GÀ NƯỚNG</h3>
+                        <p>35,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/dui-ga-nuong.jpg" alt="Đùi gà nướng">
+                    <div class="card-content">
+                        <h3>ĐÙI GÀ NƯỚNG</h3>
+                        <p>35,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/ga-chien-mam.jpg" alt="Gà chiên mắm">
+                    <div class="card-content">
+                        <h3>GÀ CHIÊN MẮM</h3>
+                        <p>40,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/chan-ga-sa-ot.jpg" alt="Chân gà sả ớt">
+                    <div class="card-content">
+                        <h3>CHÂN GÀ SẢ ỚT</h3>
+                        <p>30,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/ga-sot-cay.jpg" alt="Gà sốt cay">
+                    <div class="card-content">
+                        <h3>GÀ SỐT CAY</h3>
+                        <p>40,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/ga-sot-chua-ngot.jpg" alt="Gà sốt chua ngọt">
+                    <div class="card-content">
+                        <h3>GÀ SỐT CHUA NGỌT</h3>
+                        <p>40,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/ga-popcorn.jpg" alt="Gà Popcorn">
+                    <div class="card-content">
+                        <h3>GÀ POPCORN</h3>
+                        <p>30,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/Gà Donut.jpg" alt="Gà Donut">
+                    <div class="card-content">
+                        <h3>GÀ DONUT</h3>
+                        <p>30,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/POPCORN PHÔ MAI.jpg" alt="POPCORN PHÔ MAI">
+                    <div class="card-content">
+                        <h3>GÀ POPCORN PHÔ MAI</h3>
+                        <p>35,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/hamburger gà.jpg" alt="Hamburger gà">
+                    <div class="card-content">
+                        <h3>HAMBURGER GÀ</h3>
+                        <p>30,000đ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="combo" class="section">
+            <h2>COMBO SIÊU HỜI</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="images/2in1.jpg" alt="2IN1">
+                    <div class="card-content">
+                        <h3>2IN1</h3>
+                        <p class="description">(mix popcorn, cắt sợi)</p>
+                        <p>40,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/3in1.jpg" alt="3IN1">
+                    <div class="card-content">
+                        <h3>3IN1</h3>
+                        <p class="description">(mix cắt sợi, khoai tây, snacks)</p>
+                        <p>55,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/combo-a.jpg" alt="COMBO A">
+                    <div class="card-content">
+                        <h3>COMBO A</h3>
+                        <p class="description">(1 phần gà, 1 khoai tây chiên, 1 nước)</p>
+                        <p>50,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/combo-b.jpg" alt="COMBO B">
+                    <div class="card-content">
+                        <h3>COMBO B</h3>
+                        <p class="description">(1 gà sợi, 1 khoai tây chiên, 1 nước)</p>
+                        <p>60,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/combo-c.jpg" alt="COMBO C">
+                    <div class="card-content">
+                        <h3>COMBO C</h3>
+                        <p class="description">(1 phần gà, 1 gà sợi, 1 nước)</p>
+                        <p>65,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/combo-d.jpg" alt="COMBO D">
+                    <div class="card-content">
+                        <h3>COMBO D</h3>
+                        <p class="description">(1 phần gà, 3in1, 1 nước)</p>
+                        <p>70,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/combo-e.jpg" alt="COMBO E">
+                    <div class="card-content">
+                        <h3>COMBO E</h3>
+                        <p class="description">(2 phần gà, 3in1, 2 nước)</p>
+                        <p>105,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/combo-cong-chua.jpg" alt="COMBO CÔNG CHÚA">
+                    <div class="card-content">
+                        <h3>COMBO CÔNG CHÚA</h3>
+                        <p class="description">(1 phần gà, 1 gà sợi, 1 snacks, 1 khoai tây chiên, 1 nước)</p>
+                        <p>120,000đ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="lau" class="section">
+            <h2>LẨU NGON</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="images/lau-ga.jpg" alt="Lẩu gà">
+                    <div class="card-content">
+                        <h3>LẨU GÀ</h3>
+                        <p>100,000đ</p>
+                    </div>
+                </div>
+                 <div class="card">
+                    <img src="images/LẨU MINI.jpg" alt="Lẩu mini">
+                    <div class="card-content">
+                        <h3>LẨU MINI</h3>
+                        <p>50,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/lau-nam.jpg" alt="lẩu nấm">
+                    <div class="card-content">
+                        <h3>LẨU NẤM</h3>
+                        <p>89,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/lau-cay.jpg" alt="Lẩu cay">
+                    <div class="card-content">
+                        <h3>LẨU CAY</h3>
+                        <p>69,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/lau-thai.jpg" alt="Lẩu thái">
+                    <div class="card-content">
+                        <h3>LẨU THÁI</h3>
+                        <p>69,000đ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="phan-an-phu" class="section">
+            <h2>PHẦN ĂN PHỤ</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="images/khoai-tay-lac-pho-mai.jpg" alt="KHOAI TÂY LẮC PHÔ MAI">
+                    <div class="card-content">
+                        <h3>KHOAI TÂY LẮC PHÔ MAI</h3>
+                        <p>30,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/snack.jpg" alt="SNACK">
+                    <div class="card-content">
+                        <h3>SNACK</h3>
+                        <p>35,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/hoanh-thanh.jpg" alt="HOÀNH THÁNH">
+                    <div class="card-content">
+                        <h3>HOÀNH THÁNH</h3>
+                        <p>20,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/sui-cao.jpg" alt="SỦI CẢO">
+                    <div class="card-content">
+                        <h3>SỦI CẢO</h3>
+                        <p>50,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/banh-bao-mini.jpg" alt="BÁNH BAO Mini">
+                    <div class="card-content">
+                        <h3>BÁNH BAO MINI</h3>
+                        <p>42,000đ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="nuoc" class="section">
+            <h2>ĐỒ UỐNG</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="images/tra-hoa-qua.jpg" alt="Trà hoa quả">
+                    <div class="card-content">
+                        <h3>Trà hoa quả</h3>
+                        <p>20,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/tra-chanh.jpg" alt="Trà chanh">
+                    <div class="card-content">
+                        <h3>Trà chanh</h3>
+                        <p>20,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/tra-quat.jpg" alt="Trà quất">
+                    <div class="card-content">
+                        <h3>Trà quất</h3>
+                        <p>20,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/tra-da.jpg" alt="Trà đá">
+                    <div class="card-content">
+                        <h3>Trà đá</h3>
+                        <p>5,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/nuoc-cam.jpg" alt="Nước cam">
+                    <div class="card-content">
+                        <h3>Nước cam</h3>
+                        <p>25,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/coca-cola.jpg" alt="Coca Cola">
+                    <div class="card-content">
+                        <h3>Coca Cola</h3>
+                        <p>15,000đ</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/fanta.jpg" alt="Fanta">
+                    <div class="card-content">
+                        <h3>Fanta</h3>
+                        <p>15,000đ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+    <div class="footer-container">
+        <div class="footer-column footer-brand">
+            <a href="index.html" class="footer-logo-link">
+                <img src="mfc.jpg" alt="MFC Logo" class="footer-logo-image">
+            </a>
+            <p>MR. Fried Chicken - Mang hương vị giòn tan đến mọi nhà.</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=61566414457049" target="_blank" aria-label="Facebook"><i class='bx bxl-facebook-circle'></i></a>
+                <a href="https://www.instagram.com/letseat_mfc/" target="_blank" aria-label="Instagram"><i class='bx bxl-instagram-alt'></i></a>
+                <a href="https://www.tiktok.com/@minhvietnamlife?_t=ZS-8wvAdZFRz6n&_r=1&fbclid=IwY2xjawKtEA5leHRuA2FlbQIxMABicmlkETFWQlFZNEt2V0lZSXhGaU1IAR408AEmPKNuLRGdHqOvdfne-4nK3JuttGhx_w2mSgebpGJkUKvp8C5Oz7lvsQ_aem_dKedZ3WDN0r44wKVVGS0Qw" target="_blank" aria-label="TikTok"><i class='bx bxl-tiktok'></i></a>
+            </div>
+        </div>
+
+        <div class="footer-column footer-links">
+            <h4>Thông tin</h4>
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="Khuyen_mai_MFC/Khuyen_mai_page1.html">Khuyến mãi</a></li>
+                <li><a href="ThucDon.html">Thực đơn</a></li>
+                <li><a href="tranglienhe.html">Liên hệ & Hỗ trợ</a></li>
+                <li><a href="#">Về chúng tôi</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column footer-policy">
+            <h4>Chính sách</h4>
+            <ul>
+                <li><a href="#">Chính sách & Quy định chung</a></li>
+                <li><a href="#">Chính sách bảo mật thông tin</a></li>
+                <li><a href="#">Chính sách giao hàng</a></li>
+                <li><a href="#">Chính sách đổi trả & hoàn tiền</a></li>
+                <li><a href="#">Điều khoản sử dụng</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column footer-contact">
+            <h4>Thông tin liên hệ</h4>
+            <p><i class='bx bxs-map'></i> 112 P. Chùa Bộc, Quang Trung, Đống Đa, Hà Nội</p>
+            <p><i class='bx bxs-phone'></i> <a href="tel:0975459348">0975459348</a></p>
+            <p><i class='bx bxs-envelope'></i> <a href="mailto:support@mfc.com">support@mfc.com</a></p>
+            <p class="opening-hours"><i class='bx bxs-time-five'></i> Giờ mở cửa: 09:00 - 22:00</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 MR. Fried Chicken. All rights reserved.</p>
+    </div>
+  </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const mainNavbar = document.getElementById('mainNavbar');
+    const secondaryNavbar = document.getElementById('secondaryNavbar');
+    const mainContent = document.getElementById('mainContent');
+    const sections = document.querySelectorAll("main > section.section");
+    const navLinks = document.querySelectorAll(".navbar a"); // Links của thanh menu phụ
+    const mainNavLogo = document.getElementById('navbarLogo');
+
+    let initialMainNavbarPaddingTopBottom = 10;
+    let initialMainNavbarPaddingLeftRight = 40;
+    let initialMainNavbarLogoHeight = 50; // Giá trị mặc định
+
+    function getMainNavbarInitialStyles() {
+        if (mainNavbar) {
+            const computedStyle = window.getComputedStyle(mainNavbar);
+            initialMainNavbarPaddingTopBottom = parseFloat(computedStyle.paddingTop) || 10;
+            initialMainNavbarPaddingLeftRight = parseFloat(computedStyle.paddingLeft) || 40;
+        }
+        if (mainNavLogo) {
+            // Cố gắng lấy chiều cao thực tế sau khi ảnh tải xong, nếu không được thì dùng giá trị mặc định
+            if (mainNavLogo.complete && mainNavLogo.naturalHeight !== 0 && mainNavLogo.offsetHeight > 0) {
+                initialMainNavbarLogoHeight = mainNavLogo.offsetHeight;
+            } else if (mainNavLogo.offsetHeight > 0) { // Nếu chưa complete nhưng có offsetHeight
+                 initialMainNavbarLogoHeight = mainNavLogo.offsetHeight;
+            } else { // Fallback
+                initialMainNavbarLogoHeight = 50;
+            }
+        } else {
+            initialMainNavbarLogoHeight = 50; // Fallback nếu logo không tồn tại
+        }
+    }
+
+    function updateLayout() {
+        let mainNavbarHeight = 0;
+        if (mainNavbar && window.getComputedStyle(mainNavbar).display !== 'none') {
+            mainNavbarHeight = mainNavbar.offsetHeight;
+        }
+
+        let secondaryNavbarHeight = 0;
+        if (secondaryNavbar) {
+            secondaryNavbar.style.top = mainNavbarHeight + 'px';
+            secondaryNavbarHeight = secondaryNavbar.offsetHeight;
+        }
+
+        const totalNavbarHeight = mainNavbarHeight + secondaryNavbarHeight;
+
+        if (mainContent) {
+            mainContent.style.paddingTop = totalNavbarHeight + 'px';
+        } else {
+            document.body.style.paddingTop = totalNavbarHeight + 'px';
+        }
+
+        sections.forEach(section => {
+            if (section) { // Kiểm tra section tồn tại
+                 section.style.scrollMarginTop = totalNavbarHeight + 'px';
+            }
+        });
+    }
+
+    function scrollToSection(targetSection) {
+        if (!targetSection) return;
+        // Không cần tính toán offset phức tạp ở đây nếu scrollMarginTop đã được set đúng
+        const yOffset = - ( (mainNavbar ? mainNavbar.offsetHeight : 0) + (secondaryNavbar ? secondaryNavbar.offsetHeight : 0) );
+        // Thay vào đó, dựa vào scrollMarginTop
+        targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    
+    navLinks.forEach(link => {
+        link.addEventListener("click", function(e) {
+            e.preventDefault();
+            navLinks.forEach(l => l.classList.remove("active"));
+            this.classList.add("active");
+            const targetId = this.getAttribute("href").substring(1);
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                 // Đảm bảo layout đã được cập nhật trước khi cuộn
+                requestAnimationFrame(() => {
+                    scrollToSection(targetSection);
+                });
+            }
+        });
+    });
+
+    window.addEventListener("scroll", () => {
+        let currentSectionId = "";
+        const mainNavHeight = (mainNavbar && window.getComputedStyle(mainNavbar).display !== 'none' ? mainNavbar.offsetHeight : 0);
+        const secondaryNavHeight = (secondaryNavbar ? secondaryNavbar.offsetHeight : 0);
+        const totalNavbarHeight = mainNavHeight + secondaryNavHeight;
+        
+        // Offset từ đỉnh viewport để xác định section nào là "active"
+        // Có thể là một giá trị cố định (ví dụ: 10px dưới navbar phụ) hoặc % chiều cao viewport
+        const activationPoint = totalNavbarHeight + 10; // 10px dưới thanh navbar phụ
+
+        sections.forEach((section) => {
+            if(section){
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                // Active khi đỉnh của section vượt qua điểm kích hoạt một chút, và chưa cuộn qua hết section đó
+                if (window.pageYOffset >= sectionTop - activationPoint && 
+                    window.pageYOffset < sectionTop + sectionHeight - activationPoint) {
+                    currentSectionId = section.getAttribute("id");
+                }
+            }
+        });
+        
+        // Nếu không có section nào khớp (ví dụ cuộn lên trên cùng)
+        if (!currentSectionId && sections.length > 0 && window.pageYOffset < sections[0].offsetTop - totalNavbarHeight) {
+             currentSectionId = sections[0].getAttribute("id"); // Mặc định active section đầu tiên
+        }
+
+
+        navLinks.forEach((link) => {
+            link.classList.remove("active");
+            link.removeAttribute("aria-current");
+            if (link.getAttribute("href") === "#" + currentSectionId) {
+                link.classList.add("active");
+                link.setAttribute("aria-current", "page");
+            }
+        });
+    });
+
+    // Hiệu ứng cuộn cho thanh navbar chính
+// Hiệu ứng cuộn cho thanh navbar chính
+window.addEventListener('scroll', function() {
+    if (!mainNavbar || !mainNavLogo) return;
+
+    let mainNavbarHeightBeforeChange = mainNavbar.offsetHeight; // Lấy chiều cao TRƯỚC khi thay đổi style
+
+    // Sử dụng giá trị initial đã được lấy ổn định hơn
+    let currentInitialLogoHeight = initialMainNavbarLogoHeight;
+
+    if (window.scrollY > 50) {
+        mainNavbar.style.backgroundColor = 'rgba(255, 165, 0, 0.95)';
+        mainNavbar.style.paddingTop = '8px';
+        mainNavbar.style.paddingBottom = '8px';
+        mainNavLogo.style.height = (currentInitialLogoHeight * 0.85) + 'px';
+    } else {
+        mainNavbar.style.backgroundColor = 'orange';
+        mainNavbar.style.paddingTop = initialMainNavbarPaddingTopBottom + 'px';
+        mainNavbar.style.paddingBottom = initialMainNavbarPaddingTopBottom + 'px';
+        mainNavLogo.style.height = currentInitialLogoHeight + 'px';
+    }
+
+    // Quan trọng: Gọi updateLayout NGAY SAU KHI style của mainNavbar đã được thay đổi
+    // và trình duyệt có cơ hội tính toán lại offsetHeight mới.
+    // requestAnimationFrame giúp đảm bảo điều này.
+    requestAnimationFrame(() => {
+        let mainNavbarHeightAfterChange = mainNavbar.offsetHeight;
+        if (mainNavbarHeightBeforeChange !== mainNavbarHeightAfterChange) {
+            updateLayout(); // Gọi updateLayout để cập nhật vị trí thanh phụ và padding nội dung
+        }
+    });
+});
+    
+    function initializeApp() {
+        getMainNavbarInitialStyles(); 
+        updateLayout();
+    }
+
+    if (document.readyState === 'loading') { // DOM chưa sẵn sàng
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    } else { // DOM đã sẵn sàng
+        initializeApp();
+    }
+
+    window.addEventListener('resize', () => {
+        getMainNavbarInitialStyles();
+        updateLayout();
+    });
+    // 'load' event thường tốt hơn để đảm bảo tất cả tài nguyên (như ảnh) đã tải
+    window.addEventListener('load', () => { 
+        getMainNavbarInitialStyles(); // Lấy lại chiều cao logo sau khi ảnh đã chắc chắn tải
+        updateLayout();
+    });
+
+});
+
+</script>
+</body>
+</html>

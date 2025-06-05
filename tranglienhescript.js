@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const navbar = document.getElementById('mainNavbar');
     const navbarLogo = document.getElementById('navbarLogo');
     const pageContainer = document.querySelector('.page-container');
-    
+
     const hamburgerMenu = document.getElementById('hamburgerMenu');
     const mobileMenu = document.getElementById('mobileMenu');
 
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
             fullScreenSearchOverlay.classList.remove('active');
             document.body.style.overflow = '';
             overlaySearchInput.value = '';
-            performSearch();
+            performSearch(); // Perform search to reset filtered items
         });
 
         fullScreenSearchOverlay.addEventListener('click', function(event) {
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fullScreenSearchOverlay.classList.remove('active');
                 document.body.style.overflow = '';
                 overlaySearchInput.value = '';
-                performSearch();
+                performSearch(); // Perform search to reset filtered items
             }
         });
     }
@@ -179,9 +179,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
             if (!allValid) {
-                alert('Vui lòng sửa các lỗi sau để gửi phản hồi:\n' + errorMessages.join('\n'));
+                // Using a custom alert function or modal instead of window.alert
+                showCustomAlert('Vui lòng sửa các lỗi sau để gửi phản hồi:\n' + errorMessages.join('\n'));
             } else {
-                alert('Form đã được gửi thành công! Cảm ơn phản hồi của bạn.');
+                showCustomAlert('Form đã được gửi thành công! Cảm ơn phản hồi của bạn.');
                 console.log('Form data:', {
                     name: nameInput.value,
                     email: emailInput.value,
@@ -193,6 +194,55 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Custom Alert/Modal for form feedback
+    function showCustomAlert(message) {
+        let customAlert = document.getElementById('customAlert');
+        let customAlertMessage = document.getElementById('customAlertMessage');
+
+        if (!customAlert) {
+            customAlert = document.createElement('div');
+            customAlert.id = 'customAlert';
+            customAlert.style.cssText = `
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: white;
+                padding: 20px;
+                border: 1px solid #ccc;
+                z-index: 10000;
+                border-radius: 8px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                max-width: 350px;
+                text-align: center;
+            `;
+            customAlertMessage = document.createElement('p');
+            customAlertMessage.id = 'customAlertMessage';
+            customAlert.appendChild(customAlertMessage);
+            const okButton = document.createElement('button');
+            okButton.textContent = 'OK';
+            okButton.style.cssText = `
+                margin-top: 15px;
+                padding: 8px 15px;
+                background: #E67E22;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            `;
+            okButton.onclick = function() {
+                customAlert.style.display = 'none';
+            };
+            customAlert.appendChild(okButton);
+            document.body.appendChild(customAlert);
+        }
+
+        customAlertMessage.textContent = message;
+        customAlert.style.display = 'block';
+    }
+
 
     document.querySelectorAll('.scroll-to-element, .overlay-nav-link').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -234,29 +284,49 @@ document.addEventListener('DOMContentLoaded', function() {
     const faqQuestions = document.querySelectorAll('.faq-question');
     faqQuestions.forEach(question => {
         question.addEventListener('click', () => {
-            const answer = question.nextElementSibling;
+            const answer = question.nextElementSibling; // Get the .faq-answer element
 
             // Close other open FAQ items
             faqQuestions.forEach(otherQuestion => {
+                const otherAnswer = otherQuestion.nextElementSibling;
                 if (otherQuestion !== question && otherQuestion.classList.contains('active')) {
                     otherQuestion.classList.remove('active');
-                    otherQuestion.nextElementSibling.classList.remove('active');
-                    otherQuestion.nextElementSibling.style.maxHeight = null;
+                    otherAnswer.style.maxHeight = '0'; // Collapse other answers smoothly
+                    otherAnswer.classList.remove('active'); // Remove active class from other answers
                 }
             });
 
+            // Toggle active class for the clicked question
             question.classList.toggle('active');
 
+            // Expand or collapse the clicked answer
             if (answer.classList.contains('active')) {
+                // If currently active, collapse it
+                answer.style.maxHeight = '0';
                 answer.classList.remove('active');
-                answer.style.maxHeight = null;
             } else {
-                answer.classList.add('active');
-                // Use scrollHeight to correctly set max-height based on content
+                // If not active, expand it
+                answer.classList.add('active'); // Add active class to apply padding and style
+                // Force a reflow to ensure browser has applied the new padding and calculated correct scrollHeight
+                // This is crucial for accurate scrollHeight calculation when padding changes
+                answer.offsetHeight; // This line forces the browser to re-calculate layout
+                
+                // Calculate the actual height of the content (including applied padding)
                 answer.style.maxHeight = answer.scrollHeight + 'px';
+
+                // Scroll to the element after a short delay to allow expansion
+                setTimeout(() => {
+                    // Get current offset after navbar might have changed height (e.g., scrolled)
+                    const offset = navbar ? navbar.offsetHeight + 20 : 0;
+                    window.scrollTo({
+                        top: question.offsetTop - offset, // Scroll to the question, not the answer itself
+                        behavior: 'smooth'
+                    });
+                }, 400); // Match this delay to your CSS transition duration for max-height
             }
         });
     });
+
 
     if (overlaySearchInput) {
         overlaySearchInput.addEventListener('input', performSearch);
@@ -285,22 +355,30 @@ document.addEventListener('DOMContentLoaded', function() {
             if (itemText.includes(searchTerm)) {
                 item.style.display = 'block';
                 if (searchTerm !== '' && !answer.classList.contains('active')) {
+                    // When searching and item matches, ensure it's expanded
                     question.classList.add('active');
                     answer.classList.add('active');
+                    // Recalculate scrollHeight after padding is applied
+                    answer.offsetHeight; // Force reflow
                     answer.style.maxHeight = answer.scrollHeight + 'px';
                 } else if (searchTerm === '' && answer.classList.contains('active')) {
                     // If search term is cleared, collapse open FAQs
                     question.classList.remove('active');
                     answer.classList.remove('active');
-                    answer.style.maxHeight = null;
+                    answer.style.maxHeight = '0'; // Use '0' for smooth collapse
                 }
             } else {
                 item.style.display = 'none';
+                // If item does not match search term, ensure it's collapsed
+                question.classList.remove('active');
+                answer.classList.remove('active');
+                answer.style.maxHeight = '0';
             }
         });
     }
 
-    // New: Handle clicks on support info cards
+
+    // Handle clicks on support info cards
     const infoContactCards = document.querySelectorAll('.info-contact-card');
     infoContactCards.forEach(card => {
         card.addEventListener('click', function(event) {
