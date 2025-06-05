@@ -310,7 +310,6 @@ main {
     transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
     box-shadow: 0 1px 4px rgba(0,0,0,0.12); /* Giảm đổ bóng từ 0 2px 6px */
     flex-shrink: 0;
-     
     margin-top: auto; /* Đẩy nút xuống dưới cùng của card-content */
     /* Loại bỏ position absolute và các thuộc tính liên quan */
     /* position: absolute; */
