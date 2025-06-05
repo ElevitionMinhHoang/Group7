@@ -7,22 +7,32 @@
 }
 
 :root {
-    --primary-color: #e44d26; /* Cam */
-    --secondary-color: #f79237; /* Cam nhạt hơn */
-    --text-dark: #333;
-    --text-light: #fefefe;
-    --bg-light: #fcfaf8; /* Màu nền nhẹ nhàng, giống cà phê */
-    --bg-dark-overlay: rgba(0, 0, 0, 0.6); /* Lớp phủ cho ảnh nền */
-    --accent-color: #ffcc00; /* Vàng sáng cho nổi bật */
+    --primary-color: #E67E22; /* Màu cam đậm hơn, nổi bật hơn */
+    --secondary-color: #F39C12; /* Màu cam vàng */
+    --accent-color: #FFD700; /* Vàng kim loại cho các điểm nhấn */
+    --text-dark: #2C3E50; /* Màu chữ tối cho nội dung chính */
+    --text-light: #ECF0F1; /* Màu chữ sáng cho nền tối */
+    --bg-light: #F4F6F7; /* Nền sáng nhẹ */
+    --bg-dark-overlay: rgba(0, 0, 0, 0.7); /* Lớp phủ cho ảnh nền */
+    --footer-bg: #34495E; /* Màu xanh than đậm cho footer */
+    --footer-text-color: #ECF0F1; /* Màu chữ sáng cho footer */
+    --footer-link-color: #FFD700; /* Vàng kim loại cho link footer */
+    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --card-hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    --border-color-light: #D5DBDB; /* Border nhẹ */
+    --support-card-bg: #FFFFFF; /* Nền cho thẻ hỗ trợ */
+    --support-card-hover-bg: #EAECEE; /* Nền hover cho thẻ hỗ trợ */
+    --icon-circle-bg: var(--primary-color);
+    --icon-circle-hover-bg: var(--secondary-color);
 }
 
 body {
     background-color: var(--bg-light);
     color: var(--text-dark);
-    padding-top: 90px; /* Giá trị dự phòng ban đầu, sẽ được JS điều chỉnh */
+    padding-top: 90px;
     line-height: 1.6;
-    overflow-x: hidden; /* Tránh scroll ngang */
-    font-size: 16px; /* Base font size for better consistency */
+    overflow-x: hidden;
+    font-size: 16px;
 }
 
 a {
@@ -34,7 +44,6 @@ ul {
     list-style: none;
 }
 
-/* Ensure all form inputs inherit font properties */
 input, textarea, button, select {
     font-family: 'Inter', sans-serif;
 }
@@ -66,18 +75,18 @@ input, textarea, button, select {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 50%; /* Center the underline */
-    transform: translateX(-50%); /* Center the underline */
+    left: 50%;
+    transform: translateX(-50%);
     width: 80px;
     height: 4px;
-    background-color: var(--accent-color); /* Yellow underline */
+    background-color: var(--accent-color);
     border-radius: 2px;
 }
 
-.section-title.left-align { /* Class mới cho tiêu đề căn trái */
+.section-title.left-align {
     text-align: left;
-    transform: none; /* Bỏ transform để không bị lệch */
-    margin-left: 0; /* Đảm bảo không có margin tự động đẩy vào */
+    transform: none;
+    margin-left: 0;
 }
 .section-title.left-align::after {
     left: 0;
@@ -102,8 +111,8 @@ input, textarea, button, select {
 }
 
 .btn-primary:hover {
-    background-color: #d1441f; /* Manual darken */
-    border-color: #d1441f; /* Manual darken */
+    background-color: #D35400; /* Darker orange for hover */
+    border-color: #D35400;
     transform: translateY(-2px);
 }
 
@@ -152,35 +161,23 @@ input, textarea, button, select {
 }
 
 .btn-small:hover {
-    background-color: #e07f2a; /* Manual darken */
+    background-color: #E67E22;
 }
 
-
-/* --- Fixed Navbar (Header) --- */
+/* --- NAVIGATION BAR --- */
 .fixed-navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    background-color: #fff; /* Navbar màu trắng */
-    padding: 15px 40px;
+    background-color: orange;
+    padding: 15px 50px; /* Tăng padding để thanh to lên */
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    transition: padding 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-}
-
-.fixed-navbar.scrolled {
-    padding: 10px 40px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-    background-color: #fff; /* Giữ màu trắng khi cuộn */
-}
-
-.fixed-navbar .logo-container {
-    display: flex;
-    align-items: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: padding 0.3s ease, background-color 0.3s ease;
 }
 
 .fixed-navbar .logo-link {
@@ -190,98 +187,135 @@ input, textarea, button, select {
 }
 
 .fixed-navbar .logo-image {
-    height: 70px;
-    filter: brightness(0); /* Logo màu đen trên nền trắng */
-    transition: height 0.3s ease, filter 0.3s ease;
+    height: 60px; /* Tăng chiều cao logo */
+    transition: height 0.3s ease;
 }
 
-.fixed-navbar.scrolled .logo-image {
-    height: 55px;
+.fixed-navbar .main-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px; /* Tăng khoảng cách giữa các mục menu */
+    flex: 1;
 }
 
-/* Main menu */
-.main-menu {
-    display: flex; /* Make it visible */
-    gap: 30px;
-    flex-grow: 1; /* Allow it to take available space */
-    justify-content: center; /* Center the menu items */
-}
-
-.main-menu .nav-link {
-    color: var(--text-dark); /* Text color for nav links */
-    font-weight: 500;
-    font-size: 1.1em;
-    padding: 5px 0;
+.fixed-navbar .nav-link {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 18px; /* Tăng kích thước font chữ cho menu chính */
+    padding: 7px 0; /* Tăng padding dọc */
+    transition: transform 0.2s ease-out, text-shadow 0.2s ease-out, border 0.2s ease-out, padding 0.2s ease-out;
+    display: inline-block;
     position: relative;
-    transition: color 0.3s ease;
+    z-index: 1;
 }
 
-.main-menu .nav-link:hover,
-.main-menu .nav-link.active {
-    color: var(--primary-color);
+.fixed-navbar .nav-link:hover {
+    text-decoration: none;
+    transform: translateY(-3px) scale(1.05);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); /* Tăng độ sáng text-shadow */
+    padding: 7px 18px; /* Tăng padding để tạo không gian cho khung */
 }
 
-.main-menu .nav-link::after {
+.fixed-navbar .nav-link::before {
     content: '';
     position: absolute;
-    bottom: -5px;
+    top: 0;
     left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--primary-color);
-    transition: width 0.3s ease;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    transition: border-color 0.2s ease-out, transform 0.2s ease-out, opacity 0.2s ease-out;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0.8);
 }
 
-.main-menu .nav-link:hover::after,
-.main-menu .nav-link.active::after {
-    width: 100%;
+.fixed-navbar .nav-link:hover::before {
+    border-color: white;
+    opacity: 1;
+    transform: scale(1);
 }
 
-
-.user-actions {
+/* --- CSS MỚI CHO USER ACTIONS (GIỎ HÀNG & TÀI KHOẢN) --- */
+.fixed-navbar .user-actions {
     display: flex;
-    gap: 25px;
     align-items: center;
+    gap: 30px; /* Tăng khoảng cách giữa các icon */
+    flex-shrink: 0;
 }
 
-.user-actions .nav-action-icon {
-    color: var(--text-dark); /* Icon màu đen trên nền trắng */
-    font-size: 24px;
+.fixed-navbar .nav-action-icon {
+    color: white;
+    font-size: 30px; /* Tăng kích thước icon */
     text-decoration: none;
-    transition: color 0.3s ease, transform 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px; /* Tăng vùng click cho icon */
+    border-radius: 50%;
+    
+    /* Thêm transitions cho hiệu ứng hover */
+    transition: transform 0.2s ease-out, color 0.2s ease-out, filter 0.2s ease-out;
+    z-index: 1; 
 }
 
-.user-actions .nav-action-icon:hover {
-    color: var(--primary-color);
-    transform: translateY(-2px);
+.fixed-navbar .nav-action-icon:hover {
+    transform: translateY(-3px) scale(1.15); /* Tăng nhẹ hiệu ứng phóng to */
+    color: white;
+    filter: brightness(1.5) drop-shadow(0 0 7px rgba(255, 255, 255, 0.7)); /* Làm sáng và đổ bóng rõ hơn */
+}
+
+.fixed-navbar .cart-item-count {
+    position: absolute;
+    top: -2px; /* Điều chỉnh vị trí số lượng giỏ hàng */
+    right: -5px; /* Điều chỉnh vị trí số lượng giỏ hàng */
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px; /* Tăng padding */
+    font-size: 0.8em; /* Tăng kích thước font */
+    font-weight: bold;
+    line-height: 1;
+    min-width: 18px; /* Tăng kích thước tối thiểu */
+    text-align: center;
+    border: 1px solid white;
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    transition: none;
 }
 
 /* Hamburger menu (will be visible only on smaller screens) */
 .hamburger-menu {
-    display: none; /* Hidden by default for desktop */
+    display: none; /* Hidden by default */
     font-size: 28px;
     cursor: pointer;
-    color: var(--text-dark);
+    color: var(--text-light);
+    margin-left: 15px; /* Add some space from other icons */
 }
 
 /* Mobile menu (will be visible only on smaller screens) */
 .mobile-menu {
     position: fixed;
-    top: 90px; /* Adjusted to be below the fixed navbar */
-    right: -300px; /* Initially hidden off-screen */
+    top: 90px;
+    right: -300px;
     width: 280px;
-    height: calc(100% - 90px); /* Full height minus navbar */
-    background-color: #fff;
+    height: calc(100% - 90px);
+    background-color: var(--primary-color);
     box-shadow: -5px 0 15px rgba(0,0,0,0.1);
     z-index: 999;
     transition: right 0.3s ease;
     padding: 20px;
-    overflow-y: auto; /* Enable scrolling for long menus */
-    display: none; /* Hide by default, show with JS on mobile */
+    overflow-y: auto;
+    display: none; /* Changed to display:none; to be handled by JS */
 }
 
 .mobile-menu.active {
-    right: 0; /* Slide in */
+    right: 0;
+    display: block; /* Show when active */
 }
 
 .mobile-menu ul {
@@ -296,7 +330,7 @@ input, textarea, button, select {
 .mobile-menu ul li a {
     display: block;
     padding: 10px 15px;
-    color: var(--text-dark);
+    color: var(--text-light);
     font-size: 1.1em;
     font-weight: 500;
     border-radius: 5px;
@@ -305,22 +339,21 @@ input, textarea, button, select {
 
 .mobile-menu ul li a:hover,
 .mobile-menu ul li a.active-mobile-link {
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color);
     color: var(--text-light);
 }
-
 
 /* --- Full Screen Search and Navigation Overlay --- */
 .full-screen-search-overlay {
     height: 100%;
-    width: 0; /* Hidden by default */
+    width: 0;
     position: fixed;
     z-index: 1001;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.95); /* Semi-transparent black background */
+    background-color: rgba(0, 0, 0, 0.95);
     overflow-x: hidden;
-    transition: 0.5s; /* Smooth transition when opening/closing */
+    transition: 0.5s;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -329,7 +362,7 @@ input, textarea, button, select {
 }
 
 .full-screen-search-overlay.active {
-    width: 100%; /* Show overlay */
+    width: 100%;
 }
 
 .overlay-close-btn {
@@ -348,7 +381,7 @@ input, textarea, button, select {
 
 .overlay-content {
     position: relative;
-    top: 15%; /* Adjust vertical position */
+    top: 15%;
     width: 80%;
     max-width: 800px;
     text-align: center;
@@ -390,15 +423,13 @@ input, textarea, button, select {
 }
 
 .overlay-search-box button:hover {
-    background-color: #d1441f;
+    background-color: #D35400; /* Darker primary */
 }
 
-/* .overlay-main-menu,  */ /* Remove if you don't want main menu in overlay */
 .overlay-support-links, .overlay-user-actions {
     margin-bottom: 30px;
 }
 
-/* .overlay-main-menu h3,  */ /* Remove if you don't want main menu in overlay */
 .overlay-support-links h3 {
     font-family: 'Playfair Display', serif;
     font-size: 1.8em;
@@ -406,15 +437,13 @@ input, textarea, button, select {
     margin-bottom: 20px;
 }
 
-/* .overlay-main-menu ul,  */ /* Remove if you don't want main menu in overlay */
 .overlay-support-links ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px 30px; /* Row and column gap */
+    gap: 15px 30px;
 }
 
-/* .overlay-main-menu ul li a,  */ /* Remove if you don't want main menu in overlay */
 .overlay-support-links ul li a {
     color: #ccc;
     font-size: 1.2em;
@@ -422,51 +451,23 @@ input, textarea, button, select {
     transition: color 0.3s ease, transform 0.3s ease;
     display: flex;
     align-items: center;
-    gap: 8px; /* Space between icon and text */
+    gap: 8px;
 }
 
-/* .overlay-main-menu ul li a:hover, .overlay-main-menu ul li a.active,  */ /* Remove if you don't want main menu in overlay */
 .overlay-support-links ul li a:hover {
     color: var(--text-light);
     transform: translateY(-3px);
 }
 
-/* .overlay-main-menu ul li a i,  */ /* Remove if you don't want main menu in overlay */
 .overlay-support-links ul li a i {
     font-size: 1.3em;
 }
-
-/* .overlay-user-actions { */ /* Remove if you don't want these actions in overlay */
-/* display: flex; */
-/* justify-content: center; */
-/* gap: 40px; */
-/* margin-top: 40px; */
-/* } */
-
-/* .overlay-user-actions .nav-action-icon { */ /* Remove if you don't want these actions in overlay */
-/* color: var(--text-light); */
-/* font-size: 1.2em; */
-/* display: flex; */
-/* align-items: center; */
-/* gap: 8px; */
-/* transition: color 0.3s ease, transform 0.3s ease; */
-/* } */
-
-/* .overlay-user-actions .nav-action-icon i { */ /* Remove if you don't want these actions in overlay */
-/* font-size: 1.8em; */
-/* } */
-
-/* .overlay-user-actions .nav-action-icon:hover { */ /* Remove if you don't want these actions in overlay */
-/* color: var(--accent-color); */
-/* transform: translateY(-3px); */
-/* } */
-
 
 /* --- Hero Section --- */
 .hero-section {
     position: relative;
     width: 100%;
-    height: 500px; /* Adjusted height for banner */
+    height: 500px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -474,7 +475,7 @@ input, textarea, button, select {
     background-size: cover;
     background-position: center;
     color: var(--text-light);
-    padding-top: 0; /* No longer need padding-top here as navbar is normal */
+    padding-top: 0;
 }
 
 .hero-overlay {
@@ -483,74 +484,35 @@ input, textarea, button, select {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: var(--bg-dark-overlay);
     z-index: 1;
 }
 
 .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 900px; /* Adjusted max width for better central alignment */
+    max-width: 900px;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 100%;
 }
 
 .hero-content .hero-title {
-    font-size: 4em; /* Increased size for impact */
+    font-size: 4em;
     margin-bottom: 20px;
 }
 
 .hero-content .hero-subtitle {
-    font-size: 1.5em; /* Increased size */
-    margin-bottom: 40px;
-}
-
-.main-hero-search-box {
-    display: flex;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.95);
-    border-radius: 50px;
-    overflow: hidden;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.3); /* Stronger shadow */
-    margin-top: 30px;
-    max-width: 700px; /* Limit width to look good */
-}
-
-.main-hero-search-box input {
-    flex-grow: 1;
-    border: none;
-    padding: 18px 25px;
-    font-size: 1.1em;
-    outline: none;
-    background-color: transparent;
-    color: var(--text-dark);
-}
-
-.main-hero-search-box input::placeholder {
-    color: #888;
-}
-
-.main-hero-search-box button {
-    background-color: var(--primary-color);
-    border: none;
-    color: var(--text-light);
-    padding: 18px 20px;
     font-size: 1.5em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    margin-bottom: 0;
 }
-
-.main-hero-search-box button:hover {
-    background-color: #d1441f;
-}
-
 
 /* --- Support Info Section --- */
 .support-info-section {
-    background-color: var(--bg-light);
+    background-color: var(--bg-light); /* Giữ màu nền sáng nhẹ */
 }
 
 .support-grid {
@@ -562,36 +524,50 @@ input, textarea, button, select {
 }
 
 .info-contact-card {
-    background-color: #fff;
+    background-color: var(--support-card-bg);
     padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    border: 1px solid var(--border-color-light);
+    cursor: pointer; /* Thêm con trỏ báo hiệu có thể click */
 }
 
 .info-contact-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    box-shadow: var(--card-hover-shadow);
+    background-color: var(--support-card-hover-bg); /* Đổi màu nền khi hover */
 }
 
 .info-contact-card .icon-circle {
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    background-color: var(--primary-color);
+    background-color: var(--icon-circle-bg); /* Màu cam đậm */
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 20px;
     color: var(--text-light);
     font-size: 35px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.info-contact-card:hover .icon-circle {
+    background-color: var(--icon-circle-hover-bg); /* Màu cam vàng khi hover */
+    transform: scale(1.1);
 }
 
 .info-contact-card h3 {
     font-size: 1.5em;
     margin-bottom: 10px;
     color: var(--text-dark);
+    transition: color 0.3s ease; /* Thêm transition cho màu chữ */
+}
+
+.info-contact-card:hover h3 {
+    color: var(--primary-color); /* Đổi màu chữ khi hover */
 }
 
 .info-contact-card p {
@@ -605,36 +581,37 @@ input, textarea, button, select {
     margin-top: 10px;
 }
 .info-contact-card .contact-detail a {
-    color: inherit; /* Giữ màu của .contact-detail */
+    color: inherit;
     transition: color 0.3s ease;
 }
 .info-contact-card .contact-detail a:hover {
-    color: var(--primary-color); /* Change color on hover for contact links */
+    color: var(--primary-color);
 }
-
 
 /* --- Map Section --- */
 .map-section {
-    background-color: var(--text-light);
-    max-width: 1200px; /* Ensure map doesn't get too wide */
-    margin: 0 auto; /* Center the map section */
-    padding-bottom: 0; /* Remove extra padding at the bottom if any from common-padding */
+    background-color: #FFFFFF; /* Màu nền trắng tinh khiết */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 0;
 }
 
 .map-embed {
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: var(--card-shadow);
     margin-bottom: 20px;
-    opacity: 0; /* Hidden initially for fade-in */
-    transition: opacity 1s ease-in-out;
+    opacity: 0;
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    transform: translateY(50px);
 }
-.map-embed.fade-in {
+.map-embed.revealed {
     opacity: 1;
+    transform: translateY(0);
 }
 
 .map-embed iframe {
-    border-radius: 8px; /* Áp dụng border-radius cho iframe */
+    border-radius: 12px;
 }
 
 .map-note {
@@ -642,13 +619,13 @@ input, textarea, button, select {
     font-style: italic;
     color: #777;
     font-size: 0.95em;
-    padding-bottom: 40px; /* Add some padding below note */
+    padding-bottom: 40px;
 }
-
 
 /* --- Testimonials Section --- */
 .testimonials-section {
-    background-color: var(--bg-light);
+    background-color: var(--bg-light); /* Giữ màu nền sáng nhẹ */
+    padding-bottom: 100px; /* Thêm padding dưới để tạo khoảng trống */
 }
 
 .testimonials-grid {
@@ -662,20 +639,22 @@ input, textarea, button, select {
 .testimonial-card {
     background-color: #fff;
     padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    border: 1px solid var(--border-color-light);
 }
 .testimonial-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    transform: translateY(-8px);
+    box-shadow: var(--card-hover-shadow);
+    background-color: #F8F9F9; /* Nền nhẹ hơn khi hover */
 }
 
 .testimonial-card p {
     font-style: italic;
     margin-bottom: 20px;
-    color: #555;
+    color: var(--text-dark); /* Màu chữ tối hơn */
 }
 
 .testimonial-card h4 {
@@ -689,24 +668,107 @@ input, textarea, button, select {
     color: #888;
 }
 
-/* --- Feedback Form Section (New Position) --- */
+/* --- FAQ Section --- */
+.faq-section {
+    background-color: #FFFFFF; /* Màu nền trắng tinh khiết */
+    padding-bottom: 100px; /* Thêm padding dưới */
+}
+
+.faq-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background-color: #fff;
+    border: 1px solid var(--border-color-light);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    overflow: visible; /* Giữ visible để không cắt nội dung nếu max-height bị thiếu */
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.faq-question {
+    padding: 20px 25px;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--text-dark);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.faq-question:hover {
+    background-color: #f0f0f0;
+    color: var(--primary-color);
+}
+.faq-question.active {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border-bottom-color: var(--primary-color);
+}
+
+.faq-question i {
+    font-size: 1.2em;
+    transition: transform 0.3s ease, color 0.3s ease;
+    margin-left: 15px;
+}
+
+.faq-question.active i {
+    transform: rotate(180deg);
+    color: var(--text-light);
+}
+
+.faq-answer {
+    padding: 0 25px; /* Padding ngang khi ẩn */
+    font-size: 0.9em;
+    color: #555;
+    max-height: 0; /* Ban đầu ẩn đi */
+    overflow: hidden; /* Ẩn nội dung bị tràn */
+    /* Only transition max-height, padding changes instantly on class change */
+    transition: max-height 0.4s ease-out; /* Hiệu ứng chuyển động mượt mà cho chiều cao */
+}
+
+.faq-answer.active {
+    padding: 15px 15px; /* Padding khi mở rộng - này sẽ áp dụng tức thì */
+    max-width: 100%;
+    position: relative;
+    z-index: 10;
+    border-radius: 6px;
+    overflow: visible; /* Cho phép nội dung tràn ra nếu max-height bị thiếu */
+}
+
+.faq-answer p {
+    padding-top: 0; /* Đặt padding top của p về 0 vì đã có padding trên faq-answer */
+    padding-bottom: 0; /* Đặt padding bottom của p về 0 vì đã có padding trên faq-answer */
+}
+
+/* --- Feedback Form Section --- */
 .feedback-form-section {
-    background-color: var(--bg-light);
+    background-color: var(--bg-light); /* Giữ màu nền sáng nhẹ */
+    padding-top: 100px; /* Thêm padding trên */
 }
 
 .login-register-form {
     max-width: 700px;
     margin: 0 auto;
     background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-color-light);
 }
 
 .login-register-form .form-description {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
     color: #666;
+    font-size: 1.1em;
 }
 
 .login-register-form .form-group {
@@ -727,10 +789,11 @@ input, textarea, button, select {
 .login-register-form textarea {
     width: 100%;
     padding: 12px 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
     font-size: 1em;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fcfcfc;
 }
 
 .login-register-form input[type="text"]:focus,
@@ -739,20 +802,22 @@ input, textarea, button, select {
 .login-register-form input[type="tel"]:focus,
 .login-register-form textarea:focus {
     border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.2);
     outline: none;
 }
 
 /* Validation styling for form inputs */
 input:invalid:not(:placeholder-shown),
 textarea:invalid:not(:placeholder-shown) {
-    border-color: #dc3545; /* Red for invalid */
+    border-color: #E74C3C; /* Red for invalid */
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
 }
 
 input:valid:not(:placeholder-shown),
 textarea:valid:not(:placeholder-shown) {
-    border-color: #28a745; /* Green for valid */
+    border-color: #2ECC71; /* Green for valid */
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
 }
-
 
 .login-register-form .form-actions {
     display: flex;
@@ -763,65 +828,22 @@ textarea:valid:not(:placeholder-shown) {
     flex: 1;
 }
 
-.login-register-form .forgot-password { /* This class will no longer be used but kept for consistency */
-    text-align: center;
-    margin-top: 20px;
-    font-size: 0.9em;
-}
-.login-register-form .forgot-password a {
-    color: var(--secondary-color);
-    text-decoration: underline;
+/* --- Scroll Reveal Animation --- */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-
-/* --- Call to Action Section --- */
-.cta-section {
-    position: relative;
-    width: 100%;
-    height: 350px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background-size: cover;
-    background-position: center;
-    color: var(--text-light);
-    margin-top: 60px;
+.scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
 }
-
-.cta-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1;
-}
-
-.cta-content {
-    position: relative;
-    z-index: 2;
-    max-width: 700px;
-    padding: 20px;
-}
-
-.cta-content h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.8em;
-    margin-bottom: 20px;
-}
-
-.cta-content p {
-    font-size: 1.1em;
-    margin-bottom: 30px;
-}
-
 
 /* --- Footer --- */
 footer {
-    background-color: #222;
-    color: #eee;
+    background-color: var(--footer-bg);
+    color: var(--footer-text-color);
     padding: 60px 5%;
     font-size: 0.95em;
 }
@@ -853,35 +875,38 @@ footer {
 .footer-brand p {
     margin-bottom: 20px;
     line-height: 1.8;
-    color: #bbb;
+    color: var(--footer-text-color);
 }
 
 .social-icons a {
     font-size: 28px;
     margin-right: 15px;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.3s ease;
+    color: var(--footer-link-color);
 }
 
-/* Specific social icon colors */
+/* Specific social icon colors - keep these for branding effect */
 .social-icons .bx.bxl-facebook-circle {
-    color: #1877F2; /* Facebook Blue */
+    color: #1877F2;
 }
 .social-icons .bx.bxl-instagram-alt {
-    color: #E4405F; /* Instagram Red-Pink */
     background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    color: transparent;
 }
 .social-icons .bx.bxl-tiktok {
-    color: #000; /* TikTok Black */
-    text-shadow: 2px 2px 0px #25F4EE, -2px -2px 0px #FE2C55; /* TikTok cyan and magenta shadow */
+    color: #000;
+    text-shadow: 2px 2px 0px #25F4EE, -2px -2px 0px #FE2C55;
 }
-
+.social-icons a:hover {
+    transform: translateY(-3px);
+}
 
 .footer-column h4 {
     font-size: 1.3em;
     margin-bottom: 25px;
-    color: var(--accent-color);
+    color: var(--footer-link-color);
     position: relative;
     padding-bottom: 10px;
 }
@@ -893,44 +918,42 @@ footer {
     left: 0;
     width: 40px;
     height: 2px;
-    background-color: var(--primary-color);
+    background-color: var(--accent-color);
 }
-
 
 .footer-column ul li {
     margin-bottom: 10px;
 }
 
 .footer-column ul li a {
-    color: #bbb;
+    color: var(--footer-text-color);
     transition: color 0.3s ease;
 }
 
 .footer-column ul li a:hover {
-    color: var(--text-light);
+    color: var(--footer-link-color);
 }
 
 .footer-contact p {
     margin-bottom: 10px;
-    color: #bbb;
+    color: var(--footer-text-color);
     display: flex;
     align-items: center;
 }
 
 .footer-contact p i {
     margin-right: 10px;
-    color: var(--primary-color);
+    color: var(--footer-link-color);
     font-size: 20px;
 }
 
 .footer-bottom {
     text-align: center;
-    border-top: 1px solid #333;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
     padding-top: 25px;
     margin-top: 40px;
-    color: #999;
+    color: var(--footer-text-color);
 }
-
 
 /* --- Responsive Design --- */
 @media (max-width: 992px) {
@@ -940,14 +963,14 @@ footer {
     .user-actions {
         gap: 15px;
     }
-    .main-menu { /* Hide main menu on smaller screens */
+    .main-menu {
         display: none;
     }
-    .hamburger-menu { /* Show hamburger menu on smaller screens */
-        display: block;
+    .hamburger-menu {
+        display: block; /* Show hamburger on smaller screens */
     }
-    .mobile-menu { /* Show mobile menu on smaller screens */
-        display: block;
+    .mobile-menu {
+        display: block; /* Show mobile menu on smaller screens for proper JS toggle */
     }
 
     .hero-title {
@@ -956,19 +979,7 @@ footer {
     .hero-subtitle {
         font-size: 1.2em;
     }
-    .main-hero-search-box {
-        max-width: 600px;
-    }
-    .main-hero-search-box input {
-        padding: 12px 20px;
-        font-size: 1em;
-    }
-    .main-hero-search-box button {
-        padding: 12px 18px;
-        font-size: 1.3em;
-    }
 
-    /* Overlay adjustments */
     .overlay-close-btn {
         font-size: 50px;
         top: 20px;
@@ -986,18 +997,12 @@ footer {
         padding: 15px 18px;
         font-size: 1.4em;
     }
-    /* .overlay-main-menu h3,  */ /* Remove if you don't want main menu in overlay */
     .overlay-support-links h3 {
         font-size: 1.6em;
     }
-    /* .overlay-main-menu ul li a,  */ /* Remove if you don't want main menu in overlay */
     .overlay-support-links ul li a {
         font-size: 1.1em;
     }
-    /* .overlay-user-actions { */ /* Remove if you don't want these actions in overlay */
-    /* gap: 20px; */
-    /* } */
-
 
     .map-section {
         width: 100%;
@@ -1009,6 +1014,9 @@ footer {
     .section-title.left-align::after {
         left: 50%;
         transform: translateX(-50%);
+    }
+    .login-register-form {
+        padding: 30px;
     }
     .login-register-form .form-actions {
         flex-direction: column;
@@ -1061,31 +1069,23 @@ footer {
         font-size: 1.2em;
     }
 
-    /* Overlay adjustments */
     .overlay-content {
         width: 95%;
     }
     .overlay-search-box input {
         padding: 12px 15px;
-        font-size: 0.95em;
+        font-size: 1em;
     }
     .overlay-search-box button {
         padding: 12px 15px;
         font-size: 1.2em;
     }
-    /* .overlay-main-menu h3,  */ /* Remove if you don't want main menu in overlay */
     .overlay-support-links h3 {
         font-size: 1.4em;
     }
-    /* .overlay-main-menu ul li a,  */ /* Remove if you don't want main menu in overlay */
     .overlay-support-links ul li a {
         font-size: 1em;
     }
-    /* .overlay-user-actions { */ /* Remove if you don't want these actions in overlay */
-    /* flex-direction: column; */
-    /* gap: 15px; */
-    /* } */
-
 
     .support-grid {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -1110,22 +1110,24 @@ footer {
         padding: 25px;
     }
 
-    .cta-section {
-        height: 300px;
-    }
-    .cta-content h2 {
-        font-size: 2.2em;
-    }
-    .cta-content p {
-        font-size: 1em;
-        margin-bottom: 25px;
-    }
-
     footer {
         padding: 40px 4%;
     }
     .footer-column {
         margin-bottom: 25px;
+    }
+    .footer-column h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .footer-brand, .footer-links, .footer-policy, .footer-contact {
+        align-items: center;
+    }
+    .social-icons {
+        justify-content: center;
+    }
+    .footer-contact p {
+        justify-content: center;
     }
 }
 
@@ -1140,7 +1142,7 @@ footer {
         height: 50px;
     }
     .fixed-navbar.scrolled .logo-image {
-        height: 40px; /* Make logo smaller on scroll for mobile */
+        height: 40px;
     }
     .user-actions {
         gap: 10px;
@@ -1167,23 +1169,12 @@ footer {
     .hero-subtitle {
         font-size: 1em;
     }
-    .main-hero-search-box {
-        max-width: 100%;
-    }
-    .main-hero-search-box input {
-        padding: 10px 15px;
-        font-size: 0.9em;
-    }
-    .main-hero-search-box button {
-        padding: 10px 15px;
-        font-size: 1.2em;
-    }
+
     .btn {
         padding: 10px 20px;
         font-size: 0.9em;
     }
 
-    /* Overlay adjustments for smallest screens */
     .overlay-close-btn {
         font-size: 40px;
         top: 15px;
@@ -1197,28 +1188,18 @@ footer {
         padding: 10px 12px;
         font-size: 1.1em;
     }
-    /* .overlay-main-menu h3,  */ /* Remove if you don't want main menu in overlay */
     .overlay-support-links h3 {
         font-size: 1.2em;
         margin-bottom: 15px;
     }
-    /* .overlay-main-menu ul li a,  */ /* Remove if you don't want main menu in overlay */
     .overlay-support-links ul li a {
         font-size: 0.9em;
-        flex-direction: column; /* Stack icon and text */
+        flex-direction: column;
         gap: 5px;
     }
-    /* .overlay-main-menu ul li a i,  */ /* Remove if you don't want main menu in overlay */
     .overlay-support-links ul li a i {
         font-size: 1.2em;
     }
-    /* .overlay-user-actions .nav-action-icon { */ /* Remove if you don't want these actions in overlay */
-    /* font-size: 1em; */
-    /* } */
-    /* .overlay-user-actions .nav-action-icon i { */ /* Remove if you don't want these actions in overlay */
-    /* font-size: 1.5em; */
-    /* } */
-
 
     .support-grid {
         grid-template-columns: 1fr;
@@ -1228,15 +1209,6 @@ footer {
         width: 100%;
     }
 
-    .cta-section {
-        height: 250px;
-    }
-    .cta-content h2 {
-        font-size: 1.8em;
-    }
-    .cta-content p {
-        font-size: 0.9em;
-    }
     footer {
         padding: 30px 3%;
     }
@@ -1248,4 +1220,73 @@ footer {
         margin-top: 25px;
         font-size: 0.85em;
     }
+}
+
+/* --- HERO CAROUSEL --- */
+.hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    overflow: hidden;
+    background-color: #e0e0e0;
+}
+.hero-carousel .slides-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+    height: 100%;
+}
+.hero-carousel .slide {
+    min-width: 100%;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.hero-carousel .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- SLIDE CONTENT - MINIMALIST STYLE --- */
+.hero-carousel .slide-content {
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: transparent;
+    padding: 0;             
+    border-radius: 0;            
+    max-width: none;            
+    box-shadow: none;            
+    text-align: center;         
+}
+
+.hero-carousel .slide-content h2,
+.hero-carousel .slide-content p {
+    display: none; /* Ẩn tiêu đề H2 và đoạn văn P */
+}
+/* --- KẾT THÚC SLIDE CONTENT MINIMALIST --- */
+
+
+/* --- CSS CHO NÚT CTA TRONG HERO CAROUSEL --- */
+.hero-carousel .slide-content .cta-button {
+    position: relative; /* Essential for positioning the pseudo-element */
+    display: inline-block;
+    background-color: #ffc72c;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1em;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 3px 0px #f39200,
+                0 5px 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    overflow: hidden; /* Crucial to contain the shine effect within the button */
 }

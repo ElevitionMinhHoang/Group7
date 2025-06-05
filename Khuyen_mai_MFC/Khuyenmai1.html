@@ -11,26 +11,40 @@
       padding: 40px 0;
       color: #333;
     }
+
     .container {
       max-width: 1100px;
       margin: 0 auto;
       display: flex;
-      gap: 40px; /* Khoảng cách giữa ảnh và nội dung */
+      gap: 40px;
       align-items: flex-start;
-      padding: 0 20px; /* Khoảng cách 2 bên container với lề màn hình */
+      padding: 0 20px;
     }
-    .image-box {
+
+    .image-wrapper {
       flex: 1;
       max-width: 500px;
+      background-color: #fff;  /* nền trắng cho khung */
+      padding: 16px;           /* khoảng cách giữa ảnh và khung */
       border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+      border: 1px solid #ddd;  /* viền nhạt */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    .image-box img {
+
+    .image-wrapper:hover {
+      transform: scale(1.03);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .image-wrapper img {
       width: 100%;
       height: auto;
       display: block;
     }
+    
+
     .content-box {
       flex: 1.2;
       display: flex;
@@ -38,6 +52,7 @@
       justify-content: flex-start;
       padding-left: 20px;
     }
+
     .content-box h1 {
       margin-top: 0;
       color: #cc3300;
@@ -48,22 +63,24 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .content-box p {
       font-size: 1.1rem;
       line-height: 1.6;
       color: #4d2600;
       margin-bottom: 12px;
     }
+
     .content-box ul {
       margin-top: 0;
       margin-bottom: 10px;
-      padding-left: 12px; /* căn lề cho danh sách */
+      padding-left: 12px;
     }
 
     .content-box li {
-      margin-bottom: 6px; /* khoảng cách giữa các item */
+      margin-bottom: 6px;
     }
- 
+
     .tag-new {
       background-color: #ff4500;
       color: white;
@@ -73,10 +90,9 @@
       border-radius: 12px;
       margin-left: 8px;
       vertical-align: middle;
-      font-family: Arial, sans-serif;
       text-transform: uppercase;
     }
-   
+
     .btn-back {
       display: inline-block;
       background-color: #ff6600;
@@ -91,7 +107,7 @@
       overflow: hidden;
       z-index: 0;
     }
-    
+
     .btn-back:hover {
       background-color: #cc3300;
     }
@@ -118,26 +134,23 @@
     }
 
     @keyframes shine {
-      from {
-       left: -75%;
-      }
-      to {
-      left: 125%;
-      }
+      from { left: -75%; }
+      to { left: 125%; }
     }
-
 
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
         padding: 0 10px;
       }
-      .image-box {
+
+      .image-wrapper {
         max-width: 100%;
         border-radius: 0;
         box-shadow: none;
         margin-bottom: 20px;
       }
+
       .content-box h1 {
         font-size: 2rem;
         white-space: normal;
@@ -148,29 +161,77 @@
 <body>
 
   <div class="container">
-    <div class="image-box">
+    <div class="image-wrapper">
       <img src="images/Khuyenmai1.jpg" alt="Gọi combo - tặng thêm nước" />
     </div>
     <div class="content-box">
       <h1>🍗 Gọi Combo – Tặng Thêm Nước</h1>
       <p>Khi mua combo bất kì trong thực đơn:</p>
-        <ul>
+      <ul>
         <li>COMBO A</li>
         <li>COMBO B</li>
         <li>COMBO C</li>
         <li>COMBO D</li>
         <li>COMBO E</li>
         <li>COMBO CÔNG CHÚA <span class="tag-new">NEW</span></li>
-        </ul>
-        <p>
-        Tặng ngay <strong>1 phần nước bất kì trong menu!</strong> 
-        <br>
+      </ul>
+      <p>
+        Tặng ngay <strong>1 phần nước bất kì trong menu!</strong><br>
         Càng nhiều combo – càng nhiều nước!
-        </p>
-        <p>Nhanh chân đến MFC ngay thôi nào!!!</p>
+      </p>
+      <p>Nhanh chân đến MFC ngay thôi nào!!!</p>
       <a href="Khuyen_mai_page1.html" class="btn-back">← Quay lại</a>
     </div>
   </div>
+
+  <footer>
+    <div class="footer-container">
+        <div class="footer-column footer-brand">
+            <a href="index.html" class="footer-logo-link">
+                <img src="mfc.jpg" alt="MFC Logo" class="footer-logo-image">
+            </a>
+            <p>MR. Fried Chicken - Mang hương vị giòn tan đến mọi nhà.</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=61566414457049" target="_blank" aria-label="Facebook"><i class='bx bxl-facebook-circle'></i></a>
+                <a href="https://www.instagram.com/letseat_mfc/" target="_blank" aria-label="Instagram"><i class='bx bxl-instagram-alt'></i></a>
+                <a href="https://www.tiktok.com/@minhvietnamlife?_t=ZS-8wvAdZFRz6n&_r=1&fbclid=IwY2xjawKtEA5leHRuA2FlbQIxMABicmlkETFWQlFZNEt2V0lZSXhGaU1IAR408AEmPKNuLRGdHqOvdfne-4nK3JuttGhx_w2mSgebpGJkUKvp8C5Oz7lvsQ_aem_dKedZ3WDN0r44wKVVGS0Qw" target="_blank" aria-label="TikTok"><i class='bx bxl-tiktok'></i></a>
+            </div>
+        </div>
+
+        <div class="footer-column footer-links">
+            <h4>Thông tin</h4>
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="Khuyen_mai_MFC/Khuyen_mai_page1.html">Khuyến mãi</a></li>
+                <li><a href="#">Thực đơn</a></li>
+                <li><a href="tranglienhe.html">Liên hệ & Hỗ trợ</a></li>
+                <li><a href="#">Về chúng tôi</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column footer-policy">
+            <h4>Chính sách</h4>
+            <ul>
+                <li><a href="#">Chính sách & Quy định chung</a></li>
+                <li><a href="#">Chính sách bảo mật thông tin</a></li>
+                <li><a href="#">Chính sách giao hàng</a></li>
+                <li><a href="#">Chính sách đổi trả & hoàn tiền</a></li>
+                <li><a href="#">Điều khoản sử dụng</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column footer-contact">
+            <h4>Thông tin liên hệ</h4>
+            <p><i class='bx bxs-map'></i> 112 P. Chùa Bộc, Quang Trung, Đống Đa, Hà Nội</p>
+            <p><i class='bx bxs-phone'></i> <a href="tel:0975459348">0975459348</a></p>
+            <p><i class='bx bxs-envelope'></i> <a href="mailto:support@mfc.com">support@mfc.com</a></p>
+            <p class="opening-hours"><i class='bx bxs-time-five'></i> Giờ mở cửa: 09:00 - 22:00</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 MR. Fried Chicken. All rights reserved.</p>
+    </div>
+  </footer>
 
 </body>
 </html>
