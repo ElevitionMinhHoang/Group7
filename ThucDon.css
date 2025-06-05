@@ -1,4 +1,4 @@
-/* Reset cơ bản và box-sizing (nên có ở đầu file CSS của bạn) */
+/* Reset cơ bản và box-sizing */
 * {
     margin: 0;
     padding: 0;
@@ -6,27 +6,29 @@
 }
 
 body {
-    font-family: 'Inter', Arial, sans-serif; /* Sử dụng Inter nếu có, hoặc Arial làm fallback */
+    background: url('images/background1.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Inter', Arial, sans-serif;
     margin: 0;
-    /* padding-top: SẼ ĐƯỢC JS ĐIỀU CHỈNH */
-    background: #fff8e1; /* Màu nền hiện tại của bạn */
     scroll-behavior: smooth;
+    /* padding-top sẽ được JS điều chỉnh */
 }
 
-/* --- THANH ĐIỀU HƯỚNG CHÍNH --- */
+/* --- THANH TRANG CHỦ  CHÍNH --- */
 .fixed-navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1001; /* Đặt z-index cao hơn thanh phụ */
+    z-index: 1001; /* Đã cập nhật z-index để nằm trên thanh phụ */
     background-color: orange;
-    padding: 10px 40px;
+    padding: 10px 40px; /* Đảm bảo padding chuẩn */
     display: flex;
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: padding 0.3s ease, background-color 0.3s ease, height 0.3s ease; /* Thêm height vào transition nếu JS thay đổi chiều cao */
+    transition: padding 0.3s ease, background-color 0.3s ease, height 0.3s ease; /* Thêm height vào transition */
+    height: 70px; /* Đặt chiều cao cố định cho thanh chính */
 }
 .fixed-navbar .logo-link {
     display: flex;
@@ -34,7 +36,7 @@ body {
     text-decoration: none;
 }
 .fixed-navbar .logo-image {
-    height: 50px; /* Chiều cao logo */
+    height: 50px;
     transition: height 0.3s ease;
 }
 .fixed-navbar .main-menu {
@@ -49,16 +51,68 @@ body {
     font-weight: bold;
     text-decoration: none;
     font-size: 16px;
-    padding: 5px 0;
+    padding: 5px 10px; /* Điều chỉnh padding để tạo không gian cho nền và khung */
+    border-radius: 8px; /* Bo tròn góc */
+    transition: transform 0.2s ease-out, text-shadow 0.2s, background-color 0.2s ease, color 0.2s ease;
+    display: inline-block;
+    position: relative; /* Cần thiết cho pseudo-element */
+    z-index: 1; /* Đảm bảo link nằm trên pseudo-element */
 }
+
+/* Style cho nav-link active (trang hiện tại) */
+.fixed-navbar .nav-link.active {
+    background-color: white; /* Nền trắng */
+    color: #D70F17; /* Chữ đỏ */
+    text-decoration: none; /* Bỏ gạch chân nếu có */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Thêm đổ bóng nhẹ */
+    transform: none; /* Đảm bảo không bị dịch chuyển khi active */
+    text-shadow: none; /* Bỏ text-shadow khi active */
+}
+
+/* Style khi hover các nav-link, áp dụng cả cho link active */
 .fixed-navbar .nav-link:hover {
-    text-decoration: underline;
+    text-decoration: none; /* Bỏ gạch chân khi hover nếu muốn chỉ dùng khung */
+    transform: translateY(-3px) scale(1.05); /* Hiệu ứng dịch chuyển và phóng to */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.7); /* Hiệu ứng đổ bóng chữ */
+    /* Không cần padding ở đây nữa vì đã có ở .nav-link ban đầu */
 }
+
+/* Thêm khung bằng pseudo-element */
+.fixed-navbar .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent; /* Khởi tạo viền trong suốt */
+    border-radius: 8px; /* Bo tròn góc khung */
+    transition: border-color 0.2s ease-out, transform 0.2s ease-out, opacity 0.2s ease-out;
+    z-index: -1; /* Đảm bảo khung nằm dưới chữ */
+    pointer-events: none; /* Đảm bảo không cản trở sự kiện click */
+    opacity: 0; /* Ẩn khung ban đầu */
+    transform: scale(0.8); /* Khởi tạo nhỏ hơn để có hiệu ứng phóng to khi hover */
+}
+
+/* Hiển thị khung khi hover */
+.fixed-navbar .nav-link:hover::before {
+    border-color: white; /* Màu viền khi hover */
+    opacity: 1; /* Hiển thị khung */
+    transform: scale(1); /* Phóng to ra kích thước thật */
+}
+
+/* Đảm bảo hiệu ứng cuộn vẫn hoạt động tốt trên link active */
+.fixed-navbar.scrolled .nav-link.active {
+    background-color: white;
+    color: #D70F17;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
 .fixed-navbar .user-actions {
     display: flex;
     align-items: center;
-    gap: 25px; /* Khoảng cách giữa các icon người dùng */
-    flex-shrink: 0;
+    gap: 25px; 
+    flex-shrink: 0; 
 }
 .fixed-navbar .nav-action-icon {
     color: white;
@@ -74,8 +128,8 @@ body {
 }
 .fixed-navbar .cart-item-count {
     position: absolute;
-    top: 0px;
-    right: -3px;
+    top: 0px; 
+    right: -3px; 
     background-color: red;
     color: white;
     border-radius: 50%;
@@ -90,129 +144,811 @@ body {
 }
 
 /* --- THANH MENU PHỤ (DANH MỤC MÓN ĂN) --- */
-.navbar { /* Thanh menu phụ của bạn */
+.navbar { 
     position: fixed;
-    /* top: SẼ ĐƯỢC JAVASCRIPT ĐẶT DỰA VÀO CHIỀU CAO CỦA .fixed-navbar */
+    top: 60px; /* Sát ngay dưới .fixed-navbar (tùy thuộc chiều cao thật) */
     left: 0;
     width: 100%;
-    background-color: #ffffff; /* Màu nền trắng như ảnh KFC */
+    background-color: #ffffff;
     display: flex;
-    justify-content: center; /* Căn giữa các mục */
-    padding: 0 20px; /* Padding ngang cho thanh */
-    z-index: 1000; /* Nằm dưới thanh chính */
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Bóng đổ nhẹ hơn, tinh tế hơn */
-    overflow-x: auto; /* Cho phép cuộn ngang nếu có nhiều mục */
-    white-space: nowrap; /* Ngăn các mục xuống dòng */
-    height: 50px; /* Chiều cao cố định cho thanh menu phụ, ví dụ */
+    justify-content: center; 
+    padding: 0 10px; 
+    z-index: 1000;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12); 
+    overflow-x: auto; 
+    white-space: nowrap; 
+    height: 48px; 
     align-items: center;
 }
 
 .navbar a {
-    margin: 0 5px; /* Giảm margin để vừa nhiều mục hơn */
-    padding: 14px 15px; /* Điều chỉnh padding để vừa với chiều cao thanh */
+    margin: 0 8px; 
+    padding: 0 10px; 
     text-decoration: none;
-    color: #555; /* Màu chữ xám đậm */
-    font-weight: 600; /* Hơi đậm */
-    font-size: 0.9rem; /* Cỡ chữ */
-    border-bottom: 3px solid transparent; /* Viền dưới ẩn */
+    color: #5f6368; 
+    font-weight: 600; 
+    font-size: 0.875rem;
+    border-bottom: 3px solid transparent; 
     transition: color 0.2s ease, border-bottom-color 0.2s ease;
-    line-height: calc(50px - 28px - 3px); /* Căn chữ vào giữa theo chiều dọc (height - (padding-top+bottom) - border-bottom) */
+    height: 100%; 
+    display: flex; 
+    align-items: center; 
 }
 
 .navbar a.active {
-    color: #D70F17; /* Màu đỏ đặc trưng KFC cho mục active */
-    border-bottom-color: #D70F17; /* Viền dưới màu đỏ */
+    color: #D70F17;
+    border-bottom-color: #D70F17; 
     font-weight: 700;
 }
 
 .navbar a:hover {
-    color: #D70F17; /* Màu đỏ khi hover */
+    color: #D70F17; 
 }
-
 
 /* --- NỘI DUNG CHÍNH --- */
 main {
-    /* padding-top: SẼ ĐƯỢC JAVASCRIPT ĐIỀU CHỈNH */
-    /* Ví dụ: nếu .fixed-navbar cao 70px và .navbar cao 50px, thì padding-top sẽ là 120px */
+    /* padding-top SẼ ĐƯỢC JAVASCRIPT ĐIỀU CHỈNH */
+    padding-top: 118px; /* Chiều cao tổng của 2 navbar: fixed-navbar (70px) + navbar (48px) = 118px */
+    padding-bottom: 50px; /* Thêm padding dưới cùng cho nội dung chính */
 }
 
 .section {
-    padding: 20px 20px 40px 20px; /* Giữ padding dưới lớn hơn một chút */
-    /* scroll-margin-top sẽ được JS đặt để đảm bảo không bị che khi cuộn tới */
+    padding: 20px 40px 40px 40px; /* Tăng padding ngang để nội dung không quá sát lề */
+    /* scroll-margin-top Sẽ được JS đặt */
 }
 
 .section h2 {
     text-align: center;
-    color: #D70F17; /* Màu đỏ cho tiêu đề section */
-    margin-bottom: 30px; /* Tăng khoảng cách dưới */
-    font-size: 2rem; /* Cỡ chữ lớn hơn cho tiêu đề section */
-    padding-top: 20px; /* Khoảng cách từ trên xuống, đặc biệt cho section đầu tiên */
+    color: #D70F17; /* Màu đỏ KFC */
+    margin-bottom: 40px; /* Tăng khoảng cách dưới tiêu đề */
+    font-size: 2.2rem; /* Tăng kích thước font */
+    padding-top: 40px; /* Tăng padding trên tiêu đề phần */
     font-weight: 700;
+    letter-spacing: 0.5px; /* Thêm khoảng cách chữ */
+    position: relative; /* Dùng cho underline */
+    padding-bottom: 15px; /* Khoảng cách cho underline */
 }
+
+.section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%; /* Chiều rộng của underline */
+    height: 4px; /* Độ dày của underline */
+    background-color: #D70F17; /* Màu đỏ của underline */
+    border-radius: 2px;
+}
+
 
 /* --- GRID VÀ CARD HIỂN THỊ MÓN ĂN --- */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Điều chỉnh minmax cho card */
-    gap: 25px; /* Khoảng cách giữa các card */
+    /* Giảm minmax để card nhỏ hơn */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Giảm từ 210px xuống 180px */
+    gap: 20px; /* Giảm từ 25px xuống 20px */
+    max-width: 1200px; /* Giới hạn chiều rộng tối đa của grid */
+    margin: 0 auto; /* Căn giữa grid */
 }
 
 .card {
-    background: white;
-    border-radius: 12px; /* Bo góc nhiều hơn */
-    padding: 15px; /* Padding cho nội dung card */
+    background: rgb(245, 245, 166);
+    border-radius: 10px; /* Giảm bo tròn góc một chút từ 12px */
+    padding: 0;
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Bóng đổ rõ hơn */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.06); /* Giảm đổ bóng một chút từ 0 6px 12px */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    overflow: hidden;
+    border: 2px solid #ffccbc; 
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, border-color 0.3s ease;
 }
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    transform: translateY(-4px); /* Giảm dịch chuyển lên trên khi hover từ -6px */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Giảm đổ bóng khi hover từ 0 10px 20px */
+    border-color: #D70F17;
+}
+
+.card-img-container {
+    padding: 8px; /* Giảm padding giữa ảnh và viền card từ 10px */
+    background-color: white;
+    border-radius: 10px 10px 0 0; /* Bo tròn góc trên theo card */
+    overflow: hidden;
+    display: flex; /* Thêm flexbox để căn giữa ảnh */
+    justify-content: center; /* Căn giữa ảnh theo chiều ngang */
+    align-items: center; /* Căn giữa ảnh theo chiều dọc */
+     background: rgb(245, 245, 166);
 }
 
 .card img {
     width: 100%;
-    height: 180px; /* Tăng chiều cao ảnh */
+    height: 140px; /* Giảm chiều cao ảnh từ 170px */
     object-fit: cover;
-    border-radius: 8px; /* Bo góc ảnh */
-    margin-bottom: 12px;
+    border-radius: 6px; /* Giảm bo tròn nhẹ các góc của ảnh từ 8px */
+    display: block;
+    transition: transform 0.3s ease-out;
+}
+.card:hover img {
+    transform: scale(1.03); /* Phóng to nhẹ ảnh khi hover card, điều chỉnh từ 1.02 */
 }
 
-.card h3 {
-    margin: 0 0 8px;
-    font-size: 1.05rem; /* Cỡ chữ tên món */
-    font-weight: 600; /* Đậm vừa */
-    color: #333;
-    line-height: 1.3;
-    min-height: 2.6em; /* Đảm bảo không gian cho 2 dòng tên món */
+.card-content {
+    padding: 10px; /* Giảm padding tổng thể từ 15px 12px, điều chỉnh lại cho phù hợp với bố cục mới */
     display: flex;
-    align-items: center; /* Căn giữa tên món nếu nó ngắn */
-    justify-content: center;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between; /* Giữ space-between để nội dung đẩy lên trên và nút xuống dưới */
+    align-items: center; /* Căn giữa theo chiều ngang các phần tử con của card-content */
 }
 
-.card p { /* Áp dụng cho thẻ p chứa giá */
-    color: #D70F17; /* Màu giá tiền */
-    font-weight: bold;
-    font-size: 1.15rem; /* Làm nổi bật giá */
-    margin-top: auto; /* Đẩy giá xuống cuối card */
-    padding-top: 10px; /* Khoảng cách trên giá */
+/* Container cho tên món và giá tiền */
+.card-content .item-details {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 8px;
+    gap: 12px; /* Khoảng cách giữa tên và giá */
 }
 
-.card p.description { /* Class này để mô tả thêm cho combo */
-    color: #666;
-    font-size: 0.85em;
+
+.card-header h3 { /* Cập nhật selector nếu cần, nếu h3 nằm trực tiếp trong .item-details, sẽ là .item-details h3 */
+    font-size: 1.0rem; /* Giảm từ 1.1rem */
+    font-weight: 700;
+    margin: 0;
+    color: #202124;
+    line-height: 1.3; /* Điều chỉnh line-height cho vừa với font-size mới */
+    /* flex-grow: 1; */ /* Bỏ flex-grow ở đây vì đã có justify-content: space-between ở .item-details */
+    text-align: left; /* Tên món ăn căn trái trong .item-details */
+    /* padding-right: 8px; */ /* Bỏ padding-right */
+}
+
+/* Nút Thêm */
+.add-btn {
+    background: linear-gradient(to right, #f59546, #ff8000);
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 18px; /* Giảm bo tròn từ 20px */
+    padding: 5px 12px; /* Giảm padding từ 6px 14px */
+    cursor: pointer;
+    font-size: 0.85rem; /* Giảm từ 0.9rem */
+    transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12); /* Giảm đổ bóng từ 0 2px 6px */
+    flex-shrink: 0;
+    margin-top: auto; /* Đẩy nút xuống dưới cùng của card-content */
+    /* Loại bỏ position absolute và các thuộc tính liên quan */
+    /* position: absolute; */
+    /* right: 10px; */
+    /* top: 50%; */
+    /* transform: translateY(-50%); */
+    width: 95%; /* Hoặc 90% tùy theo bạn muốn cách biên bao nhiêu */
+    display: block;
+    margin: 8px auto 0 auto; /* Căn giữa và đẩy xuống dưới */
+}
+
+.add-btn:hover {
+    transform: translateY(-1px); /* Dịch chuyển nhẹ lên trên từ -2px */
+    box-shadow: 0 2px 6px rgba(255, 167, 81, 0.4); /* Giảm đổ bóng khi hover từ 0 4px 10px */
+    background: rgb(230, 14, 14)
+
+}
+
+/* Mô tả */
+.card p.description {
+    color: #5f6368;
+    font-size: 0.8rem; /* Giảm từ 0.85rem */
     font-weight: normal;
-    margin: 5px 0 10px;
-    flex-grow: 1; /* Cho phép mô tả mở rộng */
-    min-height: 1.7em; /* Không gian cho 1-2 dòng mô tả ngắn */
-    line-height: 1.4;
+    margin: 0 0 8px; /* Khoảng cách dưới mô tả và trên nút */
+    line-height: 1.3; /* Điều chỉnh line-height */
+    min-height: 2.2em; /* Giảm từ 2.5em, vẫn giữ chỗ cho 2-3 dòng */
+    /* flex-grow: 1; */ /* Bỏ flex-grow ở đây, card-content sẽ quản lý */
+    text-align: center;
+    /* display: flex; */ /* Bỏ display flex nếu chỉ là text */
+    /* align-items: center; */
+    /* justify-content: center; */
+    width: 100%;
 }
 
-/* Font và Icon links (Đảm bảo đã có trong HTML)
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-*/
+/* HIỆU ỨNG CHO GIÁ TIỀN */
+.card p.price {
+    padding: 0; 
+    color: #D70F17; /* Giữ màu đỏ */
+    font-weight: 1000;
+    font-size: 1.2rem; /* Giảm từ 1.0rem */
+    margin-top: 0; /* Bỏ margin-top auto */
+    margin-bottom: 0;
+    text-align: right; /* Giá tiền căn phải trong item-details */
+    flex-shrink: 0; /* Đảm bảo không bị co */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .section {
+        padding: 20px 25px 35px 25px; /* Giảm padding ngang */
+    }
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); /* Giảm minmax thêm */
+        gap: 18px; /* Giảm gap */
+    }
+    .card img {
+        height: 130px; /* Giảm chiều cao ảnh */
+    }
+    .card-content .item-details h3 { /* Cập nhật selector */
+        font-size: 0.95rem; /* Giảm font size */
+    }
+    .add-btn {
+        padding: 4px 10px; /* Giảm padding */
+        font-size: 0.8rem; /* Giảm font size */
+    }
+    .card p.price {
+        font-size: 0.9rem; /* Giảm font size */
+    }
+    .card p.description {
+        font-size: 0.75rem; /* Giảm font size */
+        min-height: 2.1em; /* Giảm min-height */
+    }
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding: 15px 15px 30px 15px; /* Giảm padding */
+    }
+    .section h2 {
+        font-size: 1.6rem;
+        margin-bottom: 20px;
+        padding-top: 20px;
+    }
+    .section h2::after {
+        width: 45px;
+        height: 2px;
+    }
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Giảm minmax đáng kể */
+        gap: 12px; /* Giảm gap */
+    }
+    .card img {
+        height: 100px; /* Giảm chiều cao ảnh đáng kể */
+    }
+    .card-content {
+        padding: 8px; /* Giảm padding nội dung */
+    }
+    .card-content .item-details h3 { /* Cập nhật selector */
+        font-size: 0.85rem; /* Giảm font size */
+    }
+    .add-btn {
+        padding: 3px 8px; /* Giảm padding */
+        font-size: 0.75rem; /* Giảm font size */
+    }
+    .card p.price {
+        font-size: 0.8rem; /* Giảm font size */
+    }
+    .card p.description {
+        font-size: 0.7rem; /* Giảm font size */
+        min-height: 1.8em; /* Giảm min-height */
+        margin-bottom: 6px; /* Giảm khoảng cách */
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding-top: 118px; /* Giữ nguyên vì navbar vẫn chiếm chỗ */
+    }
+    .section {
+        padding: 10px 8px 20px 8px; /* Giảm padding ngang tối đa */
+    }
+    .section h2 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        padding-top: 15px;
+    }
+    .section h2::after {
+        width: 35px;
+    }
+    .grid {
+        grid-template-columns: 1fr; /* Vẫn 1 cột trên điện thoại */
+        gap: 8px; /* Giảm gap tối đa */
+    }
+    .card {
+        flex-direction: row; /* Bố cục ngang */
+        text-align: left;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Đổ bóng nhẹ hơn */
+        border-radius: 8px; /* Giảm bo tròn */
+        align-items: center;
+        padding: 5px; /* Thêm padding nhẹ cho toàn bộ card ngang */
+    }
+    .card:hover {
+        transform: translateY(-1px); /* Dịch chuyển ít hơn */
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+    .card-img-container {
+        padding: 5px; /* Giảm padding */
+        border-radius: 8px; /* Bo tròn ảnh cả 4 góc */
+        width: 80px; /* Giảm chiều rộng cố định cho ảnh */
+        height: 80px; /* Giảm chiều cao cố định */
+        flex-shrink: 0; /* Đảm bảo không bị co */
+        margin-right: 10px; /* Khoảng cách giữa ảnh và nội dung */
+    }
+    .card img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 4px; /* Giảm bo tròn */
+    }
+    .card-content {
+        padding: 5px 0px; /* Giảm padding và loại bỏ padding bên phải */
+        align-items: flex-start; /* Căn trái nội dung */
+        flex-grow: 1; /* Cho phép chiếm không gian */
+        justify-content: flex-start; /* Căn trên cùng các phần tử con */
+    }
+    .card-content .item-details { /* Cập nhật selector */
+        margin-bottom: 3px; /* Giảm khoảng cách */
+        justify-content: flex-start; /* Căn trái tên và giá trong bố cục ngang */
+        width: auto; /* Để không chiếm hết chiều rộng */
+        flex-wrap: wrap; /* Cho phép xuống dòng nếu không đủ chỗ */
+        gap: 5px; /* Khoảng cách giữa tên và giá */
+    }
+    .card-content .item-details h3 { /* Cập nhật selector */
+        font-size: 0.8rem; /* Giảm font size */
+        min-height: unset; /* Không cần min-height khi bố cục ngang */
+        text-align: left; /* Căn trái tên món ăn */
+        flex-grow: 0; /* Không cho phép mở rộng quá mức */
+        padding-right: 0;
+    }
+    .add-btn {
+        padding: 3px 6px; /* Giảm padding */
+        font-size: 0.7rem; /* Giảm font size */
+        white-space: nowrap; /* Đảm bảo nút không bị xuống dòng */
+        margin-top: 5px; /* Thêm margin trên nhẹ */
+        /* Loại bỏ các thuộc tính position absolute */
+        /* position: static; */
+        /* right: auto; */
+        /* top: auto; */
+        /* transform: none; */
+    }
+    .card p.price {
+        font-size: 0.75rem; /* Giảm font size */
+        padding: 0; /* Bỏ padding */
+        margin-top: 0; /* Bỏ margin-top */
+        white-space: nowrap; /* Đảm bảo giá không bị xuống dòng */
+        text-align: left; /* Căn trái giá tiền */
+    }
+    .card p.description {
+        display: none; /* Vẫn ẩn */
+    }
+}
+/* --- Footer --- */
+footer {
+    background-color: #222;
+    color: #eee;
+    padding: 60px 5%;
+    font-size: 0.95em;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-brand .footer-logo-link {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.footer-brand .footer-logo-image {
+    height: 80px;
+    filter: brightness(1.5);
+}
+
+.footer-brand p {
+    margin-bottom: 20px;
+    line-height: 1.8;
+    color: #bbb;
+}
+
+.social-icons a {
+    font-size: 28px;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+}
+
+/* Specific social icon colors */
+.social-icons .bx.bxl-facebook-circle {
+    color: #1877F2; /* Facebook Blue */
+}
+.social-icons .bx.bxl-instagram-alt {
+    color: #E4405F; /* Instagram Red-Pink */
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.social-icons .bx.bxl-tiktok {
+    color: #000; /* TikTok Black */
+    text-shadow: 2px 2px 0px #25F4EE, -2px -2px 0px #FE2C55; /* TikTok cyan and magenta shadow */
+}
+
+
+.footer-column h4 {
+    font-size: 1.3em;
+    margin-bottom: 25px;
+    color: var(--accent-color);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-column h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+    color: #bbb;
+    transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+    color: var(--text-light);
+}
+
+.footer-contact p {
+    margin-bottom: 10px;
+    color: #bbb;
+    display: flex;
+    align-items: center;
+}
+
+.footer-contact p i {
+    margin-right: 10px;
+    color: var(--primary-color);
+    font-size: 20px;
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid #333;
+    padding-top: 25px;
+    margin-top: 40px;
+    color: #999;
+}
+
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+    .fixed-navbar {
+        padding: 10px 25px;
+    }
+    .user-actions {
+        gap: 15px;
+    }
+    .main-menu { /* Hide main menu on smaller screens */
+        display: none;
+    }
+    .hamburger-menu { /* Show hamburger menu on smaller screens */
+        display: block;
+    }
+    .mobile-menu { /* Show mobile menu on smaller screens */
+        display: block;
+    }
+
+    .hero-title {
+        font-size: 3em;
+    }
+    .hero-subtitle {
+        font-size: 1.2em;
+    }
+    .main-hero-search-box {
+        max-width: 600px;
+    }
+    .main-hero-search-box input {
+        padding: 12px 20px;
+        font-size: 1em;
+    }
+    .main-hero-search-box button {
+        padding: 12px 18px;
+        font-size: 1.3em;
+    }
+
+    /* Overlay adjustments */
+    .overlay-close-btn {
+        font-size: 50px;
+        top: 20px;
+        right: 30px;
+    }
+    .overlay-content {
+        width: 90%;
+        top: 10%;
+    }
+    .overlay-search-box input {
+        padding: 15px 20px;
+        font-size: 1em;
+    }
+    .overlay-search-box button {
+        padding: 15px 18px;
+        font-size: 1.4em;
+    }
+    /* .overlay-main-menu h3,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links h3 {
+        font-size: 1.6em;
+    }
+    /* .overlay-main-menu ul li a,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links ul li a {
+        font-size: 1.1em;
+    }
+    /* .overlay-user-actions { */ /* Remove if you don't want these actions in overlay */
+    /* gap: 20px; */
+    /* } */
+
+
+    .map-section {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+    .section-title.left-align {
+        text-align: center;
+    }
+    .section-title.left-align::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .login-register-form .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .login-register-form .form-actions .btn {
+        width: 100%;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-column {
+        min-width: unset;
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .footer-column h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .footer-brand, .footer-links, .footer-policy, .footer-contact {
+        align-items: center;
+    }
+    .social-icons {
+        justify-content: center;
+    }
+    .footer-contact p {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .common-padding {
+        padding: 60px 4%;
+    }
+    .section-title {
+        font-size: 2.2em;
+        margin-bottom: 40px;
+    }
+    .hero-section {
+        height: 400px;
+    }
+    .hero-title {
+        font-size: 2.8em;
+    }
+    .hero-subtitle {
+        font-size: 1.2em;
+    }
+
+    /* Overlay adjustments */
+    .overlay-content {
+        width: 95%;
+    }
+    .overlay-search-box input {
+        padding: 12px 15px;
+        font-size: 0.95em;
+    }
+    .overlay-search-box button {
+        padding: 12px 15px;
+        font-size: 1.2em;
+    }
+    /* .overlay-main-menu h3,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links h3 {
+        font-size: 1.4em;
+    }
+    /* .overlay-main-menu ul li a,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links ul li a {
+        font-size: 1em;
+    }
+    /* .overlay-user-actions { */ /* Remove if you don't want these actions in overlay */
+    /* flex-direction: column; */
+    /* gap: 15px; */
+    /* } */
+
+
+    .support-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    .info-contact-card {
+        padding: 25px;
+    }
+    .info-contact-card .icon-circle {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+    }
+    .info-contact-card h3 {
+        font-size: 1.3em;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+    .testimonial-card {
+        padding: 25px;
+    }
+
+    .cta-section {
+        height: 300px;
+    }
+    .cta-content h2 {
+        font-size: 2.2em;
+    }
+    .cta-content p {
+        font-size: 1em;
+        margin-bottom: 25px;
+    }
+
+    footer {
+        padding: 40px 4%;
+    }
+    .footer-column {
+        margin-bottom: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding-top: 80px;
+    }
+    .fixed-navbar {
+        padding: 10px 15px;
+    }
+    .fixed-navbar .logo-image {
+        height: 50px;
+    }
+    .fixed-navbar.scrolled .logo-image {
+        height: 40px; /* Make logo smaller on scroll for mobile */
+    }
+    .user-actions {
+        gap: 10px;
+    }
+    .nav-action-icon {
+        font-size: 22px;
+    }
+    .hamburger-menu {
+        font-size: 28px;
+    }
+    .common-padding {
+        padding: 40px 3%;
+    }
+    .section-title {
+        font-size: 1.8em;
+        margin-bottom: 30px;
+    }
+    .hero-section {
+        height: 350px;
+    }
+    .hero-title {
+        font-size: 2.2em;
+    }
+    .hero-subtitle {
+        font-size: 1em;
+    }
+    .main-hero-search-box {
+        max-width: 100%;
+    }
+    .main-hero-search-box input {
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+    .main-hero-search-box button {
+        padding: 10px 15px;
+        font-size: 1.2em;
+    }
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+
+    /* Overlay adjustments for smallest screens */
+    .overlay-close-btn {
+        font-size: 40px;
+        top: 15px;
+        right: 20px;
+    }
+    .overlay-search-box input {
+        padding: 10px 12px;
+        font-size: 0.9em;
+    }
+    .overlay-search-box button {
+        padding: 10px 12px;
+        font-size: 1.1em;
+    }
+    /* .overlay-main-menu h3,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links h3 {
+        font-size: 1.2em;
+        margin-bottom: 15px;
+    }
+    /* .overlay-main-menu ul li a,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links ul li a {
+        font-size: 0.9em;
+        flex-direction: column; /* Stack icon and text */
+        gap: 5px;
+    }
+    /* .overlay-main-menu ul li a i,  */ /* Remove if you don't want main menu in overlay */
+    .overlay-support-links ul li a i {
+        font-size: 1.2em;
+    }
+    /* .overlay-user-actions { */ /* Remove if you don't want these actions in overlay */
+    /* font-size: 1em; */
+    /* } */
+    /* .overlay-user-actions .nav-action-icon i { */ /* Remove if you don't want these actions in overlay */
+    /* font-size: 1.5em; */
+    /* } */
+
+
+    .support-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .map-section {
+        width: 100%;
+    }
+
+    .cta-section {
+        height: 250px;
+    }
+    .cta-content h2 {
+        font-size: 1.8em;
+    }
+    .cta-content p {
+        font-size: 0.9em;
+    }
+    footer {
+        padding: 30px 3%;
+    }
+    .footer-column h4 {
+        font-size: 1.2em;
+    }
+    .footer-bottom {
+        padding-top: 15px;
+        margin-top: 25px;
+        font-size: 0.85em;
+    }
+}
