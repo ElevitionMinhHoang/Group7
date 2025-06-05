@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chi tiết Khuyến mãi - Combo 1</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff6f0;
+      margin: 0;
+      padding: 40px 0;
+      color: #333;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      gap: 40px; /* Khoảng cách giữa ảnh và nội dung */
+      align-items: flex-start;
+      padding: 0 20px; /* Khoảng cách 2 bên container với lề màn hình */
+    }
+    .image-box {
+      flex: 1;
+      max-width: 500px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .image-box img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .content-box {
+      flex: 1.2;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-left: 20px;
+    }
+    .content-box h1 {
+      margin-top: 0;
+      color: #cc3300;
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .content-box p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #4d2600;
+      margin-bottom: 12px;
+    }
+    .content-box ul {
+      margin-top: 0;
+      margin-bottom: 10px;
+      padding-left: 12px; /* căn lề cho danh sách */
+    }
+
+    .content-box li {
+      margin-bottom: 6px; /* khoảng cách giữa các item */
+    }
+ 
+    .tag-new {
+      background-color: #ff4500;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 12px;
+      margin-left: 8px;
+      vertical-align: middle;
+      font-family: Arial, sans-serif;
+      text-transform: uppercase;
+    }
+
+ .btn-back {
+      display: inline-block;
+      background-color: #ff6600;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      width: fit-content;
+      position: relative;
+      overflow: hidden;
+      z-index: 0;
+    }
+    
+    .btn-back:hover {
+      background-color: #cc3300;
+    }
+
+    .btn-back::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: skewX(-20deg);
+      z-index: 1;
+    }
+
+    .btn-back:hover::before {
+      animation: shine 0.8s ease forwards;
+    }
+
+    @keyframes shine {
+      from {
+       left: -75%;
+      }
+      to {
+      left: 125%;
+      }
+    }
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        padding: 0 10px;
+      }
+      .image-box {
+        max-width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+        margin-bottom: 20px;
+      }
+      .content-box h1 {
+        font-size: 2rem;
+        white-space: normal;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="image-box">
+      <img src="images/Khuyenmai7.jpg" alt="Suất ăn cho bé" />
+    </div>
+    <div class="content-box">
+      <h1>Suất ăn chỉ dành riêng cho các bạn nhỏ</h1>
+      <p>Các mẹ sợ con nhỏ ăn không hết để lãng phí thức ăn?</p>
+      <p>Không sao vì đã có MFC lo <3</p>
+      <p>MFC đặc biệt chuẩn bị khẩu phần riêng cho các bé: Suất ăn giảm 1 nửa, giá cũng giảm 1 nửa</p>
+      <em>Lưu ý: Chỉ tính riêng cho từng món ăn trong menu, không gộp chung nhiều phần</em>
+      <p>Nhanh chân đến MFC ngay thôi nào!!!</p>
+      <a href="Khuyen_mai_page2.html" class="btn-back">← Quay lại</a>
+    </div>
+  </div>
+
+</body>
+</html>

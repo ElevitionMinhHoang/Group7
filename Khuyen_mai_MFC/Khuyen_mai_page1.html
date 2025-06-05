@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
 
-
     body {
       font-family: 'Quicksand', Arial, sans-serif; /* Trang này đang dùng Quicksand */
       font-weight: 600;
@@ -32,56 +31,132 @@
     h1 {
       text-align: center;
       color: #cc3300;
-      font-size: 2.5rem;
+      font-size: 3rem;
       margin-bottom: 40px;
     }
 
 
 /* --- THANH ĐIỀU HƯỚNG --- */
-/* === THANH MENU CHÍNH === */
-/* --- THANH TRANG CHỦ  CHÍNH --- */
+/* --- NAVIGATION BAR --- */
 .fixed-navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1001; /* Đã cập nhật z-index để nằm trên thanh phụ */
+    z-index: 1000;
     background-color: orange;
-    padding: 10px 40px; /* Đảm bảo padding chuẩn */
+    padding: 15px 50px; /* Tăng padding để thanh to lên */
     display: flex;
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: padding 0.3s ease, background-color 0.3s ease, height 0.3s ease; /* Thêm height vào transition */
-    height: 70px; /* Đặt chiều cao cố định cho thanh chính */
+    transition: padding 0.3s ease, background-color 0.3s ease;
 }
+
 .fixed-navbar .logo-link {
     display: flex;
     align-items: center;
     text-decoration: none;
 }
+
 .fixed-navbar .logo-image {
-    height: 50px;
+    height: 60px; /* Tăng chiều cao logo */
     transition: height 0.3s ease;
 }
+
 .fixed-navbar .main-menu {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 35px; /* Tăng khoảng cách giữa các mục menu */
     flex: 1;
 }
+
 .fixed-navbar .nav-link {
     color: white;
     font-weight: bold;
     text-decoration: none;
-    font-size: 16px;
-    padding: 5px 10px; /* Điều chỉnh padding để tạo không gian cho nền và khung */
-    border-radius: 8px; /* Bo tròn góc */
-    transition: transform 0.2s ease-out, text-shadow 0.2s, background-color 0.2s ease, color 0.2s ease;
+    font-size: 18px; /* Tăng kích thước font chữ cho menu chính */
+    padding: 7px 0; /* Tăng padding dọc */
+    transition: transform 0.2s ease-out, text-shadow 0.2s ease-out, border 0.2s ease-out, padding 0.2s ease-out;
     display: inline-block;
-    position: relative; /* Cần thiết cho pseudo-element */
-    z-index: 1; /* Đảm bảo link nằm trên pseudo-element */
+    position: relative;
+    z-index: 1;
+}
+
+.fixed-navbar .nav-link:hover {
+    text-decoration: none;
+    transform: translateY(-3px) scale(1.05);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); /* Tăng độ sáng text-shadow */
+    padding: 7px 18px; /* Tăng padding để tạo không gian cho khung */
+}
+
+.fixed-navbar .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    transition: border-color 0.2s ease-out, transform 0.2s ease-out, opacity 0.2s ease-out;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.fixed-navbar .nav-link:hover::before {
+    border-color: white;
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* --- CSS MỚI CHO USER ACTIONS (GIỎ HÀNG & TÀI KHOẢN) --- */
+.fixed-navbar .user-actions {
+    display: flex;
+    align-items: center;
+    gap: 30px; /* Tăng khoảng cách giữa các icon */
+    flex-shrink: 0;
+}
+
+.fixed-navbar .nav-action-icon {
+    color: white;
+    font-size: 30px; /* Tăng kích thước icon */
+    text-decoration: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px; /* Tăng vùng click cho icon */
+    border-radius: 50%;
+    transition: transform 0.2s ease-out, color 0.2s ease-out, filter 0.2s ease-out;
+    z-index: 1;
+}
+
+.fixed-navbar .nav-action-icon:hover {
+    transform: translateY(-3px) scale(1.15); /* Tăng nhẹ hiệu ứng phóng to */
+    color: white;
+    filter: brightness(1.5) drop-shadow(0 0 7px rgba(255, 255, 255, 0.7)); /* Làm sáng và đổ bóng rõ hơn */
+}
+
+.fixed-navbar .cart-item-count {
+    position: absolute;
+    top: -2px; /* Điều chỉnh vị trí số lượng giỏ hàng */
+    right: -5px; /* Điều chỉnh vị trí số lượng giỏ hàng */
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px; /* Tăng padding */
+    font-size: 0.8em; /* Tăng kích thước font */
+    font-weight: bold;
+    line-height: 1;
+    min-width: 18px; /* Tăng kích thước tối thiểu */
+    text-align: center;
+    border: 1px solid white;
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    transition: none;
 }
 
 /* Style cho nav-link active (trang hiện tại) */
@@ -93,113 +168,6 @@
     transform: none; /* Đảm bảo không bị dịch chuyển khi active */
     text-shadow: none; /* Bỏ text-shadow khi active */
 }
-
-/* Style khi hover các nav-link, áp dụng cả cho link active */
-.fixed-navbar .nav-link:hover {
-    text-decoration: none; /* Bỏ gạch chân khi hover nếu muốn chỉ dùng khung */
-    transform: translateY(-3px) scale(1.05); /* Hiệu ứng dịch chuyển và phóng to */
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.7); /* Hiệu ứng đổ bóng chữ */
-    /* Không cần padding ở đây nữa vì đã có ở .nav-link ban đầu */
-}
-
-/* Thêm khung bằng pseudo-element */
-.fixed-navbar .nav-link::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border: 2px solid transparent; /* Khởi tạo viền trong suốt */
-    border-radius: 8px; /* Bo tròn góc khung */
-    transition: border-color 0.2s ease-out, transform 0.2s ease-out, opacity 0.2s ease-out;
-    z-index: -1; /* Đảm bảo khung nằm dưới chữ */
-    pointer-events: none; /* Đảm bảo không cản trở sự kiện click */
-    opacity: 0; /* Ẩn khung ban đầu */
-    transform: scale(0.8); /* Khởi tạo nhỏ hơn để có hiệu ứng phóng to khi hover */
-}
-
-/* Hiển thị khung khi hover */
-.fixed-navbar .nav-link:hover::before {
-    border-color: white; /* Màu viền khi hover */
-    opacity: 1; /* Hiển thị khung */
-    transform: scale(1); /* Phóng to ra kích thước thật */
-}
-
-/* Đảm bảo hiệu ứng cuộn vẫn hoạt động tốt trên link active */
-.fixed-navbar.scrolled .nav-link.active {
-    background-color: white;
-    color: #D70F17;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.fixed-navbar .user-actions {
-    display: flex;
-    align-items: center;
-    gap: 25px; 
-    flex-shrink: 0; 
-}
-.fixed-navbar .nav-action-icon {
-    color: white;
-    font-size: 26px;
-    text-decoration: none;
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 5px;
-}
-.fixed-navbar .nav-action-icon:hover {
-    opacity: 0.8;
-}
-.fixed-navbar .cart-item-count {
-    position: absolute;
-    top: 0px; 
-    right: -3px; 
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 1px 5px;
-    font-size: 0.7em;
-    font-weight: bold;
-    line-height: 1;
-    min-width: 16px;
-    text-align: center;
-    border: 1px solid white;
-    box-shadow: 0 0 3px rgba(0,0,0,0.3);
-}
-
-/* === RESPONSIVE === */
-@media (max-width: 992px) {
-    .fixed-navbar {
-        padding: 10px 25px;
-    }
-    .user-actions {
-        gap: 15px;
-    }
-    .main-menu { /* Hide main menu on smaller screens */
-        display: none;
-    }
-  }
-@media (max-width: 480px) {
-    body {
-        padding-top: 80px;
-    }
-    .fixed-navbar {
-        padding: 10px 15px;
-    }
-    .fixed-navbar .logo-image {
-        height: 50px;
-    }
-    .fixed-navbar.scrolled .logo-image {
-        height: 40px; /* Make logo smaller on scroll for mobile */
-    }
-    .user-actions {
-        gap: 10px;
-    }
-    .nav-action-icon {
-        font-size: 22px;
-    }
-  }
 
 /* Vùng bọc toàn bộ banner để căn giữa nội dung */
     .promo-banner .container {
@@ -260,7 +228,7 @@
         border: 2px solid #ffa000;
         overflow: hidden;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
@@ -280,15 +248,15 @@
     }
 
     .promo-item img {
-        width: 50%;
+        width: 40%;
         height: 350px;
         object-fit: cover;
         object-position: center center;
     }
 
     .promo-content {
-        width: 50%;
-        padding: 20px;
+        width: 60%;
+        padding: 15px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -296,13 +264,29 @@
     }
 
     .promo-title {
-        font-size: 1.3rem;
+        font-size: 2rem;
         font-weight: 900;
         color: #ff6600;
-        padding: 14px 16px;
-        margin-bottom: 20px;
+        padding: 10px 0px;
+        margin-bottom: 10px;
         text-align: center;
+        width: 100%;
     }
+
+  .promo-description {
+    color: gray; /* Màu xám */
+    font-size: 1.5rem; /* Nhỏ hơn tiêu đề */
+    line-height: 1.4;
+    margin: 0 0px 20px 20px; /* Căn lề */
+    text-align: left;
+    font-weight: 400; /* Nhẹ hơn tiêu đề */
+    opacity: 0.8; /* Làm chìm */
+    max-width: 90%; /* Giới hạn chiều rộng */
+}
+.promo-item:hover .promo-description {
+    opacity: 1; /* Hiện rõ hơn khi hover */
+    transition: opacity 0.3s ease;
+}
 
     .promo-button {
         position: relative;
@@ -310,6 +294,7 @@
         margin-bottom: 16px;
         background-color: #ff6600;
         color: white;
+        font-size: 1.2rem;
         padding: 10px 20px;
         border-radius: 20px;
         text-decoration: none;
@@ -412,17 +397,17 @@
     </div>
     <div class="main-menu">
         <a href="../index.html" class="nav-link">Trang chủ</a>
-        <a href="#" class="nav-link">Thực đơn</a>
-        <a href="Khuyenmai1.html" class="nav-link">Khuyến mãi</a>
+        <a href="../ThucDon.html" class="nav-link">Thực đơn</a>
+        <a href="Khuyen_mai_page1.html" class="nav-link">Khuyến mãi</a>
         <a href="../tranglienhe.html" class="nav-link">Liên hệ</a>
     </div>
     <!-- Đảm bảo phần user-actions có đầy đủ -->
     <div class="user-actions">
-        <a href="giohang.html" class="nav-action-icon" aria-label="Giỏ hàng">
+        <a href="../Gio_hang_MFC/Gio_hang.html" class="nav-action-icon" aria-label="Giỏ hàng">
             <i class='bx bxs-cart'></i>
             <span class="cart-item-count">0</span>
         </a>
-        <a href="tendangnhap.html" class="nav-action-icon" aria-label="Tài khoản">
+        <a href="../tendangnhap.html" class="nav-action-icon" aria-label="Tài khoản">
             <i class='bx bxs-user-circle'></i>
         </a>
     </div>
@@ -443,6 +428,7 @@
         <img src="images/Khuyenmai1.jpg" alt="Gọi Combo - Tặng Thêm Nước">
         <div class="promo-content">
             <div class="promo-title">Gọi Càng Nhiều Combo - Càng Tặng Thêm Nhiều Nước</div>
+            <div class="promo-description">Chỉ áp dụng cho khách hàng đến và mua hàng tại quán. Không áp dụng cho các khách hàng đặt hàng online.<br>Đặt bàn qua hotline: 0975459348</div>
             <a href="Khuyenmai1.html" class="promo-button">Xem thêm</a>
         </div>
     </div>
@@ -451,8 +437,8 @@
     <div class="promo-item">
         <img src="images/Khuyenmai2.jpg" alt="Càng Đông - Càng Vui - Quà Càng Chất">
         <div class="promo-content">
-            <div class="promo-title"> Đi Càng Đông - Ăn Càng Vui - Quà Càng Chất</div>
-            <a href="Khuyenmai2.html" class="promo-button">Xem thêm</a>
+        <div class="promo-title"> Đi Càng Đông - Ăn Càng Vui - Quà Càng Chất</div>
+        <div class="promo-description">Chỉ áp dụng cho khách hàng đến và mua hàng tại quán. Không áp dụng cho các khách hàng đặt hàng online.<br>Đặt bàn qua hotline: 0975459348</div>            <a href="Khuyenmai2.html" class="promo-button">Xem thêm</a>
         </div>
     </div>
     
@@ -461,6 +447,7 @@
         <img src="images/Khuyenmai3.jpg" alt="Check-in Là Có Quà">
         <div class="promo-content">
             <div class="promo-title">Check-in Ngay Tại Quán - Nhận Quà Liền Tay</div>
+                    <div class="promo-description">Chỉ áp dụng cho khách hàng đến và mua hàng tại quán. Không áp dụng cho các khách hàng đặt hàng online.<br>Đặt bàn qua hotline: 0975459348</div>
             <a href="Khuyenmai3.html" class="promo-button">Xem thêm</a>
         </div>
     </div>
@@ -470,6 +457,7 @@
         <img src="images/Khuyenmai4.jpg" alt="Tích Điểm Nhận Quà Bất Ngờ">
         <div class="promo-content">
             <div class="promo-title">Tích Điểm Đủ Dấu - Nhận Quà Bất Ngờ</div>
+                    <div class="promo-description">Chỉ áp dụng cho khách hàng đến và mua hàng tại quán. Không áp dụng cho các khách hàng đặt hàng online.<br>Đặt bàn qua hotline: 0975459348</div>
             <a href="Khuyenmai4.html" class="promo-button">Xem thêm</a>
         </div>
     </div>
@@ -483,9 +471,56 @@
     <div class="button next">next &gt;</div>
 </div>
 
-
 <script src="..//javascript/Khuyenmai.js"></script>
 
+<footer>
+    <div class="footer-container">
+        <div class="footer-column footer-brand">
+            <a href="index.html" class="footer-logo-link">
+                <img src="mfc.jpg" alt="MFC Logo" class="footer-logo-image">
+            </a>
+            <p>MR. Fried Chicken - Mang hương vị giòn tan đến mọi nhà.</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=61566414457049" target="_blank" aria-label="Facebook"><i class='bx bxl-facebook-circle'></i></a>
+                <a href="https://www.instagram.com/letseat_mfc/" target="_blank" aria-label="Instagram"><i class='bx bxl-instagram-alt'></i></a>
+                <a href="https://www.tiktok.com/@minhvietnamlife?_t=ZS-8wvAdZFRz6n&_r=1&fbclid=IwY2xjawKtEA5leHRuA2FlbQIxMABicmlkETFWQlFZNEt2V0lZSXhGaU1IAR408AEmPKNuLRGdHqOvdfne-4nK3JuttGhx_w2mSgebpGJkUKvp8C5Oz7lvsQ_aem_dKedZ3WDN0r44wKVVGS0Qw" target="_blank" aria-label="TikTok"><i class='bx bxl-tiktok'></i></a>
+            </div>
+        </div>
+
+        <div class="footer-column footer-links">
+            <h4>Thông tin</h4>
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="Khuyen_mai_MFC/Khuyen_mai_page1.html">Khuyến mãi</a></li>
+                <li><a href="#">Thực đơn</a></li>
+                <li><a href="tranglienhe.html">Liên hệ & Hỗ trợ</a></li>
+                <li><a href="#">Về chúng tôi</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column footer-policy">
+            <h4>Chính sách</h4>
+            <ul>
+                <li><a href="#">Chính sách & Quy định chung</a></li>
+                <li><a href="#">Chính sách bảo mật thông tin</a></li>
+                <li><a href="#">Chính sách giao hàng</a></li>
+                <li><a href="#">Chính sách đổi trả & hoàn tiền</a></li>
+                <li><a href="#">Điều khoản sử dụng</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column footer-contact">
+            <h4>Thông tin liên hệ</h4>
+            <p><i class='bx bxs-map'></i> 112 P. Chùa Bộc, Quang Trung, Đống Đa, Hà Nội</p>
+            <p><i class='bx bxs-phone'></i> <a href="tel:0975459348">0975459348</a></p>
+            <p><i class='bx bxs-envelope'></i> <a href="mailto:support@mfc.com">support@mfc.com</a></p>
+            <p class="opening-hours"><i class='bx bxs-time-five'></i> Giờ mở cửa: 09:00 - 22:00</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 MR. Fried Chicken. All rights reserved.</p>
+    </div>
+  </footer>
 
 
 
