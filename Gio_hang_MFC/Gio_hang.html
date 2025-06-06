@@ -1,210 +1,325 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Giỏ hàng</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fffaf0;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán - MFC Food</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f6f8;
+            color: #333;
+            line-height: 1.6;
+        }
 
-    header {
-      background-color: #ff9800;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 24px;
-    }
+        header {
+            background-color: #FFA500; /* Orange */
+            color: white;
+            padding: 1em 2em;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
 
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 1200px;
-      margin: 20px auto;
-      gap: 20px;
-    }
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
 
-    .cart-left, .cart-right {
-      background: white;
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-    }
+        .checkout-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 25px auto;
+            padding: 0 15px;
+            gap: 25px;
+            max-width: 1200px;
+        }
 
-    .cart-left {
-      flex: 2;
-    }
+        .order-information {
+            flex: 2;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+        }
 
-    .cart-right {
-      flex: 1;
-      background-color: #fff3e0;
-      border: 2px solid #ff9800;
-    }
+        .order-summary {
+            flex: 1;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            height: fit-content;
+        }
 
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 1px solid #eee;
-      padding: 15px 0;
-    }
+        .order-information h2, .order-summary h2 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
 
-    .cart-item img {
-      width: 80px;
-      height: 80px;
-      border-radius: 8px;
-      margin-right: 15px;
-      object-fit: cover;
-    }
+        .order-information form div {
+            margin-bottom: 18px;
+        }
 
-    .item-info {
-      display: flex;
-    }
+        .order-information label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.95em;
+            color: #555;
+        }
 
-    .item-details {
-      display: flex;
-      flex-direction: column;
-    }
+        .order-information input[type="text"],
+        .order-information input[type="tel"],
+        .order-information textarea,
+        .order-information select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1em;
+            transition: border-color 0.2s ease-in-out;
+        }
 
-    .item-name {
-      font-weight: bold;
-      font-size: 18px;
-      color: #333;
-    }
+        .order-information input[type="text"]:focus,
+        .order-information input[type="tel"]:focus,
+        .order-information textarea:focus,
+        .order-information select:focus {
+            border-color: #FFA500; /* Orange */
+            outline: none;
+        }
 
-    .item-note {
-      font-style: italic;
-      font-size: 14px;
-      color: #757575;
-    }
+        .order-information textarea {
+            resize: vertical;
+        }
 
-    .item-price {
-      color: #f57c00;
-      margin-top: 4px;
-    }
+        #cart-items-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
 
-    .form-group {
-      margin-bottom: 15px;
-    }
+        #cart-items-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.95em;
+        }
+        #cart-items-list li:last-child {
+            border-bottom: none;
+        }
+        #cart-items-list li .item-name {
+            color: #555;
+        }
+        #cart-items-list li .item-price {
+            font-weight: 600;
+            color: #333;
+        }
 
-    .form-group label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 5px;
-      color: #333;
-    }
+        .summary-totals {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px solid #f0f0f0;
+        }
 
-    .form-group input,
-    .form-group select {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
+        .summary-totals p {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            font-size: 1em;
+        }
+        .summary-totals p span:first-child {
+            color: #555;
+        }
+        .summary-totals p span:last-child {
+            font-weight: 600;
+        }
 
-    .total {
-      font-size: 18px;
-      font-weight: bold;
-      text-align: right;
-      margin-top: 20px;
-    }
+        .summary-totals .grand-total {
+            font-size: 1.25em;
+            font-weight: bold;
+            color: #FFA500; /* Orange */
+        }
+        .summary-totals .grand-total span:first-child{
+            color: #FFA500; /* Orange */
+        }
 
-    .place-order {
-      background-color: #000;
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 5px;
-      width: 100%;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 15px;
-    }
+        #place-order-btn {
+            background-color: #FFA500; /* Orange */
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: background-color 0.2s ease-in-out;
+        }
 
-    .place-order:hover {
-      background-color: #333;
-    }
+        #place-order-btn:hover {
+            background-color: #FF8C00; /* Darker orange on hover */
+        }
 
-    .empty-cart {
-      font-style: italic;
-      color: #777;
-      padding: 20px;
-    }
-  </style>
+        /* CUSTOM SUCCESS ALERT STYLES */
+        #custom-success-alert {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none; /* Initially hidden to prevent blocking */
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #custom-success-alert.visible {
+            display: flex; /* Show when .visible class is added */
+            opacity: 1;
+        }
+
+        .alert-content {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+            transform: scale(0.9);
+            transition: transform 0.3s ease; /* Animate the box scaling */
+        }
+
+        #custom-success-alert.visible .alert-content {
+            transform: scale(1); /* Scale to full size when alert is visible */
+        }
+
+        .checkmark-svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+        }
+
+        .checkmark-svg path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw-checkmark 0.7s ease-out forwards 0.3s;
+        }
+
+        @keyframes draw-checkmark {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .alert-content p {
+            font-size: 1.2em;
+            color: #333;
+            margin: 0;
+        }
+
+        @media (max-width: 900px) {
+            .checkout-container {
+                flex-direction: column;
+            }
+            .order-information, .order-summary {
+                flex: none;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            .order-summary {
+                margin-bottom: 0;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            background-color: #333;
+            color: #f0f0f0;
+            font-size: 0.9em;
+        }
+    </style>
 </head>
 <body>
-  <header>Giỏ hàng của bạn</header>
+    <header>
+        <h1>Thanh Toán</h1>
+    </header>
 
-  <div class="container">
-    <!-- Bên trái: Danh sách món -->
-    <div class="cart-left" id="ds-san-pham">
-      <!-- JavaScript sẽ chèn sản phẩm ở đây -->
+    <main class="checkout-container">
+        <div class="order-information">
+            <h2>Thông tin đơn hàng</h2>
+            <form id="customer-details-form" onsubmit="return false;"> <div>
+                    <label for="name">Họ và tên:</label>
+                    <input type="text" id="name" name="name" required placeholder="Nguyễn Văn A">
+                </div>
+                <div>
+                    <label for="phone">Số điện thoại:</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="09xxxxxxxx">
+                </div>
+                <div>
+                    <label for="address">Địa chỉ nhận hàng:</label>
+                    <textarea id="address" name="address" rows="4" required placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố"></textarea>
+                </div>
+                <div>
+                    <label for="payment-method">Phương thức thanh toán:</label>
+                    <select id="payment-method" name="payment-method">
+                        <option value="cod">Thanh toán khi nhận hàng (COD)</option>
+                        <option value="bank">Chuyển khoản ngân hàng</option>
+                        <option value="momo">Ví Momo</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="notes">Ghi chú cho đơn hàng:</label>
+                    <textarea id="notes" name="notes" rows="3" placeholder="Ví dụ: Giao hàng giờ hành chính, ít cay,..."></textarea>
+                </div>
+            </form>
+        </div>
+
+        <div class="order-summary">
+            <h2>Đơn hàng của bạn</h2>
+            <div id="shopping-cart-summary-content">
+                <ul id="cart-items-list">
+                    </ul>
+                <div class="summary-totals">
+                    <p><span>Tạm tính:</span> <span id="cart-subtotal">0 VNĐ</span></p>
+                    <p><span>Phí vận chuyển:</span> <span id="shipping-fee">Miễn phí</span></p>
+                    <hr style="border: none; border-top: 1px solid #eee; margin: 10px 0;">
+                    <p class="grand-total"><span>Tổng cộng:</span> <span id="cart-grand-total">0 VNĐ</span></p>
+                </div>
+                <button id="place-order-btn" type="button">Xác Nhận Đặt Hàng</button> </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 MFC Food - Demo Thanh Toán</p>
+    </footer>
+
+    <div id="custom-success-alert">
+        <div class="alert-content">
+            <svg class="checkmark-svg" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="26" cy="26" r="25" fill="none" stroke="#4CAF50" stroke-width="3"/>
+                <path fill="none" stroke="#4CAF50" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"
+                      d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            </svg>
+            <p>Đơn hàng của bạn đã được ghi nhận!</p>
+        </div>
     </div>
 
-    <!-- Bên phải: Thông tin đơn hàng -->
-    <div class="cart-right">
-      <div class="form-group">
-        <label>Địa chỉ cửa hàng</label>
-        <div>Số 112 Chùa Bộc, Quang Trung, Đống Đa, Hà Nội</div>
-      </div>
-
-      <div class="form-group">
-        <label>Địa chỉ của bạn</label>
-        <input type="text" placeholder="Nhập địa chỉ nhận hàng...">
-      </div>
-
-      <div class="form-group">
-        <label>Tùy chọn giao hàng</label>
-        <select>
-          <option>Ưu tiên (&lt; 20 phút)</option>
-          <option>Nhanh (20 - 40 phút)</option>
-          <option>Tiết kiệm (40 - 60 phút)</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Mã ưu đãi</label>
-        <input type="text" placeholder="Nhập mã giảm giá (nếu có)">
-      </div>
-
-      <div class="total">
-        Tổng cộng: <span id="tong-cong">0₫</span>
-      </div>
-
-      <button class="place-order">Đặt hàng</button>
-    </div>
-  </div>
-
-  <script>
-    const container = document.getElementById('ds-san-pham');
-    const gio = JSON.parse(localStorage.getItem('gioHang')) || [];
-
-    let tong = 0;
-
-    if (gio.length === 0) {
-      container.innerHTML = '<div class="empty-cart">Giỏ hàng trống.</div>';
-    } else {
-      gio.forEach(sp => {
-        const itemHTML = `
-          <div class="cart-item">
-            <div class="item-info">
-              <img src="https://via.placeholder.com/80" alt="${sp.ten}">
-              <div class="item-details">
-                <div class="item-name">${sp.ten}</div>
-                <div class="item-note">${sp.ghiChu}</div>
-                <div>Số lượng: ${sp.soLuong}</div>
-                <div class="item-price">${(sp.gia * sp.soLuong).toLocaleString()}₫</div>
-              </div>
-            </div>
-          </div>
-        `;
-        container.insertAdjacentHTML('beforeend', itemHTML);
-        tong += sp.gia * sp.soLuong;
-      });
-      document.getElementById('tong-cong').innerText = tong.toLocaleString() + '₫';
-    }
-  </script>
+    <script src="../javascript/Giohang.js" defer></script>
 </body>
 </html>
