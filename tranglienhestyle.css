@@ -1,31 +1,28 @@
-/* Tổng quan và Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif; /* Set default font for all elements */
+    font-family: 'Inter', sans-serif;
 }
-
 :root {
-    --primary-color: #E67E22; /* Màu cam đậm hơn, nổi bật hơn */
-    --secondary-color: #F39C12; /* Màu cam vàng */
-    --accent-color: #FFD700; /* Vàng kim loại cho các điểm nhấn */
-    --text-dark: #2C3E50; /* Màu chữ tối cho nội dung chính */
-    --text-light: #ECF0F1; /* Màu chữ sáng cho nền tối */
-    --bg-light: #F4F6F7; /* Nền sáng nhẹ */
-    --bg-dark-overlay: rgba(0, 0, 0, 0.7); /* Lớp phủ cho ảnh nền */
-    --footer-bg: #34495E; /* Màu xanh than đậm cho footer */
-    --footer-text-color: #ECF0F1; /* Màu chữ sáng cho footer */
-    --footer-link-color: #FFD700; /* Vàng kim loại cho link footer */
+    --primary-color: #E67E22;
+    --secondary-color: #F39C12;
+    --accent-color: #FFD700;
+    --text-dark: #2C3E50;
+    --text-light: #ECF0F1;
+    --bg-light: #F4F6F7;
+    --bg-dark-overlay: rgba(0, 0, 0, 0.7);
+    --footer-bg: black;
+    --footer-text-color: #ECF0F1;
+    --footer-link-color: #FFD700;
     --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     --card-hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    --border-color-light: #D5DBDB; /* Border nhẹ */
-    --support-card-bg: #FFFFFF; /* Nền cho thẻ hỗ trợ */
-    --support-card-hover-bg: #EAECEE; /* Nền hover cho thẻ hỗ trợ */
+    --border-color-light: #D5DBDB;
+    --support-card-bg: #FFFFFF;
+    --support-card-hover-bg: #EAECEE;
     --icon-circle-bg: var(--primary-color);
     --icon-circle-hover-bg: var(--secondary-color);
 }
-
 body {
     background-color: var(--bg-light);
     color: var(--text-dark);
@@ -34,33 +31,25 @@ body {
     overflow-x: hidden;
     font-size: 16px;
 }
-
 a {
     text-decoration: none;
     color: inherit;
 }
-
 ul {
     list-style: none;
 }
-
 input, textarea, button, select {
     font-family: 'Inter', sans-serif;
 }
-
 .common-padding {
     padding: 80px 5%;
 }
-
 .bg-light {
     background-color: var(--bg-light);
 }
-
 .text-center {
     text-align: center;
 }
-
-/* Section Titles */
 .section-title {
     font-family: 'Playfair Display', serif;
     font-size: 2.8em;
@@ -70,7 +59,6 @@ input, textarea, button, select {
     position: relative;
     padding-bottom: 15px;
 }
-
 .section-title::after {
     content: '';
     position: absolute;
@@ -82,7 +70,6 @@ input, textarea, button, select {
     background-color: var(--accent-color);
     border-radius: 2px;
 }
-
 .section-title.left-align {
     text-align: left;
     transform: none;
@@ -92,8 +79,6 @@ input, textarea, button, select {
     left: 0;
     transform: none;
 }
-
-/* Buttons */
 .btn {
     display: inline-block;
     padding: 12px 25px;
@@ -103,55 +88,46 @@ input, textarea, button, select {
     transition: all 0.3s ease;
     text-align: center;
 }
-
 .btn-primary {
     background-color: var(--primary-color);
     color: var(--text-light);
     border: 2px solid var(--primary-color);
 }
-
 .btn-primary:hover {
-    background-color: #D35400; /* Darker orange for hover */
+    background-color: #D35400;
     border-color: #D35400;
     transform: translateY(-2px);
 }
-
 .btn-secondary {
     background-color: transparent;
     color: var(--text-light);
     border: 2px solid var(--text-light);
 }
-
 .btn-secondary:hover {
     background-color: var(--text-light);
     color: var(--primary-color);
     transform: translateY(-2px);
 }
-
 .btn-primary-outline {
     background-color: transparent;
     color: var(--primary-color);
     border: 2px solid var(--primary-color);
 }
-
 .btn-primary-outline:hover {
     background-color: var(--primary-color);
     color: var(--text-light);
     transform: translateY(-2px);
 }
-
 .btn-light-outline {
     background-color: transparent;
     color: var(--text-light);
     border: 2px solid var(--text-light);
 }
-
 .btn-light-outline:hover {
     background-color: var(--text-light);
     color: var(--primary-color);
     transform: translateY(-2px);
 }
-
 .btn-small {
     padding: 8px 18px;
     font-size: 0.9em;
@@ -159,12 +135,9 @@ input, textarea, button, select {
     color: var(--text-light);
     border: none;
 }
-
 .btn-small:hover {
     background-color: #E67E22;
 }
-
-/* --- NAVIGATION BAR --- */
 .fixed-navbar {
     position: fixed;
     top: 0;
@@ -172,52 +145,51 @@ input, textarea, button, select {
     width: 100%;
     z-index: 1000;
     background-color: orange;
-    padding: 15px 50px; /* Tăng padding để thanh to lên */
+    padding: 15px 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     transition: padding 0.3s ease, background-color 0.3s ease;
 }
-
 .fixed-navbar .logo-link {
     display: flex;
     align-items: center;
     text-decoration: none;
 }
-
 .fixed-navbar .logo-image {
-    height: 60px; /* Tăng chiều cao logo */
+    height: 60px;
     transition: height 0.3s ease;
 }
-
+.logo-image
+{
+    height: 60px;
+    width: 100px;
+}
 .fixed-navbar .main-menu {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 35px; /* Tăng khoảng cách giữa các mục menu */
+    gap: 35px;
     flex: 1;
 }
-
 .fixed-navbar .nav-link {
     color: white;
     font-weight: bold;
     text-decoration: none;
-    font-size: 18px; /* Tăng kích thước font chữ cho menu chính */
-    padding: 7px 0; /* Tăng padding dọc */
+    font-size: 18px;
+    padding: 7px 0;
     transition: transform 0.2s ease-out, text-shadow 0.2s ease-out, border 0.2s ease-out, padding 0.2s ease-out;
     display: inline-block;
     position: relative;
     z-index: 1;
 }
-
 .fixed-navbar .nav-link:hover {
     text-decoration: none;
     transform: translateY(-3px) scale(1.05);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); /* Tăng độ sáng text-shadow */
-    padding: 7px 18px; /* Tăng padding để tạo không gian cho khung */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+    padding: 7px 18px;
 }
-
 .fixed-navbar .nav-link::before {
     content: '';
     position: absolute;
@@ -233,71 +205,59 @@ input, textarea, button, select {
     opacity: 0;
     transform: scale(0.8);
 }
-
 .fixed-navbar .nav-link:hover::before {
     border-color: white;
     opacity: 1;
     transform: scale(1);
 }
-
-/* --- CSS MỚI CHO USER ACTIONS (GIỎ HÀNG & TÀI KHOẢN) --- */
 .fixed-navbar .user-actions {
     display: flex;
     align-items: center;
-    gap: 30px; /* Tăng khoảng cách giữa các icon */
+    gap: 30px;
     flex-shrink: 0;
 }
-
 .fixed-navbar .nav-action-icon {
     color: white;
-    font-size: 30px; /* Tăng kích thước icon */
+    font-size: 30px;
     text-decoration: none;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px; /* Tăng vùng click cho icon */
+    padding: 8px;
     border-radius: 50%;
-    
-    /* Thêm transitions cho hiệu ứng hover */
     transition: transform 0.2s ease-out, color 0.2s ease-out, filter 0.2s ease-out;
     z-index: 1; 
 }
-
 .fixed-navbar .nav-action-icon:hover {
-    transform: translateY(-3px) scale(1.15); /* Tăng nhẹ hiệu ứng phóng to */
+    transform: translateY(-3px) scale(1.15);
     color: white;
-    filter: brightness(1.5) drop-shadow(0 0 7px rgba(255, 255, 255, 0.7)); /* Làm sáng và đổ bóng rõ hơn */
+    filter: brightness(1.5) drop-shadow(0 0 7px rgba(255, 255, 255, 0.7));
 }
-
 .fixed-navbar .cart-item-count {
     position: absolute;
-    top: -2px; /* Điều chỉnh vị trí số lượng giỏ hàng */
-    right: -5px; /* Điều chỉnh vị trí số lượng giỏ hàng */
+    top: -2px;
+    right: -5px;
     background-color: red;
     color: white;
     border-radius: 50%;
-    padding: 2px 6px; /* Tăng padding */
-    font-size: 0.8em; /* Tăng kích thước font */
+    padding: 2px 6px;
+    font-size: 0.8em;
     font-weight: bold;
     line-height: 1;
-    min-width: 18px; /* Tăng kích thước tối thiểu */
+    min-width: 18px;
     text-align: center;
     border: 1px solid white;
     box-shadow: 0 0 3px rgba(0,0,0,0.3);
     transition: none;
 }
-
-/* Hamburger menu (will be visible only on smaller screens) */
 .hamburger-menu {
-    display: none; /* Hidden by default */
+    display: none;
     font-size: 28px;
     cursor: pointer;
     color: var(--text-light);
-    margin-left: 15px; /* Add some space from other icons */
+    margin-left: 15px;
 }
-
-/* Mobile menu (will be visible only on smaller screens) */
 .mobile-menu {
     position: fixed;
     top: 90px;
@@ -310,23 +270,19 @@ input, textarea, button, select {
     transition: right 0.3s ease;
     padding: 20px;
     overflow-y: auto;
-    display: none; /* Changed to display:none; to be handled by JS */
+    display: none;
 }
-
 .mobile-menu.active {
     right: 0;
-    display: block; /* Show when active */
+    display: block;
 }
-
 .mobile-menu ul {
     list-style: none;
     padding: 0;
 }
-
 .mobile-menu ul li {
     margin-bottom: 15px;
 }
-
 .mobile-menu ul li a {
     display: block;
     padding: 10px 15px;
@@ -336,14 +292,11 @@ input, textarea, button, select {
     border-radius: 5px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
-
 .mobile-menu ul li a:hover,
 .mobile-menu ul li a.active-mobile-link {
     background-color: var(--secondary-color);
     color: var(--text-light);
 }
-
-/* --- Full Screen Search and Navigation Overlay --- */
 .full-screen-search-overlay {
     height: 100%;
     width: 0;
@@ -360,11 +313,9 @@ input, textarea, button, select {
     flex-direction: column;
     color: var(--text-light);
 }
-
 .full-screen-search-overlay.active {
     width: 100%;
 }
-
 .overlay-close-btn {
     position: absolute;
     top: 30px;
@@ -374,11 +325,9 @@ input, textarea, button, select {
     color: #ccc;
     transition: 0.3s;
 }
-
 .overlay-close-btn:hover {
     color: var(--primary-color);
 }
-
 .overlay-content {
     position: relative;
     top: 15%;
@@ -387,7 +336,6 @@ input, textarea, button, select {
     text-align: center;
     margin-top: 30px;
 }
-
 .overlay-search-box {
     display: flex;
     width: 100%;
@@ -397,7 +345,6 @@ input, textarea, button, select {
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     margin-bottom: 40px;
 }
-
 .overlay-search-box input {
     flex-grow: 1;
     border: none;
@@ -407,11 +354,9 @@ input, textarea, button, select {
     background-color: transparent;
     color: var(--text-dark);
 }
-
 .overlay-search-box input::placeholder {
     color: #888;
 }
-
 .overlay-search-box button {
     background-color: var(--primary-color);
     border: none;
@@ -421,29 +366,24 @@ input, textarea, button, select {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-
 .overlay-search-box button:hover {
-    background-color: #D35400; /* Darker primary */
+    background-color: #D35400;
 }
-
 .overlay-support-links, .overlay-user-actions {
     margin-bottom: 30px;
 }
-
 .overlay-support-links h3 {
     font-family: 'Playfair Display', serif;
     font-size: 1.8em;
     color: var(--accent-color);
     margin-bottom: 20px;
 }
-
 .overlay-support-links ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px 30px;
 }
-
 .overlay-support-links ul li a {
     color: #ccc;
     font-size: 1.2em;
@@ -453,17 +393,13 @@ input, textarea, button, select {
     align-items: center;
     gap: 8px;
 }
-
 .overlay-support-links ul li a:hover {
     color: var(--text-light);
     transform: translateY(-3px);
 }
-
 .overlay-support-links ul li a i {
     font-size: 1.3em;
 }
-
-/* --- Hero Section --- */
 .hero-section {
     position: relative;
     width: 100%;
@@ -477,7 +413,6 @@ input, textarea, button, select {
     color: var(--text-light);
     padding-top: 0;
 }
-
 .hero-overlay {
     position: absolute;
     top: 0;
@@ -487,7 +422,6 @@ input, textarea, button, select {
     background-color: var(--bg-dark-overlay);
     z-index: 1;
 }
-
 .hero-content {
     position: relative;
     z-index: 2;
@@ -499,22 +433,17 @@ input, textarea, button, select {
     justify-content: center;
     height: 100%;
 }
-
 .hero-content .hero-title {
     font-size: 4em;
     margin-bottom: 20px;
 }
-
 .hero-content .hero-subtitle {
     font-size: 1.5em;
     margin-bottom: 0;
 }
-
-/* --- Support Info Section --- */
 .support-info-section {
-    background-color: var(--bg-light); /* Giữ màu nền sáng nhẹ */
+    background-color: var(--bg-light);
 }
-
 .support-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -522,7 +451,6 @@ input, textarea, button, select {
     max-width: 1200px;
     margin: 0 auto;
 }
-
 .info-contact-card {
     background-color: var(--support-card-bg);
     padding: 30px;
@@ -531,20 +459,18 @@ input, textarea, button, select {
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
     border: 1px solid var(--border-color-light);
-    cursor: pointer; /* Thêm con trỏ báo hiệu có thể click */
+    cursor: pointer;
 }
-
 .info-contact-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--card-hover-shadow);
-    background-color: var(--support-card-hover-bg); /* Đổi màu nền khi hover */
+    background-color: var(--support-card-hover-bg);
 }
-
 .info-contact-card .icon-circle {
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    background-color: var(--icon-circle-bg); /* Màu cam đậm */
+    background-color: var(--icon-circle-bg);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -553,23 +479,19 @@ input, textarea, button, select {
     font-size: 35px;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
-
 .info-contact-card:hover .icon-circle {
-    background-color: var(--icon-circle-hover-bg); /* Màu cam vàng khi hover */
+    background-color: var(--icon-circle-hover-bg);
     transform: scale(1.1);
 }
-
 .info-contact-card h3 {
     font-size: 1.5em;
     margin-bottom: 10px;
     color: var(--text-dark);
-    transition: color 0.3s ease; /* Thêm transition cho màu chữ */
+    transition: color 0.3s ease;
 }
-
 .info-contact-card:hover h3 {
-    color: var(--primary-color); /* Đổi màu chữ khi hover */
+    color: var(--primary-color);
 }
-
 .info-contact-card p {
     font-size: 1em;
     color: #666;
@@ -587,15 +509,12 @@ input, textarea, button, select {
 .info-contact-card .contact-detail a:hover {
     color: var(--primary-color);
 }
-
-/* --- Map Section --- */
 .map-section {
-    background-color: #FFFFFF; /* Màu nền trắng tinh khiết */
+    background-color: #FFFFFF;
     max-width: 1200px;
     margin: 0 auto;
     padding-bottom: 0;
 }
-
 .map-embed {
     border-radius: 12px;
     overflow: hidden;
@@ -609,11 +528,9 @@ input, textarea, button, select {
     opacity: 1;
     transform: translateY(0);
 }
-
 .map-embed iframe {
     border-radius: 12px;
 }
-
 .map-note {
     text-align: center;
     font-style: italic;
@@ -621,13 +538,10 @@ input, textarea, button, select {
     font-size: 0.95em;
     padding-bottom: 40px;
 }
-
-/* --- Testimonials Section --- */
 .testimonials-section {
-    background-color: var(--bg-light); /* Giữ màu nền sáng nhẹ */
-    padding-bottom: 100px; /* Thêm padding dưới để tạo khoảng trống */
+    background-color: var(--bg-light);
+    padding-bottom: 100px;
 }
-
 .testimonials-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -635,7 +549,6 @@ input, textarea, button, select {
     max-width: 1200px;
     margin: 0 auto;
 }
-
 .testimonial-card {
     background-color: #fff;
     padding: 30px;
@@ -648,47 +561,39 @@ input, textarea, button, select {
 .testimonial-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--card-hover-shadow);
-    background-color: #F8F9F9; /* Nền nhẹ hơn khi hover */
+    background-color: #F8F9F9;
 }
-
 .testimonial-card p {
     font-style: italic;
     margin-bottom: 20px;
-    color: var(--text-dark); /* Màu chữ tối hơn */
+    color: var(--text-dark);
 }
-
 .testimonial-card h4 {
     font-weight: 600;
     color: var(--primary-color);
     margin-bottom: 5px;
 }
-
 .testimonial-card span {
     font-size: 0.9em;
     color: #888;
 }
-
-/* --- FAQ Section --- */
 .faq-section {
-    background-color: #FFFFFF; /* Màu nền trắng tinh khiết */
-    padding-bottom: 100px; /* Thêm padding dưới */
+    background-color: #FFFFFF;
+    padding-bottom: 100px;
 }
-
 .faq-container {
     max-width: 900px;
     margin: 0 auto;
 }
-
 .faq-item {
     background-color: #fff;
     border: 1px solid var(--border-color-light);
     border-radius: 8px;
     margin-bottom: 15px;
-    overflow: visible; /* Giữ visible để không cắt nội dung nếu max-height bị thiếu */
+    overflow: visible;
     position: relative;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
-
 .faq-question {
     padding: 20px 25px;
     font-size: 1.1em;
@@ -702,7 +607,6 @@ input, textarea, button, select {
     border-bottom: 1px solid #eee;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
-
 .faq-question:hover {
     background-color: #f0f0f0;
     color: var(--primary-color);
@@ -712,48 +616,39 @@ input, textarea, button, select {
     color: var(--text-light);
     border-bottom-color: var(--primary-color);
 }
-
 .faq-question i {
     font-size: 1.2em;
     transition: transform 0.3s ease, color 0.3s ease;
     margin-left: 15px;
 }
-
 .faq-question.active i {
     transform: rotate(180deg);
     color: var(--text-light);
 }
-
 .faq-answer {
-    padding: 0 25px; /* Padding ngang khi ẩn */
+    padding: 0 25px;
     font-size: 0.9em;
     color: #555;
-    max-height: 0; /* Ban đầu ẩn đi */
-    overflow: hidden; /* Ẩn nội dung bị tràn */
-    /* Only transition max-height, padding changes instantly on class change */
-    transition: max-height 0.4s ease-out; /* Hiệu ứng chuyển động mượt mà cho chiều cao */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
 }
-
 .faq-answer.active {
-    padding: 15px 15px; /* Padding khi mở rộng - này sẽ áp dụng tức thì */
+    padding: 15px 15px;
     max-width: 100%;
     position: relative;
     z-index: 10;
     border-radius: 6px;
-    overflow: visible; /* Cho phép nội dung tràn ra nếu max-height bị thiếu */
+    overflow: visible;
 }
-
 .faq-answer p {
-    padding-top: 0; /* Đặt padding top của p về 0 vì đã có padding trên faq-answer */
-    padding-bottom: 0; /* Đặt padding bottom của p về 0 vì đã có padding trên faq-answer */
+    padding-top: 0;
+    padding-bottom: 0;
 }
-
-/* --- Feedback Form Section --- */
 .feedback-form-section {
-    background-color: var(--bg-light); /* Giữ màu nền sáng nhẹ */
-    padding-top: 100px; /* Thêm padding trên */
+    background-color: var(--bg-light);
+    padding-top: 100px;
 }
-
 .login-register-form {
     max-width: 700px;
     margin: 0 auto;
@@ -763,25 +658,21 @@ input, textarea, button, select {
     box-shadow: var(--card-shadow);
     border: 1px solid var(--border-color-light);
 }
-
 .login-register-form .form-description {
     text-align: center;
     margin-bottom: 30px;
     color: #666;
     font-size: 1.1em;
 }
-
 .login-register-form .form-group {
     margin-bottom: 20px;
 }
-
 .login-register-form label {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
     color: var(--text-dark);
 }
-
 .login-register-form input[type="text"],
 .login-register-form input[type="password"],
 .login-register-form input[type="email"],
@@ -795,7 +686,6 @@ input, textarea, button, select {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     background-color: #fcfcfc;
 }
-
 .login-register-form input[type="text"]:focus,
 .login-register-form input[type="password"]:focus,
 .login-register-form input[type="email"]:focus,
@@ -805,20 +695,16 @@ input, textarea, button, select {
     box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.2);
     outline: none;
 }
-
-/* Validation styling for form inputs */
 input:invalid:not(:placeholder-shown),
 textarea:invalid:not(:placeholder-shown) {
-    border-color: #E74C3C; /* Red for invalid */
+    border-color: #E74C3C;
     box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
 }
-
 input:valid:not(:placeholder-shown),
 textarea:valid:not(:placeholder-shown) {
-    border-color: #2ECC71; /* Green for valid */
+    border-color: #2ECC71;
     box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
 }
-
 .login-register-form .form-actions {
     display: flex;
     gap: 15px;
@@ -827,27 +713,21 @@ textarea:valid:not(:placeholder-shown) {
 .login-register-form .form-actions .btn {
     flex: 1;
 }
-
-/* --- Scroll Reveal Animation --- */
 .scroll-reveal {
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
-
 .scroll-reveal.revealed {
     opacity: 1;
     transform: translateY(0);
 }
-
-/* --- Footer --- */
 footer {
     background-color: var(--footer-bg);
     color: var(--footer-text-color);
     padding: 60px 5%;
     font-size: 0.95em;
 }
-
 .footer-container {
     display: flex;
     flex-wrap: wrap;
@@ -856,36 +736,29 @@ footer {
     max-width: 1200px;
     margin: 0 auto;
 }
-
 .footer-column {
     flex: 1;
     min-width: 250px;
 }
-
 .footer-brand .footer-logo-link {
     display: block;
     margin-bottom: 15px;
 }
-
 .footer-brand .footer-logo-image {
     height: 80px;
     filter: brightness(1.5);
 }
-
 .footer-brand p {
     margin-bottom: 20px;
     line-height: 1.8;
     color: var(--footer-text-color);
 }
-
 .social-icons a {
     font-size: 28px;
     margin-right: 15px;
     transition: color 0.3s ease, transform 0.3s ease;
     color: var(--footer-link-color);
 }
-
-/* Specific social icon colors - keep these for branding effect */
 .social-icons .bx.bxl-facebook-circle {
     color: #1877F2;
 }
@@ -902,7 +775,6 @@ footer {
 .social-icons a:hover {
     transform: translateY(-3px);
 }
-
 .footer-column h4 {
     font-size: 1.3em;
     margin-bottom: 25px;
@@ -910,7 +782,6 @@ footer {
     position: relative;
     padding-bottom: 10px;
 }
-
 .footer-column h4::after {
     content: '';
     position: absolute;
@@ -920,33 +791,27 @@ footer {
     height: 2px;
     background-color: var(--accent-color);
 }
-
 .footer-column ul li {
     margin-bottom: 10px;
 }
-
 .footer-column ul li a {
     color: var(--footer-text-color);
     transition: color 0.3s ease;
 }
-
 .footer-column ul li a:hover {
     color: var(--footer-link-color);
 }
-
 .footer-contact p {
     margin-bottom: 10px;
     color: var(--footer-text-color);
     display: flex;
     align-items: center;
 }
-
 .footer-contact p i {
     margin-right: 10px;
     color: var(--footer-link-color);
     font-size: 20px;
 }
-
 .footer-bottom {
     text-align: center;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
@@ -954,8 +819,6 @@ footer {
     margin-top: 40px;
     color: var(--footer-text-color);
 }
-
-/* --- Responsive Design --- */
 @media (max-width: 992px) {
     .fixed-navbar {
         padding: 10px 25px;
@@ -967,19 +830,17 @@ footer {
         display: none;
     }
     .hamburger-menu {
-        display: block; /* Show hamburger on smaller screens */
+        display: block;
     }
     .mobile-menu {
-        display: block; /* Show mobile menu on smaller screens for proper JS toggle */
+        display: block;
     }
-
     .hero-title {
         font-size: 3em;
     }
     .hero-subtitle {
         font-size: 1.2em;
     }
-
     .overlay-close-btn {
         font-size: 50px;
         top: 20px;
@@ -1003,290 +864,5 @@ footer {
     .overlay-support-links ul li a {
         font-size: 1.1em;
     }
-
     .map-section {
-        width: 100%;
-        margin-bottom: 40px;
-    }
-    .section-title.left-align {
-        text-align: center;
-    }
-    .section-title.left-align::after {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-    .login-register-form {
-        padding: 30px;
-    }
-    .login-register-form .form-actions {
-        flex-direction: column;
-        gap: 10px;
-    }
-    .login-register-form .form-actions .btn {
-        width: 100%;
-    }
-
-    .footer-container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .footer-column {
-        min-width: unset;
-        width: 100%;
-        margin-bottom: 30px;
-    }
-    .footer-column h4::after {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-    .footer-brand, .footer-links, .footer-policy, .footer-contact {
-        align-items: center;
-    }
-    .social-icons {
-        justify-content: center;
-    }
-    .footer-contact p {
-        justify-content: center;
-    }
-}
-
-@media (max-width: 768px) {
-    .common-padding {
-        padding: 60px 4%;
-    }
-    .section-title {
-        font-size: 2.2em;
-        margin-bottom: 40px;
-    }
-    .hero-section {
-        height: 400px;
-    }
-    .hero-title {
-        font-size: 2.8em;
-    }
-    .hero-subtitle {
-        font-size: 1.2em;
-    }
-
-    .overlay-content {
-        width: 95%;
-    }
-    .overlay-search-box input {
-        padding: 12px 15px;
-        font-size: 1em;
-    }
-    .overlay-search-box button {
-        padding: 12px 15px;
-        font-size: 1.2em;
-    }
-    .overlay-support-links h3 {
-        font-size: 1.4em;
-    }
-    .overlay-support-links ul li a {
-        font-size: 1em;
-    }
-
-    .support-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-    }
-    .info-contact-card {
-        padding: 25px;
-    }
-    .info-contact-card .icon-circle {
-        width: 60px;
-        height: 60px;
-        font-size: 30px;
-    }
-    .info-contact-card h3 {
-        font-size: 1.3em;
-    }
-
-    .testimonials-grid {
-        grid-template-columns: 1fr;
-    }
-    .testimonial-card {
-        padding: 25px;
-    }
-
-    footer {
-        padding: 40px 4%;
-    }
-    .footer-column {
-        margin-bottom: 25px;
-    }
-    .footer-column h4::after {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-    .footer-brand, .footer-links, .footer-policy, .footer-contact {
-        align-items: center;
-    }
-    .social-icons {
-        justify-content: center;
-    }
-    .footer-contact p {
-        justify-content: center;
-    }
-}
-
-@media (max-width: 480px) {
-    body {
-        padding-top: 80px;
-    }
-    .fixed-navbar {
-        padding: 10px 15px;
-    }
-    .fixed-navbar .logo-image {
-        height: 50px;
-    }
-    .fixed-navbar.scrolled .logo-image {
-        height: 40px;
-    }
-    .user-actions {
-        gap: 10px;
-    }
-    .nav-action-icon {
-        font-size: 22px;
-    }
-    .hamburger-menu {
-        font-size: 28px;
-    }
-    .common-padding {
-        padding: 40px 3%;
-    }
-    .section-title {
-        font-size: 1.8em;
-        margin-bottom: 30px;
-    }
-    .hero-section {
-        height: 350px;
-    }
-    .hero-title {
-        font-size: 2.2em;
-    }
-    .hero-subtitle {
-        font-size: 1em;
-    }
-
-    .btn {
-        padding: 10px 20px;
-        font-size: 0.9em;
-    }
-
-    .overlay-close-btn {
-        font-size: 40px;
-        top: 15px;
-        right: 20px;
-    }
-    .overlay-search-box input {
-        padding: 10px 12px;
-        font-size: 0.9em;
-    }
-    .overlay-search-box button {
-        padding: 10px 12px;
-        font-size: 1.1em;
-    }
-    .overlay-support-links h3 {
-        font-size: 1.2em;
-        margin-bottom: 15px;
-    }
-    .overlay-support-links ul li a {
-        font-size: 0.9em;
-        flex-direction: column;
-        gap: 5px;
-    }
-    .overlay-support-links ul li a i {
-        font-size: 1.2em;
-    }
-
-    .support-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .map-section {
-        width: 100%;
-    }
-
-    footer {
-        padding: 30px 3%;
-    }
-    .footer-column h4 {
-        font-size: 1.2em;
-    }
-    .footer-bottom {
-        padding-top: 15px;
-        margin-top: 25px;
-        font-size: 0.85em;
-    }
-}
-
-/* --- HERO CAROUSEL --- */
-.hero-carousel {
-    position: relative;
-    width: 100%;
-    height: 60vh;
-    overflow: hidden;
-    background-color: #e0e0e0;
-}
-.hero-carousel .slides-container {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    width: 100%;
-    height: 100%;
-}
-.hero-carousel .slide {
-    min-width: 100%;
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-.hero-carousel .slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-/* --- SLIDE CONTENT - MINIMALIST STYLE --- */
-.hero-carousel .slide-content {
-    position: absolute;
-    bottom: 15%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: transparent;
-    padding: 0;             
-    border-radius: 0;            
-    max-width: none;            
-    box-shadow: none;            
-    text-align: center;         
-}
-
-.hero-carousel .slide-content h2,
-.hero-carousel .slide-content p {
-    display: none; /* Ẩn tiêu đề H2 và đoạn văn P */
-}
-/* --- KẾT THÚC SLIDE CONTENT MINIMALIST --- */
-
-
-/* --- CSS CHO NÚT CTA TRONG HERO CAROUSEL --- */
-.hero-carousel .slide-content .cta-button {
-    position: relative; /* Essential for positioning the pseudo-element */
-    display: inline-block;
-    background-color: #ffc72c;
-    color: white;
-    font-family: 'Inter', sans-serif;
-    font-size: 1.1em;
-    font-weight: 700;
-    text-transform: uppercase;
-    text-align: center;
-    text-decoration: none;
-    padding: 14px 32px;
-    border: none;
-    border-radius: 6px;
-    box-shadow: 0 3px 0px #f39200,
-                0 5px 8px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
-    overflow: hidden; /* Crucial to contain the shine effect within the button */
-}
+        width: 100
