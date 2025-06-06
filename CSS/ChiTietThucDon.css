@@ -1,0 +1,266 @@
+/* Reset cơ bản và box-sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: url('../images/background1.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Inter', Arial, sans-serif;
+    margin: 0;
+  padding: 0;
+    scroll-behavior: smooth;
+    /* padding-top sẽ được JS điều chỉnh */
+}
+/* --- THANH TRANG CHỦ  CHÍNH --- */
+.fixed-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Đã cập nhật z-index để nằm trên thanh phụ */
+    background-color: orange;
+    padding: 15px 50px; /* Đảm bảo padding chuẩn */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: padding 0.3s ease, background-color 0.3s ease, height 0.3s ease; /* Thêm height vào transition */
+    height: 70px; /* Đặt chiều cao cố định cho thanh chính */
+}
+.fixed-navbar .logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+.fixed-navbar .logo-image {
+    height: 50px;
+    transition: height 0.3s ease;
+}
+.fixed-navbar .main-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex: 1;
+}
+.fixed-navbar .nav-link {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 18px; /* Tăng kích thước font chữ cho menu chính */
+    padding: 7px 0; /* Tăng padding dọc */
+    transition: transform 0.2s ease-out, text-shadow 0.2s ease-out, border 0.2s ease-out, padding 0.2s ease-out;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+}
+
+
+
+/* Style khi hover các nav-link, áp dụng cả cho link active */
+.fixed-navbar .nav-link:hover {
+    text-decoration: none;
+    transform: translateY(-3px) scale(1.05);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); /* Tăng độ sáng text-shadow */
+    padding: 7px 18px; /* Tăng padding để tạo không gian cho khung */
+}
+
+/* Thêm khung bằng pseudo-element */
+.fixed-navbar .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent; /* Khởi tạo viền trong suốt */
+    border-radius: 8px; /* Bo tròn góc khung */
+    transition: border-color 0.2s ease-out, transform 0.2s ease-out, opacity 0.2s ease-out;
+    z-index: -1; /* Đảm bảo khung nằm dưới chữ */
+    pointer-events: none; /* Đảm bảo không cản trở sự kiện click */
+    opacity: 0; /* Ẩn khung ban đầu */
+    transform: scale(0.8); /* Khởi tạo nhỏ hơn để có hiệu ứng phóng to khi hover */
+}
+
+/* Hiển thị khung khi hover */
+.fixed-navbar .nav-link:hover::before {
+    border-color: white; /* Màu viền khi hover */
+    opacity: 1; /* Hiển thị khung */
+    transform: scale(1); /* Phóng to ra kích thước thật */
+}
+
+/* Đảm bảo hiệu ứng cuộn vẫn hoạt động tốt trên link active */
+.fixed-navbar.scrolled .nav-link.active {
+    background-color: white;
+    color: #D70F17;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.fixed-navbar .user-actions {
+    display: flex;
+    align-items: center;
+    gap: 25px; 
+    flex-shrink: 0; 
+}
+.fixed-navbar .nav-action-icon {
+    color: white;
+    font-size: 26px;
+    text-decoration: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+.fixed-navbar .nav-action-icon:hover {
+    opacity: 0.8;
+}
+.fixed-navbar .cart-item-count {
+    position: absolute;
+    top: 0px; 
+    right: -3px; 
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 1px 5px;
+    font-size: 0.7em;
+    font-weight: bold;
+    line-height: 1;
+    min-width: 16px;
+    text-align: center;
+    border: 1px solid white;
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+
+
+.order-container {
+  display: flex;
+  max-width: 900px;
+  margin: auto;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  border: 4px solid #ff9800;
+   margin-top: 150px;
+}
+
+.food-image {
+  flex: 1;
+  background-color: #ffe0b2;
+  width: 50%;                  /* hoặc flex-basis nếu dùng flex */
+  height: 100%;
+  overflow: hidden;            /* Ẩn phần dư ảnh nếu vượt khung */
+  border-radius: 20px 0 0 20px;
+}
+
+.food-image img {
+  display: block;              /* Loại bỏ khoảng trắng dưới ảnh */
+  width: 100%;                 /* Đảm bảo ảnh điền hết chiều ngang */
+  height: 350px;                /* Nếu cần full chiều cao container */
+  border-radius: 20px 0 0 20px; /* Bo góc nếu container bo góc */
+  object-fit: cover; 
+}
+
+.food-image:hover img {
+  transform: scale(1.05);
+}
+
+.food-details {
+  flex: 1;
+  padding: 30px;
+  background-color: #fffaf0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+h2 {
+  color: #e65100;
+  font-size: 40px;
+  margin-bottom: 30px;
+}
+
+label {
+  color: #5d4037;
+  font-weight: bold;
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.quantity-selector button {
+  background-color: #ffa726;
+  border: none;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.quantity-selector button:hover {
+  background-color: #fb8c00;
+}
+
+.quantity-selector input {
+  width: 60px;
+  height: 38px;
+  text-align: center;
+  margin: 0 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  appearance: none;
+  -moz-appearance: textfield;
+}
+
+.quantity-selector input::-webkit-outer-spin-button,
+.quantity-selector input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.price {
+  margin-top: 20px;
+  font-size: 20px;
+  color: #e70303;
+  font-weight: bold;
+}
+
+.order-button {
+  margin-top: 30px;
+  padding: 12px;
+  background-color: #fc5306;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s;
+   box-shadow: 0 0 10px #e57373;
+}
+
+.order-button:hover {
+  background-color: #eb1010;
+  transform: scale(1.03);
+}
+
+@media screen and (max-width: 768px) {
+  .order-container {
+    flex-direction: column;
+  }
+
+  .food-image {
+    height: 220px;
+  }
+}

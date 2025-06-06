@@ -6,7 +6,7 @@
 }
 
 body {
-    background: url('images/background1.jpg') no-repeat center center fixed;
+    background: url('../images/background1.jpg') no-repeat center center fixed;
     background-size: cover;
     font-family: 'Inter', Arial, sans-serif;
     margin: 0;
@@ -137,7 +137,7 @@ body {
 /* --- THANH MENU PHỤ (DANH MỤC MÓN ĂN) --- */
 .navbar { 
     position: fixed;
-    top: 60px; /* Sát ngay dưới .fixed-navbar (tùy thuộc chiều cao thật) */
+    top: 70px; /* Sát ngay dưới .fixed-navbar (tùy thuộc chiều cao thật) */
     left: 0;
     width: 100%;
     background-color: #ffffff;
@@ -310,7 +310,6 @@ main {
     transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
     box-shadow: 0 1px 4px rgba(0,0,0,0.12); /* Giảm đổ bóng từ 0 2px 6px */
     flex-shrink: 0;
-     
     margin-top: auto; /* Đẩy nút xuống dưới cùng của card-content */
     /* Loại bỏ position absolute và các thuộc tính liên quan */
     /* position: absolute; */
@@ -320,6 +319,7 @@ main {
     width: 95%; /* Hoặc 90% tùy theo bạn muốn cách biên bao nhiêu */
     display: block;
     margin: 8px auto 0 auto; /* Căn giữa và đẩy xuống dưới */
+  text-decoration: none;
 }
 
 .add-btn:hover {
