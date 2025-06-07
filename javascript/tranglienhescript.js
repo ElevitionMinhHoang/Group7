@@ -1,14 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     const navbar = document.getElementById('mainNavbar');
     const navbarLogo = document.getElementById('navbarLogo');
-    const pageContainer = document.querySelector('.page-container');
-    const hamburgerMenu = document.getElementById('hamburgerMenu');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const fullScreenSearchOverlay = document.getElementById('fullScreenSearchOverlay');
-    const overlayCloseBtn = document.getElementById('overlayCloseBtn');
-    const overlaySearchInput = document.getElementById('overlaySearchInput');
+    // const pageContainer = document.querySelector('.page-container'); // Không có .page-container trong HTML
     let defaultPaddingTopBottom = 15;
     let defaultLogoHeight = 70;
+
+    // Lấy giá trị padding mặc định của navbar
     if (navbar) {
         const computedStyle = window.getComputedStyle(navbar);
         const paddingValues = computedStyle.padding.split(" ");
@@ -18,23 +15,27 @@ document.addEventListener('DOMContentLoaded', function() {
             defaultPaddingTopBottom = parseFloat(paddingValues[0]);
         }
     }
+    // Lấy chiều cao mặc định của logo
     if (navbarLogo) {
         defaultLogoHeight = navbarLogo.offsetHeight || 70;
     }
+
+    // Điều chỉnh padding-top của body để tránh nội dung bị che bởi navbar cố định
     function adjustPagePadding() {
         if (navbar) {
-            if (pageContainer) {
-                pageContainer.style.paddingTop = navbar.offsetHeight + 'px';
-            } else {
-                document.body.style.paddingTop = navbar.offsetHeight + 'px';
-            }
+            // Sử dụng document.body vì không có .page-container trong HTML
+            document.body.style.paddingTop = navbar.offsetHeight + 'px';
         }
     }
     adjustPagePadding();
+
+    // Xử lý thay đổi navbar khi cuộn trang
     window.addEventListener('scroll', function() {
         if (!navbar || !navbarLogo) return;
+
         const currentNavbarStyle = window.getComputedStyle(navbar);
         let currentPaddingLeftRight = parseFloat(currentNavbarStyle.padding.split(" ")[1] || currentNavbarStyle.padding.split(" ")[0]);
+
         if (window.scrollY > 50) {
             navbar.style.padding = `${defaultPaddingTopBottom - 5}px ${currentPaddingLeftRight}px`;
             navbar.style.boxShadow = '0 3px 15px rgba(0, 0, 0, 0.1)';
@@ -44,46 +45,10 @@ document.addEventListener('DOMContentLoaded', function() {
             navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.08)';
             navbarLogo.style.height = `${defaultLogoHeight}px`;
         }
-        adjustPagePadding();
+        adjustPagePadding(); // Điều chỉnh lại padding khi navbar thay đổi kích thước
     });
-    if (hamburgerMenu && mobileMenu) {
-        hamburgerMenu.addEventListener('click', function() {
-            mobileMenu.classList.toggle('active');
-            if (mobileMenu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
-        });
-        document.addEventListener('click', function(event) {
-            if (!mobileMenu.contains(event.target) && !hamburgerMenu.contains(event.target) && mobileMenu.classList.contains('active')) {
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', function() {
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-        });
-    }
-    if (fullScreenSearchOverlay && overlayCloseBtn) {
-        overlayCloseBtn.addEventListener('click', function() {
-            fullScreenSearchOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-            overlaySearchInput.value = '';
-            performSearch();
-        });
-        fullScreenSearchOverlay.addEventListener('click', function(event) {
-            if (event.target === fullScreenSearchOverlay) {
-                fullScreenSearchOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-                overlaySearchInput.value = '';
-                performSearch();
-            }
-        });
-    }
+
+    // Xử lý hiệu ứng cuộn mượt (scroll reveal) cho các section
     const scrollRevealSections = document.querySelectorAll('.scroll-reveal');
     const observerOptions = {
         root: null,
@@ -101,29 +66,21 @@ document.addEventListener('DOMContentLoaded', function() {
     scrollRevealSections.forEach(section => {
         sectionObserver.observe(section);
     });
-    const mapContainer = document.getElementById('mapContainer');
-    if (mapContainer) {
-        const mapObserver = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    mapContainer.classList.add('revealed');
-                    mapObserver.unobserve(mapContainer);
-                }
-            });
-        }, { threshold: 0.1 });
-        mapObserver.observe(mapContainer);
-    }
+
+    // Xử lý form phản hồi (feedback form)
     const feedbackForm = document.getElementById('feedbackForm');
     if (feedbackForm) {
         feedbackForm.addEventListener('submit', function(event) {
-            event.preventDefault();
+            event.preventDefault(); // Ngăn chặn gửi form mặc định
             const nameInput = document.getElementById('name');
-            const emailInput = document.getElementById('email');
             const phoneInput = document.getElementById('phone');
-            const subjectInput = document.getElementById('subject');
+            // emailInput và subjectInput không có trong HTML của trang liên hệ, nên bỏ qua validation
             const messageInput = document.getElementById('message');
+
             let allValid = true;
             let errorMessages = [];
+
+            // Hàm kiểm tra và validate từng trường
             function validateField(inputElement, errorMessage) {
                 let currentErrorMessage = null;
                 if (!inputElement.value.trim()) {
@@ -131,17 +88,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else if (inputElement.checkValidity && !inputElement.checkValidity()) {
                     currentErrorMessage = inputElement.title || 'Giá trị không hợp lệ.';
                 }
-                if (inputElement.id === 'email') {
-                    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                    if (!emailRegex.test(inputElement.value.trim())) {
-                        currentErrorMessage = 'Vui lòng nhập địa chỉ email hợp lệ (ví dụ: email@example.com).';
-                    }
-                } else if (inputElement.id === 'phone') {
-                    const phoneRegex = /^(0|84)(3|5|7|8|9)\d{8}$/;
+
+                // Logic validation riêng cho số điện thoại
+                if (inputElement.id === 'phone') {
+                    const phoneRegex = /^(0|84)(3|5|7|8|9)\d{8}$/; // Regex cho SĐT Việt Nam
                     if (!phoneRegex.test(inputElement.value.trim())) {
                         currentErrorMessage = 'Vui lòng nhập số điện thoại hợp lệ (ví dụ: 0912345678 hoặc 84912345678).';
                     }
                 }
+
                 if (currentErrorMessage) {
                     inputElement.classList.add('invalid-input');
                     return currentErrorMessage;
@@ -150,36 +105,37 @@ document.addEventListener('DOMContentLoaded', function() {
                     return null;
                 }
             }
+
             let error;
             error = validateField(nameInput, 'Vui lòng nhập tên của bạn.');
             if (error) { allValid = false; errorMessages.push(error); }
-            error = validateField(emailInput, 'Vui lòng nhập địa chỉ email hợp lệ.');
-            if (error) { allValid = false; errorMessages.push(error); }
+
             error = validateField(phoneInput, 'Vui lòng nhập số điện thoại hợp lệ (10 hoặc 11 chữ số).');
             if (error) { allValid = false; errorMessages.push(error); }
-            error = validateField(subjectInput, 'Vui lòng nhập chủ đề.');
-            if (error) { allValid = false; errorMessages.push(error); }
+            
             error = validateField(messageInput, 'Vui lòng nhập nội dung phản hồi.');
             if (error) { allValid = false; errorMessages.push(error); }
+
             if (!allValid) {
                 showCustomAlert('Vui lòng sửa các lỗi sau để gửi phản hồi:\n' + errorMessages.join('\n'));
             } else {
                 showCustomAlert('Form đã được gửi thành công! Cảm ơn phản hồi của bạn.');
                 console.log('Form data:', {
                     name: nameInput.value,
-                    email: emailInput.value,
                     phone: phoneInput.value,
-                    subject: subjectInput.value,
                     message: messageInput.value
                 });
-                feedbackForm.reset();
+                feedbackForm.reset(); // Reset form sau khi gửi thành công
             }
         });
     }
+
+    // Hàm hiển thị alert tùy chỉnh
     function showCustomAlert(message) {
         let customAlert = document.getElementById('customAlert');
         let customAlertMessage = document.getElementById('customAlertMessage');
-        if (!customAlert) {
+
+        if (!customAlert) { // Nếu alert chưa tồn tại, tạo mới
             customAlert = document.createElement('div');
             customAlert.id = 'customAlert';
             customAlert.style.cssText = `
@@ -200,6 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
             customAlertMessage = document.createElement('p');
             customAlertMessage.id = 'customAlertMessage';
             customAlert.appendChild(customAlertMessage);
+
             const okButton = document.createElement('button');
             okButton.textContent = 'OK';
             okButton.style.cssText = `
@@ -220,146 +177,108 @@ document.addEventListener('DOMContentLoaded', function() {
         customAlertMessage.textContent = message;
         customAlert.style.display = 'block';
     }
-    document.querySelectorAll('.scroll-to-element, .overlay-nav-link').forEach(anchor => {
+
+    // Xử lý cuộn mượt cho các thẻ <a> có href bắt đầu bằng '#' hoặc có class .scroll-to-element
+    document.querySelectorAll('.scroll-to-element, a[href^="#"]').forEach(anchor => {
+        
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
-            const dataScrollTo = this.getAttribute('data-scroll-to');
-            if (dataScrollTo) {
-                e.preventDefault();
-                const targetElement = document.querySelector(dataScrollTo);
-                if (targetElement) {
-                    const offset = navbar ? navbar.offsetHeight + 20 : 0;
-                    window.scrollTo({
-                        top: targetElement.offsetTop - offset,
-                        behavior: 'smooth'
-                    });
-                }
-            } else if (href && href.startsWith('#')) {
-                e.preventDefault();
-                const targetId = href.substring(1);
-                const targetElement = document.getElementById(targetId);
-                if (targetElement) {
-                    const offset = navbar ? navbar.offsetHeight + 20 : 0;
-                    window.scrollTo({
-                        top: targetElement.offsetTop - offset,
-                        behavior: 'smooth'
-                    });
-                }
-            }
-            if (fullScreenSearchOverlay.classList.contains('active')) {
-                fullScreenSearchOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-                overlaySearchInput.value = '';
-            }
-        });
-    });
-    // --- Đoạn mã đã được sửa lỗi ---
-const faqQuestions = document.querySelectorAll('.faq-question');
-faqQuestions.forEach(question => {
-    question.addEventListener('click', () => {
-        const answer = question.nextElementSibling;
-        
-        // Đóng các câu hỏi khác
-        faqQuestions.forEach(otherQuestion => {
-            const otherAnswer = otherQuestion.nextElementSibling;
-            if (otherQuestion !== question && otherQuestion.classList.contains('active')) {
-                otherQuestion.classList.remove('active');
-                otherAnswer.style.maxHeight = '0';
-                otherAnswer.classList.remove('active');
-            }
-        });
-
-        // Mở/đóng câu hỏi được nhấp vào
-        question.classList.toggle('active');
-        if (answer.classList.contains('active')) {
-            answer.style.maxHeight = '0';
-            answer.classList.remove('active');
-        } else {
-            answer.classList.add('active');
-            answer.offsetHeight; 
-            answer.style.maxHeight = answer.scrollHeight + 'px';
-
-            // Logic cuộn trang (ĐÃ SỬA LỖI TẠI ĐÂY)
-            const questionRect = question.getBoundingClientRect();
-            const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-            const isQuestionOutOfView = questionRect.bottom > viewportHeight || questionRect.top < 0;
-
-            // Chỉ cuộn khi câu hỏi nằm ngoài tầm nhìn
-            if (isQuestionOutOfView) {
-                setTimeout(() => {
-                    const offset = navbar ? navbar.offsetHeight + 20 : 0;
-                    // **SỬA LỖI TÍNH TOÁN VỊ TRÍ CUỘN**
-                    const topPosition = window.pageYOffset + question.getBoundingClientRect().top - offset;
-                    
-                    window.scrollTo({
-                        top: topPosition,
-                        behavior: 'smooth'
-                    });
-                }, 300); // Giảm thời gian chờ để cuộn nhanh hơn
-            }
-        }
-    });
-});
-    if (overlaySearchInput) {
-        overlaySearchInput.addEventListener('input', performSearch);
-    }
-    function performSearch() {
-        const searchTerm = overlaySearchInput.value.toLowerCase().trim();
-        const infoCards = document.querySelectorAll('.support-info-section .info-contact-card');
-        const faqItems = document.querySelectorAll('.faq-section .faq-item');
-        infoCards.forEach(card => {
-            const cardText = card.textContent.toLowerCase();
-            if (cardText.includes(searchTerm)) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            const answer = item.querySelector('.faq-answer');
-            const itemText = question.textContent.toLowerCase() + ' ' + answer.textContent.toLowerCase();
-            if (itemText.includes(searchTerm)) {
-                item.style.display = 'block';
-                if (searchTerm !== '' && !answer.classList.contains('active')) {
-                    question.classList.add('active');
-                    answer.classList.add('active');
-                    answer.offsetHeight;
-                    answer.style.maxHeight = answer.scrollHeight + 'px';
-                } else if (searchTerm === '' && answer.classList.contains('active')) {
-                    question.classList.remove('active');
-                    answer.classList.remove('active');
-                    answer.style.maxHeight = '0';
-                }
-            } else {
-                item.style.display = 'none';
-                question.classList.remove('active');
-                answer.classList.remove('active');
-                answer.style.maxHeight = '0';
-            }
-        });
-    }
-    const infoContactCards = document.querySelectorAll('.info-contact-card');
-    infoContactCards.forEach(card => {
-        card.addEventListener('click', function(event) {
-            if (event.target.tagName === 'A' || event.target.closest('a')) {
+            // Kiểm tra nếu href chỉ là "#" thì bỏ qua hành vi mặc định
+            if (href === '#') {
+                e.preventDefault(); 
                 return;
             }
-            const link = this.dataset.link;
-            const scrollTo = this.dataset.scrollTo;
-            if (link) {
-                window.location.href = link;
-            } else if (scrollTo) {
-                const targetElement = document.querySelector(scrollTo);
-                if (targetElement) {
-                    const offset = navbar ? navbar.offsetHeight + 20 : 0;
-                    window.scrollTo({
-                        top: targetElement.offsetTop - offset,
-                        behavior: 'smooth'
-                    });
+
+            const targetId = href.substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+                e.preventDefault();
+                const offset = navbar ? navbar.offsetHeight + 20 : 0; // Thêm 20px để có khoảng cách
+                window.scrollTo({
+                    top: targetElement.offsetTop - offset,
+                    behavior: 'smooth'
+                });
+            }
+            // Không cần đóng overlay tìm kiếm vì nó đã bị loại bỏ
+        });
+    });
+
+    // Xử lý các câu hỏi thường gặp (FAQ) - Mở/Đóng và Cuộn trang
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+            const answer = question.nextElementSibling;
+            
+            // Đóng các câu hỏi khác
+            faqQuestions.forEach(otherQuestion => {
+                const otherAnswer = otherQuestion.nextElementSibling;
+                if (otherQuestion !== question && otherQuestion.classList.contains('active')) {
+                    otherQuestion.classList.remove('active');
+                    otherAnswer.style.maxHeight = '0';
+                    otherAnswer.classList.remove('active');
+                }
+            });
+
+            // Mở/đóng câu hỏi được nhấp vào
+            question.classList.toggle('active');
+            if (answer.classList.contains('active')) { // Nếu đang mở, đóng lại
+                answer.style.maxHeight = '0';
+                answer.classList.remove('active');
+            } else { // Nếu đang đóng, mở ra
+                answer.classList.add('active');
+                // Đảm bảo trình duyệt tính toán đúng chiều cao
+                answer.offsetHeight; 
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+
+                // Logic cuộn trang: chỉ cuộn khi câu hỏi nằm ngoài tầm nhìn
+                const questionRect = question.getBoundingClientRect();
+                const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+                const isQuestionOutOfView = questionRect.bottom > viewportHeight || questionRect.top < 0;
+
+                if (isQuestionOutOfView) {
+                    setTimeout(() => {
+                        const offset = navbar ? navbar.offsetHeight + 20 : 0;
+                        const topPosition = window.pageYOffset + question.getBoundingClientRect().top - offset;
+                        
+                        window.scrollTo({
+                            top: topPosition,
+                            behavior: 'smooth'
+                        });
+                    }, 300); 
                 }
             }
         });
     });
+
+    // Điều chỉnh padding khi thay đổi kích thước cửa sổ
     window.addEventListener('resize', adjustPagePadding);
+    // Scroll reveal cho Map Section và các phần tử có class scroll-reveal
+    const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
+
+    const observerOptions = {
+        root: null, // viewport
+        rootMargin: '0px',
+        threshold: 0.1 // Khi 10% phần tử hiển thị trong viewport
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target); // Ngừng theo dõi sau khi đã reveal
+            }
+        });
+    }, observerOptions);
+
+    scrollRevealElements.forEach(element => {
+        observer.observe(element);
+    });
+
+    // Xử lý để đảm bảo map hiển thị ngay nếu nó đã ở trong viewport khi tải trang
+    scrollRevealElements.forEach(element => {
+        if (element.getBoundingClientRect().top < window.innerHeight) {
+            element.classList.add('revealed');
+        }
+    });
 });

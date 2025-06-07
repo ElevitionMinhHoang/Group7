@@ -6,26 +6,26 @@
   <title>MR. Fried Chicken - Trang chủ</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:700&display=swap" rel="stylesheet">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="../CSS/tranglienhestyle.css">
+  <link rel="stylesheet" href="../CSS/tranglienhestyle1.css">
 </head>
 <body>
   <nav class="fixed-navbar" id="mainNavbar">
     <div class="logo-container">
-        <a href="index.html" class="logo-link">
+        <a href="../Trang_chu/index.html" class="logo-link">
             <img src="../images/mfc.png" alt="MFC Logo" class="logo-image" id="navbarLogo">
         </a>
     </div>
     <div class="main-menu">
-        <a href="index.html" class="nav-link">Trang chủ</a>
+        <a href="../Trang_chu/index.html" class="nav-link">Trang chủ</a>
         <a href="../Thuc_Don/ThucDon.html" class="nav-link">Thực đơn</a>
         <a href="../Khuyen_mai_MFC/Khuyen_mai_page1.html" class="nav-link">Khuyến mãi</a>
-        <a href="tranglienhe.html" class="nav-link">Liên hệ</a>
+        <a href="../Lien_He/tranglienhe.html" class="nav-link">Liên hệ</a>
     </div>
     <div class="user-actions">
-        <a href="Gio_hang_MFC/Gio_hang.html" class="nav-action-icon" aria-label="Giỏ hàng" id="cartIconLink">
+        <a href="../Gio_hang_MFC/Gio_hang.html" class="nav-action-icon" aria-label="Giỏ hàng" id="cartIconLink">
             <i class='bx bx-cart'></i>
             <span class="cart-item-count">0</span>  </a>
-        <a href="tendangnhap.html" class="nav-action-icon" aria-label="Tài khoản">
+        <a href="../Trang_chu/tendangnhap.html" class="nav-action-icon" aria-label="Tài khoản">
             <i class='bx bx-user-circle'></i>
         </a>
     </div>
@@ -56,7 +56,7 @@
         <div class="icon-circle"><i class='bx bx-notepad'></i></div>
         <h3>Đặt hàng & Giao hàng</h3>
         <p>Hỗ trợ về đơn hàng và vận chuyển</p>
-        <p class="contact-detail"><a href="Gio_hang_MFC/Gio_hang.html" class="scroll-to-element">Đến giỏ hàng</a></p>
+        <p class="contact-detail"><a href="../Gio_hang_MFC/Gio_hang.html" class="scroll-to-element">Đến giỏ hàng</a></p>
       </div>
       <div class="info-contact-card">
         <div class="icon-circle"><i class='bx bx-bulb'></i></div>
@@ -73,12 +73,22 @@
     </div>
   </section>
   <section class="map-section common-padding bg-light scroll-reveal" id="map-section">
-    <h2 class="section-title">Tìm cửa hàng của chúng tôi</h2> 
-    <div class="map-embed" id="mapContainer">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.6293026027156!2d105.8285511750731!3d21.00767228062831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac80ff12f0e3%3A0xc061245050f75727!2zMTEyIFAuIENow7lhIELhu5ljLCBRdWFuZyBUcnVuZywgxJBhbyBUxINuLCDEkOG7k25nIMSQYSwgSMOgIE5p4buZaSAxMDAwMDAsIFZp4buHdCBOYW0!5e0!3m2!1svi!2svn!4v1717527181050!5m2!1svi!2svn" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <section class="map-section common-padding scroll-reveal">
+    <h2 class="section-title">Vị trí của chúng tôi</h2>
+    <div class="map-embed">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.636770518728!2d105.82862027599026!3d21.00713738870196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac8404a3e7df%3A0x6b7c2c0a969375e2!2zMTEyIFAuIENow7lhIELhu5ljLCBRdWFuZyBUcnVuZywgxJDhu5FuZyDEkGEs Hà Nội, Việt Nam!5e0!3m2!1svi!2s!4v1717757519391!5m2!1svi!2s" 
+            width="100%"
+            height="450"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
     </div>
-    <p class="map-note text-center">Chúng tôi luôn sẵn lòng phục vụ bạn tại cửa hàng!</p>
-  </section>
+    <p class="map-note">Chúng tôi rất mong được đón tiếp bạn tại cửa hàng!</p>
+</section>
+</section>
   <section class="testimonials-section common-padding bg-light scroll-reveal" id="testimonials-section">
     <h2 class="section-title">Khách hàng nói gì về chúng tôi?</h2>
     <div class="testimonials-grid">
@@ -151,7 +161,7 @@
     <div class="footer-container">
         <div class="footer-column footer-brand">
             <a href="index.html" class="footer-logo-link">
-                <img src="mfc.jpg" alt="MFC Logo" class="footer-logo-image">
+                <img src="../images/mfc.png" alt="MFC Logo" class="footer-logo-image">
             </a>
             <p>MR. Fried Chicken - Mang hương vị giòn tan đến mọi nhà.</p>
             <div class="social-icons">
@@ -163,18 +173,18 @@
         <div class="footer-column footer-links">
             <h4>Thông tin</h4>
             <ul>
-                <li><a href="index.html">Trang chủ</a></li>
-                <li><a href="ThucDon.html">Thực đơn</a></li><li>
-                  <a href="Khuyen_mai_MFC/Khuyen_mai_page1.html">Khuyến mãi</a></li>
-                <li><a href="tranglienhe.html">Liên hệ </a></li>
+                <li><a href="../Trang_chu/index.html">Trang chủ</a></li>
+                <li><a href="../Thuc_Don/ThucDon.html">Thực đơn</a></li><li>
+                  <a href="../Khuyen_mai_MFC/Khuyen_mai_page1.html">Khuyến mãi</a></li>
+                <li><a href="../Lien_He/tranglienhe.html">Liên hệ </a></li>
         </div>
         <div class="footer-column footer-policy">
             <h4>Chính sách</h4>
             <ul>
-                <li><a href="Các trang chính sách/Chinhsachvaquydinhchung.html">Chính sách & Quy định chung</a></li>
-                <li><a href="Các trang chính sách/Chinhsachbaomat.html">Chính sách bảo mật thông tin</a></li>
-                <li><a href="Các trang chính sách/Chinhsachbaomat.html">Chính sách giao hàng</a></li>
-                <li><a href="Các trang chính sách/Trangchinhsachdoitravahoantien.html">Chính sách đổi trả & hoàn tiền</a></li>
+                <li><a href="../Chinh_sach/Chinhsachvaquydinhchung.html">Chính sách & Quy định chung</a></li>
+                <li><a href="../Chinh_sach/Chinhsachbaomat.html">Chính sách bảo mật thông tin</a></li>
+                <li><a href="../Chinh_sach/Chinhsachgiaohang.html">Chính sách giao hàng</a></li>
+                <li><a href="../Chinh_sach/Trangchinhsachdoitravahoantien.html">Chính sách đổi trả & hoàn tiền</a></li>
             </ul>
         </div>
         <div class="footer-column footer-contact">
