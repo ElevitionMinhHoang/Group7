@@ -1,94 +1,182 @@
+// Contents of script.js
+
+let cart = []; // Mảng để lưu trữ các sản phẩm trong giỏ hàng
+
+/**
+ * Định dạng số thành tiền tệ Việt Nam.
+ * @param {number} amount - Số tiền cần định dạng.
+ * @returns {string} - Chuỗi tiền tệ đã định dạng.
+ */
+function formatCurrency(amount) {
+    return amount.toLocaleString('vi-VN') + ' VNĐ';
+}
+
+/**
+ * Thêm một sản phẩm vào giỏ hàng hoặc cập nhật số lượng nếu đã tồn tại.
+ * @param {string} id - ID duy nhất của sản phẩm.
+ * @param {string} name - Tên sản phẩm.
+ * @param {number} price - Giá sản phẩm.
+ * @param {number} [quantity=1] - Số lượng cần thêm.
+ */
+function addItemToCart(id, name, price, quantity = 1) {
+    const existingItemIndex = cart.findIndex(item => item.id === id);
+    if (existingItemIndex > -1) {
+        cart[existingItemIndex].quantity += quantity;
+    } else {
+        cart.push({ id, name, price, quantity });
+    }
+}
+
+/**
+ * Hiển thị các sản phẩm trong giỏ hàng và tổng tiền ra HTML.
+ */
+function renderCartSummary() {
+    const cartItemsListElement = document.getElementById('cart-items-list');
+    const cartSubtotalElement = document.getElementById('cart-subtotal');
+    const cartGrandTotalElement = document.getElementById('cart-grand-total');
+
+    if (!cartItemsListElement || !cartSubtotalElement || !cartGrandTotalElement) {
+        console.error("Một hoặc nhiều phần tử HTML của giỏ hàng không tìm thấy để render!");
+        return;
+    }
+
+    cartItemsListElement.innerHTML = '';
+    let subtotal = 0;
+
+    if (cart.length === 0) {
+        const listItem = document.createElement('li');
+        listItem.textContent = 'Chưa có sản phẩm nào trong giỏ hàng.';
+        listItem.style.textAlign = 'center';
+        listItem.style.color = '#777';
+        cartItemsListElement.appendChild(listItem);
+    } else {
+        cart.forEach(item => {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `
+                <span class="item-name">${item.name} (x${item.quantity})</span>
+                <span class="item-price">${formatCurrency(item.price * item.quantity)}</span>
+            `;
+            cartItemsListElement.appendChild(listItem);
+            subtotal += item.price * item.quantity;
+        });
+    }
+
+    cartSubtotalElement.textContent = formatCurrency(subtotal);
+    const grandTotal = subtotal; // Giả sử miễn phí vận chuyển
+    cartGrandTotalElement.textContent = formatCurrency(grandTotal);
+}
+
+/**
+ * Thêm các sản phẩm khởi tạo vào giỏ hàng và hiển thị chúng.
+ */
+function addInitialItemsToCart() {
+    addItemToCart("combo-cong-chua", "Combo Công chúa", 120000, 1);
+    addItemToCart("tra-quat", "Trà quất", 20000, 1);
+    renderCartSummary(); // Cập nhật giao diện giỏ hàng
+}
+
+// --- Chạy mã chính khi DOM đã sẵn sàng ---
 document.addEventListener('DOMContentLoaded', () => {
-    const btnPrev = document.querySelector('.button.prev');
-    const btnNext = document.querySelector('.button.next');
-    const btnPage1 = document.querySelector('.Khuyen_mai_page1');
-    const btnPage2 = document.querySelector('.Khuyen_mai_page2');
-    const pagination = document.querySelector('.pagination');
-    
-    // 👉 Đã sửa dòng này để lấy phần tử footer của bạn
-    const footer = document.querySelector('footer'); // Lấy thẻ footer HTML
+    // 1. Thêm các sản phẩm ban đầu vào giỏ hàng và hiển thị
+    addInitialItemsToCart();
 
-    // Hàm lấy tên file hiện tại
-    function getCurrentPage() {
-        const path = window.location.pathname;
-        const file = path.substring(path.lastIndexOf('/') + 1);
-        return file;
+    // 2. Thiết lập logic cho nút "Xác Nhận Đặt Hàng"
+    const placeOrderButton = document.getElementById('place-order-btn');
+    const successAlertElement = document.getElementById('custom-success-alert');
+
+    if (!successAlertElement) {
+        console.error("Phần tử #custom-success-alert không tìm thấy trong HTML!");
     }
 
-    const currentPage = getCurrentPage();
+    if (placeOrderButton) {
+        placeOrderButton.addEventListener('click', () => {
+            const customerNameInput = document.getElementById('name');
+            const customerPhoneInput = document.getElementById('phone');
+            const customerAddressInput = document.getElementById('address');
 
-    // Chuyển trang
-    function goToPage(page) {
-        if (page === 'page1') {
-            window.location.href = 'Khuyen_mai_page1.html';
-        } else if (page === 'page2') {
-            window.location.href = 'Khuyen_mai_page2.html';
-        }
+            const customerName = customerNameInput.value.trim();
+            const customerPhone = customerPhoneInput.value.trim();
+            const customerAddress = customerAddressInput.value.trim();
+
+            // Kiểm tra giỏ hàng có trống không
+            if (cart.length === 0) {
+                alert("Vui lòng thêm sản phẩm vào giỏ hàng trước khi đặt hàng!");
+                return;
+            }
+
+            // Kiểm tra các trường thông tin bắt buộc
+            let allFieldsValid = true;
+            if (!customerName) {
+                if (customerNameInput) customerNameInput.style.borderColor = 'red';
+                allFieldsValid = false;
+            } else {
+                if (customerNameInput) customerNameInput.style.borderColor = '#ddd';
+            }
+
+            if (!customerPhone) {
+                if (customerPhoneInput) customerPhoneInput.style.borderColor = 'red';
+                allFieldsValid = false;
+            } else {
+                if (customerPhoneInput) customerPhoneInput.style.borderColor = '#ddd';
+            }
+
+            if (!customerAddress) {
+                if (customerAddressInput) customerAddressInput.style.borderColor = 'red';
+                allFieldsValid = false;
+            } else {
+                if (customerAddressInput) customerAddressInput.style.borderColor = '#ddd';
+            }
+
+            if (!allFieldsValid) {
+                alert("Bạn hãy nhập đủ thông tin");
+                return;
+            }
+
+            // Kiểm tra định dạng số điện thoại đơn giản
+            if (!/^(0\d{9})$/.test(customerPhone)) {
+                alert("Số điện thoại không hợp lệ. Vui lòng kiểm tra lại (phải là 10 số, bắt đầu bằng 0).");
+                if (customerPhoneInput) customerPhoneInput.style.borderColor = 'red';
+                return;
+            } else {
+                if (customerPhoneInput) customerPhoneInput.style.borderColor = '#ddd';
+            }
+
+            // Nếu tất cả kiểm tra đều qua
+            if (successAlertElement) {
+                successAlertElement.classList.add('visible');
+            } else {
+                // Fallback nếu không tìm thấy #custom-success-alert
+                alert("Đơn hàng của bạn đã được ghi nhận (lỗi hiển thị thông báo tùy chỉnh)");
+            }
+
+            // Chuyển trang sau một khoảng thời gian ngắn
+            setTimeout(() => {
+                if (successAlertElement) {
+                     successAlertElement.classList.remove('visible'); // Ẩn thông báo trước khi chuyển trang
+                }
+                window.location.href = "../Thuc_Don/ThucDon.html";
+            }, 2500); // Đợi 2.5 giây
+        });
     }
 
-    // Xử lý nút prev
-    btnPrev.addEventListener('click', () => {
-        if (currentPage === 'Khuyen_mai_page2.html') {
-            goToPage('page1');
+    // Reset màu viền nếu người dùng bắt đầu nhập lại
+    const inputsToWatch = [
+        document.getElementById('name'),
+        document.getElementById('phone'),
+        document.getElementById('address')
+    ];
+    inputsToWatch.forEach(input => {
+        if (input) {
+            input.addEventListener('input', () => {
+                if (input.value.trim() !== '' && input.style.borderColor === 'red') {
+                    input.style.borderColor = '#ddd';
+                }
+            });
         }
     });
-
-    // Xử lý nút next
-    btnNext.addEventListener('click', () => {
-        if (currentPage === 'Khuyen_mai_page1.html') {
-            goToPage('page2');
-        }
-    });
-
-    // Xử lý nút số 1
-    btnPage1.addEventListener('click', () => {
-        if (currentPage !== 'Khuyen_mai_page1.html') {
-            goToPage('page1');
-        }
-    });
-
-    // Xử lý nút số 2
-    btnPage2.addEventListener('click', () => {
-        if (currentPage !== 'Khuyen_mai_page2.html') {
-            goToPage('page2');
-        }
-    });
-
-    // 👉 Đã sửa xử lý hiển thị thanh phân trang
-    function checkPaginationVisibility() {
-        const scrollY = window.scrollY; // Vị trí cuộn hiện tại từ đỉnh trang
-        const windowHeight = window.innerHeight; // Chiều cao cửa sổ trình duyệt
-        const documentHeight = document.body.offsetHeight; // Tổng chiều cao của tài liệu
-
-        let footerTop = documentHeight; // Mặc định là cuối trang nếu không tìm thấy footer
-
-        // Chỉ tính toán footerTop nếu footer tồn tại
-        if (footer) {
-            // Lấy vị trí của footer so với đỉnh tài liệu
-            footerTop = footer.getBoundingClientRect().top + scrollY;
-        }
-
-        // Điểm kích hoạt hiển thị phân trang (ví dụ: 100px trước footer)
-        // Bạn có thể điều chỉnh giá trị 100px này.
-        // Giá trị này nên nhỏ hơn chiều cao của footer một chút
-        // để phân trang hiện ra đủ lâu trước khi footer che mất nó.
-        const triggerPoint = footerTop - 100; 
-
-        // Kiểm tra xem người dùng đã cuộn đến điểm kích hoạt chưa
-        // HOẶC nếu trang không đủ dài để cuộn (ví dụ: nội dung ngắn hơn màn hình)
-        if ((scrollY + windowHeight >= triggerPoint) || (documentHeight <= windowHeight)) {
-            pagination.classList.add('visible');
-        } else {
-            pagination.classList.remove('visible');
-        }
-    }
-
-    window.addEventListener('scroll', checkPaginationVisibility);
-    window.addEventListener('resize', checkPaginationVisibility);
-    checkPaginationVisibility(); // Gọi lúc vừa load trang để kiểm tra trạng thái ban đầu
 });
 
- document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
         const nav = document.getElementById('mainNavbar');
         const navLogo = document.getElementById('navbarLogo');
         const pageContentWrapper = document.querySelector('.page-content-wrapper');
