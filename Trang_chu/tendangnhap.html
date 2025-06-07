@@ -18,34 +18,34 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background: linear-gradient(135deg, #f5af19, #f12711); /* Orange gradient background */
+      background: linear-gradient(135deg, #f5af19, #f12711); 
       padding: 20px;
-      position: relative; /* Cần thiết để định vị logo tuyệt đối với body */
+      position: relative;
     }
 
-    /* --- CSS CHO LOGO --- */
+    
     .page-logo {
-      position: absolute; /* Hoặc 'fixed' nếu muốn logo luôn ở đó khi cuộn (ít dùng cho trang login) */
+      position: absolute;
       top: 20px;
       left: 20px;
-      z-index: 100; /* Đảm bảo logo nổi lên trên */
+      z-index: 100; 
     }
 
     .page-logo img {
-      height: 60px; /* Điều chỉnh chiều cao logo tùy ý */
-      width: auto; /* Giữ tỷ lệ khung hình */
-      display: block; /* Loại bỏ khoảng trắng thừa bên dưới ảnh */
+      height: 60px; 
+      width: auto; 
+      display: block; 
     }
-    /* --- KẾT THÚC CSS CHO LOGO --- */
+    
 
 
     .wrapper {
       width: 420px;
-      background: rgba(255, 255, 255, 0.95); /* Slightly transparent white */
+      background: rgba(255, 255, 255, 0.95); 
       border-radius: 12px;
       padding: 30px 40px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(5px); /* Optional: for a frosted glass effect if background is more complex */
+      backdrop-filter: blur(5px); 
     }
 
     .wrapper h1 {
@@ -55,13 +55,13 @@
       color: #333;
     }
 
-    .wrapper form div:not(:last-child):not(.info-message) { /* Exclude last div (switch form link) and info messages */
+    .wrapper form div:not(:last-child):not(.info-message) { /
       position: relative;
       width: 100%;
       height: 50px;
       margin-bottom: 20px;
     }
-    .wrapper form .info-message { /* Style for loginInfo and registerInfo */
+    .wrapper form .info-message { 
         text-align: center;
         padding: 8px;
         border-radius: 4px;
@@ -81,14 +81,14 @@
       border-radius: 8px;
       font-size: 16px;
       color: #333;
-      padding: 0 45px 0 20px; /* Padding for text and icon */
+      padding: 0 45px 0 20px; 
       transition: border-color 0.3s ease;
     }
 
     .wrapper form div input[type="text"]:focus,
     .wrapper form div input[type="password"]:focus,
     .wrapper form div input[type="email"]:focus {
-      border-color: #f39c12; /* Highlight color on focus */
+      border-color: #f39c12; 
     }
 
     .wrapper form div i {
@@ -100,13 +100,13 @@
       color: #555;
     }
 
-    .wrapper form div:nth-of-type(3) { /* Remember me / Forgot password row */
+    .wrapper form div:nth-of-type(3) { 
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-size: 14.5px;
-      margin-bottom: 20px; /* Ensure proper spacing */
-      height: auto; /* Override fixed height for this specific div */
+      margin-bottom: 20px; 
+      height: auto; 
     }
 
     .wrapper form div label {
@@ -115,10 +115,10 @@
       align-items: center;
     }
     .wrapper form div label input[type="checkbox"] {
-      accent-color: #f39c12; /* Orange checkbox */
+      accent-color: #f39c12; 
       margin-right: 5px;
-      width: auto; /* Override general input width */
-      height: auto; /* Override general input height */
+      width: auto; 
+      height: auto; 
     }
 
     .wrapper form div a {
@@ -133,7 +133,7 @@
     .wrapper form button[type="submit"] {
       width: 100%;
       height: 45px;
-      background: #f39c12; /* Orange button */
+      background: #f39c12; 
       border: none;
       outline: none;
       border-radius: 8px;
@@ -143,36 +143,35 @@
       color: #fff;
       font-weight: 600;
       transition: background-color 0.3s ease, transform 0.1s ease;
-      margin-top: 10px; /* Added margin top for spacing */
+      margin-top: 10px;
     }
     .wrapper form button[type="submit"]:active {
         transform: scale(0.98);
     }
 
 
-    .wrapper form div:last-child { /* Switch form link */
+    .wrapper form div:last-child { 
       font-size: 14.5px;
       text-align: center;
       margin-top: 20px;
-      height: auto; /* Override fixed height */
+      height: auto;
     }
     .wrapper form div:last-child p {
         color: #555;
     }
 
 
-    /* Forgot Password Modal Styles */
+    
     #forgotModal {
-      /* display:flex is set by JS */
-      /* position, top, left, right, bottom, background are already inline - can be moved here */
+      
     }
-    #forgotModal > div { /* The inner white box */
+    #forgotModal > div { 
       background: #fff;
       padding: 25px 30px;
       border-radius: 10px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.3);
       width: 100%;
-      max-width: 380px; /* Slightly wider modal */
+      max-width: 380px; 
       text-align: center;
     }
     #forgotModal h2 {
@@ -226,7 +225,7 @@
       color: #e68a00;
     }
 
-    /* Responsive adjustments */
+    
     @media (max-width: 480px) {
       .page-logo {
         top: 15px;
@@ -238,7 +237,7 @@
       .wrapper {
         width: 95%;
         padding: 20px 25px;
-        margin-top: 60px; /* Đảm bảo form không bị logo che khuất trên màn hình nhỏ */
+        margin-top: 60px;
       }
       .wrapper h1 {
         font-size: 28px;
@@ -246,7 +245,7 @@
       .wrapper form div:nth-of-type(3) {
         flex-direction: column;
         align-items: flex-start;
-        gap: 10px; /* Add space between checkbox and link when stacked */
+        gap: 10px; 
       }
       #forgotModal > div {
         max-width: 90%;
@@ -329,33 +328,33 @@
     const loginInfo = document.getElementById('loginInfo');
     const registerInfo = document.getElementById('registerInfo');
 
-    // Function to get URL parameter
+    
     function getQueryParam(param) {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get(param);
     }
 
-    // Redirect after login using returnUrl query param or fallback
+    
     function redirectAfterLogin() {
       const returnUrl = getQueryParam('returnUrl');
       if (returnUrl) {
-        // Decode URI component to handle URL encoding
+        
         window.location.href = decodeURIComponent(returnUrl);
       } else {
-        window.location.href = 'index.html'; // default redirect
+        window.location.href = 'index.html'; 
       }
     }
 
     function showLogin() {
       registerForm.style.display = 'none';
-      loginForm.style.display = 'block'; // or 'flex' if loginForm is a flex container
+      loginForm.style.display = 'block'; 
       clearMessages();
       loginForm.reset();
       registerForm.reset();
     }
     function showRegister() {
       loginForm.style.display = 'none';
-      registerForm.style.display = 'block'; // or 'flex'
+      registerForm.style.display = 'block';
       clearMessages();
       loginForm.reset();
       registerForm.reset();
@@ -364,10 +363,10 @@
     function clearMessages() {
       loginInfo.style.display = 'none';
       loginInfo.textContent = '';
-      loginInfo.className = 'info-message'; // Reset class
+      loginInfo.className = 'info-message'; 
       registerInfo.style.display = 'none';
       registerInfo.textContent = '';
-      registerInfo.className = 'info-message'; // Reset class
+      registerInfo.className = 'info-message';
     }
 
     loginForm.addEventListener('submit', function(e) {
@@ -384,10 +383,9 @@
         return;
       }
 
-      // Simulate login success (placeholder for actual login logic)
+      
       console.log('Simulating login for:', username);
-      // In a real app, you'd have an API call here.
-      // For now, directly redirecting.
+      
       redirectAfterLogin();
     });
 
@@ -414,7 +412,7 @@
         return;
       }
       
-      // Password strength (example: at least 6 characters)
+      
       if (password.length < 6) {
         registerInfo.style.color = 'red';
         registerInfo.textContent = 'Mật khẩu phải có ít nhất 6 ký tự.';
@@ -423,13 +421,13 @@
       }
 
 
-      // Simulate registration success
+      
       console.log('Simulating registration for:', username, email);
       registerInfo.style.color = 'green';
       registerInfo.textContent = 'Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.';
       registerInfo.style.display = 'block';
 
-      // Return to login after 3 seconds
+      
       setTimeout(() => {
         showLogin();
       }, 3000);
@@ -448,8 +446,8 @@
     forgotPasswordLink.addEventListener('click', function(e) {
       e.preventDefault();
       forgotEmailInput.value = '';
-      // Clear any previous messages in modal if you add them
-      forgotModal.style.display = 'flex'; // Use flex to center content
+      
+      forgotModal.style.display = 'flex'; 
       forgotEmailInput.focus();
     });
 
@@ -471,25 +469,25 @@
         return;
       }
 
-      // Simulate sending request
+      
       console.log('Simulating password reset request for:', email);
       alert(`Yêu cầu đặt lại mật khẩu đã được gửi tới email: ${email} (Đây là thông báo giả lập).`);
       forgotModal.style.display = 'none';
     });
 
-    // Close modal by clicking outside content (on the semi-transparent background)
+    
     forgotModal.addEventListener('click', function(e) {
-      if (e.target === forgotModal) { // if the click is on the modal background itself
+      if (e.target === forgotModal) { 
         forgotModal.style.display = 'none';
       }
     });
 
-    // Check for 'action' query parameter to show register form directly
+    
     const action = getQueryParam('action');
     if (action === 'register') {
         showRegister();
     } else {
-        showLogin(); // Default to login
+        showLogin(); 
     }
 
   });
