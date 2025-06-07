@@ -6,13 +6,13 @@
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <style>
     
-    *{
+*{
         margin: 0;
         padding: 0;
         box-sizing: border-box;
     }
 
-    body {
+body {
       font-family: Arial, sans-serif;
       background-color: #fff6f0;
       margin: 0;
@@ -96,183 +96,217 @@
     transform: scale(1);
 }
 
-/* --- CSS MỚI CHO USER ACTIONS (GIỎ HÀNG & TÀI KHOẢN) --- */
+/* --- CSS CHO USER ACTIONS (GIỎ HÀNG & TÀI KHOẢN) --- */
 .fixed-navbar .user-actions {
     display: flex;
     align-items: center;
-    gap: 30px; /* Tăng khoảng cách giữa các icon */
+    gap: 30px;
     flex-shrink: 0;
 }
 
 .fixed-navbar .nav-action-icon {
     color: white;
-    font-size: 30px; /* Tăng kích thước icon */
+    font-size: 30px;
     text-decoration: none;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px; /* Tăng vùng click cho icon */
+    padding: 8px;
     border-radius: 50%;
-    
-    /* Thêm transitions cho hiệu ứng hover */
     transition: transform 0.2s ease-out, color 0.2s ease-out, filter 0.2s ease-out;
-    z-index: 1; 
+    z-index: 1;
 }
 
 .fixed-navbar .nav-action-icon:hover {
-    transform: translateY(-3px) scale(1.15); /* Tăng nhẹ hiệu ứng phóng to */
+    transform: translateY(-3px) scale(1.1);
     color: white;
-    filter: brightness(1.5) drop-shadow(0 0 7px rgba(255, 255, 255, 0.7)); /* Làm sáng và đổ bóng rõ hơn */
+    filter: brightness(1.5) drop-shadow(0 0 7px rgba(255, 255, 255, 0.7));
+}
+
+@keyframes cart-jiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-8deg); }
+    50% { transform: rotate(8deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.jiggle-once {
+    animation: cart-jiggle 0.4s ease-in-out;
 }
 
 .fixed-navbar .cart-item-count {
     position: absolute;
-    top: -2px; /* Điều chỉnh vị trí số lượng giỏ hàng */
-    right: -5px; /* Điều chỉnh vị trí số lượng giỏ hàng */
-    background-color: red;
+    top: -4px;
+    right: -7px;
+    background-color: #e74c3c;
     color: white;
     border-radius: 50%;
-    padding: 2px 6px; /* Tăng padding */
-    font-size: 0.8em; /* Tăng kích thước font */
+    padding: 3px 7px;
+    font-size: 0.75em;
     font-weight: bold;
     line-height: 1;
-    min-width: 18px; /* Tăng kích thước tối thiểu */
+    min-width: 20px;
     text-align: center;
-    border: 1px solid white;
-    box-shadow: 0 0 3px rgba(0,0,0,0.3);
-    transition: none;
+    border: 2px solid white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.2s ease-out, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      gap: 40px; /* Khoảng cách giữa ảnh và nội dung */
-      align-items: flex-start;
-      padding: 0 20px; /* Khoảng cách 2 bên container với lề màn hình */
-    }
-    .image-box {
-      flex: 1;
-      max-width: 500px;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .image-box img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .content-box {
-      flex: 1.2;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      padding-left: 20px;
-    }
-    .content-box h1 {
-      margin-top: 0;
-      color: #cc3300;
-      font-size: 2.5rem;
-      font-weight: bold;
-      margin-bottom: 16px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .content-box p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: #4d2600;
-      margin-bottom: 12px;
-    }
-    .content-box ul {
-      margin-top: 0;
-      margin-bottom: 10px;
-      padding-left: 12px; /* căn lề cho danh sách */
+
+.fixed-navbar .cart-item-count.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.container {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    padding: 0 20px;
     }
 
-    .content-box li {
-      margin-bottom: 6px; /* khoảng cách giữa các item */
-    }
- 
-    .tag-new {
-      background-color: #ff4500;
-      color: white;
-      font-size: 0.75rem;
-      font-weight: bold;
-      padding: 2px 6px;
-      border-radius: 12px;
-      margin-left: 8px;
-      vertical-align: middle;
-      font-family: Arial, sans-serif;
-      text-transform: uppercase;
+.image-wrapper {
+    flex: 1;
+    background-color: #fff;  /* nền trắng cho khung */
+    padding: 11px;           /* khoảng cách giữa ảnh và khung */
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    border: 1px solid #ddd;  /* viền nhạt */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
     }
 
- .btn-back {
-      display: inline-block;
-      background-color: #ff6600;
-      color: white;
-      padding: 12px 28px;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s;
-      width: fit-content;
-      position: relative;
-      overflow: hidden;
-      z-index: 0;
+.image-wrapper:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
     }
     
-    .btn-back:hover {
-      background-color: #cc3300;
+
+.content-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-left: 20px;
     }
 
-    .btn-back::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -75%;
-      width: 50%;
-      height: 100%;
-      background: linear-gradient(
+.content-box h1 {
+    margin-top: 0;
+    color: #cc3300;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+
+.content-box p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #4d2600;
+    margin-bottom: 12px;
+    }
+
+.content-box ul {
+    margin-top: 0;
+    margin-bottom: 10px;
+    padding-left: 12px;
+    }
+
+.content-box li {
+    margin-bottom: 6px;
+    }
+
+.tag-new {
+    background-color: #ff4500;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 12px;
+    margin-left: 8px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    }
+
+.btn-back {
+    display: inline-block;
+    background-color: #ff6600;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    width: fit-content;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+    }
+
+.btn-back:hover {
+    background-color: #cc3300;
+    }
+
+.btn-back::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
         120deg,
         rgba(255, 255, 255, 0) 0%,
         rgba(255, 255, 255, 0.5) 50%,
         rgba(255, 255, 255, 0) 100%
-      );
-      transform: skewX(-20deg);
-      z-index: 1;
+    );
+    transform: skewX(-20deg);
+    z-index: 1;
     }
 
-    .btn-back:hover::before {
-      animation: shine 0.8s ease forwards;
+.btn-back:hover::before {
+    animation: shine 0.8s ease forwards;
     }
 
     @keyframes shine {
-      from {
-       left: -75%;
-      }
-      to {
-      left: 125%;
-      }
+      from { left: -75%; }
+      to { left: 125%; }
     }
+
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
         padding: 0 10px;
       }
-      .image-box {
+
+      .image-wrapper {
         max-width: 100%;
         border-radius: 0;
         box-shadow: none;
         margin-bottom: 20px;
       }
+
       .content-box h1 {
         font-size: 2rem;
         white-space: normal;
       }
-     }
+      
+    }
          /* --- Footer --- */
 footer {
     background-color: var(--footer-bg);
@@ -421,14 +455,14 @@ footer {
 <nav class="fixed-navbar" id="mainNavbar">
     <div class="logo-container">
         <a href="index.html" class="logo-link">
-            <img src="../mfc.jpg" alt="Logo Gà Rán HOÀNG" class="logo-image" id="navbarLogo">
+            <img src="../images/mfc.png" alt="Logo Gà Rán HOÀNG" class="logo-image" id="navbarLogo">
         </a>
     </div>
     <div class="main-menu">
-        <a href="../index.html" class="nav-link">Trang chủ</a>
-        <a href="../ThucDon.html" class="nav-link">Thực đơn</a>
+        <a href="../Trang_chu/index.html" class="nav-link">Trang chủ</a>
+        <a href="../Thuc_Don/ThucDon.html" class="nav-link">Thực đơn</a>
         <a href="Khuyen_mai_page1.html" class="nav-link">Khuyến mãi</a>
-        <a href="../tranglienhe.html" class="nav-link">Liên hệ</a>
+        <a href="../Lien_He/tranglienhe.html" class="nav-link">Liên hệ</a>
     </div>
     <!-- Đảm bảo phần user-actions có đầy đủ -->
     <div class="user-actions">
@@ -436,7 +470,7 @@ footer {
             <i class='bx bxs-cart'></i>
             <span class="cart-item-count">0</span>
         </a>
-        <a href="../tendangnhap.html" class= "nav-action-icon" aria-label="Tài khoản">
+        <a href="../Trang_chu/tendangnhap.html" class= "nav-action-icon" aria-label="Tài khoản">
             <i class='bx bxs-user-circle'></i>
         </a>
     </div>
@@ -446,8 +480,8 @@ footer {
 </div> <div class="spacer-after-header"></div>
 
   <div class="container">
-    <div class="image-box">
-      <img src="images/Khuyenmai6.jpg" alt="Nhập học đầu năm" />
+    <div class="image-wrapper">
+      <img src="../images/Khuyenmai6.jpg" alt="Nhập học đầu năm" />
     </div>
     <div class="content-box">
       <h1>🎁 Điểm bao nhiêu giảm bấy nhiêu</h1>
@@ -517,6 +551,196 @@ footer {
         <p>© 2025 MR. Fried Chicken. All rights reserved.</p>
     </div>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const nav = document.getElementById('mainNavbar');
+        const navLogo = document.getElementById('navbarLogo');
+        const pageContentWrapper = document.querySelector('.page-content-wrapper');
+        const heroCarouselElement = document.getElementById('heroCarousel');
+
+        let initialNavPaddingTopBottom = 10;
+        let initialNavPaddingLeftRight = 40;
+        let initialLogoHeight = 50;
+
+        if (navLogo) initialLogoHeight = navLogo.offsetHeight || 50;
+        if (nav) {
+            const computedStyle = window.getComputedStyle(nav);
+            const paddingValues = computedStyle.padding.split(" ");
+            if (paddingValues.length === 1) initialNavPaddingTopBottom = parseFloat(paddingValues[0]);
+            if (paddingValues.length >= 2) {
+                initialNavPaddingTopBottom = parseFloat(paddingValues[0]);
+                initialNavPaddingLeftRight = parseFloat(paddingValues[1]);
+            }
+        }
+
+        function adjustPageContentPadding() {
+            if (nav && pageContentWrapper) {
+                pageContentWrapper.style.paddingTop = nav.offsetHeight + 'px';
+            }
+        }
+        
+        adjustPageContentPadding();
+        window.addEventListener('resize', adjustPageContentPadding);
+
+        window.addEventListener('scroll', function() {
+            if (!nav || !navLogo) return;
+            if (window.scrollY > 50) {
+                nav.style.backgroundColor = 'rgba(255, 165, 0, 0.9)';
+                nav.style.padding = `5px ${initialNavPaddingLeftRight}px`;
+                navLogo.style.height = (initialLogoHeight * 0.8) + 'px';
+            } else {
+                nav.style.backgroundColor = 'orange';
+                nav.style.padding = `${initialNavPaddingTopBottom}px ${initialNavPaddingLeftRight}px`;
+                navLogo.style.height = initialLogoHeight + 'px';
+            }
+            adjustPageContentPadding(); 
+        });
+
+        // Hero Carousel Logic
+        if (heroCarouselElement) {
+            const slidesContainer = heroCarouselElement.querySelector('.slides-container');
+            const slides = Array.from(heroCarouselElement.querySelectorAll('.slide'));
+            const prevButton = heroCarouselElement.querySelector('.prev');
+            const nextButton = heroCarouselElement.querySelector('.next');
+            const dotsContainer = heroCarouselElement.querySelector('.carousel-dots');
+            let currentIndex = 0;
+            let slideInterval;
+
+            function updateCarousel() {
+                if (!slidesContainer || slides.length === 0) return; 
+                slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+                if (dotsContainer) {
+                     Array.from(dotsContainer.children).forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentIndex);
+                    });
+                }
+            }
+            
+            function createDots() {
+                if(!dotsContainer || slides.length === 0) return; 
+                dotsContainer.innerHTML = ''; 
+                slides.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.classList.add('dot');
+                    if (index === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => {
+                        currentIndex = index;
+                        updateCarousel();
+                        resetInterval();
+                    });
+                    dotsContainer.appendChild(dot);
+                });
+            }
+
+            function nextSlide() {
+                if (slides.length === 0) return;
+                currentIndex = (currentIndex + 1) % slides.length;
+                updateCarousel();
+            }
+            function prevSlide() {
+                if (slides.length === 0) return;
+                currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+                updateCarousel();
+            }
+            function startInterval() {
+                if (slides.length > 1) { 
+                     slideInterval = setInterval(nextSlide, 5000);
+                }
+            }
+            function resetInterval() {
+                clearInterval(slideInterval);
+                startInterval();
+            }
+
+            if (slides.length > 0) {
+                if (prevButton) prevButton.addEventListener('click', () => { prevSlide(); resetInterval(); });
+                if (nextButton) nextButton.addEventListener('click', () => { nextSlide(); resetInterval(); });
+                createDots();
+                startInterval();
+                updateCarousel(); 
+            }
+        }
+
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') === '#') { // Bỏ qua nếu href chỉ là "#"
+                    // Bạn có thể muốn e.preventDefault() ở đây nếu không muốn hành vi mặc định
+                    return; 
+                }
+                try {
+                    // Thử lấy ID từ href (ví dụ: #section1 -> section1)
+                    const targetId = this.getAttribute('href').substring(1);
+                    if (!targetId) return; // Nếu không có ID (ví dụ href="#") thì bỏ qua
+
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        const navbarHeight = document.getElementById('mainNavbar') ? document.getElementById('mainNavbar').offsetHeight : 70;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+                        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                    }
+                } catch (error) { console.warn('Smooth scroll error:', error); }
+            });
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.createElement('button');
+        backToTopButton.innerHTML = "<i class='bx bx-chevron-up'></i>"; 
+        Object.assign(backToTopButton.style, {
+            position: 'fixed', bottom: '30px', right: '30px',
+            backgroundColor: 'orange', color: 'white',
+            border: 'none', borderRadius: '50%',
+            width: '50px', height: '50px', fontSize: '28px',
+            cursor: 'pointer', display: 'none', zIndex: '1001',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+            lineHeight: '50px', textAlign: 'center'
+        });
+        document.body.appendChild(backToTopButton);
+        window.addEventListener('scroll', () => {
+            backToTopButton.style.display = (window.pageYOffset > 200) ? 'block' : 'none';
+        });
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        console.log("Gà Rán MFC");
+    });
+    // Thêm vào trong document.addEventListener('DOMContentLoaded', function() { ... });
+// Hoặc tạo một khối script mới nếu muốn
+    const sectionTitleBar = document.querySelector('.section-title-bar');
+
+    // Hàm kiểm tra xem một phần tử có trong viewport hay không
+    function isElementInViewport(el) {
+        if (!el) return false; // Thêm kiểm tra null
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+
+    // Hàm xử lý khi cuộn trang
+    function handleScrollReveal() {
+        if (sectionTitleBar && isElementInViewport(sectionTitleBar)) {
+            sectionTitleBar.classList.add('is-visible');
+            // Remove event listener once element is visible to prevent unnecessary checks
+            window.removeEventListener('scroll', handleScrollReveal);
+        }
+    }
+
+    // Gắn lắng nghe sự kiện cuộn trang
+    window.addEventListener('scroll', handleScrollReveal);
+
+    // Chạy kiểm tra một lần khi tải trang để xử lý nếu phần tử đã ở trong viewport ngay lập tức
+    handleScrollReveal();
+</script> 
+
 
 </body>
 </html>

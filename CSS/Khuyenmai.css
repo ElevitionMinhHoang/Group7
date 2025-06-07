@@ -190,31 +190,6 @@ h1 {
     transform: scale(1);
 }
 
-/* Vùng bọc banner */
-.promo-banner {
-    width: 100%;
-    height: 500px;
-    position: relative;
-    overflow: hidden;
-}
-
-.promo-banner .container::after {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-    pointer-events: none;
-    z-index: 1;
-}
-
-.promo-banner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    position: relative;
-    z-index: 0;
-}
 
 /* Lưới khuyến mãi */
 .promo-grid {
@@ -358,6 +333,12 @@ h1 {
     font-weight: 700;
     animation: jump 0.3s ease;
 }
+.Khuyen_mai_page2.active {
+    background: #cc3300;
+    color: #fff6f0;
+    font-weight: 700;
+    animation: jump 0.3s ease;
+}
 .Khuyen_mai_page1, .Khuyen_mai_page2 {
     font-family: Arial, sans-serif;
     width: 30px;
@@ -472,4 +453,7 @@ footer {
 }
 .spacer-before-footer {
     height: 60px;
+}
+.spacer-after-header{
+    height: 100px;
 }
