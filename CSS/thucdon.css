@@ -13,91 +13,6 @@ body {
     scroll-behavior: smooth;
     /* padding-top sẽ được JS điều chỉnh */
 }
-/* --- THANH TRANG CHỦ  CHÍNH --- */
-.fixed-navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000; /* Đã cập nhật z-index để nằm trên thanh phụ */
-    background-color: orange;
-    padding: 15px 50px; /* Đảm bảo padding chuẩn */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: padding 0.3s ease, background-color 0.3s ease, height 0.3s ease; /* Thêm height vào transition */
-    height: 70px; /* Đặt chiều cao cố định cho thanh chính */
-}
-.fixed-navbar .logo-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-}
-.fixed-navbar .logo-image {
-    height: 50px;
-    transition: height 0.3s ease;
-}
-.fixed-navbar .main-menu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    flex: 1;
-}
-.fixed-navbar .nav-link {
-    color: white;
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 18px; /* Tăng kích thước font chữ cho menu chính */
-    padding: 7px 0; /* Tăng padding dọc */
-    transition: transform 0.2s ease-out, text-shadow 0.2s ease-out, border 0.2s ease-out, padding 0.2s ease-out;
-    display: inline-block;
-    position: relative;
-    z-index: 1;
-}
-
-
-
-/* Style khi hover các nav-link, áp dụng cả cho link active */
-.fixed-navbar .nav-link:hover {
-    text-decoration: none;
-    transform: translateY(-3px) scale(1.05);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); /* Tăng độ sáng text-shadow */
-    padding: 7px 18px; /* Tăng padding để tạo không gian cho khung */
-}
-
-/* Thêm khung bằng pseudo-element */
-.fixed-navbar .nav-link::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border: 2px solid transparent; /* Khởi tạo viền trong suốt */
-    border-radius: 8px; /* Bo tròn góc khung */
-    transition: border-color 0.2s ease-out, transform 0.2s ease-out, opacity 0.2s ease-out;
-    z-index: -1; /* Đảm bảo khung nằm dưới chữ */
-    pointer-events: none; /* Đảm bảo không cản trở sự kiện click */
-    opacity: 0; /* Ẩn khung ban đầu */
-    transform: scale(0.8); /* Khởi tạo nhỏ hơn để có hiệu ứng phóng to khi hover */
-}
-
-/* Hiển thị khung khi hover */
-.fixed-navbar .nav-link:hover::before {
-    border-color: white; /* Màu viền khi hover */
-    opacity: 1; /* Hiển thị khung */
-    transform: scale(1); /* Phóng to ra kích thước thật */
-}
-
-/* Đảm bảo hiệu ứng cuộn vẫn hoạt động tốt trên link active */
-.fixed-navbar.scrolled .nav-link.active {
-    background-color: white;
-    color: #D70F17;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
 /* --- NAVIGATION BAR --- */
 .fixed-navbar {
     position: fixed;
@@ -261,7 +176,6 @@ body {
     opacity: 1;
     transform: scale(1);
 }
-
 /* --- NỘI DUNG CHÍNH --- */
 main {
     /* padding-top SẼ ĐƯỢC JAVASCRIPT ĐIỀU CHỈNH */
