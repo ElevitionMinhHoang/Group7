@@ -16,14 +16,18 @@
     --text-light: #ECF0F1; /* Màu chữ sáng cho nền tối */
     --bg-light: #F4F6F7; /* Nền sáng nhẹ */
     --bg-dark-overlay: rgba(0, 0, 0, 0.7); /* Lớp phủ cho ảnh nền */
+<<<<<<< HEAD
     --footer-bg: #E67E22; /* Màu xanh than đậm cho footer */
+=======
+    --footer-bg: #34495E; /* Màu xanh than đậm cho footer */
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
     --footer-text-color: #ECF0F1; /* Màu chữ sáng cho footer */
     --footer-link-color: #FFD700; /* Vàng kim loại cho link footer */
     --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     --card-hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    --border-color-light: #D5DBDB;
-    --support-card-bg: #FFFFFF;
-    --support-card-hover-bg: #EAECEE;
+    --border-color-light: #D5DBDB; /* Border nhẹ */
+    --support-card-bg: #FFFFFF; /* Nền cho thẻ hỗ trợ */
+    --support-card-hover-bg: #EAECEE; /* Nền hover cho thẻ hỗ trợ */
     --icon-circle-bg: var(--primary-color);
     --icon-circle-hover-bg: var(--secondary-color);
 }
@@ -126,18 +130,47 @@ input, textarea, button, select {
     color: var(--text-light); /* text-light */
     transform: translateY(-2px);
 }
+<<<<<<< HEAD
 
 /* ==================================== */
 /* 5. Header & Navigation                 */
 /* ==================================== */
+=======
+.btn-light-outline {
+    background-color: transparent;
+    color: var(--text-light);
+    border: 2px solid var(--text-light);
+}
+.btn-light-outline:hover {
+    background-color: var(--text-light);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+.btn-small {
+    padding: 8px 18px;
+    font-size: 0.9em;
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+    border: none;
+}
+.btn-small:hover {
+    background-color: #E67E22;
+}
+/* --- NAVIGATION BAR --- */
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
 .fixed-navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
+<<<<<<< HEAD
     background-color: orange; /* Giữ nguyên giá trị này */
     padding: 15px 50px;
+=======
+    background-color: orange;
+    padding: 15px 50px; /* Tăng padding để thanh to lên */
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -145,11 +178,14 @@ input, textarea, button, select {
     transition: padding 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+<<<<<<< HEAD
 .fixed-navbar .logo-container {
     display: flex;
     align-items: center;
 }
 
+=======
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
 .fixed-navbar .logo-link {
     display: flex;
     align-items: center;
@@ -157,8 +193,12 @@ input, textarea, button, select {
 }
 
 .fixed-navbar .logo-image {
+<<<<<<< HEAD
     height: 60px;
     width: auto;
+=======
+    height: 60px; /* Tăng chiều cao logo */
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
     transition: height 0.3s ease;
 }
 
@@ -166,17 +206,22 @@ input, textarea, button, select {
     display: flex;
     justify-content: center;
     align-items: center;
+<<<<<<< HEAD
     gap: 35px;
     flex: 1; /* GIỮ NGUYÊN như code ban đầu của bạn */
     min-width: 0; /* THÊM: Đảm bảo phần tử này có thể co lại nếu không gian hạn chế */
+=======
+    gap: 35px; /* Tăng khoảng cách giữa các mục menu */
+    flex: 1;
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
 }
 
 .fixed-navbar .nav-link {
     color: white; /* Giữ nguyên giá trị này */
     font-weight: bold;
     text-decoration: none;
-    font-size: 18px;
-    padding: 7px 0;
+    font-size: 18px; /* Tăng kích thước font chữ cho menu chính */
+    padding: 7px 0; /* Tăng padding dọc */
     transition: transform 0.2s ease-out, text-shadow 0.2s ease-out, border 0.2s ease-out, padding 0.2s ease-out;
     display: inline-block;
     position: relative;
@@ -186,8 +231,8 @@ input, textarea, button, select {
 .fixed-navbar .nav-link:hover {
     text-decoration: none;
     transform: translateY(-3px) scale(1.05);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
-    padding: 7px 18px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); /* Tăng độ sáng text-shadow */
+    padding: 7px 18px; /* Tăng padding để tạo không gian cho khung */
 }
 
 .fixed-navbar .nav-link::before {
@@ -212,29 +257,39 @@ input, textarea, button, select {
     transform: scale(1);
 }
 
+<<<<<<< HEAD
 /* --- CSS CHO USER ACTIONS (ICON GIỎ HÀNG VÀ TÌM KIẾM) --- */
+=======
+/* --- CSS MỚI CHO USER ACTIONS (GIỎ HÀNG & TÀI KHOẢN) --- */
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
 .fixed-navbar .user-actions {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 30px; /* Tăng khoảng cách giữa các icon */
     flex-shrink: 0;
 }
 
 .fixed-navbar .nav-action-icon {
+<<<<<<< HEAD
     color: white; /* Đảm bảo icon màu trắng */
     font-size: 30px; /* Đảm bảo kích thước icon */
+=======
+    color: white;
+    font-size: 30px; /* Tăng kích thước icon */
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
     text-decoration: none;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px;
+    padding: 8px; /* Tăng vùng click cho icon */
     border-radius: 50%;
     transition: transform 0.2s ease-out, color 0.2s ease-out, filter 0.2s ease-out;
     z-index: 1;
 }
 
 .fixed-navbar .nav-action-icon:hover {
+<<<<<<< HEAD
     transform: translateY(-3px) scale(1.1);
     color: white;
     filter: brightness(1.5) drop-shadow(0 0 7px rgba(255, 255, 255, 0.9));
@@ -266,6 +321,25 @@ input, textarea, button, select {
     font-weight: bold;
     line-height: 1;
     min-width: 20px;
+=======
+    transform: translateY(-3px) scale(1.15); /* Tăng nhẹ hiệu ứng phóng to */
+    color: white;
+    filter: brightness(1.5) drop-shadow(0 0 7px rgba(255, 255, 255, 0.7)); /* Làm sáng và đổ bóng rõ hơn */
+}
+
+.fixed-navbar .cart-item-count {
+    position: absolute;
+    top: -2px; /* Điều chỉnh vị trí số lượng giỏ hàng */
+    right: -5px; /* Điều chỉnh vị trí số lượng giỏ hàng */
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px; /* Tăng padding */
+    font-size: 0.8em; /* Tăng kích thước font */
+    font-weight: bold;
+    line-height: 1;
+    min-width: 18px; /* Tăng kích thước tối thiểu */
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
     text-align: center;
     border: 2px solid white;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
@@ -275,11 +349,52 @@ input, textarea, button, select {
     transition: opacity 0.2s ease-out, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+<<<<<<< HEAD
+=======
+/* --- HIỆU ỨNG RUNG LẮC MỚI CHO ICON --- */
+@keyframes cart-jiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-8deg); }
+    50% { transform: rotate(8deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.jiggle-once {
+    animation: cart-jiggle 0.4s ease-in-out;
+}
+
+/* --- VÒNG TRÒN ĐẾM SỐ (ĐÃ NÂNG CẤP) --- */
+.fixed-navbar .cart-item-count {
+    position: absolute;
+    top: -4px;
+    right: -7px;
+    background-color: #e74c3c; /* Màu đỏ đậm hơn */
+    color: white;
+    border-radius: 50%;
+    padding: 3px 7px;
+    font-size: 0.75em;
+    font-weight: bold;
+    line-height: 1;
+    min-width: 20px;
+    text-align: center;
+    border: 2px solid white; /* Thêm viền trắng dày hơn */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    
+    /* Trạng thái ban đầu: ẩn */
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.2s ease-out, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Lớp .show để kích hoạt hiệu ứng xuất hiện */
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
 .fixed-navbar .cart-item-count.show {
     opacity: 1;
     transform: scale(1);
 }
 
+<<<<<<< HEAD
 /* Hamburger menu - Ẩn mặc định trên desktop */
 .hamburger-menu {
     display: none;
@@ -312,6 +427,8 @@ input, textarea, button, select {
     visibility: visible;
 }
 
+=======
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
 .overlay-close-btn {
     position: absolute;
     top: 30px;
@@ -677,6 +794,7 @@ textarea:valid:not(:placeholder-shown) {
     max-width: 900px;
     margin: 0 auto;
 }
+<<<<<<< HEAD
 
 .faq-item {
     background-color: #fff;
@@ -754,6 +872,13 @@ footer {
     background-color: var(--footer-bg); /* footer-bg */
     color: var(--footer-text-color); /* footer-text-color */
     padding: 100px 5% 60px 5%;
+=======
+/* --- Footer --- */
+footer {
+    background-color: #E67E22;
+    color: #ECF0F1;
+    padding: 60px 5%;
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
     font-size: 0.95em;
 }
 
@@ -784,13 +909,17 @@ footer {
 .footer-brand p {
     margin-bottom: 20px;
     line-height: 1.8;
+<<<<<<< HEAD
     color: var(--footer-text-color); /* footer-text-color */
+=======
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
 }
 
 .social-icons a {
     font-size: 28px;
     margin-right: 15px;
     transition: color 0.3s ease, transform 0.3s ease;
+<<<<<<< HEAD
     color: var(--footer-link-color); /* footer-link-color */
 }
 
@@ -813,6 +942,18 @@ footer {
     font-size: 1.3em;
     margin-bottom: 25px;
     color: var(--footer-link-color); /* footer-link-color */
+=======
+    color: #FFD700;
+}
+.social-icons .bx.bxl-facebook-circle { color: #1877F2; }
+.social-icons .bx.bxl-instagram-alt { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+.social-icons .bx.bxl-tiktok { color: #000; text-shadow: 2px 2px 0px #25F4EE, -2px -2px 0px #FE2C55; }
+.social-icons a:hover { transform: translateY(-3px); }
+.footer-column h4 {
+    font-size: 1.3em;
+    margin-bottom: 25px;
+    color: #FFD700;
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
     position: relative;
     padding-bottom: 10px;
 }
@@ -824,33 +965,55 @@ footer {
     left: 0;
     width: 40px;
     height: 2px;
+<<<<<<< HEAD
     background-color: var(--accent-color); /* accent-color */
+=======
+    background-color: #FFD700;
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
 }
 
 .footer-column ul li {
     margin-bottom: 10px;
+    list-style: none;
+    padding: 0;
 }
 
 .footer-column ul li a {
+<<<<<<< HEAD
     color: var(--footer-text-color); /* footer-text-color */
+=======
+    color: #ECF0F1;
+    text-decoration: none;
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
     transition: color 0.3s ease;
     text-decoration: none;
 }
 
 .footer-column ul li a:hover {
+<<<<<<< HEAD
     color: var(--footer-link-color); /* footer-link-color */
+=======
+    color: #FFD700;
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
 }
 
 .footer-contact p {
     margin-bottom: 10px;
+<<<<<<< HEAD
     color: var(--footer-text-color); /* footer-text-color */
+=======
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
     display: flex;
     align-items: flex-start;
 }
 
 .footer-contact p i {
     margin-right: 10px;
+<<<<<<< HEAD
     color: var(--footer-link-color); /* footer-link-color */
+=======
+    color: #FFD700;
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
     font-size: 20px;
     flex-shrink: 0;
     margin-top: 3px;
@@ -871,7 +1034,13 @@ footer {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     padding-top: 25px;
     margin-top: 40px;
+<<<<<<< HEAD
     color: var(--footer-text-color); /* footer-text-color */
+=======
+}
+.spacer-before-footer {
+    height: 60px;
+>>>>>>> 9d891e70909ba8208b84719a1afa2f64ee0f3dda
 }
 
 /* ==================================== */
