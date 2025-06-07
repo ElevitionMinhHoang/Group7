@@ -12,7 +12,7 @@
   <nav class="fixed-navbar" id="mainNavbar">
     <div class="logo-container">
         <a href="index.html" class="logo-link">
-            <img src="https://lh3.googleusercontent.com/fife/ALs6j_GV9_DpzbzHblVxIyYfsG3nJK0qWxAPIiUUCioH2Sx_rAzHsw8Hw-nl1vMnX5fUZ9dSDTQTD33NWj6QqsRCi5lszQrNVGbhPWTyq7PqCNmLOqakZSYD5sGC5NknPkFs1TxbAG0kOkFAl2uNdetiyu7ZojCb-Ao6Jc_mtw1rSE1XyWhTIab062dln7h1" alt="MFC Logo" class="logo-image" id="navbarLogo">
+            <img src="logo3.png" alt="MFC Logo" class="logo-image" id="navbarLogo">
         </a>
     </div>
     <div class="main-menu">
@@ -30,7 +30,6 @@
         </a>
     </div>
 </nav>
-
 <div class="mobile-menu" id="mobileMenu">
     <ul>
         <li><a href="index.html">Trang chủ</a></li>
@@ -39,14 +38,17 @@
         <li><a href="tranglienhe.html" class="active-mobile-link">Liên hệ </a></li>
     </ul>
 </div>
-
 <div class="full-screen-search-overlay" id="fullScreenSearchOverlay">
     <div class="overlay-close-btn" id="overlayCloseBtn"><i class='bx bx-x'></i></div>
     <div class="overlay-content">
+        <div class="overlay-search-box">
+            <input type="text" placeholder="Tìm kiếm món ăn, hỗ trợ, địa điểm..." id="overlaySearchInput">
+            <button type="submit"><i class='bx bx-search'></i></button>
+        </div>
         <div class="overlay-support-links">
             <h3>Hỗ trợ nhanh</h3>
             <ul>
-                <li><a href="Gio_hang_MFC/Gio_hang.html" class="overlay-nav-link scroll-to-element"><i class='bx bx-notepad'></i> Đặt hàng & Giao hàng</a></li>
+                <li><a href="#cartIconLinkOverlay" class="overlay-nav-link scroll-to-element"><i class='bx bx-notepad'></i> Đặt hàng & Giao hàng</a></li>
                 <li><a href="#feedbackForm" class="overlay-nav-link scroll-to-element"><i class='bx bx-user'></i> Vấn đề tài khoản</a></li>
                 <li><a href="#feedbackForm" class="overlay-nav-link scroll-to-element"><i class='bx bx-bulb'></i> Đóng góp & Gợi ý</a></li>
                 <li><a href="#faq-section" class="overlay-nav-link scroll-to-element"><i class='bx bx-help-circle'></i> Câu hỏi thường gặp</a></li> <li><a href="tel:0975459348" class="overlay-nav-link"><i class='bx bxs-phone'></i> Hotline: 0975459348</a></li>
@@ -55,30 +57,8 @@
         </div>
     </div>
 </div>
-  <div class="full-screen-search-overlay" id="fullScreenSearchOverlay">
-      <div class="overlay-close-btn" id="overlayCloseBtn"><i class='bx bx-x'></i></div>
-      <div class="overlay-content">
-          <div class="overlay-search-box">
-              <input type="text" placeholder="Tìm kiếm món ăn, hỗ trợ, địa điểm..." id="overlaySearchInput">
-              <button type="submit"><i class='bx bx-search'></i></button>
-          </div>
-
-          <div class="overlay-support-links">
-              <h3>Hỗ trợ nhanh</h3>
-              <ul>
-                  <li><a href="#cartIconLinkOverlay" class="overlay-nav-link scroll-to-element"><i class='bx bx-notepad'></i> Đặt hàng & Giao hàng</a></li>
-                  <li><a href="#feedbackForm" class="overlay-nav-link scroll-to-element"><i class='bx bx-user'></i> Vấn đề tài khoản</a></li>
-                  <li><a href="#feedbackForm" class="overlay-nav-link scroll-to-element"><i class='bx bx-bulb'></i> Đóng góp & Gợi ý</a></li>
-                  <li><a href="#faq-section" class="overlay-nav-link scroll-to-element"><i class='bx bx-help-circle'></i> Câu hỏi thường gặp</a></li> <li><a href="tel:0975459348" class="overlay-nav-link"><i class='bx bxs-phone'></i> Hotline: 0975459348</a></li>
-                  <li><a href="mailto:support@mfc.com" class="overlay-nav-link"><i class='bx bxs-envelope'></i> Email: support@mfc.com</a></li>
-              </ul>
-          </div>
-      </div>
-  </div>
-
   <section class="hero-section" style="background-image: url('anhlienhe1.png');">
   </section>
-
   <section class="support-info-section common-padding bg-light scroll-reveal" id="support-info-section">
     <div class="support-grid">
       <div class="info-contact-card">
@@ -118,9 +98,7 @@
         <p class="contact-detail"><a href="#faq-section" class="scroll-to-element">Xem FAQ</a></p>
       </div>
     </div>
-  
   </section>
-
   <section class="map-section common-padding bg-light scroll-reveal" id="map-section">
     <h2 class="section-title">Tìm cửa hàng của chúng tôi</h2> 
     <div class="map-embed" id="mapContainer">
@@ -128,7 +106,6 @@
     </div>
     <p class="map-note text-center">Chúng tôi luôn sẵn lòng phục vụ bạn tại cửa hàng!</p>
   </section>
-  
   <section class="testimonials-section common-padding bg-light scroll-reveal" id="testimonials-section">
     <h2 class="section-title">Khách hàng nói gì về chúng tôi?</h2>
     <div class="testimonials-grid">
@@ -149,7 +126,6 @@
       </div>
     </div>
   </section>
-
   <section class="faq-section common-padding bg-light scroll-reveal" id="faq-section">
     <h2 class="section-title">Những câu hỏi thường gặp</h2>
     <div class="faq-container">
@@ -211,7 +187,6 @@
                 <a href="https://www.tiktok.com/@minhvietnamlife?_t=ZS-8wvAdZFRz6n&_r=1&fbclid=IwY2xjawKtEA5leHRuA2FlbQIxMABicmlkETFWQlFZNEt2V0lZSXhGaU1IAR408AEmPKNuLRGdHqOvdfne-4nK3JuttGhx_w2mSgebpGJkUKvp8C5Oz7lvsQ_aem_dKedZ3WDN0r44wKVVGS0Qw" target="_blank" aria-label="TikTok"><i class='bx bxl-tiktok'></i></a>
             </div>
         </div>
-
         <div class="footer-column footer-links">
             <h4>Thông tin</h4>
             <ul>
@@ -220,17 +195,15 @@
                   <a href="Khuyen_mai_MFC/Khuyen_mai_page1.html">Khuyến mãi</a></li>
                 <li><a href="tranglienhe.html">Liên hệ </a></li>
         </div>
-
         <div class="footer-column footer-policy">
             <h4>Chính sách</h4>
             <ul>
-                <li><a href="Chinhsachvaquydinhchung.html">Chính sách & Quy định chung</a></li>
-                <li><a href="Chinhsachbaomat.html">Chính sách bảo mật thông tin</a></li>
-                <li><a href="Chinhsachgiaohang.html">Chính sách giao hàng</a></li>
-                <li><a href="Trangchinhsachdoitravahoantien.html">Chính sách đổi trả & hoàn tiền</a></li>
+                <li><a href="Các trang chính sách/Chinhsachvaquydinhchung.html">Chính sách & Quy định chung</a></li>
+                <li><a href="Các trang chính sách/Chinhsachbaomat.html">Chính sách bảo mật thông tin</a></li>
+                <li><a href="Các trang chính sách/Chinhsachbaomat.html">Chính sách giao hàng</a></li>
+                <li><a href="Các trang chính sách/Trangchinhsachdoitravahoantien.html">Chính sách đổi trả & hoàn tiền</a></li>
             </ul>
         </div>
-
         <div class="footer-column footer-contact">
             <h4>Thông tin liên hệ</h4>
             <p><i class='bx bxs-map'></i> 112 P. Chùa Bộc, Quang Trung, Đống Đa, Hà Nội</p>
