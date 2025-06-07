@@ -167,8 +167,8 @@ input, textarea, button, select {
     justify-content: center;
     align-items: center;
     gap: 35px;
-    flex: 1; /* GIỮ NGUYÊN như code ban đầu của bạn */
-    min-width: 0; /* THÊM: Đảm bảo phần tử này có thể co lại nếu không gian hạn chế */
+    flex: 1;
+    min-width: 0;
 }
 
 .fixed-navbar .nav-link {
@@ -240,19 +240,6 @@ input, textarea, button, select {
     filter: brightness(1.5) drop-shadow(0 0 7px rgba(255, 255, 255, 0.9));
 }
 
-/* --- HIỆU ỨNG RUNG LẮC MỚI CHO ICON (Giữ nguyên) --- */
-@keyframes cart-jiggle {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(-8deg); }
-    50% { transform: rotate(8deg); }
-    75% { transform: rotate(-5deg); }
-    100% { transform: rotate(0deg); }
-}
-
-.jiggle-once {
-    animation: cart-jiggle 0.4s ease-in-out;
-}
-
 /* --- VÒNG TRÒN ĐẾM SỐ (Đã nâng cấp) --- */
 .fixed-navbar .cart-item-count {
     position: absolute;
@@ -285,146 +272,23 @@ input, textarea, button, select {
     display: none;
 }
 
-
 /* ==================================== */
-/* 6. Full Screen Search Overlay          */
-/* ==================================== */
-.full-screen-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--bg-dark-overlay); /* bg-dark-overlay */
-    z-index: 10000;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    overflow-y: auto;
-
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.full-screen-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.overlay-close-btn {
-    position: absolute;
-    top: 30px;
-    right: 45px;
-    font-size: 60px;
-    cursor: pointer;
-    color: #ccc;
-    transition: 0.3s;
-}
-
-.overlay-close-btn:hover {
-    color: var(--primary-color); /* primary-color */
-}
-
-.overlay-content {
-    position: relative;
-    top: 15%;
-    width: 80%;
-    max-width: 800px;
-    text-align: center;
-    margin-top: 30px;
-}
-
-.overlay-search-box {
-    display: flex;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.95);
-    border-radius: 50px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    margin-bottom: 40px;
-}
-
-.overlay-search-box input {
-    flex-grow: 1;
-    border: none;
-    padding: 18px 25px;
-    font-size: 1.2em;
-    outline: none;
-    background-color: transparent;
-    color: var(--text-dark); /* text-dark */
-}
-
-.overlay-search-box input::placeholder {
-    color: #888;
-}
-
-.overlay-search-box button {
-    background-color: var(--primary-color); /* primary-color */
-    border: none;
-    color: var(--text-light); /* text-light */
-    padding: 18px 20px;
-    font-size: 1.6em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.overlay-search-box button:hover {
-    background-color: #D35400; /* Giá trị cụ thể, không biến */
-}
-
-.overlay-support-links {
-    margin-bottom: 30px;
-}
-
-.overlay-support-links h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8em;
-    color: var(--accent-color); /* accent-color */
-    margin-bottom: 20px;
-}
-
-.overlay-support-links ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px 30px;
-}
-
-.overlay-support-links ul li a {
-    color: #ccc;
-    font-size: 1.2em;
-    font-weight: 500;
-    transition: color 0.3s ease, transform 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.overlay-support-links ul li a:hover {
-    color: var(--text-light); /* text-light */
-    transform: translateY(-3px);
-}
-
-.overlay-support-links ul li a i {
-    font-size: 1.3em;
-}
-
-/* ==================================== */
-/* 7. Hero Section (Trang Liên Hệ)        */
+/* 6. Hero Section (Chính sách)         */
 /* ==================================== */
 .hero-section {
     position: relative;
     width: 100%;
-    height: 500px;
+    height: 350px; /* Nhỏ hơn trang liên hệ */
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     background-size: cover;
     background-position: center;
-    color: var(--text-light); /* text-light */
+    color: var(--text-light);
     padding-top: 0;
+    /* Thêm ảnh nền mẫu cho trang chính sách */
+    background-image: url('../images/policy-hero-bg.jpg'); /* Đảm bảo đường dẫn đúng */
 }
 
 .hero-overlay {
@@ -451,304 +315,122 @@ input, textarea, button, select {
 
 .hero-content .hero-title {
     font-family: 'Playfair Display', serif;
-    font-size: 4em;
+    font-size: 3.5em; /* Kích thước nhỏ hơn một chút so với trang liên hệ */
     margin-bottom: 20px;
     color: var(--text-light); /* text-light */
 }
 
 .hero-content .hero-subtitle {
-    font-size: 1.5em;
+    font-size: 1.3em; /* Kích thước nhỏ hơn một chút */
     margin-bottom: 0;
     color: var(--text-light); /* text-light */
 }
 
 /* ==================================== */
-/* 8. Support Info Section (3 Cards)    */
+/* 7. Policy Content Section            */
 /* ==================================== */
-.support-info-section {
-    background-color: var(--bg-light); /* bg-light */
-}
-
-.support-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.info-contact-card {
-    background-color: var(--support-card-bg); /* support-card-bg */
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: var(--card-shadow); /* card-shadow */
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-    border: 1px solid var(--border-color-light); /* border-color-light */
-    cursor: pointer;
-}
-
-.info-contact-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--card-hover-shadow); /* card-hover-shadow */
-    background-color: var(--support-card-hover-bg); /* support-card-hover-bg */
-}
-
-.info-contact-card .icon-circle {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background-color: var(--icon-circle-bg); /* icon-circle-bg */
+.policy-content {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-    color: var(--text-light); /* text-light */
-    font-size: 35px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.info-contact-card:hover .icon-circle {
-    background-color: var(--icon-circle-hover-bg); /* icon-circle-hover-bg */
-    transform: scale(1.1);
-}
-
-.info-contact-card h3 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    color: var(--text-dark); /* text-dark */
-    transition: color 0.3s ease;
-}
-
-.info-contact-card:hover h3 {
-    color: var(--primary-color); /* primary-color */
-}
-
-.info-contact-card p {
-    font-size: 1em;
-    color: #666;
-    margin-bottom: 5px;
-}
-
-.info-contact-card .contact-detail {
-    font-weight: 600;
-    color: var(--secondary-color); /* secondary-color */
-    margin-top: 10px;
-}
-
-.info-contact-card .contact-detail a {
-    color: inherit;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.info-contact-card .contact-detail a:hover {
-    color: var(--primary-color); /* primary-color */
-}
-
-/* ==================================== */
-/* 9. Map Section                         */
-/* ==================================== */
-.map-section {
-    background-color: #FFFFFF;
+    gap: 40px;
     max-width: 1200px;
     margin: 0 auto;
-    padding-bottom: 0;
+    align-items: flex-start; /* Menu và nội dung sẽ căn trên */
+    padding-top: 50px;
+    padding-bottom: 80px;
 }
 
-.map-embed {
+.policy-menu {
+    flex-shrink: 0; /* Không co lại */
+    width: 280px; /* Chiều rộng cố định cho menu */
+    position: sticky; /* Menu sẽ dính khi cuộn */
+    top: 120px; /* Khoảng cách từ trên xuống (điều chỉnh theo navbar) */
+    background-color: var(--support-card-bg); /* Nền trắng */
     border-radius: 12px;
-    overflow: hidden;
-    box-shadow: var(--card-shadow); /* card-shadow */
-    margin-bottom: 20px;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    box-shadow: var(--card-shadow);
+    padding: 25px 0;
+    border: 1px solid var(--border-color-light);
+    z-index: 500; /* Đảm bảo nằm trên các nội dung khác nhưng dưới navbar */
 }
 
-.map-embed.revealed {
-    opacity: 1;
-    transform: translateY(0);
+.policy-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.map-embed iframe {
-    border-radius: 12px;
+.policy-menu-item {
+    display: block;
+    padding: 12px 25px;
+    color: var(--text-dark);
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    border-left: 4px solid transparent; /* Tạo điểm nhấn cho active */
 }
 
-.map-note {
-    text-align: center;
-    font-style: italic;
-    color: #777;
-    font-size: 0.95em;
-    padding-bottom: 40px;
+.policy-menu-item:hover {
+    background-color: var(--support-card-hover-bg);
+    color: var(--primary-color);
+    transform: translateX(5px); /* Hiệu ứng lơ lửng khi hover */
 }
 
-/* ==================================== */
-/* 10. Feedback Form Section              */
-/* ==================================== */
-.feedback-form-section {
-    background-color: var(--bg-light); /* bg-light */
-    padding-top: 100px;
+.policy-menu-item.active {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    font-weight: 600;
+    border-left-color: var(--accent-color); /* Màu nhấn cho active */
+    transform: translateX(0); /* Đảm bảo không bị dịch chuyển khi active */
 }
 
-.login-register-form {
-    max-width: 700px;
-    margin: 0 auto;
-    background-color: #fff;
+.policy-main-content {
+    flex-grow: 1; /* Chiếm hết không gian còn lại */
+    background-color: var(--support-card-bg);
     padding: 40px;
     border-radius: 12px;
-    box-shadow: var(--card-shadow); /* card-shadow */
-    border: 1px solid var(--border-color-light); /* border-color-light */
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-color-light);
 }
 
-.login-register-form .form-description {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #666;
-    font-size: 1.1em;
+.policy-main-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2em;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color-light);
 }
 
-.login-register-form .form-group {
-    margin-bottom: 20px;
-}
-
-.login-register-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: var(--text-dark); /* text-dark */
-}
-
-.login-register-form input[type="text"],
-.login-register-form input[type="password"],
-.login-register-form input[type="email"],
-.login-register-form input[type="tel"],
-.login-register-form textarea {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1em;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    background-color: #fcfcfc;
-}
-
-.login-register-form input[type="text"]:focus,
-.login-register-form input[type="password"]:focus,
-.login-register-form input[type="email"]:focus,
-.login-register-form input[type="tel"]:focus,
-.login-register-form textarea:focus {
-    border-color: var(--primary-color); /* primary-color */
-    box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.2);
-    outline: none;
-}
-
-input:invalid:not(:placeholder-shown),
-textarea:invalid:not(:placeholder-shown) {
-    border-color: #E74C3C;
-    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
-}
-
-input:valid:not(:placeholder-shown),
-textarea:valid:not(:placeholder-shown) {
-    border-color: #2ECC71;
-    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
-}
-
-.login-register-form .form-actions {
-    display: flex;
-    gap: 15px;
+.policy-main-content h3 { /* Nếu có h3 trong nội dung */
+    font-size: 1.5em;
+    color: var(--text-dark);
     margin-top: 30px;
-}
-
-.login-register-form .form-actions .btn {
-    flex: 1;
-}
-
-/* ==================================== */
-/* 11. FAQ Section                        */
-/* ==================================== */
-.faq-section {
-    background-color: #FFFFFF;
-    padding-bottom: 100px;
-}
-
-.faq-container {
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.faq-item {
-    background-color: #fff;
-    border: 1px solid var(--border-color-light); /* border-color-light */
-    border-radius: 8px;
     margin-bottom: 15px;
-    overflow: visible;
-    position: relative;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-.faq-question {
-    padding: 20px 25px;
-    font-size: 1.1em;
-    font-weight: 600;
-    color: var(--text-dark); /* text-dark */
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f9f9f9;
-    border-bottom: 1px solid #eee;
-    transition: background-color 0.3s ease, color 0.3s ease;
+.policy-main-content p {
+    margin-bottom: 15px;
+    line-height: 1.8;
+    color: #444;
 }
 
-.faq-question:hover {
-    background-color: #f0f0f0;
-    color: var(--primary-color); /* primary-color */
+.policy-main-content ul {
+    list-style-type: disc;
+    margin-left: 25px;
+    margin-bottom: 15px;
+    color: #444;
 }
 
-.faq-question.active {
-    background-color: var(--primary-color); /* primary-color */
-    color: var(--text-light); /* text-light */
-    border-bottom-color: var(--primary-color); /* primary-color */
+.policy-main-content ul li {
+    margin-bottom: 8px;
+    line-height: 1.6;
 }
 
-.faq-question i {
-    font-size: 1.2em;
-    transition: transform 0.3s ease, color 0.3s ease;
-    margin-left: 15px;
-}
-
-.faq-question.active i {
-    transform: rotate(180deg);
-    color: var(--text-light); /* text-light */
-}
-
-.faq-answer {
-    padding: 0 25px;
-    font-size: 0.9em;
-    color: #555;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease-out;
-}
-
-.faq-answer.active {
-    padding: 15px 15px;
-    max-width: 100%;
-    position: relative;
-    z-index: 10;
-    border-radius: 6px;
-    overflow: visible;
-}
-
-.faq-answer p {
-    padding-top: 0;
-    padding-bottom: 0;
+.policy-main-content strong {
+    color: var(--primary-color);
 }
 
 /* ==================================== */
-/* 12. Footer Section                     */
+/* 8. Footer Section                     */
 /* ==================================== */
 footer {
     background-color: var(--footer-bg); /* footer-bg */
@@ -875,7 +557,7 @@ footer {
 }
 
 /* ==================================== */
-/* 13. Floating Social Media Icons        */
+/* 9. Floating Social Media Icons        */
 /* ==================================== */
 .social-float-sidebar {
     position: fixed;
@@ -892,8 +574,8 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     color: white;
     font-size: 2.0em;
@@ -918,83 +600,71 @@ footer {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 /* ==================================== */
-/* 15. Testimonials Section (Khách hàng nói gì) */
-/* ==================================== */
-.testimonials-section {
-    /* common-padding và bg-light đã được áp dụng qua HTML */
-    padding-bottom: 100px; /* Thêm padding dưới để có khoảng trống */
-}
-
-.testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.testimonial-card {
-    background-color: var(--support-card-bg); /* Hoặc màu trắng #FFFFFF */
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: var(--card-shadow);
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid var(--border-color-light); /* Viền như các card khác */
-}
-
-.testimonial-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--card-hover-shadow);
-}
-
-.testimonial-card p {
-    font-size: 1.1em;
-    font-style: italic;
-    color: #555;
-    margin-bottom: 20px;
-    line-height: 1.6;
-}
-
-.testimonial-card h4 {
-    font-size: 1.3em;
-    color: var(--primary-color);
-    margin-bottom: 5px;
-}
-
-.testimonial-card span {
-    font-size: 0.9em;
-    color: #888;
-    font-weight: 500;
-}
-
-/* ==================================== */
-/* 16. Responsive Adjustments             */
+/* 11. Responsive Adjustments             */
 /* ==================================== */
 @media (max-width: 992px) {
     .fixed-navbar {
         padding: 10px 25px;
     }
-    .fixed-navbar .main-menu { /* Đảm bảo selector cụ thể */
+    .fixed-navbar .main-menu {
         display: none; /* Ẩn menu chính trên mobile/tablet */
     }
-    .fixed-navbar .user-actions { /* Đảm bảo selector cụ thể */
+    .fixed-navbar .user-actions {
         gap: 15px; /* Điều chỉnh gap cho màn hình nhỏ */
     }
-
     .hero-section {
-        height: 400px;
+        height: 300px; /* Nhỏ hơn trên mobile */
     }
     .hero-content .hero-title {
-        font-size: 3em;
+        font-size: 2.5em;
     }
     .hero-content .hero-subtitle {
-        font-size: 1.2em;
+        font-size: 1.1em;
     }
 
-    .support-grid {
-        grid-template-columns: 1fr;
+    /* Responsive for Policy Content */
+    .policy-content {
+        flex-direction: column;
+        gap: 30px;
+        padding-top: 30px;
+        padding-bottom: 60px;
     }
+    .policy-menu {
+        position: static; /* Bỏ sticky trên mobile */
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 15px;
+        text-align: center;
+    }
+    .policy-menu ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    .policy-menu-item {
+        border-left: none;
+        border-bottom: 3px solid transparent; /* Dùng border dưới */
+        padding: 10px 15px;
+        font-size: 1em;
+    }
+    .policy-menu-item.active {
+        border-bottom-color: var(--accent-color);
+        border-left-color: transparent; /* Bỏ border trái */
+    }
+    .policy-menu-item:hover {
+        transform: none; /* Bỏ hiệu ứng translateX trên mobile */
+    }
+    .policy-main-content {
+        padding: 30px;
+    }
+    .policy-main-content h2 {
+        font-size: 1.8em;
+    }
+    .policy-main-content h3 {
+        font-size: 1.3em;
+    }
+
 
     .footer-container {
         flex-direction: column;
@@ -1020,30 +690,6 @@ footer {
         margin: 0 10px;
     }
 
-    .overlay-close-btn {
-        font-size: 50px;
-        top: 20px;
-        right: 30px;
-    }
-    .overlay-content {
-        width: 90%;
-        top: 10%;
-    }
-    .overlay-search-box input {
-        padding: 15px 20px;
-        font-size: 1em;
-    }
-    .overlay-search-box button {
-        padding: 15px 18px;
-        font-size: 1.4em;
-    }
-    .overlay-support-links h3 {
-        font-size: 1.6em;
-    }
-    .overlay-support-links ul li a {
-        font-size: 1.1em;
-    }
-
     /* Điều chỉnh cho Floating Social Media Icons trên màn hình trung bình */
     .social-float-sidebar {
         left: 10px;
@@ -1054,10 +700,24 @@ footer {
         height: 40px;
         font-size: 1.8em;
     }
+}
 
-    /* Responsive Adjustments for Testimonials on smaller screens */
-    .testimonials-grid {
-        grid-template-columns: 1fr; /* Stack cards on smaller screens */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2.2em;
+        margin-bottom: 40px;
+    }
+    .hero-content .hero-title {
+        font-size: 2em;
+    }
+    .hero-content .hero-subtitle {
+        font-size: 1em;
+    }
+    .policy-main-content h2 {
+        font-size: 1.6em;
+    }
+    .policy-main-content h3 {
+        font-size: 1.2em;
     }
 }
 
@@ -1076,13 +736,13 @@ footer {
         font-size: 25px;
     }
     .hero-section {
-        height: 300px;
+        height: 250px;
     }
     .hero-content .hero-title {
-        font-size: 2em;
+        font-size: 1.8em;
     }
     .hero-content .hero-subtitle {
-        font-size: 1em;
+        font-size: 0.9em;
     }
     .section-title {
         font-size: 1.8em;
@@ -1091,17 +751,6 @@ footer {
     .section-title::after {
         width: 60px;
         height: 3px;
-    }
-    .info-contact-card {
-        padding: 20px;
-    }
-    .info-contact-card .icon-circle {
-        width: 50px;
-        height: 50px;
-        font-size: 25px;
-    }
-    .info-contact-card h3 {
-        font-size: 1.2em;
     }
     .footer {
         padding: 50px 3% 30px 3%;
@@ -1113,15 +762,17 @@ footer {
         font-size: 1.2em;
         margin-bottom: 10px;
     }
-
-    /* Điều chỉnh cho Floating Social Media Icons trên màn hình nhỏ */
-    .social-float-sidebar {
-        left: 5px;
+    .policy-main-content {
+        padding: 20px;
     }
-    .social-float-sidebar .social-icon {
-        width: 35px;
-        height: 35px;
-        font-size: 1.6em;
+    .policy-main-content h2 {
+        font-size: 1.4em;
     }
-
+    .policy-main-content h3 {
+        font-size: 1.1em;
+    }
+    .policy-menu-item {
+        font-size: 0.9em;
+        padding: 6px 10px;
+    }
 }
