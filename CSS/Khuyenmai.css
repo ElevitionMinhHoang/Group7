@@ -1,23 +1,10 @@
 /* --- NỘI DUNG CỦA FILE style.css --- */
 
 :root {
-    --primary-color: #E67E22; /* Màu cam đậm hơn, nổi bật hơn */
-    --secondary-color: #F39C12; /* Màu cam vàng */
-    --accent-color: #FFD700; /* Vàng kim loại cho các điểm nhấn */
-    --text-dark: #2C3E50; /* Màu chữ tối cho nội dung chính */
-    --text-light: #ECF0F1; /* Màu chữ sáng cho nền tối */
-    --bg-light: #F4F6F7; /* Nền sáng nhẹ */
-    --bg-dark-overlay: rgba(0, 0, 0, 0.7); /* Lớp phủ cho ảnh nền */
-    --footer-bg: #34495E; /* Màu xanh than đậm cho footer */
-    --footer-text-color: #ECF0F1; /* Màu chữ sáng cho footer */
-    --footer-link-color: #FFD700; /* Vàng kim loại cho link footer */
-    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    --card-hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    --border-color-light: #D5DBDB; /* Border nhẹ */
-    --support-card-bg: #FFFFFF; /* Nền cho thẻ hỗ trợ */
-    --support-card-hover-bg: #EAECEE; /* Nền hover cho thẻ hỗ trợ */
-    --icon-circle-bg: var(--primary-color);
-    --icon-circle-hover-bg: var(--secondary-color);
+    --footer-bg: rgb(230, 126, 34);
+    --footer-text-color: white;
+    --footer-heading-color: #FFD700; /* Màu vàng gold cho tiêu đề */
+    --footer-link-hover-color: #f0f0f0; 
 }
 
 *{
@@ -302,43 +289,41 @@ h1 {
     100% { left: 125%; }
 }
 
-/* Phân trang */
+/* ================================================= */
+/* === THAY THẾ TOÀN BỘ ĐOẠN CSS PHÂN TRANG CŨ BẰNG ĐOẠN NÀY === */
+/* ================================================= */
+
+/* Phân trang - ĐÃ SỬA LỖI */
 .pagination {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    /* Đã xóa: position: fixed, bottom, left, transform, z-index, opacity, visibility */
+
+    /* Thêm các thuộc tính sau để nó trở thành một khối bình thường */
+    display: flex;
+    justify-content: center; /* Căn giữa các mục bên trong */
+    align-items: center;
+    margin: 4px auto; /* Tự động căn giữa khối và tạo khoảng cách trên/dưới */
+    
+    /* Giữ lại các style về giao diện */
     background: #fff6f0;
     border: 1px solid #cc3300;
     border-radius: 30px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     color: #cc3300;
-    display: flex;
-    align-items: center;
     gap: 12px;
-    padding: 4px 12px;
+    padding: 8px 16px; /* Tăng padding cho đẹp hơn */
     font-size: 14px;
-    z-index: 100;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease;
+    width: fit-content; /* Chiều rộng vừa đủ với nội dung bên trong */
 }
-.pagination.visible {
-    opacity: 1;
-    visibility: visible;
-}
-.Khuyen_mai_page1.active {
-    background: #cc3300;
-    color: #fff6f0;
-    font-weight: 700;
-    animation: jump 0.3s ease;
-}
+
 .Khuyen_mai_page2.active {
     background: #cc3300;
     color: #fff6f0;
     font-weight: 700;
     animation: jump 0.3s ease;
 }
+
+/* Các nút số trang */
+
 .Khuyen_mai_page1, .Khuyen_mai_page2 {
     font-family: Arial, sans-serif;
     width: 30px;
@@ -348,23 +333,44 @@ h1 {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: opacity 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+/* Nút được chọn */
+.Khuyen_mai_page1.active, .Khuyen_mai_page2.active {
+    background: #cc3300;
+    color: #fff6f0;
+    font-weight: 700;
+    animation: jump 0.3s ease;
+}
+
+/* Nút prev/next */
 .button {
     padding: 4px 8px;
     font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
-    transition: opacity 0.3s ease;
-}
-.Khuyen_mai_page1:hover, .Khuyen_mai_page2:hover,
-.button:hover{
-    opacity: 0.8;
-}
-@keyframes jump{
-    from {transform: translateY(10px);}
-    to {transform: translateY(0);}
+    transition: color 0.3s ease;
 }
 
+/* Hiệu ứng khi di chuột */
+.Khuyen_mai_page1:not(.active):hover, 
+.Khuyen_mai_page2:not(.active):hover {
+    background-color: #ffe8d6;
+}
+
+.button:hover {
+    color: #ff6600;
+}
+
+/* Animation nhảy lên */
+@keyframes jump {
+    from { transform: translateY(5px); opacity: 0.5; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Xóa bỏ class không cần thiết nữa */
+/* .pagination.visible đã được xóa bỏ vì không còn dùng opacity */
 /* --- Footer --- */
 footer {
     background-color: #E67E22;

@@ -1,24 +1,4 @@
-/* --- NỘI DUNG CỦA FILE style.css --- */
 
-:root {
-    --primary-color: #E67E22;
-    --secondary-color: #F39C12;
-    --accent-color: #FFD700;
-    --text-dark: #2C3E50;
-    --text-light: #ECF0F1;
-    --bg-light: #F4F6F7;
-    --bg-dark-overlay: rgba(0, 0, 0, 0.7);
-    --footer-bg: #34495E;
-    --footer-text-color: #ECF0F1;
-    --footer-link-color: #FFD700;
-    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    --card-hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    --border-color-light: #D5DBDB;
-    --support-card-bg: #FFFFFF;
-    --support-card-hover-bg: #EAECEE;
-    --icon-circle-bg: var(--primary-color);
-    --icon-circle-hover-bg: var(--secondary-color);
-}
 
 *{
     margin: 0;
@@ -412,13 +392,20 @@ body {
 }
 
 /* --- Footer --- */
+:root {
+    --footer-bg: rgb(230, 126, 34);
+    --footer-text-color: white;
+    --footer-heading-color: #FFD700; /* Màu vàng gold cho tiêu đề */
+    --footer-link-hover-color: #f0f0f0; 
+}
+
+/* --- Footer --- */
 footer {
-    background-color: #34495E;
+    background-color: #E67E22;
     color: #ECF0F1;
     padding: 60px 5%;
     font-size: 0.95em;
 }
-
 .footer-container {
     display: flex;
     flex-wrap: wrap;
@@ -427,39 +414,32 @@ footer {
     max-width: 1200px;
     margin: 0 auto;
 }
-
 .footer-column {
     flex: 1;
     min-width: 250px;
 }
-
 .footer-brand .footer-logo-link {
     display: block;
     margin-bottom: 15px;
 }
-
 .footer-brand .footer-logo-image {
     height: 80px;
     filter: brightness(1.5);
 }
-
 .footer-brand p {
     margin-bottom: 20px;
     line-height: 1.8;
 }
-
 .social-icons a {
     font-size: 28px;
     margin-right: 15px;
     transition: color 0.3s ease, transform 0.3s ease;
     color: #FFD700;
 }
-
 .social-icons .bx.bxl-facebook-circle { color: #1877F2; }
 .social-icons .bx.bxl-instagram-alt { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
 .social-icons .bx.bxl-tiktok { color: #000; text-shadow: 2px 2px 0px #25F4EE, -2px -2px 0px #FE2C55; }
 .social-icons a:hover { transform: translateY(-3px); }
-
 .footer-column h4 {
     font-size: 1.3em;
     margin-bottom: 25px;
@@ -467,7 +447,6 @@ footer {
     position: relative;
     padding-bottom: 10px;
 }
-
 .footer-column h4::after {
     content: '';
     position: absolute;
@@ -477,46 +456,35 @@ footer {
     height: 2px;
     background-color: #FFD700;
 }
-
 .footer-column ul li {
     margin-bottom: 10px;
     list-style: none;
     padding: 0;
 }
-
 .footer-column ul li a {
     color: #ECF0F1;
     text-decoration: none;
     transition: color 0.3s ease;
 }
-
 .footer-column ul li a:hover {
     color: #FFD700;
 }
-
 .footer-contact p {
     margin-bottom: 10px;
     display: flex;
     align-items: center;
 }
-
 .footer-contact p i {
     margin-right: 10px;
     color: #FFD700;
     font-size: 20px;
 }
-
 .footer-bottom {
     text-align: center;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     padding-top: 25px;
     margin-top: 40px;
 }
-
-.spacer-after-header {
-    height: 90px;
-}
-
 .spacer-before-footer {
     height: 60px;
 }

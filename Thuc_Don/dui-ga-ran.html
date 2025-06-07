@@ -11,21 +11,28 @@
 <body>
   <header>
         <nav class="fixed-navbar" id="mainNavbar">
-            <div class="logo-container">
-                <a href="../index.html" class="logo-link"> <img src="../mfc.jpg" alt="Logo Gà Rán HOÀNG" class="logo-image" id="navbarLogo"> </a>
-            </div>
-            <div class="main-menu">
-                <a href="../index.html" class="nav-link">Trang chủ</a>
-                 <a href="ThucDon.html" class="nav-link active">Thực đơn</a> 
-                 <a href="../Khuyen_mai_MFC/Khuyen_mai_page1.html" class="nav-link">Khuyến mãi</a> <a href="../tranglienhe.html" class="nav-link">Liên hệ</a> </div>
-            <div class="user-actions">
-                <a href="../giohang.html" class="nav-action-icon" aria-label="Giỏ hàng"> <i class='bx bxs-cart'></i>
-                    <span class="cart-item-count">0</span>
-                </a>
-                <a href="../tendangnhap.html" class="nav-action-icon" aria-label="Tài khoản"> <i class='bx bxs-user-circle'></i>
-                </a>
-            </div>
-  </header>
+    <div class="logo-container">
+        <a href="../Trang_chu/index.html" class="logo-link">
+            <img src="../images/mfc.png" alt="Logo Gà Rán HOÀNG" class="logo-image" id="navbarLogo">
+        </a>
+    </div>
+    <div class="main-menu">
+        <a href="../Trang_chu/index.html" class="nav-link">Trang chủ</a>
+        <a href="thuc_don1.html" class="nav-link">Thực đơn</a>
+        <a href="../Khuyen_mai_MFC/Khuyen_mai_page1.html" class="nav-link">Khuyến mãi</a>
+        <a href="../Lien_He/tranglienhe.html" class="nav-link">Liên hệ</a>
+    </div>
+    <div class="user-actions">
+        <a href="../Gio_hang_MFC/Gio_hang.html" class="nav-action-icon" aria-label="Giỏ hàng">
+            <i class='bx bxs-cart'></i>
+            <span class="cart-item-count">0</span>
+        </a>
+        <a href="../Trang_chu/tendangnhap.html" class= "nav-action-icon" aria-label="Tài khoản">
+            <i class='bx bxs-user-circle'></i>
+        </a>
+    </div>
+</nav>
+    </header>
   
 
 
@@ -34,24 +41,67 @@
       <img src="../images/DuiGaRan.jpg" alt="Đùi gà rán">
     </div>
     <div class="food-details">
-      <div>
+    <div>
         <h2>ĐÙI GÀ RÁN</h2>
+        <p class="description-text">Đùi gà chiên giòn rụm với lớp vỏ ngoài vàng óng và thịt bên trong mềm mọng, đậm đà</p>
 
         <label for="quantity">Số lượng:</label>
         <div class="quantity-selector">
-          <button onclick="updateQuantity(-1)">−</button>
-          <input type="text" id="quantity" value="1" oninput="validateQuantity()" />
-          <button onclick="updateQuantity(1)">+</button>
+            <button onclick="updateQuantity(-1)">−</button>
+            <input type="text" id="quantity" value="1" oninput="validateQuantity()" />
+            <button onclick="updateQuantity(1)">+</button>
         </div>
 
         <div class="price" id="total-price">Tổng giá: 35.000đ</div>
-      </div>
-      <button class="order-button" onclick="confirmOrder()">Đặt hàng ngay</button>
     </div>
+    
+    <a href="../Gio_hang_MFC/Gio_hang.html" class="order-button">ĐẶT HÀNG NGAY</a>
+</div>
   </div>
-
+  <footer>
+    <div class="footer-container">
+        <div class="footer-column footer-brand">
+            <a href="index.html" class="footer-logo-link">
+                <img src="../images/mfc.png" alt="MFC Logo" class="footer-logo-image">
+            </a>
+            <p>MR. Fried Chicken - Mang hương vị giòn tan đến mọi nhà.</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=61566414457049" target="_blank" aria-label="Facebook"><i class='bx bxl-facebook-circle'></i></a>
+                <a href="https://www.instagram.com/letseat_mfc/" target="_blank" aria-label="Instagram"><i class='bx bxl-instagram-alt'></i></a>
+                <a href="https://www.tiktok.com/@minhvietnamlife?_t=ZS-8wvAdZFRz6n&_r=1&fbclid=IwY2xjawKtEA5leHRuA2FlbQIxMABicmlkETFWQlFZNEt2V0lZSXhGaU1IAR408AEmPKNuLRGdHqOvdfne-4nK3JuttGhx_w2mSgebpGJkUKvp8C5Oz7lvsQ_aem_dKedZ3WDN0r44wKVVGS0Qw" target="_blank" aria-label="TikTok"><i class='bx bxl-tiktok'></i></a>
+            </div>
+        </div>
+        <div class="footer-column footer-links">
+            <h4>Thông tin</h4>
+            <ul>
+                <li><a href="../Trang_chu/index.html">Trang chủ</a></li>
+                <li><a href="../Thuc_Don/ThucDon.html">Thực đơn</a></li><li>
+                  <a href="../Khuyen_mai_MFC/Khuyen_mai_page1.html">Khuyến mãi</a></li>
+                <li><a href="../Lien_He/tranglienhe.html">Liên hệ </a></li>
+        </div>
+        <div class="footer-column footer-policy">
+            <h4>Chính sách</h4>
+            <ul>
+                <li><a href="../Chinh_sach/Chinhsachvaquydinhchung.html">Chính sách & Quy định chung</a></li>
+                <li><a href="../Chinh_sach/Chinhsachbaomat.html">Chính sách bảo mật thông tin</a></li>
+                <li><a href="../Chinh_sach/Chinhsachgiaohang.html">Chính sách giao hàng</a></li>
+                <li><a href="../Chinh_sach/Trangchinhsachdoitravahoantien.html">Chính sách đổi trả & hoàn tiền</a></li>
+            </ul>
+        </div>
+        <div class="footer-column footer-contact">
+            <h4>Thông tin liên hệ</h4>
+            <p><i class='bx bxs-map'></i> 112 P. Chùa Bộc, Quang Trung, Đống Đa, Hà Nội</p>
+            <p><i class='bx bxs-phone'></i> <a href="tel:0975459348">0975459348</a></p>
+            <p><i class='bx bxs-envelope'></i> <a href="mailto:support@mfc.com">support@mfc.com</a></p>
+            <p class="opening-hours"><i class='bx bxs-time-five'></i> Giờ mở cửa: 09:00 - 22:00</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 MR. Fried Chicken. All rights reserved.</p>
+    </div>
+  </footer>
   <script>
-    const unitPrice = 35000;
+const unitPrice = 35000;
 
     function updateQuantity(change) {
       const input = document.getElementById('quantity');
@@ -101,14 +151,60 @@
         `Tổng giá: ${total.toLocaleString('vi-VN')}đ`;
     }
 
-    function confirmOrder() {
-      const quantity = document.getElementById('quantity').value;
-      const total = quantity * unitPrice;
-      alert(`🧾 Bạn đã đặt ${quantity} phần gà rán.\n💰 Tổng tiền: ${total.toLocaleString('vi-VN')}đ`);
+    // Đảm bảo rằng script chỉ chạy sau khi toàn bộ trang HTML đã được tải xong.
+document.addEventListener('DOMContentLoaded', function() {
+
+    // 1. Lấy các phần tử HTML cần thiết
+    const nav = document.getElementById('mainNavbar');
+    const navLogo = document.getElementById('navbarLogo');
+    const pageContentWrapper = document.querySelector('.page-content-wrapper');
+
+    // 2. Lưu lại các giá trị ban đầu của thanh điều hướng và logo
+    let initialNavPaddingTopBottom = 10;
+    let initialNavPaddingLeftRight = 40;
+    let initialLogoHeight = navLogo.offsetHeight; // Lấy chiều cao thực tế của logo
+
+    // 3. Hàm điều chỉnh khoảng đệm cho nội dung chính
+    // Mục đích: ngăn nội dung trang không bị thanh điều hướng che mất.
+    function adjustPageContentPadding() {
+        if (nav && pageContentWrapper) {
+            pageContentWrapper.style.paddingTop = nav.offsetHeight + 'px';
+        }
     }
 
-    window.onload = updateTotalPrice;
-  </script>
+    // Gọi hàm này ngay khi tải trang để đặt khoảng đệm ban đầu
+    adjustPageContentPadding();
+    // Và gọi lại mỗi khi cửa sổ trình duyệt thay đổi kích thước
+    window.addEventListener('resize', adjustPageContentPadding);
+
+    // 4. Lắng nghe sự kiện cuộn trang
+    window.addEventListener('scroll', function() {
+        // Nếu không tìm thấy thanh điều hướng hoặc logo thì dừng lại
+        if (!nav || !navLogo) return;
+
+        // Kiểm tra xem người dùng đã cuộn xuống hơn 50 pixels chưa
+        if (window.scrollY > 50) {
+            // TRẠNG THÁI KHI CUỘN XUỐNG
+            nav.style.backgroundColor = 'rgba(255, 165, 0, 0.9)'; // Nền trong suốt hơn
+            nav.style.padding = `5px ${initialNavPaddingLeftRight}px`; // Giảm đệm trên-dưới
+            navLogo.style.height = (initialLogoHeight * 0.8) + 'px'; // Thu nhỏ logo 20%
+        } 
+        else {
+            // TRẠNG THÁI KHI Ở TRÊN CÙNG
+            nav.style.backgroundColor = 'orange'; // Trở về màu nền ban đầu
+            nav.style.padding = `${initialNavPaddingTopBottom}px ${initialNavPaddingLeftRight}px`; // Trở về đệm ban đầu
+            navLogo.style.height = initialLogoHeight + 'px'; // Trở về chiều cao logo ban đầu
+        }
+        
+        // Cập nhật lại khoảng đệm cho nội dung sau mỗi lần thay đổi style
+        adjustPageContentPadding(); 
+    });
+
+});
+</script>
+     
+</body>
+</html>
 
 </body>
 </html>
