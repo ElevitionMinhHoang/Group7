@@ -2,17 +2,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const navbar = document.getElementById('mainNavbar');
     const navbarLogo = document.getElementById('navbarLogo');
     const pageContainer = document.querySelector('.page-container');
-
     const hamburgerMenu = document.getElementById('hamburgerMenu');
     const mobileMenu = document.getElementById('mobileMenu');
-
     const fullScreenSearchOverlay = document.getElementById('fullScreenSearchOverlay');
     const overlayCloseBtn = document.getElementById('overlayCloseBtn');
     const overlaySearchInput = document.getElementById('overlaySearchInput');
-
     let defaultPaddingTopBottom = 15;
     let defaultLogoHeight = 70;
-
     if (navbar) {
         const computedStyle = window.getComputedStyle(navbar);
         const paddingValues = computedStyle.padding.split(" ");
@@ -25,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (navbarLogo) {
         defaultLogoHeight = navbarLogo.offsetHeight || 70;
     }
-
     function adjustPagePadding() {
         if (navbar) {
             if (pageContainer) {
@@ -36,13 +31,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     adjustPagePadding();
-
     window.addEventListener('scroll', function() {
         if (!navbar || !navbarLogo) return;
-
         const currentNavbarStyle = window.getComputedStyle(navbar);
         let currentPaddingLeftRight = parseFloat(currentNavbarStyle.padding.split(" ")[1] || currentNavbarStyle.padding.split(" ")[0]);
-
         if (window.scrollY > 50) {
             navbar.style.padding = `${defaultPaddingTopBottom - 5}px ${currentPaddingLeftRight}px`;
             navbar.style.boxShadow = '0 3px 15px rgba(0, 0, 0, 0.1)';
@@ -54,7 +46,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         adjustPagePadding();
     });
-
     if (hamburgerMenu && mobileMenu) {
         hamburgerMenu.addEventListener('click', function() {
             mobileMenu.classList.toggle('active');
@@ -64,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.style.overflow = '';
             }
         });
-
         document.addEventListener('click', function(event) {
             if (!mobileMenu.contains(event.target) && !hamburgerMenu.contains(event.target) && mobileMenu.classList.contains('active')) {
                 mobileMenu.classList.remove('active');
@@ -78,47 +68,39 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-
     if (fullScreenSearchOverlay && overlayCloseBtn) {
         overlayCloseBtn.addEventListener('click', function() {
             fullScreenSearchOverlay.classList.remove('active');
             document.body.style.overflow = '';
             overlaySearchInput.value = '';
-            performSearch(); // Perform search to reset filtered items
+            performSearch();
         });
-
         fullScreenSearchOverlay.addEventListener('click', function(event) {
             if (event.target === fullScreenSearchOverlay) {
                 fullScreenSearchOverlay.classList.remove('active');
                 document.body.style.overflow = '';
                 overlaySearchInput.value = '';
-                performSearch(); // Perform search to reset filtered items
+                performSearch();
             }
         });
     }
-
-    // Intersection Observer for scroll-reveal sections
     const scrollRevealSections = document.querySelectorAll('.scroll-reveal');
     const observerOptions = {
-        root: null, // viewport
+        root: null,
         rootMargin: '0px',
-        threshold: 0.1 // Trigger when 10% of the element is visible
+        threshold: 0.1
     };
-
     const sectionObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('revealed');
-                observer.unobserve(entry.target); // Stop observing once revealed
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
-
     scrollRevealSections.forEach(section => {
         sectionObserver.observe(section);
     });
-
-    // Specific Map fade-in
     const mapContainer = document.getElementById('mapContainer');
     if (mapContainer) {
         const mapObserver = new IntersectionObserver(entries => {
@@ -129,49 +111,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }, { threshold: 0.1 });
-
         mapObserver.observe(mapContainer);
     }
-
     const feedbackForm = document.getElementById('feedbackForm');
     if (feedbackForm) {
         feedbackForm.addEventListener('submit', function(event) {
             event.preventDefault();
-
             const nameInput = document.getElementById('name');
             const emailInput = document.getElementById('email');
             const phoneInput = document.getElementById('phone');
             const subjectInput = document.getElementById('subject');
             const messageInput = document.getElementById('message');
-
             let allValid = true;
             let errorMessages = [];
-
             function validateField(inputElement, errorMessage) {
                 let currentErrorMessage = null;
-                // First, check basic HTML5 validity (required, pattern etc.)
                 if (!inputElement.value.trim()) {
                     currentErrorMessage = errorMessage;
                 } else if (inputElement.checkValidity && !inputElement.checkValidity()) {
                     currentErrorMessage = inputElement.title || 'Giá trị không hợp lệ.';
                 }
-
-                // Specific validation for email and phone for better correctness
                 if (inputElement.id === 'email') {
-                    // A more robust email regex
                     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                     if (!emailRegex.test(inputElement.value.trim())) {
                         currentErrorMessage = 'Vui lòng nhập địa chỉ email hợp lệ (ví dụ: email@example.com).';
                     }
                 } else if (inputElement.id === 'phone') {
-                    // Vietnamese phone number regex (10 digits, common mobile prefixes: 03, 05, 07, 08, 09)
-                    // Allows numbers like 0912345678 or 84912345678
                     const phoneRegex = /^(0|84)(3|5|7|8|9)\d{8}$/;
                     if (!phoneRegex.test(inputElement.value.trim())) {
                         currentErrorMessage = 'Vui lòng nhập số điện thoại hợp lệ (ví dụ: 0912345678 hoặc 84912345678).';
                     }
                 }
-
                 if (currentErrorMessage) {
                     inputElement.classList.add('invalid-input');
                     return currentErrorMessage;
@@ -180,28 +150,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     return null;
                 }
             }
-
-
             let error;
-
             error = validateField(nameInput, 'Vui lòng nhập tên của bạn.');
             if (error) { allValid = false; errorMessages.push(error); }
-
-            error = validateField(emailInput, 'Vui lòng nhập địa chỉ email hợp lệ.'); // This message will be overridden by custom one if regex fails
+            error = validateField(emailInput, 'Vui lòng nhập địa chỉ email hợp lệ.');
             if (error) { allValid = false; errorMessages.push(error); }
-
-            error = validateField(phoneInput, 'Vui lòng nhập số điện thoại hợp lệ (10 hoặc 11 chữ số).'); // This message will be overridden by custom one if regex fails
+            error = validateField(phoneInput, 'Vui lòng nhập số điện thoại hợp lệ (10 hoặc 11 chữ số).');
             if (error) { allValid = false; errorMessages.push(error); }
-
             error = validateField(subjectInput, 'Vui lòng nhập chủ đề.');
             if (error) { allValid = false; errorMessages.push(error); }
-
             error = validateField(messageInput, 'Vui lòng nhập nội dung phản hồi.');
             if (error) { allValid = false; errorMessages.push(error); }
-
-
             if (!allValid) {
-                // Using a custom alert function or modal instead of window.alert
                 showCustomAlert('Vui lòng sửa các lỗi sau để gửi phản hồi:\n' + errorMessages.join('\n'));
             } else {
                 showCustomAlert('Form đã được gửi thành công! Cảm ơn phản hồi của bạn.');
@@ -216,12 +176,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-
-    // Custom Alert/Modal for form feedback
     function showCustomAlert(message) {
         let customAlert = document.getElementById('customAlert');
         let customAlertMessage = document.getElementById('customAlertMessage');
-
         if (!customAlert) {
             customAlert = document.createElement('div');
             customAlert.id = 'customAlert';
@@ -260,17 +217,13 @@ document.addEventListener('DOMContentLoaded', function() {
             customAlert.appendChild(okButton);
             document.body.appendChild(customAlert);
         }
-
         customAlertMessage.textContent = message;
         customAlert.style.display = 'block';
     }
-
-
     document.querySelectorAll('.scroll-to-element, .overlay-nav-link').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
             const dataScrollTo = this.getAttribute('data-scroll-to');
-
             if (dataScrollTo) {
                 e.preventDefault();
                 const targetElement = document.querySelector(dataScrollTo);
@@ -285,7 +238,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
                 const targetId = href.substring(1);
                 const targetElement = document.getElementById(targetId);
-
                 if (targetElement) {
                     const offset = navbar ? navbar.offsetHeight + 20 : 0;
                     window.scrollTo({
@@ -294,7 +246,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 }
             }
-
             if (fullScreenSearchOverlay.classList.contains('active')) {
                 fullScreenSearchOverlay.classList.remove('active');
                 document.body.style.overflow = '';
@@ -302,76 +253,60 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
-    const faqQuestions = document.querySelectorAll('.faq-question');
-    faqQuestions.forEach(question => {
-        question.addEventListener('click', () => {
-            const answer = question.nextElementSibling; // Get the .faq-answer element
-
-            // Close other open FAQ items
-            faqQuestions.forEach(otherQuestion => {
-                const otherAnswer = otherQuestion.nextElementSibling;
-                if (otherQuestion !== question && otherQuestion.classList.contains('active')) {
-                    otherQuestion.classList.remove('active');
-                    otherAnswer.style.maxHeight = '0'; // Collapse other answers smoothly
-                    otherAnswer.classList.remove('active'); // Remove active class from other answers
-                }
-            });
-
-            // Toggle active class for the clicked question
-            question.classList.toggle('active');
-
-            // Expand or collapse the clicked answer
-            if (answer.classList.contains('active')) {
-                // If currently active, collapse it
-                answer.style.maxHeight = '0';
-                answer.classList.remove('active');
-            } else {
-                // If not active, expand it
-                answer.classList.add('active'); // Add active class to apply padding and style
-                // Force a reflow to ensure browser has applied the new padding and calculated correct scrollHeight
-                // This is crucial for accurate scrollHeight calculation when padding changes
-                answer.offsetHeight; // This line forces the browser to re-calculate layout
-
-                // Calculate the actual height of the content (including applied padding)
-                answer.style.maxHeight = answer.scrollHeight + 'px';
-
-                // Check if the clicked question is out of view before scrolling
-                const questionRect = question.getBoundingClientRect();
-                const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-
-                // Define a threshold for "out of view" to avoid unnecessary scrolling
-                const scrollThreshold = 20; // Scroll if element is within 20px of top/bottom edge
-
-                const isQuestionTooHigh = questionRect.top < 0 + scrollThreshold;
-                const isQuestionTooLow = questionRect.bottom > viewportHeight - scrollThreshold;
-                const isAnswerTooLow = questionRect.bottom + answer.scrollHeight > viewportHeight - scrollThreshold;
-
-
-                if (isQuestionTooHigh || isQuestionTooLow || isAnswerTooLow) {
-                    setTimeout(() => {
-                        const offset = navbar ? navbar.offsetHeight + 20 : 0; // Add navbar height + some margin
-                        window.scrollTo({
-                            top: question.offsetTop - offset,
-                            behavior: 'smooth'
-                        });
-                    }, 400); // Match this delay to your CSS transition duration for max-height
-                }
+    // --- Đoạn mã đã được sửa lỗi ---
+const faqQuestions = document.querySelectorAll('.faq-question');
+faqQuestions.forEach(question => {
+    question.addEventListener('click', () => {
+        const answer = question.nextElementSibling;
+        
+        // Đóng các câu hỏi khác
+        faqQuestions.forEach(otherQuestion => {
+            const otherAnswer = otherQuestion.nextElementSibling;
+            if (otherQuestion !== question && otherQuestion.classList.contains('active')) {
+                otherQuestion.classList.remove('active');
+                otherAnswer.style.maxHeight = '0';
+                otherAnswer.classList.remove('active');
             }
         });
+
+        // Mở/đóng câu hỏi được nhấp vào
+        question.classList.toggle('active');
+        if (answer.classList.contains('active')) {
+            answer.style.maxHeight = '0';
+            answer.classList.remove('active');
+        } else {
+            answer.classList.add('active');
+            answer.offsetHeight; 
+            answer.style.maxHeight = answer.scrollHeight + 'px';
+
+            // Logic cuộn trang (ĐÃ SỬA LỖI TẠI ĐÂY)
+            const questionRect = question.getBoundingClientRect();
+            const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+            const isQuestionOutOfView = questionRect.bottom > viewportHeight || questionRect.top < 0;
+
+            // Chỉ cuộn khi câu hỏi nằm ngoài tầm nhìn
+            if (isQuestionOutOfView) {
+                setTimeout(() => {
+                    const offset = navbar ? navbar.offsetHeight + 20 : 0;
+                    // **SỬA LỖI TÍNH TOÁN VỊ TRÍ CUỘN**
+                    const topPosition = window.pageYOffset + question.getBoundingClientRect().top - offset;
+                    
+                    window.scrollTo({
+                        top: topPosition,
+                        behavior: 'smooth'
+                    });
+                }, 300); // Giảm thời gian chờ để cuộn nhanh hơn
+            }
+        }
     });
-
-
+});
     if (overlaySearchInput) {
         overlaySearchInput.addEventListener('input', performSearch);
     }
-
     function performSearch() {
         const searchTerm = overlaySearchInput.value.toLowerCase().trim();
-
         const infoCards = document.querySelectorAll('.support-info-section .info-contact-card');
         const faqItems = document.querySelectorAll('.faq-section .faq-item');
-
         infoCards.forEach(card => {
             const cardText = card.textContent.toLowerCase();
             if (cardText.includes(searchTerm)) {
@@ -380,50 +315,38 @@ document.addEventListener('DOMContentLoaded', function() {
                 card.style.display = 'none';
             }
         });
-
         faqItems.forEach(item => {
             const question = item.querySelector('.faq-question');
             const answer = item.querySelector('.faq-answer');
             const itemText = question.textContent.toLowerCase() + ' ' + answer.textContent.toLowerCase();
-
             if (itemText.includes(searchTerm)) {
                 item.style.display = 'block';
                 if (searchTerm !== '' && !answer.classList.contains('active')) {
-                    // When searching and item matches, ensure it's expanded
                     question.classList.add('active');
                     answer.classList.add('active');
-                    // Recalculate scrollHeight after padding is applied
-                    answer.offsetHeight; // Force reflow
+                    answer.offsetHeight;
                     answer.style.maxHeight = answer.scrollHeight + 'px';
                 } else if (searchTerm === '' && answer.classList.contains('active')) {
-                    // If search term is cleared, collapse open FAQs
                     question.classList.remove('active');
                     answer.classList.remove('active');
-                    answer.style.maxHeight = '0'; // Use '0' for smooth collapse
+                    answer.style.maxHeight = '0';
                 }
             } else {
                 item.style.display = 'none';
-                // If item does not match search term, ensure it's collapsed
                 question.classList.remove('active');
                 answer.classList.remove('active');
                 answer.style.maxHeight = '0';
             }
         });
     }
-
-
-    // Handle clicks on support info cards
     const infoContactCards = document.querySelectorAll('.info-contact-card');
     infoContactCards.forEach(card => {
         card.addEventListener('click', function(event) {
-            // Prevent default link behavior if an internal link is clicked inside the card
             if (event.target.tagName === 'A' || event.target.closest('a')) {
                 return;
             }
-
             const link = this.dataset.link;
             const scrollTo = this.dataset.scrollTo;
-
             if (link) {
                 window.location.href = link;
             } else if (scrollTo) {
@@ -438,6 +361,5 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
     window.addEventListener('resize', adjustPagePadding);
 });
