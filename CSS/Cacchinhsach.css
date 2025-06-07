@@ -39,9 +39,9 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     font-size: 16px;
-    display: flex; /* Added for footer push */
-    flex-direction: column; /* Added for footer push */
-    min-height: 100vh; /* Added for footer push */
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh;
 }
 
 a {
@@ -102,8 +102,6 @@ input, textarea, button, select {
     transform: none;
 }
 
-
-/* Buttons - Adopted from tranglienhe.html's styles */
 .btn {
     display: inline-block;
     padding: 12px 25px;
@@ -121,12 +119,12 @@ input, textarea, button, select {
 }
 
 .btn-primary:hover {
-    background-color: #D35400; /* Darker orange for hover */
+    background-color: #D35400; 
     border-color: #D35400;
     transform: translateY(-2px);
 }
 
-.btn-secondary { /* Assuming this is for contrast on dark backgrounds if needed */
+.btn-secondary { 
     background-color: transparent;
     color: var(--text-light);
     border: 2px solid var(--text-light);
@@ -264,61 +262,6 @@ input, textarea, button, select {
     transform: translateY(-3px) scale(1.15);
     color: white;
     filter: brightness(1.5) drop-shadow(0 0 7px rgba(255, 255, 255, 0.7));
-}
-
-/* Hamburger menu (for responsiveness) */
-.hamburger-menu {
-    display: none;
-    font-size: 28px; /* From tranglienhe.html styles */
-    cursor: pointer;
-    color: white; /* Match nav-link color */
-    margin-left: 15px;
-}
-
-/* Mobile menu (for responsiveness) */
-.mobile-menu {
-    position: fixed;
-    top: 90px; /* Adjust if navbar height changes, should match body padding-top */
-    right: -300px; /* Start off-screen */
-    width: 280px;
-    height: calc(100% - 90px); /* Full height minus navbar */
-    background-color: var(--primary-color);
-    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-    z-index: 999;
-    transition: right 0.3s ease;
-    padding: 20px;
-    overflow-y: auto;
-    display: none; /* Initially hidden, JS will toggle */
-}
-
-.mobile-menu.active {
-    right: 0; /* Slide in */
-    display: block;
-}
-
-.mobile-menu ul {
-    list-style: none;
-    padding: 0;
-}
-
-.mobile-menu ul li {
-    margin-bottom: 15px;
-}
-
-.mobile-menu ul li a {
-    display: block;
-    padding: 10px 15px;
-    color: var(--text-light);
-    font-size: 1.1em;
-    font-weight: 500;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.mobile-menu ul li a:hover,
-.mobile-menu ul li a.active-mobile-link { /* active-mobile-link from tranglienhe */
-    background-color: var(--secondary-color);
-    color: var(--text-light);
 }
 
 /* Full Screen Search and Navigation Overlay - Copied from tranglienhe.html styles */

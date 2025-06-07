@@ -256,11 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Scroll reveal cho Map Section và các phần tử có class scroll-reveal
     const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
 
-    const observerOptions = {
-        root: null, // viewport
-        rootMargin: '0px',
-        threshold: 0.1 // Khi 10% phần tử hiển thị trong viewport
-    };
+    
 
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -281,4 +277,78 @@ document.addEventListener('DOMContentLoaded', function() {
             element.classList.add('revealed');
         }
     });
+    // Bắt đầu từ đây
+
+// --- Lấy các phần tử HTML cần thiết ---
+const nav = document.getElementById('mainNavbar');
+const navLogo = document.getElementById('navbarLogo');
+const pageContentWrapper = document.querySelector('.page-content-wrapper');
+
+// --- Khởi tạo các giá trị ban đầu ---
+let initialNavPaddingTopBottom = 10; // Padding trên/dưới mặc định
+let initialNavPaddingLeftRight = 40; // Padding trái/phải mặc định
+let initialLogoHeight = 50; // Chiều cao logo mặc định
+
+// Lấy chiều cao thực tế của logo nếu tồn tại
+if (navLogo) {
+    initialLogoHeight = navLogo.offsetHeight || 50;
+}
+
+// Lấy giá trị padding thực tế của navbar nếu tồn tại
+if (nav) {
+    const computedStyle = window.getComputedStyle(nav);
+    const paddingValues = computedStyle.padding.split(" ");
+    if (paddingValues.length === 1) {
+        initialNavPaddingTopBottom = parseFloat(paddingValues[0]);
+    }
+    if (paddingValues.length >= 2) {
+        initialNavPaddingTopBottom = parseFloat(paddingValues[0]);
+        initialNavPaddingLeftRight = parseFloat(paddingValues[1]);
+    }
+}
+
+/**
+ * Điều chỉnh padding-top cho nội dung trang chính
+ * để tránh bị thanh điều hướng cố định che khuất.
+ */
+function adjustPageContentPadding() {
+    if (nav && pageContentWrapper) {
+        pageContentWrapper.style.paddingTop = nav.offsetHeight + 'px';
+    }
+}
+
+// Chạy hàm điều chỉnh padding khi tải trang và khi thay đổi kích thước cửa sổ
+adjustPageContentPadding();
+window.addEventListener('resize', adjustPageContentPadding);
+
+/**
+ * Xử lý sự kiện khi người dùng cuộn trang.
+ * Thay đổi kiểu dáng của thanh điều hướng khi cuộn xuống một khoảng cách nhất định.
+ */
+window.addEventListener('scroll', function() {
+    // Nếu không tìm thấy nav hoặc logo thì không làm gì cả
+    if (!nav || !navLogo) return;
+
+    // Khi cuộn trang xuống hơn 50px
+    if (window.scrollY > 50) {
+        // Trạng thái "đã cuộn"
+        nav.style.backgroundColor = 'rgba(255, 165, 0, 0.9)'; // Nền màu cam trong suốt
+        // SỬA LỖI 1: Đã sử dụng template literal (dấu `) để gán padding
+        nav.style.padding = `5px ${initialNavPaddingLeftRight}px`; 
+        // SỬA LỖI 2: Sửa lại phép tính và thêm dấu ngoặc đơn bị thiếu
+        navLogo.style.height = (initialLogoHeight * 0.8) + 'px'; // Giảm chiều cao logo còn 80%
+    } else {
+        // Trạng thái "ở đầu trang"
+        nav.style.backgroundColor = 'orange'; // Nền màu cam đặc
+        // SỬA LỖI 1: Đã sử dụng template literal (dấu `)
+        nav.style.padding = `${initialNavPaddingTopBottom}px ${initialNavPaddingLeftRight}px`;
+        navLogo.style.height = initialLogoHeight + 'px'; // Trả lại chiều cao ban đầu
+    }
+    
+    // Cập nhật lại padding của nội dung mỗi khi thanh điều hướng thay đổi kích thước
+    adjustPageContentPadding(); 
+});
+
+// Kết thúc ở đây
+
 });
