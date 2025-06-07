@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         adjustPageContentPadding(); 
     });
+    
 
     // Hero Carousel Logic
     if (heroCarouselElement) {
