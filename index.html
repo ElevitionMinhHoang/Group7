@@ -97,50 +97,74 @@
     transform: scale(1);
 }
 
-/* --- CSS MỚI CHO USER ACTIONS (GIỎ HÀNG & TÀI KHOẢN) --- */
+/* --- CSS CHO USER ACTIONS (ĐÃ NÂNG CẤP ICON GIỎ HÀNG) --- */
 .fixed-navbar .user-actions {
     display: flex;
     align-items: center;
-    gap: 30px; /* Tăng khoảng cách giữa các icon */
+    gap: 30px;
     flex-shrink: 0;
 }
 
 .fixed-navbar .nav-action-icon {
     color: white;
-    font-size: 30px; /* Tăng kích thước icon */
+    font-size: 30px;
     text-decoration: none;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px; /* Tăng vùng click cho icon */
+    padding: 8px;
     border-radius: 50%;
     transition: transform 0.2s ease-out, color 0.2s ease-out, filter 0.2s ease-out;
     z-index: 1;
 }
 
 .fixed-navbar .nav-action-icon:hover {
-    transform: translateY(-3px) scale(1.15); /* Tăng nhẹ hiệu ứng phóng to */
+    transform: translateY(-3px) scale(1.1); /* Giữ lại hiệu ứng hover nhẹ nhàng */
     color: white;
-    filter: brightness(1.5) drop-shadow(0 0 7px rgba(255, 255, 255, 0.7)); /* Làm sáng và đổ bóng rõ hơn */
+    filter: brightness(1.5) drop-shadow(0 0 7px rgba(255, 255, 255, 0.7));
 }
 
+/* --- HIỆU ỨNG RUNG LẮC MỚI CHO ICON --- */
+@keyframes cart-jiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-8deg); }
+    50% { transform: rotate(8deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.jiggle-once {
+    animation: cart-jiggle 0.4s ease-in-out;
+}
+
+/* --- VÒNG TRÒN ĐẾM SỐ (ĐÃ NÂNG CẤP) --- */
 .fixed-navbar .cart-item-count {
     position: absolute;
-    top: -2px; /* Điều chỉnh vị trí số lượng giỏ hàng */
-    right: -5px; /* Điều chỉnh vị trí số lượng giỏ hàng */
-    background-color: red;
+    top: -4px;
+    right: -7px;
+    background-color: #e74c3c; /* Màu đỏ đậm hơn */
     color: white;
     border-radius: 50%;
-    padding: 2px 6px; /* Tăng padding */
-    font-size: 0.8em; /* Tăng kích thước font */
+    padding: 3px 7px;
+    font-size: 0.75em;
     font-weight: bold;
     line-height: 1;
-    min-width: 18px; /* Tăng kích thước tối thiểu */
+    min-width: 20px;
     text-align: center;
-    border: 1px solid white;
-    box-shadow: 0 0 3px rgba(0,0,0,0.3);
-    transition: none;
+    border: 2px solid white; /* Thêm viền trắng dày hơn */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    
+    /* Trạng thái ban đầu: ẩn */
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.2s ease-out, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Lớp .show để kích hoạt hiệu ứng xuất hiện */
+.fixed-navbar .cart-item-count.show {
+    opacity: 1;
+    transform: scale(1);
 }
         /* --- HERO CAROUSEL --- */
         .hero-carousel {
@@ -176,11 +200,11 @@
             left: 50%;
             transform: translateX(-50%);
             background-color: transparent;
-            padding: 0;             
+            padding: 0;          
             border-radius: 0;            
-            max-width: none;            
+            max-width: none;              
             box-shadow: none;            
-            text-align: center;         
+            text-align: center;          
         }
 
         .hero-carousel .slide-content h2,
@@ -332,7 +356,7 @@
             min-height: 320px; /* Chiều cao tối thiểu để các card trông cân đối */
         }
 
-       /* ---- MÀU SẮC CHO TỪNG CARD - ĐIỀU CHỈNH CHO PHÙ HỢP THƯƠNG HIỆU CỦA BẠN ---- */
+       /* ---- MÀU SẮC CHO TỪNG CARD - ĐIỀU CHỈNH CHO PHÙ HỢU THƯƠNG HIỆU CỦA BẠN ---- */
 .icon-action-card.card-bg-menu {
     background-image: url(anhnnen.jpg); /* Sử dụng background-image */
     background-size: cover; /* Đảm bảo ảnh phủ hết thẻ */
@@ -715,7 +739,18 @@
     padding: 40px 20px;
     background-color: #fff; /* Màu nền mặc định cho Best Seller */
     border-radius: 8px;
+
+    /* Initial hidden state for scroll reveal */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
+
+.products-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 
 .products-section .section-heading {
     text-align: center;
@@ -869,18 +904,36 @@
     /* opacity: 0.8; */ /* Xóa hoặc comment dòng này đi vì nó sẽ làm sáng toàn bộ */
 }
 
+/* --- NÂNG CẤP TIÊU ĐỀ SECTION VỚI GRADIENT --- */
+.products-section.best-seller-section .section-heading,
 .products-section .section-heading.new-products-heading {
-    color: #ffffff;
-    background-color: rgba(236, 193, 39, 0.895);
-    border: 2px solid #ffffff;
-    padding: 10px 20px;
-    border-radius: 8px;
+    color: white;
+    
+    /* Thay nền vàng đặc bằng dải màu chuyển (gradient) */
+    background-image: linear-gradient(135deg, #FFD700, #F68B1F); /* Chuyển từ Vàng Gold sang Cam đậm */
+    
+    border: 1px solid #FFF; /* Giảm độ dày viền một chút cho tinh tế */
+    padding: 12px 30px;
+    border-radius: 50px; /* Bo tròn hoàn toàn để tạo hình viên thuốc (pill shape) */
+    
+    /* Đổ bóng có màu của gradient, tạo cảm giác "phát sáng" nhẹ */
+    box-shadow: 0 8px 25px rgba(246, 139, 31, 0.4);
+    
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Thêm lại bóng chữ nhẹ nhàng */
+    font-size: 28px; /* Giảm cỡ chữ một chút cho cân đối với khối */
     display: block;
     width: fit-content;
-    margin: 0 auto 40px auto;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7); /* Bóng đậm và lan rộng hơn */
-    /* Các thuộc tính cũ như font-size, font-weight đã được định nghĩa ở .section-heading chung */
+    margin: 0 auto 50px auto; /* Tăng khoảng cách dưới một chút */
+    transition: all 0.3s ease; /* Thêm hiệu ứng chuyển động cho hover */
 }
+
+/* Thêm hiệu ứng tương tác khi di chuột */
+.products-section.best-seller-section .section-heading:hover,
+.products-section .section-heading.new-products-heading:hover {
+    transform: translateY(-4px) scale(1.03); /* Nhấc lên và phóng to nhẹ */
+    box-shadow: 0 12px 30px rgba(246, 139, 31, 0.5); /* Bóng đổ đậm hơn */
+}
+
 
 .product-grid.new-products-grid {
     grid-template-columns: repeat(4, 1fr); /* Đảm bảo lưới 4 cột giống Best Seller */
@@ -1097,12 +1150,196 @@
 /* Các CSS khác giữ nguyên */
 
         /* --- FOOTER --- */
-        footer { background-color: orange; color: #fff; padding: 50px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; }
-        .footer-column { flex: 1; min-width: 280px; margin-bottom: 30px; padding: 0 15px; }
-        .footer-column h4 { font-size: 20px; font-weight: bold; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 10px; }
-        .footer-column p { font-size: 16px; line-height: 1.8; margin-bottom: 8px; }
-        .footer-column a { color: #fff; text-decoration: none; }
-        .footer-column a:hover { text-decoration: underline; }
+:root {
+    --footer-bg: #34495E; /* Màu xanh than đậm cho footer */
+    --footer-text-color: #ECF0F1; /* Màu chữ sáng cho footer */
+    --footer-link-color: #FFD700; /* Vàng kim loại cho link footer */
+}
+footer {
+    background-color: var(--footer-bg);
+    color: var(--footer-text-color);
+    padding: 60px 5%;
+    font-size: 0.95em;
+    margin-top: auto; /* Pushes footer to bottom if content is short */
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 20px;
+}
+
+.footer-brand .footer-logo-link {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.footer-brand .footer-logo-image {
+    height: 80px;
+    filter: brightness(1.5);
+}
+
+.footer-brand p {
+    margin-bottom: 20px;
+    line-height: 1.8;
+    color: var(--footer-text-color);
+}
+
+.footer-column .social-icons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-start; /* Ensure left-alignment for desktop */
+}
+
+.footer-column .social-icons a {
+    font-size: 28px;
+    display: inline-block;
+    color: var(--footer-link-color);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-column .social-icons .bx.bxl-facebook-circle {
+    color: #1877F2;
+}
+
+.footer-column .social-icons .bx.bxl-instagram-alt {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.footer-column .social-icons .bx.bxl-tiktok {
+    color: #000;
+    text-shadow: 2px 2px 0px #25F4EE, -2px -2px 0px #FE2C55;
+}
+
+.footer-column .social-icons a:hover {
+    transform: translateY(-3px);
+}
+
+.footer-column h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3em;
+    color: var(--footer-link-color);
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-column h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    background-color: var(--accent-color);
+    border-radius: 0;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+    color: var(--footer-text-color);
+    text-decoration: none;
+    font-size: 0.95em;
+    transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+    color: var(--footer-link-color);
+}
+
+.footer-contact p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 0.95em;
+}
+
+.footer-contact p i {
+    font-size: 20px;
+    margin-right: 10px;
+    color: var(--footer-link-color);
+    flex-shrink: 0;
+}
+
+.footer-contact p a {
+    color: var(--footer-text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-contact p a:hover {
+    color: var(--footer-link-color);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 25px;
+    margin-top: 40px;
+    text-align: center;
+    font-size: 0.9em;
+    color: var(--footer-text-color);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-column {
+        align-items: center;
+    }
+
+    .footer-column h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .footer-column .social-icons {
+        justify-content: center; /* Center icons on tablet and mobile */
+    }
+
+    .footer-brand .footer-logo-link,
+    .footer-contact p {
+        justify-content: center; /* Center items like logo and contact info */
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-column .social-icons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-column .social-icons {
+        justify-content: center;
+    }
+}
 
 
         /* Responsive adjustments */
@@ -1148,7 +1385,7 @@
             }
 
             .hero-carousel .slide-content {
-                 bottom: 8%; 
+                bottom: 8%; 
             }
             .hero-carousel .slide-content .cta-button { 
                 font-size: 0.9em; 
@@ -1189,13 +1426,276 @@
         }
 
         .products-section.best-seller-section .section-heading {
-            color: white; 
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); 
-        }
+            color: white;
+            background-color: rgba(236, 193, 39, 0.895);
+            border: 2px solid #ffffff;
+            padding: 10px 25px;
+            border-radius: 8px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+            text-shadow: none;
+
+    /* --- CÁC THUỘC TÍNH SỬA LỖI CĂN GIỮA --- */
+            display: block;            /* Chuyển nó thành một khối */
+            width: fit-content;        /* Để chiều rộng của khối vừa bằng nội dung bên trong */
+            margin: 0 auto 40px auto;  /* Đây là chìa khóa: Tự động căn lề trái/phải để đẩy khối vào giữa */
+}
 
         .products-section.best-seller-section .product-card {
             background: rgba(255, 255, 255, 0.95); 
         }
+
+/* --- STYLES FOR NEW PRODUCT POPUP --- */
+.new-product-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Nền tối mờ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; /* Đảm bảo popup nằm trên tất cả */
+    opacity: 0;
+    visibility: hidden;
+    /* Thêm hiệu ứng trượt và mờ dần khi xuất hiện */
+    transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
+}
+
+.new-product-popup-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.new-product-popup-content {
+    background-color: #fff;
+    border-radius: 15px;
+    /* Thêm viền cam nhẹ */
+    border: 3px solid #ffaa00; /* Màu cam đậm hơn một chút */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), /* Bóng lớn hơn */
+                0 0 0 10px rgba(255, 165, 0, 0.1); /* Hiệu ứng viền ngoài mờ */
+    width: 90%;
+    max-width: 420px; /* Đã giảm từ 500px xuống 420px */
+    padding: 25px; /* Giảm padding một chút từ 30px */
+    text-align: center;
+    position: relative;
+    /* Hiệu ứng trượt nhẹ từ trên xuống */
+    transform: translateY(-50px);
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.new-product-popup-overlay.show .new-product-popup-content {
+    transform: translateY(0); /* Trượt về vị trí ban đầu */
+    opacity: 1;
+}
+
+.close-popup-btn {
+    position: absolute;
+    top: 8px; /* Dịch lên một chút */
+    right: 12px; /* Dịch vào một chút */
+    background: none;
+    border: none;
+    font-size: 2.2em; /* Nút đóng nhỏ hơn một chút từ 2.5em */
+    color: #ff6f00; /* Màu cam đậm */
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.close-popup-btn:hover {
+    color: #e65100; /* Màu đậm hơn khi hover */
+    transform: rotate(90deg); /* Xoay nhẹ khi hover */
+}
+
+.popup-image-container {
+    position: relative;
+    width: 100%;
+    max-width: 200px; /* Đã giảm từ 250px xuống 200px */
+    height: 200px; /* Giữ tỷ lệ ảnh, giảm từ 250px */
+    margin-bottom: 20px; /* Khoảng cách dưới ảnh, giảm từ 25px */
+    border-radius: 15px; /* Bo góc ảnh nhiều hơn */
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2); /* Bóng ảnh rõ hơn */
+    border: 2px solid #ffcc00; /* Viền vàng cho ảnh */
+}
+
+.popup-product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.new-label {
+    position: absolute;
+    top: 10px; /* Dịch xuống một chút */
+    right: 10px; /* Dịch vào một chút */
+    background-color: #e74c3c; /* Màu đỏ nổi bật */
+    color: white;
+    padding: 5px 12px; /* Giảm padding từ 6px 14px */
+    border-radius: 8px; /* Bo góc nhiều hơn */
+    font-size: 0.9em; /* Kích thước font nhỏ hơn một chút từ 1em */
+    font-weight: 800; /* Đậm hơn */
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Bóng cho label */
+    animation: pulse 1.5s infinite alternate; /* Hiệu ứng nhấp nháy êm ái hơn */
+}
+
+@keyframes pulse {
+    0% { transform: scale(1) rotate(0deg); opacity: 1; }
+    50% { transform: scale(1.05) rotate(-2deg); opacity: 0.9; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.popup-text-content {
+    width: 100%;
+}
+
+.popup-title {
+    font-size: 1.8em; /* Nhỏ hơn một chút từ 2em */
+    color: #ff6f00; /* Màu cam đậm cho tiêu đề chính */
+    margin-bottom: 10px; /* Giảm từ 12px */
+    font-weight: 800; /* Đậm hơn */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.popup-product-name {
+    font-size: 1.4em; /* Nhỏ hơn một chút từ 1.6em */
+    color: #333;
+    margin-bottom: 10px; /* Giảm từ 12px */
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.popup-description {
+    font-size: 1em; /* Nhỏ hơn một chút từ 1.1em */
+    color: #666;
+    line-height: 1.5; /* Giảm từ 1.6 */
+    margin-bottom: 25px; /* Khoảng cách lớn hơn dưới mô tả, giảm từ 30px */
+}
+
+/* --- Nút CTA trong Popup được cập nhật với hiệu ứng giống nút Mua Ngay --- */
+
+.popup-cta-button {
+    /* Các thuộc tính cơ bản */
+    display: inline-flex; /* Giữ icon và chữ trên cùng một hàng */
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 14px 30px;
+    border-radius: 8px; /* Bo góc vừa phải, phù hợp với hiệu ứng 3D */
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    
+    /* Thuộc tính quan trọng cho hiệu ứng */
+    position: relative; /* Bắt buộc cho pseudo-element ::before */
+    overflow: hidden;  /* Giữ hiệu ứng "shine" không bị tràn ra ngoài */
+    user-select: none; /* Ngăn người dùng chọn chữ trên nút */
+    
+    /* Hiệu ứng 3D với box-shadow */
+    background-color: #ffc72c;
+    box-shadow: 0 4px 0px #f39200,        /* Tạo lớp đổ bóng dày mô phỏng độ sâu */
+                0 6px 12px rgba(0, 0, 0, 0.2); /* Bóng mờ lan tỏa */
+    
+    /* Hiệu ứng chuyển động */
+    transition: background-color 0.2s ease-in-out,
+                transform 0.15s ease-in-out,
+                box-shadow 0.15s ease-in-out;
+}
+
+/* Lớp "shine" lướt qua khi hover */
+.popup-cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0.6) 50%,
+        rgba(255, 255, 255, 0.1) 100%
+    );
+    transform: skewX(-20deg);
+}
+
+/* Kích hoạt animation "shine" khi hover */
+.popup-cta-button:hover::before {
+    animation: shine 0.9s ease forwards;
+}
+
+/* Trạng thái Hover: Nút được nâng lên */
+.popup-cta-button:hover {
+    background-color: #fbb700; /* Màu sáng hơn khi hover */
+    transform: translateY(-3px); /* Di chuyển nút lên trên một chút */
+    box-shadow: 0 6px 0px #e08600,         /* Tăng độ dày bóng để hợp với độ nâng */
+                0 9px 18px rgba(0, 0, 0, 0.25); /* Bóng mờ lan rộng hơn */
+}
+
+/* Trạng thái Active: Nút được nhấn xuống */
+.popup-cta-button:active {
+    transform: translateY(1px); /* Di chuyển nút xuống, mô phỏng bị nhấn */
+    background-color: #f39c12;
+    box-shadow: 0 2px 0px #e08600,        /* Giảm độ dày bóng */
+                0 3px 6px rgba(0, 0, 0, 0.15); /* Bóng mờ thu lại */
+}
+
+/* Giữ lại icon mũi tên */
+.popup-cta-button i {
+    margin-left: 8px;
+    font-size: 1.2em;
+    transition: transform 0.2s ease;
+}
+
+.popup-cta-button:hover i {
+    transform: translateX(4px);
+}
+
+/* Lưu ý: Bạn không cần thêm lại @keyframes shine vì nó đã có sẵn trong CSS chung của trang. 
+*/
+
+/* Responsive adjustments for popup */
+@media (max-width: 480px) {
+    .new-product-popup-content {
+        padding: 15px; /* Giảm padding trên mobile */
+        max-width: 90%; /* Chiếm gần hết chiều rộng, giữ nguyên hoặc tăng nhẹ nếu muốn nhỏ hơn chút nữa */
+        border-radius: 10px;
+    }
+    .close-popup-btn {
+        font-size: 1.6em; /* Nút đóng nhỏ hơn trên mobile */
+    }
+    .popup-image-container {
+        max-width: 150px; /* Giảm kích thước ảnh trên mobile */
+        height: 150px;
+        margin-bottom: 15px;
+    }
+    .new-label {
+        font-size: 0.75em;
+        padding: 3px 8px;
+    }
+    .popup-title {
+        font-size: 1.4em;
+    }
+    .popup-product-name {
+        font-size: 1.1em;
+    }
+    .popup-description {
+        font-size: 0.85em;
+        margin-bottom: 15px;
+    }
+    .popup-cta-button {
+        font-size: 0.9em;
+        padding: 8px 15px;
+    }
+}
     </style>
 </head>
 <body>
@@ -1207,7 +1707,7 @@
         </div>
         <div class="main-menu">
             <a href="index.html" class="nav-link">Trang chủ</a>
-            <a href="ThucDon.html" class="nav-link">Thực đơn</a>
+            <a href="Thuc_Don/ThucDon.html" class="nav-link">Thực đơn</a>
             <a href="Khuyen_mai_MFC/Khuyen_mai_page1.html" class="nav-link">Khuyến mãi</a>
             <a href="tranglienhe.html" class="nav-link">Liên hệ</a>
         </div>
@@ -1234,15 +1734,15 @@
                 </div>
                 <div class="slide">
                     <img src="banno.png" alt="Banner Món Mới 2">
-                     <div class="slide-content">
+                   <div class="slide-content">
                         <h2>Thưởng Thức Món Mới - Burger Siêu Đẫm</h2>
                         <p>Hương vị bùng nổ, thử là ghiền!</p>
                         <a href="#" class="cta-button">Khám Phá</a>
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="orderonl.jpg" alt="Banner App Order 3">
-                     <div class="slide-content">
+                    <img src="Tảiapp.jpg" alt="Banner App Order 3">
+                   <div class="slide-content">
                         <h2>Đặt Hàng Qua App - Ngập Tràn Ưu Đãi</h2>
                         <p>Tải app Gà Rán HOÀNG nhận ngay voucher giảm giá.</p>
                         <a href="#" class="cta-button">Tải App</a>
@@ -1259,7 +1759,7 @@
        <section class="key-actions-section">
     <div class="key-actions-grid">
 
-        <a href="ThucDon.html" class="icon-action-card card-bg-menu"> <div class="icon-action-card-icon">
+        <a href="Thuc_Don/ThucDon.html" class="icon-action-card card-bg-menu"> <div class="icon-action-card-icon">
                 <i class='bx bxs-food-menu'></i>
                 </div>
             <h3 class="icon-action-card-title">Xem Thực Đơn</h3>
@@ -1284,11 +1784,11 @@
     </div>
 </section>
 
-        <div class="section-title-bar">
+        <div class="section-title-bar scroll-reveal-on-load">
                 VỀ CHÚNG TÔI
             <div class="triangle-down"></div>
         </div>
-        <section class="about-mfc-section">
+        <section class="about-mfc-section scroll-reveal-on-load">
             <div class="about-mfc-content">
                 <h2>ĐÔI NÉT VỀ THƯƠNG HIỆU GÀ RÁN MFC</h2>
                     <p>Gà Rán MFC là thương hiệu ẩm thực ra đời với sứ mệnh mang đến trải nghiệm vị giác tuyệt vời từ những miếng gà rán nóng hổi, giòn tan. Chúng tôi chú trọng từ khâu chọn nguyên liệu tươi sạch mỗi ngày đến phong cách phục vụ tận tâm, chuyên nghiệp.</p>
@@ -1299,8 +1799,8 @@
             </div>
         </section>
 
-        <section class="products-section best-seller-section">
-            <h2 class="section-heading">🔥 BEST SELLER - MÓN NGON ĐỊNH MỆNH</h2>
+        <section class="products-section best-seller-section scroll-reveal-on-load">
+            <h2 class="section-heading">BEST SELLER - MÓN NGON ĐỊNH MỆNH</h2>
             <div class="product-grid">
                 <div class="product-card">
                     <img src="images/2in1.jpg" alt="Combo 2in1" class="product-image">
@@ -1340,34 +1840,34 @@
             </div>
         </section>
 
-        <section class="products-section new-products-section">
+        <section class="products-section new-products-section scroll-reveal-on-load">
             <h2 class="section-heading new-products-heading">Sản Phẩm Mới Hấp Dẫn</h2>
             <div class="product-grid new-products-grid">
                 <div class="product-card new-product-item">
                     <img src="images/3in1.jpg" alt="Combo 3in1" class="product-image"/>
                     <div class="product-info">
                         <h3 class="product-name">Combo 3in1</h3>
-                         <div class="product-cta"><a href="ThucDon.html#combo3in1" class="btn-product-order">Chi Tiết</a></div>
+                           <div class="product-cta"><a href="Thuc_Don/3in1.html" class="btn-product-order">Đặt Ngay</a></div>
                     </div>
                 </div>
                 <div class="product-card new-product-item">
                     <img src="images/hoanh-thanh.jpg" alt="Hoành thánh" class="product-image"/>
                     <div class="product-info">
                         <h3 class="product-name">Hoành thánh</h3>
-                         <div class="product-cta"><a href="ThucDon.html#hoanhthanh" class="btn-product-order">Chi Tiết</a></div>
+                           <div class="product-cta"><a href="ThucDon.html#hoanhthanh" class="btn-product-order">Đặt Ngay</a></div>
                     </div>
                 </div>
                 <div class="product-card new-product-item">
                     <img src="images/hamburger gà.jpg" alt="Hamburger Gà" class="product-image"/>
                     <div class="product-info">
                         <h3 class="product-name">Hamburger Gà</h3>
-                         <div class="product-cta"><a href="ThucDon.html#hamburger gà" class="btn-product-order">Chi Tiết</a></div>
+                           <div class="product-cta"><a href="ThucDon.html#hamburger gà" class="btn-product-order">Đặt Ngay</a></div>
                     </div>
                 </div>
                 <div class="product-card new-product-item">
                     <img src="images/chan-ga-sa-ot.jpg" alt="Chân gà sả ớt" class="product-image"/> <div class="product-info">
                         <h3 class="product-name">Chân gà sả ớt</h3>
-                         <div class="product-cta"><a href="ThucDon.html#changasaot" class="btn-product-order">Chi Tiết</a></div>
+                           <div class="product-cta"><a href="ThucDon.html#changasaot" class="btn-product-order">Đặt Ngay</a></div>
                     </div>
                 </div>
             </div>
@@ -1375,23 +1875,66 @@
     </div>
 
       <footer>
-    <div class="footer-column">
-      <h4>Phương Thức Liên Lạc</h4>
-      <p><strong>Facebook:</strong> <a href="https://www.facebook.com/profile.php?id=100090290842650&mibextid=LQQJ4d" target="_blank">Mr. Fried Chicken - MFC</a></p>
-      <p><strong>Số điện thoại:</strong> <a href="tel:0975459348">0975459348</a></p>
-      <p><strong>Địa chỉ:</strong> 112 P. Chùa Bộc, Quang Trung, Đống Đa, Hà Nội, Việt Nam</p>
+    <div class="footer-container">
+        <div class="footer-column footer-brand">
+            <a href="index.html" class="footer-logo-link">
+                <img src="mfc.jpg" alt="MFC Logo" class="footer-logo-image">
+            </a>
+            <p>MR. Fried Chicken - Mang hương vị giòn tan đến mọi nhà.</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=61566414457049" target="_blank" aria-label="Facebook"><i class='bx bxl-facebook-circle'></i></a>
+                <a href="https://www.instagram.com/letseat_mfc/" target="_blank" aria-label="Instagram"><i class='bx bxl-instagram-alt'></i></a>
+                <a href="https://www.tiktok.com/@minhvietnamlife?_t=ZS-8wvAdZFRz6n&_r=1&fbclid=IwY2xjawKtEA5leHRuA2FlbQIxMABicmlkETFWQlFZNEt2V0lZSXhGaU1IAR408AEmPKNuLRGdHqOvdfne-4nK3JuttGhx_w2mSgebpGJkUKvp8C5Oz7lvsQ_aem_dKedZ3WDN0r44wKVVGS0Qw" target="_blank" aria-label="TikTok"><i class='bx bxl-tiktok'></i></a>
+            </div>
+        </div>
+        <div class="footer-column footer-links">
+            <h4>Thông tin</h4>
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="ThucDon.html">Thực đơn</a></li><li>
+                  <a href="Khuyen_mai_MFC/Khuyen_mai_page1.html">Khuyến mãi</a></li>
+                <li><a href="tranglienhe.html">Liên hệ </a></li>
+        </div>
+        <div class="footer-column footer-policy">
+            <h4>Chính sách</h4>
+            <ul>
+                <li><a href="Các trang chính sách/Chinhsachvaquydinhchung.html">Chính sách & Quy định chung</a></li>
+                <li><a href="Các trang chính sách/Chinhsachbaomat.html">Chính sách bảo mật thông tin</a></li>
+                <li><a href="Các trang chính sách/Chinhsachbaomat.html">Chính sách giao hàng</a></li>
+                <li><a href="Các trang chính sách/Trangchinhsachdoitravahoantien.html">Chính sách đổi trả & hoàn tiền</a></li>
+            </ul>
+        </div>
+        <div class="footer-column footer-contact">
+            <h4>Thông tin liên hệ</h4>
+            <p><i class='bx bxs-map'></i> 112 P. Chùa Bộc, Quang Trung, Đống Đa, Hà Nội</p>
+            <p><i class='bx bxs-phone'></i> <a href="tel:0975459348">0975459348</a></p>
+            <p><i class='bx bxs-envelope'></i> <a href="mailto:support@mfc.com">support@mfc.com</a></p>
+            <p class="opening-hours"><i class='bx bxs-time-five'></i> Giờ mở cửa: 09:00 - 22:00</p>
+        </div>
     </div>
-    <div class="footer-column">
-      <h4>Chính Sách</h4>
-      <p><a href="tranglienhe.html">Liên hệ</a></p>
-      <p><a href="Chinhsach.html">Chính sách & Quy định chung</a></p>
-      <p><a href="Chinhsach.html#quy-dinh-thanh-toan">Thanh toán khi đặt hàng</a></p> <p><a href="Chinhsach.html#dieu-khoan-su-dung">Chính sách hoạt động</a></p> <p><a href="Chinhsach.html#chinh-sach-bao-mat">Bảo mật thông tin</a></p> </div>
-     <div class="footer-column">
-        <h4>Giờ Mở Cửa</h4>
-        <p>Thứ 2 - Chủ Nhật: 09:00 - 22:00</p>
-        <p>(Kể cả ngày lễ)</p>
+    <div class="footer-bottom">
+        <p>© 2025 MR. Fried Chicken. All rights reserved.</p>
     </div>
   </footer>
+<div id="newProductPopup" class="new-product-popup-overlay">
+    <div class="new-product-popup-content">
+        <button class="close-popup-btn">&times;</button>
+        <div class="popup-image-container">
+            <img src="images/3in1.jpg" alt="Sản phẩm mới: Combo 3in1" class="popup-product-image">
+            <span class="new-label">MỚI!</span>
+        </div>
+        <div class="popup-text-content">
+            <h3 class="popup-title">Sản Phẩm Mới Vừa Ra Lò!</h3>
+            <p class="popup-product-name">COMBO 3IN1 SIÊU ĐÃ!</p>
+            <p class="popup-description">Thưởng thức trọn vẹn hương vị gà giòn tan cùng khoai tây lắc phô mai và nước ngọt mát lạnh! Đừng bỏ lỡ!</p>
+            <a href="Thuc_Don/3in1.html" class="popup-cta-button">
+                Khám Phá Ngay!
+                <i class='bx bx-right-arrow-alt'></i>
+            </a>
+        </div>
+    </div>
+</div>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -1400,18 +1943,19 @@
         const pageContentWrapper = document.querySelector('.page-content-wrapper');
         const heroCarouselElement = document.getElementById('heroCarousel');
 
-        let initialNavPaddingTopBottom = 10;
-        let initialNavPaddingLeftRight = 40;
-        let initialLogoHeight = 50;
+        let initialNavPaddingTopBottom = 15; // Set to initial padding-top of fixed-navbar
+        let initialNavPaddingLeftRight = 50; // Set to initial padding-left/right of fixed-navbar
+        let initialLogoHeight = 60; // Set to initial height of logo-image
 
-        if (navLogo) initialLogoHeight = navLogo.offsetHeight || 50;
+        // Try to get actual initial values if they are already computed by CSS
+        if (navLogo) initialLogoHeight = navLogo.offsetHeight || initialLogoHeight;
         if (nav) {
             const computedStyle = window.getComputedStyle(nav);
-            const paddingValues = computedStyle.padding.split(" ");
-            if (paddingValues.length === 1) initialNavPaddingTopBottom = parseFloat(paddingValues[0]);
+            const paddingValues = computedStyle.padding.split(" ").map(parseFloat);
+            if (paddingValues.length === 1) initialNavPaddingTopBottom = paddingValues[0];
             if (paddingValues.length >= 2) {
-                initialNavPaddingTopBottom = parseFloat(paddingValues[0]);
-                initialNavPaddingLeftRight = parseFloat(paddingValues[1]);
+                initialNavPaddingTopBottom = paddingValues[0];
+                initialNavPaddingLeftRight = paddingValues[1];
             }
         }
 
@@ -1428,8 +1972,8 @@
             if (!nav || !navLogo) return;
             if (window.scrollY > 50) {
                 nav.style.backgroundColor = 'rgba(255, 165, 0, 0.9)';
-                nav.style.padding = `5px ${initialNavPaddingLeftRight}px`;
-                navLogo.style.height = (initialLogoHeight * 0.8) + 'px';
+                nav.style.padding = `10px ${initialNavPaddingLeftRight}px`; // Reduced padding on scroll
+                navLogo.style.height = (initialLogoHeight * 0.8) + 'px'; // Smaller logo on scroll
             } else {
                 nav.style.backgroundColor = 'orange';
                 nav.style.padding = `${initialNavPaddingTopBottom}px ${initialNavPaddingLeftRight}px`;
@@ -1452,7 +1996,7 @@
                 if (!slidesContainer || slides.length === 0) return; 
                 slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
                 if (dotsContainer) {
-                     Array.from(dotsContainer.children).forEach((dot, index) => {
+                    Array.from(dotsContainer.children).forEach((dot, index) => {
                         dot.classList.toggle('active', index === currentIndex);
                     });
                 }
@@ -1486,7 +2030,7 @@
             }
             function startInterval() {
                 if (slides.length > 1) { 
-                     slideInterval = setInterval(nextSlide, 5000);
+                    slideInterval = setInterval(nextSlide, 5000);
                 }
             }
             function resetInterval() {
@@ -1549,37 +2093,74 @@
         });
 
         console.log("Gà Rán MFC");
-    });
-    // Thêm vào trong document.addEventListener('DOMContentLoaded', function() { ... });
-// Hoặc tạo một khối script mới nếu muốn
-    const sectionTitleBar = document.querySelector('.section-title-bar');
 
-    // Hàm kiểm tra xem một phần tử có trong viewport hay không
-    function isElementInViewport(el) {
-        if (!el) return false; // Thêm kiểm tra null
-        const rect = el.getBoundingClientRect();
-        return (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-        );
-    }
+        // --- SCROLL REVEAL LOGIC ---
+        const scrollRevealElements = document.querySelectorAll('.scroll-reveal-on-load');
 
-    // Hàm xử lý khi cuộn trang
-    function handleScrollReveal() {
-        if (sectionTitleBar && isElementInViewport(sectionTitleBar)) {
-            sectionTitleBar.classList.add('is-visible');
-            // Remove event listener once element is visible to prevent unnecessary checks
-            window.removeEventListener('scroll', handleScrollReveal);
+        function isElementInViewport(el) {
+            if (!el) return false;
+            const rect = el.getBoundingClientRect();
+            // Checking if at least part of the element is in the viewport
+            return (
+                rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.bottom > 0 &&
+                rect.left < (window.innerWidth || document.documentElement.clientWidth) &&
+                rect.right > 0
+            );
         }
-    }
 
-    // Gắn lắng nghe sự kiện cuộn trang
-    window.addEventListener('scroll', handleScrollReveal);
+        function handleScrollReveal() {
+            scrollRevealElements.forEach(el => {
+                if (isElementInViewport(el)) {
+                    el.classList.add('is-visible');
+                    // Optional: remove listener for this specific element if it should only animate once
+                    // el.classList.remove('scroll-reveal-on-load'); // Remove class to prevent re-processing
+                }
+            });
+            // Optional: If all elements are revealed, remove the global scroll listener
+            // if (document.querySelectorAll('.scroll-reveal-on-load:not(.is-visible)').length === 0) {
+            //     window.removeEventListener('scroll', handleScrollReveal);
+            // }
+        }
 
-    // Chạy kiểm tra một lần khi tải trang để xử lý nếu phần tử đã ở trong viewport ngay lập tức
-    handleScrollReveal();
+        window.addEventListener('scroll', handleScrollReveal);
+        handleScrollReveal(); // Run once on load to catch elements already in view
+
+        // --- NEW PRODUCT POPUP LOGIC ---
+        const newProductPopup = document.getElementById('newProductPopup');
+        const closePopupBtn = document.querySelector('#newProductPopup .close-popup-btn');
+
+        function showNewProductPopup() {
+            // Kiểm tra xem popup đã được hiển thị trước đó trong session chưa
+            if (sessionStorage.getItem('newProductPopupShown')) {
+                return; // Nếu đã hiển thị rồi thì không hiển thị lại
+            }
+            newProductPopup.classList.add('show');
+            // Lưu trạng thái đã hiển thị vào sessionStorage
+            sessionStorage.setItem('newProductPopupShown', 'true');
+        }
+
+        function hideNewProductPopup() {
+            newProductPopup.classList.remove('show');
+        }
+
+        if (closePopupBtn) {
+            closePopupBtn.addEventListener('click', hideNewProductPopup);
+        }
+
+        if (newProductPopup) {
+            newProductPopup.addEventListener('click', function(event) {
+                // Chỉ ẩn popup khi click trực tiếp vào vùng overlay (không phải nội dung popup)
+                if (event.target === newProductPopup) {
+                    hideNewProductPopup();
+                }
+            });
+        }
+
+        // Trigger Popup NGAY LẬP TỨC khi trang tải xong
+        showNewProductPopup(); 
+
+    }); // End DOMContentLoaded
 </script> 
 </body>
 </html>
