@@ -1,11 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     const navbar = document.getElementById('mainNavbar');
     const navbarLogo = document.getElementById('navbarLogo');
-    // const pageContainer = document.querySelector('.page-container'); // Không có .page-container trong HTML
+
     let defaultPaddingTopBottom = 15;
     let defaultLogoHeight = 70;
 
-    // Lấy giá trị padding mặc định của navbar
     if (navbar) {
         const computedStyle = window.getComputedStyle(navbar);
         const paddingValues = computedStyle.padding.split(" ");
@@ -15,21 +14,20 @@ document.addEventListener('DOMContentLoaded', function() {
             defaultPaddingTopBottom = parseFloat(paddingValues[0]);
         }
     }
-    // Lấy chiều cao mặc định của logo
+    
     if (navbarLogo) {
         defaultLogoHeight = navbarLogo.offsetHeight || 70;
     }
 
-    // Điều chỉnh padding-top của body để tránh nội dung bị che bởi navbar cố định
+    
     function adjustPagePadding() {
         if (navbar) {
-            // Sử dụng document.body vì không có .page-container trong HTML
+           
             document.body.style.paddingTop = navbar.offsetHeight + 'px';
         }
     }
     adjustPagePadding();
 
-    // Xử lý thay đổi navbar khi cuộn trang
     window.addEventListener('scroll', function() {
         if (!navbar || !navbarLogo) return;
 
@@ -45,10 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
             navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.08)';
             navbarLogo.style.height = `${defaultLogoHeight}px`;
         }
-        adjustPagePadding(); // Điều chỉnh lại padding khi navbar thay đổi kích thước
+        adjustPagePadding(); 
     });
 
-    // Xử lý hiệu ứng cuộn mượt (scroll reveal) cho các section
+
     const scrollRevealSections = document.querySelectorAll('.scroll-reveal');
     const observerOptions = {
         root: null,
@@ -67,20 +65,20 @@ document.addEventListener('DOMContentLoaded', function() {
         sectionObserver.observe(section);
     });
 
-    // Xử lý form phản hồi (feedback form)
+
     const feedbackForm = document.getElementById('feedbackForm');
     if (feedbackForm) {
         feedbackForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // Ngăn chặn gửi form mặc định
+            event.preventDefault(); 
             const nameInput = document.getElementById('name');
             const phoneInput = document.getElementById('phone');
-            // emailInput và subjectInput không có trong HTML của trang liên hệ, nên bỏ qua validation
+           
             const messageInput = document.getElementById('message');
 
             let allValid = true;
             let errorMessages = [];
 
-            // Hàm kiểm tra và validate từng trường
+          
             function validateField(inputElement, errorMessage) {
                 let currentErrorMessage = null;
                 if (!inputElement.value.trim()) {
@@ -89,9 +87,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     currentErrorMessage = inputElement.title || 'Giá trị không hợp lệ.';
                 }
 
-                // Logic validation riêng cho số điện thoại
+                
                 if (inputElement.id === 'phone') {
-                    const phoneRegex = /^(0|84)(3|5|7|8|9)\d{8}$/; // Regex cho SĐT Việt Nam
+                    const phoneRegex = /^(0|84)(3|5|7|8|9)\d{8}$/; 
                     if (!phoneRegex.test(inputElement.value.trim())) {
                         currentErrorMessage = 'Vui lòng nhập số điện thoại hợp lệ (ví dụ: 0912345678 hoặc 84912345678).';
                     }
@@ -125,17 +123,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     phone: phoneInput.value,
                     message: messageInput.value
                 });
-                feedbackForm.reset(); // Reset form sau khi gửi thành công
+                feedbackForm.reset(); 
             }
         });
     }
 
-    // Hàm hiển thị alert tùy chỉnh
+  
     function showCustomAlert(message) {
         let customAlert = document.getElementById('customAlert');
         let customAlertMessage = document.getElementById('customAlertMessage');
 
-        if (!customAlert) { // Nếu alert chưa tồn tại, tạo mới
+        if (!customAlert) { 
             customAlert = document.createElement('div');
             customAlert.id = 'customAlert';
             customAlert.style.cssText = `
@@ -178,12 +176,12 @@ document.addEventListener('DOMContentLoaded', function() {
         customAlert.style.display = 'block';
     }
 
-    // Xử lý cuộn mượt cho các thẻ <a> có href bắt đầu bằng '#' hoặc có class .scroll-to-element
+    
     document.querySelectorAll('.scroll-to-element, a[href^="#"]').forEach(anchor => {
         
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
-            // Kiểm tra nếu href chỉ là "#" thì bỏ qua hành vi mặc định
+           
             if (href === '#') {
                 e.preventDefault(); 
                 return;
@@ -194,23 +192,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (targetElement) {
                 e.preventDefault();
-                const offset = navbar ? navbar.offsetHeight + 20 : 0; // Thêm 20px để có khoảng cách
+                const offset = navbar ? navbar.offsetHeight + 20 : 0;
                 window.scrollTo({
                     top: targetElement.offsetTop - offset,
                     behavior: 'smooth'
                 });
             }
-            // Không cần đóng overlay tìm kiếm vì nó đã bị loại bỏ
+            
         });
     });
 
-    // Xử lý các câu hỏi thường gặp (FAQ) - Mở/Đóng và Cuộn trang
+   
     const faqQuestions = document.querySelectorAll('.faq-question');
     faqQuestions.forEach(question => {
         question.addEventListener('click', () => {
             const answer = question.nextElementSibling;
             
-            // Đóng các câu hỏi khác
+           
             faqQuestions.forEach(otherQuestion => {
                 const otherAnswer = otherQuestion.nextElementSibling;
                 if (otherQuestion !== question && otherQuestion.classList.contains('active')) {
@@ -220,18 +218,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            // Mở/đóng câu hỏi được nhấp vào
+            
             question.classList.toggle('active');
-            if (answer.classList.contains('active')) { // Nếu đang mở, đóng lại
+            if (answer.classList.contains('active')) { 
                 answer.style.maxHeight = '0';
                 answer.classList.remove('active');
-            } else { // Nếu đang đóng, mở ra
+            } else { 
                 answer.classList.add('active');
-                // Đảm bảo trình duyệt tính toán đúng chiều cao
+                
                 answer.offsetHeight; 
                 answer.style.maxHeight = answer.scrollHeight + 'px';
 
-                // Logic cuộn trang: chỉ cuộn khi câu hỏi nằm ngoài tầm nhìn
+                
                 const questionRect = question.getBoundingClientRect();
                 const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
                 const isQuestionOutOfView = questionRect.bottom > viewportHeight || questionRect.top < 0;
@@ -251,9 +249,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Điều chỉnh padding khi thay đổi kích thước cửa sổ
+    
     window.addEventListener('resize', adjustPagePadding);
-    // Scroll reveal cho Map Section và các phần tử có class scroll-reveal
+    
     const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
 
     
@@ -262,7 +260,7 @@ document.addEventListener('DOMContentLoaded', function() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('revealed');
-                observer.unobserve(entry.target); // Ngừng theo dõi sau khi đã reveal
+                observer.unobserve(entry.target); 
             }
         });
     }, observerOptions);
@@ -271,30 +269,28 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(element);
     });
 
-    // Xử lý để đảm bảo map hiển thị ngay nếu nó đã ở trong viewport khi tải trang
+   
     scrollRevealElements.forEach(element => {
         if (element.getBoundingClientRect().top < window.innerHeight) {
             element.classList.add('revealed');
         }
     });
-    // Bắt đầu từ đây
-
-// --- Lấy các phần tử HTML cần thiết ---
+    
 const nav = document.getElementById('mainNavbar');
 const navLogo = document.getElementById('navbarLogo');
 const pageContentWrapper = document.querySelector('.page-content-wrapper');
 
-// --- Khởi tạo các giá trị ban đầu ---
-let initialNavPaddingTopBottom = 10; // Padding trên/dưới mặc định
-let initialNavPaddingLeftRight = 40; // Padding trái/phải mặc định
-let initialLogoHeight = 50; // Chiều cao logo mặc định
 
-// Lấy chiều cao thực tế của logo nếu tồn tại
+let initialNavPaddingTopBottom = 10; 
+let initialNavPaddingLeftRight = 40; 
+let initialLogoHeight = 50; 
+
+
 if (navLogo) {
     initialLogoHeight = navLogo.offsetHeight || 50;
 }
 
-// Lấy giá trị padding thực tế của navbar nếu tồn tại
+
 if (nav) {
     const computedStyle = window.getComputedStyle(nav);
     const paddingValues = computedStyle.padding.split(" ");
@@ -307,48 +303,41 @@ if (nav) {
     }
 }
 
-/**
- * Điều chỉnh padding-top cho nội dung trang chính
- * để tránh bị thanh điều hướng cố định che khuất.
- */
+
 function adjustPageContentPadding() {
     if (nav && pageContentWrapper) {
         pageContentWrapper.style.paddingTop = nav.offsetHeight + 'px';
     }
 }
 
-// Chạy hàm điều chỉnh padding khi tải trang và khi thay đổi kích thước cửa sổ
+
 adjustPageContentPadding();
 window.addEventListener('resize', adjustPageContentPadding);
 
-/**
- * Xử lý sự kiện khi người dùng cuộn trang.
- * Thay đổi kiểu dáng của thanh điều hướng khi cuộn xuống một khoảng cách nhất định.
- */
+
 window.addEventListener('scroll', function() {
-    // Nếu không tìm thấy nav hoặc logo thì không làm gì cả
+    
     if (!nav || !navLogo) return;
 
-    // Khi cuộn trang xuống hơn 50px
+    
     if (window.scrollY > 50) {
-        // Trạng thái "đã cuộn"
-        nav.style.backgroundColor = 'rgba(255, 165, 0, 0.9)'; // Nền màu cam trong suốt
-        // SỬA LỖI 1: Đã sử dụng template literal (dấu `) để gán padding
+        
+        nav.style.backgroundColor = 'rgba(255, 165, 0, 0.9)'; 
+       
         nav.style.padding = `5px ${initialNavPaddingLeftRight}px`; 
-        // SỬA LỖI 2: Sửa lại phép tính và thêm dấu ngoặc đơn bị thiếu
-        navLogo.style.height = (initialLogoHeight * 0.8) + 'px'; // Giảm chiều cao logo còn 80%
+       
+        navLogo.style.height = (initialLogoHeight * 0.8) + 'px'; 
     } else {
-        // Trạng thái "ở đầu trang"
-        nav.style.backgroundColor = 'orange'; // Nền màu cam đặc
-        // SỬA LỖI 1: Đã sử dụng template literal (dấu `)
+       
+        nav.style.backgroundColor = 'orange'; 
         nav.style.padding = `${initialNavPaddingTopBottom}px ${initialNavPaddingLeftRight}px`;
-        navLogo.style.height = initialLogoHeight + 'px'; // Trả lại chiều cao ban đầu
+        navLogo.style.height = initialLogoHeight + 'px'; 
     }
     
-    // Cập nhật lại padding của nội dung mỗi khi thanh điều hướng thay đổi kích thước
+    
     adjustPageContentPadding(); 
 });
 
-// Kết thúc ở đây
+
 
 });

@@ -1,22 +1,22 @@
-// Contents of script.js
 
-let cart = []; // Mảng để lưu trữ các sản phẩm trong giỏ hàng
+
+let cart = []; 
 
 /**
- * Định dạng số thành tiền tệ Việt Nam.
- * @param {number} amount - Số tiền cần định dạng.
- * @returns {string} - Chuỗi tiền tệ đã định dạng.
+ * 
+ * @param {number} amount 
+ * @returns {string} 
  */
 function formatCurrency(amount) {
     return amount.toLocaleString('vi-VN') + ' VNĐ';
 }
 
 /**
- * Thêm một sản phẩm vào giỏ hàng hoặc cập nhật số lượng nếu đã tồn tại.
- * @param {string} id - ID duy nhất của sản phẩm.
- * @param {string} name - Tên sản phẩm.
- * @param {number} price - Giá sản phẩm.
- * @param {number} [quantity=1] - Số lượng cần thêm.
+ * 
+ * @param {string} id 
+ * @param {string} name 
+ * @param {number} price 
+ * @param {number} [quantity=1] 
  */
 function addItemToCart(id, name, price, quantity = 1) {
     const existingItemIndex = cart.findIndex(item => item.id === id);
@@ -27,9 +27,7 @@ function addItemToCart(id, name, price, quantity = 1) {
     }
 }
 
-/**
- * Hiển thị các sản phẩm trong giỏ hàng và tổng tiền ra HTML.
- */
+
 function renderCartSummary() {
     const cartItemsListElement = document.getElementById('cart-items-list');
     const cartSubtotalElement = document.getElementById('cart-subtotal');
@@ -62,25 +60,23 @@ function renderCartSummary() {
     }
 
     cartSubtotalElement.textContent = formatCurrency(subtotal);
-    const grandTotal = subtotal; // Giả sử miễn phí vận chuyển
+    const grandTotal = subtotal; 
     cartGrandTotalElement.textContent = formatCurrency(grandTotal);
 }
 
-/**
- * Thêm các sản phẩm khởi tạo vào giỏ hàng và hiển thị chúng.
- */
+
 function addInitialItemsToCart() {
     addItemToCart("combo-cong-chua", "Combo Công chúa", 120000, 1);
     addItemToCart("tra-quat", "Trà quất", 20000, 1);
-    renderCartSummary(); // Cập nhật giao diện giỏ hàng
+    renderCartSummary();
 }
 
-// --- Chạy mã chính khi DOM đã sẵn sàng ---
+
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Thêm các sản phẩm ban đầu vào giỏ hàng và hiển thị
+    
     addInitialItemsToCart();
 
-    // 2. Thiết lập logic cho nút "Xác Nhận Đặt Hàng"
+    
     const placeOrderButton = document.getElementById('place-order-btn');
     const successAlertElement = document.getElementById('custom-success-alert');
 
@@ -98,13 +94,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const customerPhone = customerPhoneInput.value.trim();
             const customerAddress = customerAddressInput.value.trim();
 
-            // Kiểm tra giỏ hàng có trống không
+            
             if (cart.length === 0) {
                 alert("Vui lòng thêm sản phẩm vào giỏ hàng trước khi đặt hàng!");
                 return;
             }
 
-            // Kiểm tra các trường thông tin bắt buộc
+            
             let allFieldsValid = true;
             if (!customerName) {
                 if (customerNameInput) customerNameInput.style.borderColor = 'red';
@@ -132,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Kiểm tra định dạng số điện thoại đơn giản
+            
             if (!/^(0\d{9})$/.test(customerPhone)) {
                 alert("Số điện thoại không hợp lệ. Vui lòng kiểm tra lại (phải là 10 số, bắt đầu bằng 0).");
                 if (customerPhoneInput) customerPhoneInput.style.borderColor = 'red';
@@ -141,25 +137,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (customerPhoneInput) customerPhoneInput.style.borderColor = '#ddd';
             }
 
-            // Nếu tất cả kiểm tra đều qua
+           
             if (successAlertElement) {
                 successAlertElement.classList.add('visible');
             } else {
-                // Fallback nếu không tìm thấy #custom-success-alert
+                
                 alert("Đơn hàng của bạn đã được ghi nhận (lỗi hiển thị thông báo tùy chỉnh)");
             }
 
-            // Chuyển trang sau một khoảng thời gian ngắn
+            
             setTimeout(() => {
                 if (successAlertElement) {
-                     successAlertElement.classList.remove('visible'); // Ẩn thông báo trước khi chuyển trang
+                     successAlertElement.classList.remove('visible'); 
                 }
                 window.location.href = "../Thuc_Don/ThucDon.html";
-            }, 2500); // Đợi 2.5 giây
+            }, 2500); 
         });
     }
 
-    // Reset màu viền nếu người dùng bắt đầu nhập lại
+   
     const inputsToWatch = [
         document.getElementById('name'),
         document.getElementById('phone'),
@@ -220,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
             adjustPageContentPadding(); 
         });
 
-        // Hero Carousel Logic
+       
         if (heroCarouselElement) {
             const slidesContainer = heroCarouselElement.querySelector('.slides-container');
             const slides = Array.from(heroCarouselElement.querySelectorAll('.slide'));
@@ -286,17 +282,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
 
-        // Smooth scroll for internal links
+        
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                if (this.getAttribute('href') === '#') { // Bỏ qua nếu href chỉ là "#"
-                    // Bạn có thể muốn e.preventDefault() ở đây nếu không muốn hành vi mặc định
+                if (this.getAttribute('href') === '#') { 
                     return; 
                 }
                 try {
-                    // Thử lấy ID từ href (ví dụ: #section1 -> section1)
+                    
                     const targetId = this.getAttribute('href').substring(1);
-                    if (!targetId) return; // Nếu không có ID (ví dụ href="#") thì bỏ qua
+                    if (!targetId) return; 
 
                     const targetElement = document.getElementById(targetId);
                     if (targetElement) {
@@ -310,7 +305,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Back to Top Button
+       
         const backToTopButton = document.createElement('button');
         backToTopButton.innerHTML = "<i class='bx bx-chevron-up'></i>"; 
         Object.assign(backToTopButton.style, {
@@ -332,13 +327,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         console.log("Gà Rán MFC");
     });
-    // Thêm vào trong document.addEventListener('DOMContentLoaded', function() { ... });
-// Hoặc tạo một khối script mới nếu muốn
+    
     const sectionTitleBar = document.querySelector('.section-title-bar');
 
-    // Hàm kiểm tra xem một phần tử có trong viewport hay không
+    
     function isElementInViewport(el) {
-        if (!el) return false; // Thêm kiểm tra null
+        if (!el) return false; 
         const rect = el.getBoundingClientRect();
         return (
             rect.top >= 0 &&
@@ -348,17 +342,17 @@ document.addEventListener('DOMContentLoaded', function() {
         );
     }
 
-    // Hàm xử lý khi cuộn trang
+    
     function handleScrollReveal() {
         if (sectionTitleBar && isElementInViewport(sectionTitleBar)) {
             sectionTitleBar.classList.add('is-visible');
-            // Remove event listener once element is visible to prevent unnecessary checks
+            
             window.removeEventListener('scroll', handleScrollReveal);
         }
     }
 
-    // Gắn lắng nghe sự kiện cuộn trang
+    
     window.addEventListener('scroll', handleScrollReveal);
 
-    // Chạy kiểm tra một lần khi tải trang để xử lý nếu phần tử đã ở trong viewport ngay lập tức
+    
     handleScrollReveal();

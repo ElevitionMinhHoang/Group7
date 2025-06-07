@@ -6,13 +6,13 @@
 }
 :root {
     --primary-color: #E67E22;
-    --secondary-color: #F39C12; /* Màu cam vàng */
+    --secondary-color: #F39C12;
     --accent-color: #FFD700; 
-    --text-dark: #2C3E50; /* Màu chữ tối cho nội dung chính */
-    --text-light: #ECF0F1; /* Màu chữ sáng cho nền tối */
-    --bg-light: #F4F6F7; /* Nền sáng nhẹ */
-    --bg-dark-overlay: rgba(0, 0, 0, 0.7); /* Lớp phủ cho ảnh nền */
-    --footer-bg: #34495E; /* Màu xanh than đậm cho footer */
+    --text-dark: #2C3E50; 
+    --text-light: #ECF0F1; 
+    --bg-light: #F4F6F7;
+    --bg-dark-overlay: rgba(0, 0, 0, 0.7); 
+    --footer-bg: #34495E;
     --footer-text-color: #ECF0F1; 
     --footer-link-color: #FFD700; 
     --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -138,7 +138,7 @@ input, textarea, button, select {
 .btn-small:hover {
     background-color: #E67E22;
 }
-/* --- NAVIGATION BAR --- */
+
 .fixed-navbar {
     position: fixed;
     top: 0;
@@ -146,7 +146,7 @@ input, textarea, button, select {
     width: 100%;
     z-index: 1000;
     background-color: orange;
-    padding: 15px 50px; /* Tăng padding để thanh to lên */
+    padding: 15px 50px; 
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -161,7 +161,7 @@ input, textarea, button, select {
 }
 
 .fixed-navbar .logo-image {
-    height: 60px; /* Tăng chiều cao logo */
+    height: 60px; 
     transition: height 0.3s ease;
 }
 
@@ -169,7 +169,7 @@ input, textarea, button, select {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 35px; /* Tăng khoảng cách giữa các mục menu */
+    gap: 35px; 
     flex: 1;
 }
 
@@ -177,8 +177,8 @@ input, textarea, button, select {
     color: white;
     font-weight: bold;
     text-decoration: none;
-    font-size: 18px; /* Tăng kích thước font chữ cho menu chính */
-    padding: 7px 0; /* Tăng padding dọc */
+    font-size: 18px; 
+    padding: 7px 0;
     transition: transform 0.2s ease-out, text-shadow 0.2s ease-out, border 0.2s ease-out, padding 0.2s ease-out;
     display: inline-block;
     position: relative;
@@ -188,8 +188,8 @@ input, textarea, button, select {
 .fixed-navbar .nav-link:hover {
     text-decoration: none;
     transform: translateY(-3px) scale(1.05);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); /* Tăng độ sáng text-shadow */
-    padding: 7px 18px; /* Tăng padding để tạo không gian cho khung */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); 
+    padding: 7px 18px; 
 }
 
 .fixed-navbar .nav-link::before {
@@ -214,53 +214,53 @@ input, textarea, button, select {
     transform: scale(1);
 }
 
-/* --- CSS MỚI CHO USER ACTIONS (GIỎ HÀNG & TÀI KHOẢN) --- */
+
 .fixed-navbar .user-actions {
     display: flex;
     align-items: center;
-    gap: 30px; /* Tăng khoảng cách giữa các icon */
+    gap: 30px;
     flex-shrink: 0;
 }
 
 .fixed-navbar .nav-action-icon {
     color: white;
-    font-size: 30px; /* Tăng kích thước icon */
+    font-size: 30px; 
     text-decoration: none;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px; /* Tăng vùng click cho icon */
+    padding: 8px;
     border-radius: 50%;
     transition: transform 0.2s ease-out, color 0.2s ease-out, filter 0.2s ease-out;
     z-index: 1;
 }
 
 .fixed-navbar .nav-action-icon:hover {
-    transform: translateY(-3px) scale(1.15); /* Tăng nhẹ hiệu ứng phóng to */
+    transform: translateY(-3px) scale(1.15); 
     color: white;
-    filter: brightness(1.5) drop-shadow(0 0 7px rgba(255, 255, 255, 0.7)); /* Làm sáng và đổ bóng rõ hơn */
+    filter: brightness(1.5) drop-shadow(0 0 7px rgba(255, 255, 255, 0.7));
 }
 
 .fixed-navbar .cart-item-count {
     position: absolute;
-    top: -2px; /* Điều chỉnh vị trí số lượng giỏ hàng */
-    right: -5px; /* Điều chỉnh vị trí số lượng giỏ hàng */
+    top: -2px; 
+    right: -5px; 
     background-color: red;
     color: white;
     border-radius: 50%;
-    padding: 2px 6px; /* Tăng padding */
-    font-size: 0.8em; /* Tăng kích thước font */
+    padding: 2px 6px; 
+    font-size: 0.8em; 
     font-weight: bold;
     line-height: 1;
-    min-width: 18px; /* Tăng kích thước tối thiểu */
+    min-width: 18px; 
     text-align: center;
     border: 1px solid white;
     box-shadow: 0 0 3px rgba(0,0,0,0.3);
     transition: none;
 }
 
-/* --- HIỆU ỨNG RUNG LẮC MỚI CHO ICON --- */
+
 @keyframes cart-jiggle {
     0% { transform: rotate(0deg); }
     25% { transform: rotate(-8deg); }
@@ -273,12 +273,12 @@ input, textarea, button, select {
     animation: cart-jiggle 0.4s ease-in-out;
 }
 
-/* --- VÒNG TRÒN ĐẾM SỐ (ĐÃ NÂNG CẤP) --- */
+
 .fixed-navbar .cart-item-count {
     position: absolute;
     top: -4px;
     right: -7px;
-    background-color: #e74c3c; /* Màu đỏ đậm hơn */
+    background-color: #e74c3c; 
     color: white;
     border-radius: 50%;
     padding: 3px 7px;
@@ -287,16 +287,15 @@ input, textarea, button, select {
     line-height: 1;
     min-width: 20px;
     text-align: center;
-    border: 2px solid white; /* Thêm viền trắng dày hơn */
+    border: 2px solid white; 
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     
-    /* Trạng thái ban đầu: ẩn */
+    
     opacity: 0;
     transform: scale(0.5);
     transition: opacity 0.2s ease-out, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Lớp .show để kích hoạt hiệu ứng xuất hiện */
 .fixed-navbar .cart-item-count.show {
     opacity: 1;
     transform: scale(1);
@@ -708,7 +707,6 @@ textarea:valid:not(:placeholder-shown) {
     opacity: 1;
     transform: translateY(0);
 }
-/* --- Footer --- */
 footer {
     background-color: #E67E22;
     color: #ECF0F1;

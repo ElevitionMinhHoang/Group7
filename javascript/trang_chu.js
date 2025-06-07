@@ -4,11 +4,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const pageContentWrapper = document.querySelector('.page-content-wrapper');
     const heroCarouselElement = document.getElementById('heroCarousel');
 
-    let initialNavPaddingTopBottom = 15; // Set to initial padding-top of fixed-navbar
-    let initialNavPaddingLeftRight = 50; // Set to initial padding-left/right of fixed-navbar
-    let initialLogoHeight = 60; // Set to initial height of logo-image
+    let initialNavPaddingTopBottom = 15; 
+    let initialNavPaddingLeftRight = 50; 
+    let initialLogoHeight = 60; 
 
-    // Try to get actual initial values if they are already computed by CSS
+    
     if (navLogo) initialLogoHeight = navLogo.offsetHeight || initialLogoHeight;
     if (nav) {
         const computedStyle = window.getComputedStyle(nav);
@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!nav || !navLogo) return;
         if (window.scrollY > 50) {
             nav.style.backgroundColor = 'rgba(255, 165, 0, 0.9)';
-            nav.style.padding = `10px ${initialNavPaddingLeftRight}px`; // Reduced padding on scroll
-            navLogo.style.height = (initialLogoHeight * 0.8) + 'px'; // Smaller logo on scroll
+            nav.style.padding = `10px ${initialNavPaddingLeftRight}px`; 
+            navLogo.style.height = (initialLogoHeight * 0.8) + 'px'; 
         } else {
             nav.style.backgroundColor = 'orange';
             nav.style.padding = `${initialNavPaddingTopBottom}px ${initialNavPaddingLeftRight}px`;
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
 
-    // Hero Carousel Logic
+    
     if (heroCarouselElement) {
         const slidesContainer = heroCarouselElement.querySelector('.slides-container');
         const slides = Array.from(heroCarouselElement.querySelectorAll('.slide'));
@@ -110,17 +110,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // Smooth scroll for internal links
+    
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            if (this.getAttribute('href') === '#') { // Bỏ qua nếu href chỉ là "#"
-                // Bạn có thể muốn e.preventDefault() ở đây nếu không muốn hành vi mặc định
+            if (this.getAttribute('href') === '#') { 
                 return; 
             }
             try {
-                // Thử lấy ID từ href (ví dụ: #section1 -> section1)
+                
                 const targetId = this.getAttribute('href').substring(1);
-                if (!targetId) return; // Nếu không có ID (ví dụ href="#") thì bỏ qua
+                if (!targetId) return; 
 
                 const targetElement = document.getElementById(targetId);
                 if (targetElement) {
@@ -134,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Back to Top Button
+  
     const backToTopButton = document.createElement('button');
     backToTopButton.innerHTML = "<i class='bx bx-chevron-up'></i>"; 
     Object.assign(backToTopButton.style, {
@@ -156,13 +155,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log("Gà Rán MFC");
 
-    // --- SCROLL REVEAL LOGIC ---
+   
     const scrollRevealElements = document.querySelectorAll('.scroll-reveal-on-load');
 
     function isElementInViewport(el) {
         if (!el) return false;
         const rect = el.getBoundingClientRect();
-        // Checking if at least part of the element is in the viewport
+        
         return (
             rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
             rect.bottom > 0 &&
@@ -175,30 +174,24 @@ document.addEventListener('DOMContentLoaded', function() {
         scrollRevealElements.forEach(el => {
             if (isElementInViewport(el)) {
                 el.classList.add('is-visible');
-                // Optional: remove listener for this specific element if it should only animate once
-                // el.classList.remove('scroll-reveal-on-load'); // Remove class to prevent re-processing
+                
             }
         });
-        // Optional: If all elements are revealed, remove the global scroll listener
-        // if (document.querySelectorAll('.scroll-reveal-on-load:not(.is-visible)').length === 0) {
-        //     window.removeEventListener('scroll', handleScrollReveal);
-        // }
+        
     }
 
     window.addEventListener('scroll', handleScrollReveal);
-    handleScrollReveal(); // Run once on load to catch elements already in view
-
-    // --- NEW PRODUCT POPUP LOGIC ---
+    handleScrollReveal(); 
     const newProductPopup = document.getElementById('newProductPopup');
     const closePopupBtn = document.querySelector('#newProductPopup .close-popup-btn');
 
     function showNewProductPopup() {
-        // Kiểm tra xem popup đã được hiển thị trước đó trong session chưa
+       
         if (sessionStorage.getItem('newProductPopupShown')) {
-            return; // Nếu đã hiển thị rồi thì không hiển thị lại
+            return; 
         }
         newProductPopup.classList.add('show');
-        // Lưu trạng thái đã hiển thị vào sessionStorage
+      
         sessionStorage.setItem('newProductPopupShown', 'true');
     }
 
@@ -212,14 +205,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (newProductPopup) {
         newProductPopup.addEventListener('click', function(event) {
-            // Chỉ ẩn popup khi click trực tiếp vào vùng overlay (không phải nội dung popup)
+            
             if (event.target === newProductPopup) {
                 hideNewProductPopup();
             }
         });
     }
 
-    // Trigger Popup NGAY LẬP TỨC khi trang tải xong
+
     showNewProductPopup(); 
 
-}); // End DOMContentLoaded
+}); 

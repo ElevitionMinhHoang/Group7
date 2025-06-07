@@ -1,7 +1,7 @@
-/* === NỘI DUNG JAVASCRIPT ĐÃ ĐƯỢC BỔ SUNG LOGIC PHÂN TRANG === */
+
 document.addEventListener('DOMContentLoaded', function() {
 
-    // --- 1. LẤY CÁC PHẦN TỬ HTML ---
+    
     const mainNavbar = document.getElementById('mainNavbar');
     const secondaryNavbar = document.getElementById('secondaryNavbar');
     const mainContent = document.getElementById('mainContent');
@@ -10,12 +10,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const mainNavLogo = document.getElementById('navbarLogo');
     const pageContentWrapper = document.querySelector('.page-content-wrapper') || mainContent;
 
-    // --- 2. BIẾN LƯU TRỮ CÁC GIÁ TRỊ BAN ĐẦU ---
+   
     let initialMainNavbarPaddingTopBottom = 15;
     let initialMainNavbarPaddingLeftRight = 50;
     let initialMainNavbarLogoHeight = 60;
 
-    // --- 3. CÁC HÀM CHỨC NĂNG ---
+    
 
     function getMainNavbarInitialStyles() {
         if (mainNavbar) {
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
         requestAnimationFrame(updateLayout);
     }
 
-    // --- 4. GÁN CÁC SỰ KIỆN ---
+    
 
     navLinks.forEach(link => {
         link.addEventListener("click", function(e) {
@@ -114,15 +114,13 @@ document.addEventListener('DOMContentLoaded', function() {
         updateLayout();
     });
 
-    // ==========================================================
-    // === BỔ SUNG LOGIC PHÂN TRANG CHO THỰC ĐƠN TẠI ĐÂY ===
-    // ==========================================================
+   
     const btnPrev = document.querySelector('.pagination .prev');
     const btnNext = document.querySelector('.pagination .next');
     const btnPage1 = document.querySelector('.pagination .thuc_don1');
     const btnPage2 = document.querySelector('.pagination .thuc_don2');
 
-    // Hàm lấy tên file hiện tại
+    
     function getCurrentMenuPage() {
         const path = window.location.pathname;
         return path.substring(path.lastIndexOf('/') + 1);
@@ -130,10 +128,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const currentMenuPage = getCurrentMenuPage();
 
-    // Xử lý sự kiện cho nút Next và nút số 2
+    
     if (btnNext) {
         btnNext.addEventListener('click', () => {
-            // Chỉ chuyển trang nếu đang ở trang 1
+            
             if (currentMenuPage === 'thuc_don1.html') {
                 window.location.href = 'thuc_don2.html';
             }
@@ -141,17 +139,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     if (btnPage2) {
         btnPage2.addEventListener('click', () => {
-             // Chỉ chuyển trang nếu đang không ở trang 2
+             
             if (currentMenuPage !== 'thuc_don2.html') {
                 window.location.href = 'thuc_don2.html';
             }
         });
     }
 
-    // Xử lý sự kiện cho nút Prev và nút số 1
+    
     if (btnPrev) {
         btnPrev.addEventListener('click', () => {
-            // Chỉ chuyển trang nếu đang ở trang 2
+            
             if (currentMenuPage === 'thuc_don2.html') {
                 window.location.href = 'thuc_don1.html';
             }
@@ -159,14 +157,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     if (btnPage1) {
         btnPage1.addEventListener('click', () => {
-            // Chỉ chuyển trang nếu đang không ở trang 1
+            
             if (currentMenuPage !== 'thuc_don1.html') {
                 window.location.href = 'thuc_don1.html';
             }
         });
     }
     
-    // --- 5. KHỞI TẠO ỨNG DỤNG ---
+   
     function initializeApp() {
         getMainNavbarInitialStyles(); 
         updateLayout();

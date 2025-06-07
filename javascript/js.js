@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
         adjustPageContentPadding(); 
     });
 
-    // Hero Carousel Logic
+    
     if (heroCarouselElement) {
         const slidesContainer = heroCarouselElement.querySelector('.slides-container');
         const slides = Array.from(heroCarouselElement.querySelectorAll('.slide'));
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // Smooth scroll for internal links
+    
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             if (this.getAttribute('href') === '#') {
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Back to Top Button
+    
     const backToTopButton = document.createElement('button');
     backToTopButton.innerHTML = "<i class='bx bx-chevron-up'></i>"; 
     Object.assign(backToTopButton.style, {

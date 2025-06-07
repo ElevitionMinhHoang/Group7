@@ -1,9 +1,9 @@
-/* --- NỘI DUNG CỦA FILE style.css --- */
+
 
 :root {
     --footer-bg: rgb(230, 126, 34);
     --footer-text-color: white;
-    --footer-heading-color: #FFD700; /* Màu vàng gold cho tiêu đề */
+    --footer-heading-color: #FFD700; 
     --footer-link-hover-color: #f0f0f0; 
 }
 
@@ -14,7 +14,7 @@
 }
 
 body {
-    font-family: 'Quicksand', Arial, sans-serif; /* Trang này đang dùng Quicksand */
+    font-family: 'Quicksand', Arial, sans-serif;
     font-weight: 600;
     background: url('../images/background1.jpg') no-repeat center center fixed;
     background-size: cover;
@@ -36,7 +36,7 @@ h1 {
     margin-bottom: 40px;
 }
 
-/* --- THANH ĐIỀU HƯỚNG --- */
+
 .fixed-navbar {
     position: fixed;
     top: 0;
@@ -44,7 +44,7 @@ h1 {
     width: 100%;
     z-index: 1000;
     background-color: orange;
-    padding: 15px 50px; /* Tăng padding để thanh to lên */
+    padding: 15px 50px; 
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -59,7 +59,7 @@ h1 {
 }
 
 .fixed-navbar .logo-image {
-    height: 60px; /* Tăng chiều cao logo */
+    height: 60px; 
     transition: height 0.3s ease;
 }
 
@@ -67,7 +67,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 35px; /* Tăng khoảng cách giữa các mục menu */
+    gap: 35px; 
     flex: 1;
 }
 
@@ -75,8 +75,8 @@ h1 {
     color: white;
     font-weight: bold;
     text-decoration: none;
-    font-size: 18px; /* Tăng kích thước font chữ cho menu chính */
-    padding: 7px 0; /* Tăng padding dọc */
+    font-size: 18px; 
+    padding: 7px 0; 
     transition: transform 0.2s ease-out, text-shadow 0.2s ease-out, border 0.2s ease-out, padding 0.2s ease-out;
     display: inline-block;
     position: relative;
@@ -86,8 +86,8 @@ h1 {
 .fixed-navbar .nav-link:hover {
     text-decoration: none;
     transform: translateY(-3px) scale(1.05);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); /* Tăng độ sáng text-shadow */
-    padding: 7px 18px; /* Tăng padding để tạo không gian cho khung */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); 
+    padding: 7px 18px; 
 }
 
 .fixed-navbar .nav-link::before {
@@ -112,7 +112,7 @@ h1 {
     transform: scale(1);
 }
 
-/* --- CSS CHO USER ACTIONS (GIỎ HÀNG & TÀI KHOẢN) --- */
+
 .fixed-navbar .user-actions {
     display: flex;
     align-items: center;
@@ -178,7 +178,7 @@ h1 {
 }
 
 
-/* Lưới khuyến mãi */
+
 .promo-grid {
     max-width: 1200px;
     margin: 40px auto;
@@ -289,30 +289,23 @@ h1 {
     100% { left: 125%; }
 }
 
-/* ================================================= */
-/* === THAY THẾ TOÀN BỘ ĐOẠN CSS PHÂN TRANG CŨ BẰNG ĐOẠN NÀY === */
-/* ================================================= */
-
-/* Phân trang - ĐÃ SỬA LỖI */
 .pagination {
-    /* Đã xóa: position: fixed, bottom, left, transform, z-index, opacity, visibility */
-
-    /* Thêm các thuộc tính sau để nó trở thành một khối bình thường */
-    display: flex;
-    justify-content: center; /* Căn giữa các mục bên trong */
-    align-items: center;
-    margin: 4px auto; /* Tự động căn giữa khối và tạo khoảng cách trên/dưới */
     
-    /* Giữ lại các style về giao diện */
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    margin: 4px auto;
+    
+   
     background: #fff6f0;
     border: 1px solid #cc3300;
     border-radius: 30px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     color: #cc3300;
     gap: 12px;
-    padding: 8px 16px; /* Tăng padding cho đẹp hơn */
+    padding: 8px 16px;
     font-size: 14px;
-    width: fit-content; /* Chiều rộng vừa đủ với nội dung bên trong */
+    width: fit-content; 
 }
 
 .Khuyen_mai_page2.active {
@@ -322,7 +315,7 @@ h1 {
     animation: jump 0.3s ease;
 }
 
-/* Các nút số trang */
+
 
 .Khuyen_mai_page1, .Khuyen_mai_page2 {
     font-family: Arial, sans-serif;
@@ -336,7 +329,7 @@ h1 {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Nút được chọn */
+
 .Khuyen_mai_page1.active, .Khuyen_mai_page2.active {
     background: #cc3300;
     color: #fff6f0;
@@ -344,7 +337,7 @@ h1 {
     animation: jump 0.3s ease;
 }
 
-/* Nút prev/next */
+
 .button {
     padding: 4px 8px;
     font-size: 14px;
@@ -353,7 +346,7 @@ h1 {
     transition: color 0.3s ease;
 }
 
-/* Hiệu ứng khi di chuột */
+
 .Khuyen_mai_page1:not(.active):hover, 
 .Khuyen_mai_page2:not(.active):hover {
     background-color: #ffe8d6;
@@ -363,15 +356,13 @@ h1 {
     color: #ff6600;
 }
 
-/* Animation nhảy lên */
+
 @keyframes jump {
     from { transform: translateY(5px); opacity: 0.5; }
     to { transform: translateY(0); opacity: 1; }
 }
 
-/* Xóa bỏ class không cần thiết nữa */
-/* .pagination.visible đã được xóa bỏ vì không còn dùng opacity */
-/* --- Footer --- */
+
 footer {
     background-color: #E67E22;
     color: #ECF0F1;

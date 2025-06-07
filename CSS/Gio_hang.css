@@ -9,13 +9,13 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     margin: 0;
-    padding-top: 90px; /* Thêm padding-top để nội dung không bị header che */
+    padding-top: 90px; 
     background-color: #f4f6f8;
     color: #333;
     line-height: 1.6;
 }
 
-/* --- NAVIGATION BAR --- */
+
 .fixed-navbar {
     position: fixed;
     top: 0;
@@ -69,7 +69,7 @@ body {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* --- CSS CHO USER ACTIONS (GIỎ HÀNG & TÀI KHOẢN) --- */
+
 .fixed-navbar .user-actions {
     display: flex;
     align-items: center;
@@ -236,7 +236,7 @@ body {
 .order-information input[type="tel"]:focus,
 .order-information textarea:focus,
 .order-information select:focus {
-    border-color: #FFA500; /* Orange */
+    border-color: #FFA500; 
     outline: none;
 }
 
@@ -291,14 +291,14 @@ body {
 .summary-totals .grand-total {
     font-size: 1.25em;
     font-weight: bold;
-    color: #FFA500; /* Orange */
+    color: #FFA500; 
 }
 .summary-totals .grand-total span:first-child{
-    color: #FFA500; /* Orange */
+    color: #FFA500;
 }
 
 #place-order-btn {
-    background-color: #FFA500; /* Orange */
+    background-color: #FFA500; 
     color: white;
     border: none;
     padding: 14px 20px;
@@ -315,10 +315,10 @@ body {
 }
 
 #place-order-btn:hover {
-    background-color: #FF8C00; /* Darker orange on hover */
+    background-color: #FF8C00; 
 }
 
-/* CUSTOM SUCCESS ALERT STYLES */
+
 #custom-success-alert {
     position: fixed;
     top: 0;
@@ -326,7 +326,7 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
-    display: none; /* Initially hidden to prevent blocking */
+    display: none; 
     justify-content: center;
     align-items: center;
     z-index: 10000;
@@ -335,7 +335,7 @@ body {
 }
 
 #custom-success-alert.visible {
-    display: flex; /* Show when .visible class is added */
+    display: flex; 
     opacity: 1;
 }
 
@@ -391,15 +391,15 @@ body {
     }
 }
 
-/* --- Footer --- */
+
 :root {
     --footer-bg: rgb(230, 126, 34);
     --footer-text-color: white;
-    --footer-heading-color: #FFD700; /* Màu vàng gold cho tiêu đề */
+    --footer-heading-color: #FFD700; 
     --footer-link-hover-color: #f0f0f0; 
 }
 
-/* --- Footer --- */
+
 footer {
     background-color: #E67E22;
     color: #ECF0F1;

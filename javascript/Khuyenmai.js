@@ -5,10 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnPage2 = document.querySelector('.Khuyen_mai_page2');
     const pagination = document.querySelector('.pagination');
     
-    // 👉 Đã sửa dòng này để lấy phần tử footer của bạn
-    const footer = document.querySelector('footer'); // Lấy thẻ footer HTML
+    
+    const footer = document.querySelector('footer'); 
 
-    // Hàm lấy tên file hiện tại
+    
     function getCurrentPage() {
         const path = window.location.pathname;
         const file = path.substring(path.lastIndexOf('/') + 1);
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const currentPage = getCurrentPage();
 
-    // Chuyển trang
+   
     function goToPage(page) {
         if (page === 'page1') {
             window.location.href = 'Khuyen_mai_page1.html';
@@ -26,56 +26,51 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Xử lý nút prev
+    
     btnPrev.addEventListener('click', () => {
         if (currentPage === 'Khuyen_mai_page2.html') {
             goToPage('page1');
         }
     });
 
-    // Xử lý nút next
+
     btnNext.addEventListener('click', () => {
         if (currentPage === 'Khuyen_mai_page1.html') {
             goToPage('page2');
         }
     });
 
-    // Xử lý nút số 1
+   
     btnPage1.addEventListener('click', () => {
         if (currentPage !== 'Khuyen_mai_page1.html') {
             goToPage('page1');
         }
     });
 
-    // Xử lý nút số 2
+    
     btnPage2.addEventListener('click', () => {
         if (currentPage !== 'Khuyen_mai_page2.html') {
             goToPage('page2');
         }
     });
 
-    // 👉 Đã sửa xử lý hiển thị thanh phân trang
+    
     function checkPaginationVisibility() {
-        const scrollY = window.scrollY; // Vị trí cuộn hiện tại từ đỉnh trang
-        const windowHeight = window.innerHeight; // Chiều cao cửa sổ trình duyệt
-        const documentHeight = document.body.offsetHeight; // Tổng chiều cao của tài liệu
+        const scrollY = window.scrollY;
+        const windowHeight = window.innerHeight; 
+        const documentHeight = document.body.offsetHeight;
 
-        let footerTop = documentHeight; // Mặc định là cuối trang nếu không tìm thấy footer
+        let footerTop = documentHeight; 
 
-        // Chỉ tính toán footerTop nếu footer tồn tại
+       
         if (footer) {
-            // Lấy vị trí của footer so với đỉnh tài liệu
+            
             footerTop = footer.getBoundingClientRect().top + scrollY;
         }
 
-        // Điểm kích hoạt hiển thị phân trang (ví dụ: 100px trước footer)
-        // Bạn có thể điều chỉnh giá trị 100px này.
-        // Giá trị này nên nhỏ hơn chiều cao của footer một chút
-        // để phân trang hiện ra đủ lâu trước khi footer che mất nó.
         const triggerPoint = footerTop - 100; 
 
-        // Kiểm tra xem người dùng đã cuộn đến điểm kích hoạt chưa
-        // HOẶC nếu trang không đủ dài để cuộn (ví dụ: nội dung ngắn hơn màn hình)
+       
         if ((scrollY + windowHeight >= triggerPoint) || (documentHeight <= windowHeight)) {
             pagination.classList.add('visible');
         } else {
@@ -85,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', checkPaginationVisibility);
     window.addEventListener('resize', checkPaginationVisibility);
-    checkPaginationVisibility(); // Gọi lúc vừa load trang để kiểm tra trạng thái ban đầu
+    checkPaginationVisibility(); 
 });
 
  document.addEventListener('DOMContentLoaded', function() {
@@ -132,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
             adjustPageContentPadding(); 
         });
 
-        // Hero Carousel Logic
+        
         if (heroCarouselElement) {
             const slidesContainer = heroCarouselElement.querySelector('.slides-container');
             const slides = Array.from(heroCarouselElement.querySelectorAll('.slide'));
@@ -198,17 +193,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
 
-        // Smooth scroll for internal links
+        
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                if (this.getAttribute('href') === '#') { // Bỏ qua nếu href chỉ là "#"
-                    // Bạn có thể muốn e.preventDefault() ở đây nếu không muốn hành vi mặc định
+                if (this.getAttribute('href') === '#') { 
                     return; 
                 }
                 try {
-                    // Thử lấy ID từ href (ví dụ: #section1 -> section1)
+                    
                     const targetId = this.getAttribute('href').substring(1);
-                    if (!targetId) return; // Nếu không có ID (ví dụ href="#") thì bỏ qua
+                    if (!targetId) return;
 
                     const targetElement = document.getElementById(targetId);
                     if (targetElement) {
@@ -222,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Back to Top Button
+        
         const backToTopButton = document.createElement('button');
         backToTopButton.innerHTML = "<i class='bx bx-chevron-up'></i>"; 
         Object.assign(backToTopButton.style, {
@@ -244,13 +238,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log("Gà Rán MFC");
     });
-    // Thêm vào trong document.addEventListener('DOMContentLoaded', function() { ... });
-// Hoặc tạo một khối script mới nếu muốn
+   
     const sectionTitleBar = document.querySelector('.section-title-bar');
 
-    // Hàm kiểm tra xem một phần tử có trong viewport hay không
     function isElementInViewport(el) {
-        if (!el) return false; // Thêm kiểm tra null
+        if (!el) return false; 
         const rect = el.getBoundingClientRect();
         return (
             rect.top >= 0 &&
@@ -260,17 +252,17 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
 
-    // Hàm xử lý khi cuộn trang
+    
     function handleScrollReveal() {
         if (sectionTitleBar && isElementInViewport(sectionTitleBar)) {
             sectionTitleBar.classList.add('is-visible');
-            // Remove event listener once element is visible to prevent unnecessary checks
+            
             window.removeEventListener('scroll', handleScrollReveal);
         }
     }
 
-    // Gắn lắng nghe sự kiện cuộn trang
+    
     window.addEventListener('scroll', handleScrollReveal);
 
-    // Chạy kiểm tra một lần khi tải trang để xử lý nếu phần tử đã ở trong viewport ngay lập tức
+   
     handleScrollReveal();

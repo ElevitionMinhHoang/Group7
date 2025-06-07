@@ -8,11 +8,11 @@ html, body {
     font-family: 'Inter', sans-serif;
 }
 body {
-    background-color: #f9f9f9; /* Nền xám rất nhạt cho body */
+    background-color: #f9f9f9; 
     color: #333;
 }
 
-/* --- NAVIGATION BAR --- */
+
 .fixed-navbar {
     position: fixed;
     top: 0;
@@ -20,7 +20,7 @@ body {
     width: 100%;
     z-index: 1000;
     background-color: orange;
-    padding: 15px 50px; /* Tăng padding để thanh to lên */
+    padding: 15px 50px; 
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -35,7 +35,7 @@ body {
 }
 
 .fixed-navbar .logo-image {
-    height: 60px; /* Tăng chiều cao logo */
+    height: 60px;
     transition: height 0.3s ease;
 }
 
@@ -43,7 +43,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 35px; /* Tăng khoảng cách giữa các mục menu */
+    gap: 35px; 
     flex: 1;
 }
 
@@ -51,8 +51,8 @@ body {
     color: white;
     font-weight: bold;
     text-decoration: none;
-    font-size: 18px; /* Tăng kích thước font chữ cho menu chính */
-    padding: 7px 0; /* Tăng padding dọc */
+    font-size: 18px;
+    padding: 7px 0; 
     transition: transform 0.2s ease-out, text-shadow 0.2s ease-out, border 0.2s ease-out, padding 0.2s ease-out;
     display: inline-block;
     position: relative;
@@ -62,8 +62,8 @@ body {
 .fixed-navbar .nav-link:hover {
     text-decoration: none;
     transform: translateY(-3px) scale(1.05);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); /* Tăng độ sáng text-shadow */
-    padding: 7px 18px; /* Tăng padding để tạo không gian cho khung */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); 
+    padding: 7px 18px; 
 }
 
 .fixed-navbar .nav-link::before {
@@ -89,7 +89,7 @@ body {
 }
 
 
-/* --- CSS CHO USER ACTIONS (ĐÃ NÂNG CẤP ICON GIỎ HÀNG) --- */
+
 .fixed-navbar .user-actions {
     display: flex;
     align-items: center;
@@ -112,12 +112,12 @@ body {
 }
 
 .fixed-navbar .nav-action-icon:hover {
-    transform: translateY(-3px) scale(1.1); /* Giữ lại hiệu ứng hover nhẹ nhàng */
+    transform: translateY(-3px) scale(1.1); 
     color: white;
     filter: brightness(1.5) drop-shadow(0 0 7px rgba(255, 255, 255, 0.7));
 }
 
-/* --- HIỆU ỨNG RUNG LẮC MỚI CHO ICON --- */
+
 @keyframes cart-jiggle {
     0% { transform: rotate(0deg); }
     25% { transform: rotate(-8deg); }
@@ -130,12 +130,12 @@ body {
     animation: cart-jiggle 0.4s ease-in-out;
 }
 
-/* --- VÒNG TRÒN ĐẾM SỐ (ĐÃ NÂNG CẤP) --- */
+
 .fixed-navbar .cart-item-count {
     position: absolute;
     top: -4px;
     right: -7px;
-    background-color: #e74c3c; /* Màu đỏ đậm hơn */
+    background-color: #e74c3c; 
     color: white;
     border-radius: 50%;
     padding: 3px 7px;
@@ -144,21 +144,21 @@ body {
     line-height: 1;
     min-width: 20px;
     text-align: center;
-    border: 2px solid white; /* Thêm viền trắng dày hơn */
+    border: 2px solid white; 
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     
-    /* Trạng thái ban đầu: ẩn */
+    
     opacity: 0;
     transform: scale(0.5);
     transition: opacity 0.2s ease-out, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Lớp .show để kích hoạt hiệu ứng xuất hiện */
+
 .fixed-navbar .cart-item-count.show {
     opacity: 1;
     transform: scale(1);
 }
-/* --- HERO CAROUSEL --- */
+
 .hero-carousel {
     position: relative;
     width: 100%;
@@ -185,7 +185,7 @@ body {
     display: block;
 }
 
-/* --- SLIDE CONTENT - MINIMALIST STYLE --- */
+
 .hero-carousel .slide-content {
     position: absolute;
     bottom: 15%;
@@ -201,14 +201,14 @@ body {
 
 .hero-carousel .slide-content h2,
 .hero-carousel .slide-content p {
-    display: none; /* Ẩn tiêu đề H2 và đoạn văn P */
+    display: none; 
 }
-/* --- KẾT THÚC SLIDE CONTENT MINIMALIST --- */
 
 
-/* --- CSS CHO NÚT CTA TRONG HERO CAROUSEL --- */
+
+
 .hero-carousel .slide-content .cta-button {
-    position: relative; /* Essential for positioning the pseudo-element */
+    position: relative; 
     display: inline-block;
     background-color: #ffc72c;
     color: white;
@@ -224,7 +224,7 @@ body {
     box-shadow: 0 3px 0px #f39200,
                 0 5px 8px rgba(0, 0, 0, 0.15);
     cursor: pointer;
-    overflow: hidden; /* Crucial to contain the shine effect within the button */
+    overflow: hidden; 
     transition: background-color 0.2s ease-in-out,
                 transform 0.15s ease-in-out,
                 box-shadow 0.15s ease-in-out;
@@ -232,35 +232,35 @@ body {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    z-index: 0; /* Ensures the button's content is below the ::before pseudo-element */
+    z-index: 0; 
 }
 
-/* Shine effect for the CTA button */
+
 .hero-carousel .slide-content .cta-button::before {
     content: '';
     position: absolute;
     top: 0;
-    left: -75%; /* Start off-screen to the left */
+    left: -75%; 
     width: 50%;
     height: 100%;
     background: linear-gradient(
         120deg,
         rgba(255, 255, 255, 0.1) 0%,
-        rgba(255, 255, 255, 0.6) 50%, /* Brightest part of the shine */
+        rgba(255, 255, 255, 0.6) 50%, 
         rgba(255, 255, 255, 0.1) 100%
     );
-    transform: skewX(-20deg); /* Tilt the shine */
-    z-index: 1; /* Place the shine on top of the button's background */
+    transform: skewX(-20deg);
+    z-index: 1; 
 }
 
 .hero-carousel .slide-content .cta-button:hover::before {
     animation: shine 0.9s ease forwards;
 }
 
-/* Keyframes for the shine animation (reused from previous examples) */
+
 @keyframes shine {
     0% { left: -75%; }
-    100% { left: 125%; } /* Move completely off-screen to the right */
+    100% { left: 125%; }
 }
 
 .hero-carousel .slide-content .cta-button:hover,
@@ -278,7 +278,7 @@ body {
     box-shadow: 0 1px 0px #e08600,
                 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-/* === KẾT THÚC CSS CHO NÚT CTA === */
+
 
 
 .carousel-nav {
@@ -314,51 +314,51 @@ body {
 }
 .carousel-dots .dot.active { background-color: orange; border-color: orange; }
 
-/* --- KEY ACTIONS / ICON CARD SECTION (Ý TƯỞNG 2) --- */
+
 .key-actions-section {
-    padding: 60px 20px; /* Tăng padding để section thoáng hơn */
-    background-color: #f8f9fa; /* Nền xám rất nhạt cho toàn bộ section */
+    padding: 60px 20px; 
+    background-color: #f8f9fa; 
 }
 
 .key-actions-grid {
     display: flex;
-    justify-content: space-around; /* Các card cách đều nhau */
-    align-items: stretch; /* Các card sẽ có chiều cao bằng nhau nếu nội dung khác nhau */
-    gap: 30px; /* Khoảng cách giữa các card */
-    flex-wrap: wrap; /* Cho phép xuống dòng trên màn hình nhỏ */
-    max-width: 1200px; /* Giới hạn chiều rộng của grid */
-    margin: 0 auto; /* Căn giữa grid */
+    justify-content: space-around; 
+    align-items: stretch; 
+    gap: 30px;
+    flex-wrap: wrap; 
+    max-width: 1200px; 
+    margin: 0 auto; 
 }
 
 .icon-action-card {
-    border-radius: 20px; /* Bo góc lớn hơn cho card */
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07); /* Bóng đổ mềm mại hơn */
+    border-radius: 20px; 
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07); 
     text-decoration: none;
-    padding: 40px 25px 35px 25px; /* Padding bên trong card */
+    padding: 40px 25px 35px 25px; 
     text-align: center;
-    width: calc(33.333% - 20px); /* Tính toán cho 3 card trên một hàng với gap 30px */
-    min-width: 290px; /* Chiều rộng tối thiểu để card không quá hẹp */
+    width: calc(33.333% - 20px); 
+    min-width: 290px; 
     transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), 
                 box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), 
                 background-color 0.3s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Căn giữa nội dung theo chiều dọc */
-    min-height: 320px; /* Chiều cao tối thiểu để các card trông cân đối */
+    justify-content: center; 
+    min-height: 320px; 
 }
 
-/* ---- MÀU SẮC CHO TỪNG CARD - ĐIỀU CHỈNH CHO PHÙ HỢU THƯƠNG HIỆU CỦA BẠN ---- */
+
 .icon-action-card.card-bg-menu {
-    background-image: url(../images/anhnnen.jpg); /* Sử dụng background-image */
-    background-size: cover; /* Đảm bảo ảnh phủ hết thẻ */
-    background-position: center; /* Căn giữa ảnh */
-    position: relative; /* Quan trọng để overlay hoạt động */
-    color: white; /* Đổi màu chữ/text phụ thành trắng để dễ đọc trên nền tối */
-    z-index: 0; /* Đảm bảo nội dung nằm trên overlay */
+    background-image: url(../images/anhnnen.jpg); 
+    background-size: cover; 
+    background-position: center; 
+    position: relative; 
+    color: white; 
+    z-index: 0;
 }
 
-/* Thêm lớp phủ (overlay) để làm tối ảnh nền */
+
 .icon-action-card.card-bg-menu::before {
     content: '';
     position: absolute;
@@ -366,46 +366,45 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4); /* Lớp phủ đen với độ mờ 40% */
-    border-radius: 20px; /* Đảm bảo overlay cũng bo góc theo card */
-    z-index: -1; /* Đặt overlay dưới nội dung nhưng trên ảnh nền */
-    transition: background-color 0.3s ease; /* Thêm transition cho hiệu ứng hover của overlay */
+    background-color: rgba(0, 0, 0, 0.4); 
+    border-radius: 20px; 
+    z-index: -1; 
+    transition: background-color 0.3s ease; 
 }
 
 .icon-action-card.card-bg-menu .icon-action-card-icon i {
-    color: rgb(220, 140, 74); /* Đổi màu icon thành trắng */
-    /* Có thể thêm text-shadow nhẹ nếu muốn icon nổi bật hơn nữa */
+    color: rgb(220, 140, 74); 
+   
     text-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
 .icon-action-card.card-bg-menu .icon-action-card-title,
 .icon-action-card.card-bg-menu .icon-action-card-description {
-    color: white; /* Đảm bảo tiêu đề và mô tả cũng màu trắng */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.7); /* Thêm bóng đổ để chữ nổi bật trên ảnh */
+    color: white; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7); 
 }
 
 
 .icon-action-card.card-bg-menu:hover {
-    /* Khi hover, chỉ cần thay đổi hiệu ứng của overlay và card chính, không cần background-color */
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25); /* Bóng đổ mạnh hơn, màu tối để phù hợp với nền tối */
+    
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25); 
 }
 
-/* Hiệu ứng hover cho overlay (làm cam sáng ảnh khi hover) */
+
 .icon-action-card.card-bg-menu:hover::before {
-    background-color: rgba(242, 103, 33, 0.7); /* Tăng độ mờ của overlay khi hover */
+    background-color: rgba(242, 103, 33, 0.7); 
 }
-/* ---- KẾT THÚC PHẦN MÀU SẮC ---- */
-/* Card "Ưu Đãi Hôm Nay" - HIỆU ỨNG HOVER LÀM SÁNG ẢNH NỀN */
+
 .icon-action-card.card-bg-deals {
-    background-image: url(../images/anhnenuudai.jpg); /* Đặt đường dẫn đến ảnh nền của thẻ ưu đãi */
+    background-image: url(../images/anhnenuudai.jpg); 
     background-size: cover;
     background-position: center;
     position: relative;
-    color: white; /* Chữ và nội dung sẽ là màu trắng */
+    color: white; 
     z-index: 0;
 }
 
-/* Thêm lớp phủ (overlay) tối hơn ban đầu */
+
 .icon-action-card.card-bg-deals::before {
     content: '';
     position: absolute;
@@ -413,45 +412,44 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4); /* Lớp phủ đen với độ mờ 40% (tối hơn ban đầu) */
+    background-color: rgba(0, 0, 0, 0.4); 
     border-radius: 20px;
-    z-index: -1; /* Đặt overlay dưới nội dung nhưng trên ảnh nền */
-    transition: background-color 0.3s ease; /* Hiệu ứng chuyển mượt mà */
+    z-index: -1; 
+    transition: background-color 0.3s ease; 
 }
 
 .icon-action-card.card-bg-deals .icon-action-card-icon i {
-    color: rgb(85, 239, 231); /* Đổi màu icon thành trắng */
+    color: rgb(85, 239, 231);
     text-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
 .icon-action-card.card-bg-deals .icon-action-card-title,
 .icon-action-card.card-bg-deals .icon-action-card-description {
-    color: white; /* Đảm bảo tiêu đề và mô tả cũng màu trắng */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.7); /* Thêm bóng đổ để chữ nổi bật trên ảnh */
+    color: white; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7); 
 }
 
 .icon-action-card.card-bg-deals:hover {
-    /* Giữ hiệu ứng bóng đổ nếu bạn thích */
+    
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
 }
 
-/* Hiệu ứng hover cho overlay: làm cho nó trong suốt hơn (sáng hơn) */
-.icon-action-card.card-bg-deals:hover::before {
-    background-color: rgba(74, 225, 207, 0.3); /* Giảm độ mờ của overlay khi hover (làm sáng ảnh) */
-}
-/* ---- KẾT THÚC PHẦN MÀU SẮC ---- */
 
-/* Card "Tìm Cửa Hàng" - Bổ sung cho hiển thị ảnh nền rõ ràng và hiệu ứng hover tương tự */
+.icon-action-card.card-bg-deals:hover::before {
+    background-color: rgba(74, 225, 207, 0.3); 
+}
+
+
 .icon-action-card.card-bg-store {
-    background-image: url(../images/anhnnenmuasam.jpg); /* Đặt đường dẫn đến ảnh nền của thẻ tìm cửa hàng */
+    background-image: url(../images/anhnnenmuasam.jpg);
     background-size: cover;
     background-position: center;
     position: relative;
-    color: white; /* Chữ và nội dung sẽ là màu trắng */
+    color: white; 
     z-index: 0;
 }
 
-/* Thêm lớp phủ (overlay) tương tự cho thẻ tìm cửa hàng */
+
 .icon-action-card.card-bg-store::before {
     content: '';
     position: absolute;
@@ -459,71 +457,66 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4); /* Lớp phủ đen với độ mờ 40% (tối hơn ban đầu) */
+    background-color: rgba(0, 0, 0, 0.4); 
     border-radius: 20px;
-    z-index: -1; /* Đặt overlay dưới nội dung nhưng trên ảnh nền */
-    transition: background-color 0.3s ease; /* Hiệu ứng chuyển mượt mà */
+    z-index: -1; 
+    transition: background-color 0.3s ease; 
 }
 
 .icon-action-card.card-bg-store .icon-action-card-icon i {
-    color: rgb(198, 60, 201); /* Đổi màu icon thành trắng */
+    color: rgb(198, 60, 201); 
     text-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
 .icon-action-card.card-bg-store .icon-action-card-title,
 .icon-action-card.card-bg-store .icon-action-card-description {
-    color: white; /* Đảm bảo tiêu đề và mô tả cũng màu trắng */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.7); /* Thêm bóng đổ để chữ nổi bật trên ảnh */
+    color: white; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7); 
 }
 
 .icon-action-card.card-bg-store:hover {
-    /* Khi hover, giữ hiệu ứng bóng đổ nếu bạn thích */
+ 
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
 }
 
-/* Hiệu ứng hover cho overlay của thẻ tìm cửa hàng: làm cho nó trong suốt hơn (sáng hơn) */
+
 .icon-action-card.card-bg-store:hover::before {
-    background-color: rgba(212, 90, 206, 0.3); /* Giảm độ mờ của overlay khi hover (làm sáng ảnh) */
+    background-color: rgba(212, 90, 206, 0.3); 
 }
-/* ---- KẾT THÚC PHẦN MÀU SẮC ---- */
+
 .icon-action-card:hover {
-    transform: translateY(-10px) scale(1.03); /* Hiệu ứng nổi và phóng to nhẹ nhàng */
+    transform: translateY(-10px) scale(1.03); 
 }
 
 .icon-action-card-icon {
-    margin-bottom: 28px; /* Khoảng cách lớn hơn dưới icon */
+    margin-bottom: 28px; 
 }
 
-.icon-action-card-icon i { /* Style cho Boxicon */
-    font-size: 5.5rem; /* Icon rất lớn, thu hút */
+.icon-action-card-icon i { 
+    font-size: 5.5rem; 
     transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
-/* Nếu bạn dùng ảnh cho icon, hãy style cho thẻ img thay vì i:
-.icon-action-card-icon img {
-    max-height: 90px; // Hoặc kích thước mong muốn
-    width: auto;
-    transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-*/
+
+
 
 .icon-action-card:hover .icon-action-card-icon i,
 .icon-action-card:hover .icon-action-card-icon img {
-    transform: rotate(-6deg) scale(1.2); /* Hiệu ứng icon nghiêng và phóng to vui nhộn */
+    transform: rotate(-6deg) scale(1.2); 
 }
 
 .icon-action-card-title {
-    font-size: 1.45rem; /* Cỡ chữ tiêu đề */
+    font-size: 1.45rem; 
     font-weight: 700;
     margin-bottom: 12px;
-    color: inherit; /* Kế thừa màu từ .icon-action-card để phù hợp với nền */
+    color: inherit; 
 }
 
 .icon-action-card-description {
     font-size: 0.92rem;
     line-height: 1.5;
-    color: inherit; /* Kế thừa màu */
-    opacity: 0.85; /* Mô tả có thể hơi mờ hơn tiêu đề */
-    max-width: 230px; /* Giới hạn chiều rộng mô tả để không quá dài dòng */
+    color: inherit; 
+    opacity: 0.85; 
+    max-width: 230px; 
 }
 
 /* Responsive cho icon-action-card (Ý TƯỞNG 2) */
@@ -1546,17 +1539,17 @@ footer {
 
 .new-label {
     position: absolute;
-    top: 10px; /* Dịch xuống một chút */
-    right: 10px; /* Dịch vào một chút */
-    background-color: #e74c3c; /* Màu đỏ nổi bật */
+    top: 10px; 
+    right: 10px; 
+    background-color: #e74c3c; 
     color: white;
-    padding: 5px 12px; /* Giảm padding từ 6px 14px */
-    border-radius: 8px; /* Bo góc nhiều hơn */
-    font-size: 0.9em; /* Kích thước font nhỏ hơn một chút từ 1em */
-    font-weight: 800; /* Đậm hơn */
+    padding: 5px 12px;
+    border-radius: 8px; 
+    font-size: 0.9em;
+    font-weight: 800;
     text-transform: uppercase;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Bóng cho label */
-    animation: pulse 1.5s infinite alternate; /* Hiệu ứng nhấp nháy êm ái hơn */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); 
+    animation: pulse 1.5s infinite alternate; 
 }
 
 @keyframes pulse {
@@ -1570,38 +1563,37 @@ footer {
 }
 
 .popup-title {
-    font-size: 1.8em; /* Nhỏ hơn một chút từ 2em */
-    color: #ff6f00; /* Màu cam đậm cho tiêu đề chính */
-    margin-bottom: 10px; /* Giảm từ 12px */
-    font-weight: 800; /* Đậm hơn */
+    font-size: 1.8em; 
+    color: #ff6f00; 
+    margin-bottom: 10px; 
+    font-weight: 800; 
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 .popup-product-name {
-    font-size: 1.4em; /* Nhỏ hơn một chút từ 1.6em */
+    font-size: 1.4em; 
     color: #333;
-    margin-bottom: 10px; /* Giảm từ 12px */
+    margin-bottom: 10px; 
     font-weight: 700;
     text-transform: uppercase;
 }
 
 .popup-description {
-    font-size: 1em; /* Nhỏ hơn một chút từ 1.1em */
+    font-size: 1em; 
     color: #666;
-    line-height: 1.5; /* Giảm từ 1.6 */
-    margin-bottom: 25px; /* Khoảng cách lớn hơn dưới mô tả, giảm từ 30px */
+    line-height: 1.5; 
+    margin-bottom: 25px; 
 }
 
-/* --- Nút CTA trong Popup được cập nhật với hiệu ứng giống nút Mua Ngay --- */
 
 .popup-cta-button {
-    /* Các thuộc tính cơ bản */
-    display: inline-flex; /* Giữ icon và chữ trên cùng một hàng */
+   
+    display: inline-flex; 
     align-items: center;
     justify-content: center;
     color: white;
     padding: 14px 30px;
-    border-radius: 8px; /* Bo góc vừa phải, phù hợp với hiệu ứng 3D */
+    border-radius: 8px; 
     text-decoration: none;
     font-weight: 700;
     font-size: 1.1em;
@@ -1609,23 +1601,23 @@ footer {
     border: none;
     cursor: pointer;
     
-    /* Thuộc tính quan trọng cho hiệu ứng */
-    position: relative; /* Bắt buộc cho pseudo-element ::before */
-    overflow: hidden;  /* Giữ hiệu ứng "shine" không bị tràn ra ngoài */
-    user-select: none; /* Ngăn người dùng chọn chữ trên nút */
     
-    /* Hiệu ứng 3D với box-shadow */
+    position: relative; 
+    overflow: hidden; 
+    user-select: none; 
+    
+    
     background-color: #ffc72c;
-    box-shadow: 0 4px 0px #f39200,        /* Tạo lớp đổ bóng dày mô phỏng độ sâu */
-                0 6px 12px rgba(0, 0, 0, 0.2); /* Bóng mờ lan tỏa */
+    box-shadow: 0 4px 0px #f39200,        
+                0 6px 12px rgba(0, 0, 0, 0.2); 
     
-    /* Hiệu ứng chuyển động */
+  
     transition: background-color 0.2s ease-in-out,
                 transform 0.15s ease-in-out,
                 box-shadow 0.15s ease-in-out;
 }
 
-/* Lớp "shine" lướt qua khi hover */
+
 .popup-cta-button::before {
     content: '';
     position: absolute;
@@ -1642,28 +1634,28 @@ footer {
     transform: skewX(-20deg);
 }
 
-/* Kích hoạt animation "shine" khi hover */
+
 .popup-cta-button:hover::before {
     animation: shine 0.9s ease forwards;
 }
 
-/* Trạng thái Hover: Nút được nâng lên */
+
 .popup-cta-button:hover {
-    background-color: #fbb700; /* Màu sáng hơn khi hover */
-    transform: translateY(-3px); /* Di chuyển nút lên trên một chút */
-    box-shadow: 0 6px 0px #e08600,         /* Tăng độ dày bóng để hợp với độ nâng */
-                0 9px 18px rgba(0, 0, 0, 0.25); /* Bóng mờ lan rộng hơn */
+    background-color: #fbb700; 
+    transform: translateY(-3px); 
+    box-shadow: 0 6px 0px #e08600,        
+                0 9px 18px rgba(0, 0, 0, 0.25); /
 }
 
-/* Trạng thái Active: Nút được nhấn xuống */
+
 .popup-cta-button:active {
-    transform: translateY(1px); /* Di chuyển nút xuống, mô phỏng bị nhấn */
+    transform: translateY(1px);
     background-color: #f39c12;
-    box-shadow: 0 2px 0px #e08600,        /* Giảm độ dày bóng */
-                0 3px 6px rgba(0, 0, 0, 0.15); /* Bóng mờ thu lại */
+    box-shadow: 0 2px 0px #e08600,        
+                0 3px 6px rgba(0, 0, 0, 0.15);
 }
 
-/* Giữ lại icon mũi tên */
+
 .popup-cta-button i {
     margin-left: 8px;
     font-size: 1.2em;
@@ -1674,21 +1666,17 @@ footer {
     transform: translateX(4px);
 }
 
-/* Lưu ý: Bạn không cần thêm lại @keyframes shine vì nó đã có sẵn trong CSS chung của trang. 
-*/
-
-/* Responsive adjustments for popup */
 @media (max-width: 480px) {
     .new-product-popup-content {
-        padding: 15px; /* Giảm padding trên mobile */
-        max-width: 90%; /* Chiếm gần hết chiều rộng, giữ nguyên hoặc tăng nhẹ nếu muốn nhỏ hơn chút nữa */
+        padding: 15px; 
+        max-width: 90%;
         border-radius: 10px;
     }
     .close-popup-btn {
-        font-size: 1.6em; /* Nút đóng nhỏ hơn trên mobile */
+        font-size: 1.6em; 
     }
     .popup-image-container {
-        max-width: 150px; /* Giảm kích thước ảnh trên mobile */
+        max-width: 150px; 
         height: 150px;
         margin-bottom: 15px;
     }
