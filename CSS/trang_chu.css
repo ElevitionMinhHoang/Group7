@@ -1140,34 +1140,22 @@ body {
 
 /* Các CSS khác giữ nguyên */
 
-/* --- Footer --- */
+/* --- FOOTER (Phiên bản cuối cùng: Nền cam + Tiêu đề vàng cổ điển) --- */
 :root {
-    --primary-color: #E67E22; /* Màu cam đậm hơn, nổi bật hơn */
-    --secondary-color: #F39C12; /* Màu cam vàng */
-    --accent-color: #FFD700; /* Vàng kim loại cho các điểm nhấn */
-    --text-dark: #2C3E50; /* Màu chữ tối cho nội dung chính */
-    --text-light: #ECF0F1; /* Màu chữ sáng cho nền tối */
-    --bg-light: #F4F6F7; /* Nền sáng nhẹ */
-    --bg-dark-overlay: rgba(0, 0, 0, 0.7); /* Lớp phủ cho ảnh nền */
-    --footer-bg: #34495E; /* Màu xanh than đậm cho footer */
-    --footer-text-color: #ECF0F1; /* Màu chữ sáng cho footer */
-    --footer-link-color: #FFD700; /* Vàng kim loại cho link footer */
-    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    --card-hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    --border-color-light: #D5DBDB; /* Border nhẹ */
-    --support-card-bg: #FFFFFF; /* Nền cho thẻ hỗ trợ */
-    --support-card-hover-bg: #EAECEE; /* Nền hover cho thẻ hỗ trợ */
-    --icon-circle-bg: var(--primary-color);
-    --icon-circle-hover-bg: var(--secondary-color);
+    --footer-bg: rgb(230, 126, 34);
+    --footer-text-color: white;
+    --footer-heading-color: #FFD700; /* Màu vàng gold cho tiêu đề */
+    --footer-link-hover-color: #f0f0f0; 
 }
 
-/* --- Footer --- */
 footer {
-    background-color: #E67E22;
-    color: #ECF0F1;
+    background-color: var(--footer-bg);
+    color: var(--footer-text-color);
     padding: 60px 5%;
     font-size: 0.95em;
+    margin-top: auto;
 }
+
 .footer-container {
     display: flex;
     flex-wrap: wrap;
@@ -1176,120 +1164,198 @@ footer {
     max-width: 1200px;
     margin: 0 auto;
 }
+
 .footer-column {
     flex: 1;
     min-width: 250px;
+    margin-bottom: 20px;
 }
+
 .footer-brand .footer-logo-link {
     display: block;
     margin-bottom: 15px;
 }
+
 .footer-brand .footer-logo-image {
     height: 80px;
-    filter: brightness(1.5);
+    filter: brightness(1.2) contrast(1.1);
 }
+
 .footer-brand p {
     margin-bottom: 20px;
     line-height: 1.8;
+    color: var(--footer-text-color);
 }
-.social-icons a {
+
+.footer-column .social-icons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-start;
+}
+
+.footer-column .social-icons a {
     font-size: 28px;
-    margin-right: 15px;
-    transition: color 0.3s ease, transform 0.3s ease;
-    color: #FFD700;
+    display: inline-block;
+    transition: transform 0.3s ease;
 }
-.social-icons .bx.bxl-facebook-circle { color: #1877F2; }
-.social-icons .bx.bxl-instagram-alt { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
-.social-icons .bx.bxl-tiktok { color: #000; text-shadow: 2px 2px 0px #25F4EE, -2px -2px 0px #FE2C55; }
-.social-icons a:hover { transform: translateY(-3px); }
+.footer-column .social-icons a:hover {
+    transform: translateY(-3px);
+}
+.footer-column .social-icons .bx.bxl-facebook-circle { color: #1877F2; background-color: white; border-radius: 50%; }
+.footer-column .social-icons .bx.bxl-instagram-alt { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+.footer-column .social-icons .bx.bxl-tiktok { color: #000; text-shadow: 2px 2px 0px #25F4EE, -2px -2px 0px #FE2C55; }
+
+/* Cập nhật style cho tiêu đề cột */
 .footer-column h4 {
+    font-family: 'Playfair Display', serif; /* Thêm lại font chữ có chân */
     font-size: 1.3em;
+    font-weight: 700;
+    color: var(--footer-heading-color);     /* Dùng màu vàng cho tiêu đề */
     margin-bottom: 25px;
-    color: #FFD700;
     position: relative;
     padding-bottom: 10px;
 }
+
+/* Tái kích hoạt và tạo kiểu cho gạch chân */
 .footer-column h4::after {
     content: '';
+    display: block;
     position: absolute;
-    bottom: 0;
     left: 0;
+    bottom: 0;
     width: 40px;
-    height: 2px;
-    background-color: #FFD700;
+    height: 3px;
+    background-color: var(--footer-heading-color);
 }
-.footer-column ul li {
-    margin-bottom: 10px;
+
+.footer-column ul {
     list-style: none;
     padding: 0;
 }
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
 .footer-column ul li a {
-    color: #ECF0F1;
+    color: var(--footer-text-color);
+    text-decoration: none;
+    font-size: 0.95em;
+    transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+    color: var(--footer-heading-color); /* Đổi sang màu vàng của tiêu đề khi hover */
+}
+
+.footer-contact p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 0.95em;
+}
+
+/* Đổi màu icon liên hệ thành vàng cho đồng bộ với tiêu đề */
+.footer-contact p i {
+    font-size: 20px;
+    margin-right: 10px;
+    color: var(--footer-heading-color); 
+    flex-shrink: 0;
+}
+
+.footer-contact p a {
+    color: var(--footer-text-color);
     text-decoration: none;
     transition: color 0.3s ease;
 }
-.footer-column ul li a:hover {
-    color: #FFD700;
+
+.footer-contact p a:hover {
+    color: var(--footer-link-hover-color);
 }
-.footer-contact p {
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-}
-.footer-contact p i {
-    margin-right: 10px;
-    color: #FFD700;
-    font-size: 20px;
-}
+
 .footer-bottom {
-    text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
     padding-top: 25px;
     margin-top: 40px;
+    text-align: center;
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.9);
 }
-.spacer-before-footer {
-    height: 60px;
-}
-/* --- Responsive Design --- */
+
+/* Căn chỉnh lại gạch chân của tiêu đề khi ở màn hình nhỏ */
 @media (max-width: 992px) {
     .footer-container {
         flex-direction: column;
         align-items: center;
         text-align: center;
     }
-
     .footer-column {
         align-items: center;
     }
-
+    /* Đưa gạch chân vào giữa khi tiêu đề được căn giữa */
     .footer-column h4::after {
         left: 50%;
         transform: translateX(-50%);
     }
-
     .footer-column .social-icons {
-        justify-content: center; /* Center icons on tablet and mobile */
+        justify-content: center;
     }
-
     .footer-brand .footer-logo-link,
     .footer-contact p {
-        justify-content: center; /* Center items like logo and contact info */
-    }
-}
-
-@media (max-width: 768px) {
-    .footer-column .social-icons {
         justify-content: center;
     }
 }
 
-@media (max-width: 480px) {
+/* Đổi màu icon liên hệ thành trắng */
+.footer-contact p i {
+    font-size: 20px;
+    margin-right: 10px;
+    color: var(--footer-text-color); 
+    flex-shrink: 0;
+}
+
+.footer-contact p a {
+    color: var(--footer-text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-contact p a:hover {
+    color: var(--footer-link-hover-color);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.3); /* Đường kẻ màu trắng mờ */
+    padding-top: 25px;
+    margin-top: 40px;
+    text-align: center;
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.9); /* Chữ hơi mờ một chút cho đẹp hơn */
+}
+
+/* Giữ nguyên các quy tắc responsive */
+@media (max-width: 992px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-column {
+        align-items: center;
+    }
+    .footer-column h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
     .footer-column .social-icons {
         justify-content: center;
     }
+    .footer-brand .footer-logo-link,
+    .footer-contact p {
+        justify-content: center;
+    }
 }
-
-
 /* Responsive adjustments */
 @media (max-width: 1024px) {
     .product-grid { grid-template-columns: repeat(3, 1fr); }
