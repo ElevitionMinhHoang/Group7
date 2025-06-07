@@ -14,38 +14,41 @@ body {
     scroll-behavior: smooth;
     /* padding-top sẽ được JS điều chỉnh */
 }
-/* --- THANH TRANG CHỦ  CHÍNH --- */
+/* --- NAVIGATION BAR --- */
 .fixed-navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; /* Đã cập nhật z-index để nằm trên thanh phụ */
+    z-index: 1000;
     background-color: orange;
-    padding: 15px 50px; /* Đảm bảo padding chuẩn */
+    padding: 15px 50px; /* Tăng padding để thanh to lên */
     display: flex;
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: padding 0.3s ease, background-color 0.3s ease, height 0.3s ease; /* Thêm height vào transition */
-    height: 70px; /* Đặt chiều cao cố định cho thanh chính */
+    transition: padding 0.3s ease, background-color 0.3s ease;
 }
+
 .fixed-navbar .logo-link {
     display: flex;
     align-items: center;
     text-decoration: none;
 }
+
 .fixed-navbar .logo-image {
-    height: 50px;
+    height: 60px; /* Tăng chiều cao logo */
     transition: height 0.3s ease;
 }
+
 .fixed-navbar .main-menu {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 35px; /* Tăng khoảng cách giữa các mục menu */
     flex: 1;
 }
+
 .fixed-navbar .nav-link {
     color: white;
     font-weight: bold;
@@ -58,9 +61,6 @@ body {
     z-index: 1;
 }
 
-
-
-/* Style khi hover các nav-link, áp dụng cả cho link active */
 .fixed-navbar .nav-link:hover {
     text-decoration: none;
     transform: translateY(-3px) scale(1.05);
@@ -68,7 +68,6 @@ body {
     padding: 7px 18px; /* Tăng padding để tạo không gian cho khung */
 }
 
-/* Thêm khung bằng pseudo-element */
 .fixed-navbar .nav-link::before {
     content: '';
     position: absolute;
@@ -76,55 +75,65 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    border: 2px solid transparent; /* Khởi tạo viền trong suốt */
-    border-radius: 8px; /* Bo tròn góc khung */
+    border: 2px solid transparent;
+    border-radius: 8px;
     transition: border-color 0.2s ease-out, transform 0.2s ease-out, opacity 0.2s ease-out;
-    z-index: -1; /* Đảm bảo khung nằm dưới chữ */
-    pointer-events: none; /* Đảm bảo không cản trở sự kiện click */
-    opacity: 0; /* Ẩn khung ban đầu */
-    transform: scale(0.8); /* Khởi tạo nhỏ hơn để có hiệu ứng phóng to khi hover */
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0.8);
 }
 
-/* Hiển thị khung khi hover */
 .fixed-navbar .nav-link:hover::before {
-    border-color: white; /* Màu viền khi hover */
-    opacity: 1; /* Hiển thị khung */
-    transform: scale(1); /* Phóng to ra kích thước thật */
+    border-color: white;
+    opacity: 1;
+    transform: scale(1);
 }
 
-/* Đảm bảo hiệu ứng cuộn vẫn hoạt động tốt trên link active */
-.fixed-navbar.scrolled .nav-link.active {
-    background-color: white;
-    color: #D70F17;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-/* --- CSS CHO USER ACTIONS (ĐÃ NÂNG CẤP ICON GIỎ HÀNG) --- */
+/* --- CSS MỚI CHO USER ACTIONS (GIỎ HÀNG & TÀI KHOẢN) --- */
 .fixed-navbar .user-actions {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 30px; /* Tăng khoảng cách giữa các icon */
     flex-shrink: 0;
 }
 
 .fixed-navbar .nav-action-icon {
     color: white;
-    font-size: 30px;
+    font-size: 30px; /* Tăng kích thước icon */
     text-decoration: none;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px;
+    padding: 8px; /* Tăng vùng click cho icon */
     border-radius: 50%;
     transition: transform 0.2s ease-out, color 0.2s ease-out, filter 0.2s ease-out;
     z-index: 1;
 }
 
 .fixed-navbar .nav-action-icon:hover {
-    transform: translateY(-3px) scale(1.1); /* Giữ lại hiệu ứng hover nhẹ nhàng */
+    transform: translateY(-3px) scale(1.15); /* Tăng nhẹ hiệu ứng phóng to */
     color: white;
-    filter: brightness(1.5) drop-shadow(0 0 7px rgba(255, 255, 255, 0.7));
+    filter: brightness(1.5) drop-shadow(0 0 7px rgba(255, 255, 255, 0.7)); /* Làm sáng và đổ bóng rõ hơn */
+}
+
+.fixed-navbar .cart-item-count {
+    position: absolute;
+    top: -2px; /* Điều chỉnh vị trí số lượng giỏ hàng */
+    right: -5px; /* Điều chỉnh vị trí số lượng giỏ hàng */
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px; /* Tăng padding */
+    font-size: 0.8em; /* Tăng kích thước font */
+    font-weight: bold;
+    line-height: 1;
+    min-width: 18px; /* Tăng kích thước tối thiểu */
+    text-align: center;
+    border: 1px solid white;
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    transition: none;
 }
 
 /* --- HIỆU ỨNG RUNG LẮC MỚI CHO ICON --- */
@@ -178,8 +187,8 @@ body {
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   border: 4px solid #ff9800;
-   margin-top: 80px;
-   margin-bottom: 150px;
+   margin-top: 150px;
+   margin-bottom: 100px;
 }
 
 .food-image {

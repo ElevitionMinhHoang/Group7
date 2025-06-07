@@ -101,70 +101,9 @@
     </div>
   </footer>
 
-    <script src="../javascript/thucdon.js"></script>
+    <script src="../javascript/chi_tiet_thuc_don.js"></script>
 </body>
 </html>
-
-
-  <script>
-    const unitPrice = 35000;
-
-    function updateQuantity(change) {
-      const input = document.getElementById('quantity');
-      let value = parseInt(input.value) || 1;
-      value += change;
-      if (value < 1) {
-        alert("⚠️ Số lượng tối thiểu là 1");
-        value = 1;
-      }
-      if (value > 100) {
-        alert("⚠️ Số lượng tối đa là 100");
-        value = 100;
-      }
-      input.value = value;
-      updateTotalPrice();
-    }
-
-    function validateQuantity() {
-      const input = document.getElementById('quantity');
-      let raw = input.value.trim();
-      let value = parseInt(raw.replace(/\D/g, '')) || 1;
-
-      if (raw === '') {
-        input.value = 1;
-        updateTotalPrice();
-        return;
-      }
-
-      if (value < 1) {
-        alert('⚠️ Số lượng tối thiểu là 1');
-        value = 1;
-      }
-
-      if (value > 100) {
-        alert('⚠️ Số lượng tối đa là 100');
-        value = 100;
-      }
-
-      input.value = value;
-      updateTotalPrice();
-    }
-
-    function updateTotalPrice() {
-      const quantity = parseInt(document.getElementById('quantity').value);
-      const total = quantity * unitPrice;
-      document.getElementById('total-price').innerText =
-        `Tổng giá: ${total.toLocaleString('vi-VN')}đ`;
-    }
-
-    function confirmOrder() {
-      const quantity = document.getElementById('quantity').value;
-      const total = quantity * unitPrice;
-      alert(`🧾 Bạn đã đặt ${quantity} phần gà rán.\n💰 Tổng tiền: ${total.toLocaleString('vi-VN')}đ`);
-    }
-
-    window.onload = updateTotalPrice;
-  </script>
 
 </body>
 </html>
