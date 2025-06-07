@@ -6,18 +6,18 @@
   <title>MR. Fried Chicken - Trang chủ</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:700&display=swap" rel="stylesheet">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="../CSS/tranglienhestyle.css">
+  <link rel="stylesheet" href="tranglienhestyle.css">
 </head>
 <body>
   <nav class="fixed-navbar" id="mainNavbar">
     <div class="logo-container">
-        <a href="index.html" class="logo-link">
-            <img src="../images/mfc.png" alt="MFC Logo" class="logo-image" id="navbarLogo">
+        <a href="../index.html" class="logo-link">
+            <img src="logo3.png" alt="MFC Logo" class="logo-image" id="navbarLogo">
         </a>
     </div>
     <div class="main-menu">
-        <a href="index.html" class="nav-link">Trang chủ</a>
-        <a href="../Thuc_Don/ThucDon.html" class="nav-link">Thực đơn</a>
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="ThucDon.html" class="nav-link">Thực đơn</a>
         <a href="../Khuyen_mai_MFC/Khuyen_mai_page1.html" class="nav-link">Khuyến mãi</a>
         <a href="tranglienhe.html" class="nav-link">Liên hệ</a>
     </div>
@@ -30,7 +30,34 @@
         </a>
     </div>
 </nav>
-  <section class="hero-section" style="background-image: url('../images/anhlienhe1.png');">
+<div class="mobile-menu" id="mobileMenu">
+    <ul>
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="ThucDon.html">Thực đơn</a></li>
+        <li><a href="Khuyen_mai_MFC/Khuyen_mai_page1.html">Khuyến mãi</a></li>
+        <li><a href="tranglienhe.html" class="active-mobile-link">Liên hệ </a></li>
+    </ul>
+</div>
+<div class="full-screen-search-overlay" id="fullScreenSearchOverlay">
+    <div class="overlay-close-btn" id="overlayCloseBtn"><i class='bx bx-x'></i></div>
+    <div class="overlay-content">
+        <div class="overlay-search-box">
+            <input type="text" placeholder="Tìm kiếm món ăn, hỗ trợ, địa điểm..." id="overlaySearchInput">
+            <button type="submit"><i class='bx bx-search'></i></button>
+        </div>
+        <div class="overlay-support-links">
+            <h3>Hỗ trợ nhanh</h3>
+            <ul>
+                <li><a href="#cartIconLinkOverlay" class="overlay-nav-link scroll-to-element"><i class='bx bx-notepad'></i> Đặt hàng & Giao hàng</a></li>
+                <li><a href="#feedbackForm" class="overlay-nav-link scroll-to-element"><i class='bx bx-user'></i> Vấn đề tài khoản</a></li>
+                <li><a href="#feedbackForm" class="overlay-nav-link scroll-to-element"><i class='bx bx-bulb'></i> Đóng góp & Gợi ý</a></li>
+                <li><a href="#faq-section" class="overlay-nav-link scroll-to-element"><i class='bx bx-help-circle'></i> Câu hỏi thường gặp</a></li> <li><a href="tel:0975459348" class="overlay-nav-link"><i class='bx bxs-phone'></i> Hotline: 0975459348</a></li>
+                <li><a href="mailto:support@mfc.com" class="overlay-nav-link"><i class='bx bxs-envelope'></i> Email: support@mfc.com</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+  <section class="hero-section" style="background-image: url('anhlienhe1.png');">
   </section>
   <section class="support-info-section common-padding bg-light scroll-reveal" id="support-info-section">
     <div class="support-grid">
@@ -189,6 +216,6 @@
         <p>© 2025 MR. Fried Chicken. All rights reserved.</p>
     </div>
   </footer>
-  <script src="../javascript/tranglienhescript.js"></script>
+  <script src="tranglienhescript.js"></script>
 </body>
 </html>
