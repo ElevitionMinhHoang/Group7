@@ -1148,21 +1148,12 @@ body {
     --footer-link-hover-color: #f0f0f0; 
 }
 
-<<<<<<< HEAD
-=======
-
-/* --- Footer (Giữ nguyên) --- */
->>>>>>> b179e0deea391d91c85a43e248931c3ce8c6b3c4
 footer {
     background-color: var(--footer-bg);
     color: var(--footer-text-color);
     padding: 60px 5%;
     font-size: 0.95em;
-<<<<<<< HEAD
     margin-top: auto;
-=======
-    margin-top: auto; /* Quan trọng để footer luôn ở cuối khi dùng flexbox */
->>>>>>> b179e0deea391d91c85a43e248931c3ce8c6b3c4
 }
 
 .footer-container {
@@ -1208,22 +1199,14 @@ footer {
     display: inline-block;
     transition: transform 0.3s ease;
 }
-<<<<<<< HEAD
 .footer-column .social-icons a:hover {
     transform: translateY(-3px);
 }
-.footer-column .social-icons .bx.bxl-facebook-circle { color: #1877F2; background-color: white; border-radius: 50%; }
+.footer-column .social-icons .bx.bxl-facebook-circle { color: #1877F2;  border-radius: 50%; }
 .footer-column .social-icons .bx.bxl-instagram-alt { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
 .footer-column .social-icons .bx.bxl-tiktok { color: #000; text-shadow: 2px 2px 0px #25F4EE, -2px -2px 0px #FE2C55; }
 
 /* Cập nhật style cho tiêu đề cột */
-=======
-.social-icons .bx.bxl-facebook-circle { color: #1877F2; }
-.social-icons .bx.bxl-instagram-alt { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
-.social-icons .bx.bxl-tiktok { color: #000; text-shadow: 2px 2px 0px #25F4EE, -2px -2px 0px #FE2C55; }
-.social-icons a:hover { transform: translateY(-3px); }
-
->>>>>>> b179e0deea391d91c85a43e248931c3ce8c6b3c4
 .footer-column h4 {
     font-family: 'Playfair Display', serif; /* Thêm lại font chữ có chân */
     font-size: 1.3em;
@@ -1299,12 +1282,8 @@ footer {
     font-size: 0.9em;
     color: rgba(255, 255, 255, 0.9);
 }
-<<<<<<< HEAD
 
 /* Căn chỉnh lại gạch chân của tiêu đề khi ở màn hình nhỏ */
-=======
-/* --- Responsive Design --- */
->>>>>>> b179e0deea391d91c85a43e248931c3ce8c6b3c4
 @media (max-width: 992px) {
     .footer-container {
         flex-direction: column;

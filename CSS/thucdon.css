@@ -1,23 +1,10 @@
 /* --- NỘI DUNG FILE CSS ĐÃ ĐƯỢC CẬP NHẬT CHO TRANG THỰC ĐƠN --- */
 
 :root {
-    --primary-color: #E67E22;
-    --secondary-color: #F39C12;
-    --accent-color: #FFD700;
-    --text-dark: #2C3E50;
-    --text-light: #ECF0F1;
-    --bg-light: #F4F6F7;
-    --bg-dark-overlay: rgba(0, 0, 0, 0.7);
-    --footer-bg: #34495E;
-    --footer-text-color: #ECF0F1;
-    --footer-link-color: #FFD700;
-    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    --card-hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    --border-color-light: #D5DBDB;
-    --support-card-bg: #FFFFFF;
-    --support-card-hover-bg: #EAECEE;
-    --icon-circle-bg: var(--primary-color);
-    --icon-circle-hover-bg: var(--secondary-color);
+    --footer-bg: rgb(230, 126, 34);
+    --footer-text-color: white;
+    --footer-heading-color: #FFD700; /* Màu vàng gold cho tiêu đề */
+    --footer-link-hover-color: #f0f0f0; 
 }
 
 /* Reset cơ bản và box-sizing */
