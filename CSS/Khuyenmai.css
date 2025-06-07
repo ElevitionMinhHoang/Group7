@@ -1,23 +1,10 @@
 /* --- NỘI DUNG CỦA FILE style.css --- */
 
 :root {
-    --primary-color: #E67E22; /* Màu cam đậm hơn, nổi bật hơn */
-    --secondary-color: #F39C12; /* Màu cam vàng */
-    --accent-color: #FFD700; /* Vàng kim loại cho các điểm nhấn */
-    --text-dark: #2C3E50; /* Màu chữ tối cho nội dung chính */
-    --text-light: #ECF0F1; /* Màu chữ sáng cho nền tối */
-    --bg-light: #F4F6F7; /* Nền sáng nhẹ */
-    --bg-dark-overlay: rgba(0, 0, 0, 0.7); /* Lớp phủ cho ảnh nền */
-    --footer-bg: #34495E; /* Màu xanh than đậm cho footer */
-    --footer-text-color: #ECF0F1; /* Màu chữ sáng cho footer */
-    --footer-link-color: #FFD700; /* Vàng kim loại cho link footer */
-    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    --card-hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    --border-color-light: #D5DBDB; /* Border nhẹ */
-    --support-card-bg: #FFFFFF; /* Nền cho thẻ hỗ trợ */
-    --support-card-hover-bg: #EAECEE; /* Nền hover cho thẻ hỗ trợ */
-    --icon-circle-bg: var(--primary-color);
-    --icon-circle-hover-bg: var(--secondary-color);
+    --footer-bg: rgb(230, 126, 34);
+    --footer-text-color: white;
+    --footer-heading-color: #FFD700; /* Màu vàng gold cho tiêu đề */
+    --footer-link-hover-color: #f0f0f0; 
 }
 
 *{

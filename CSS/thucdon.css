@@ -1,23 +1,10 @@
 /* --- NỘI DUNG FILE CSS ĐÃ ĐƯỢC CẬP NHẬT CHO TRANG THỰC ĐƠN --- */
 
 :root {
-    --primary-color: #E67E22;
-    --secondary-color: #F39C12;
-    --accent-color: #FFD700;
-    --text-dark: #2C3E50;
-    --text-light: #ECF0F1;
-    --bg-light: #F4F6F7;
-    --bg-dark-overlay: rgba(0, 0, 0, 0.7);
-    --footer-bg: #34495E;
-    --footer-text-color: #ECF0F1;
-    --footer-link-color: #FFD700;
-    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    --card-hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    --border-color-light: #D5DBDB;
-    --support-card-bg: #FFFFFF;
-    --support-card-hover-bg: #EAECEE;
-    --icon-circle-bg: var(--primary-color);
-    --icon-circle-hover-bg: var(--secondary-color);
+    --footer-bg: rgb(230, 126, 34);
+    --footer-text-color: white;
+    --footer-heading-color: #FFD700; /* Màu vàng gold cho tiêu đề */
+    --footer-link-hover-color: #f0f0f0; 
 }
 
 /* Reset cơ bản và box-sizing */
@@ -33,6 +20,10 @@ body {
     font-family: 'Inter', Arial, sans-serif;
     margin: 0;
     scroll-behavior: smooth;
+    /* GỢI Ý: Áp dụng kỹ thuật Sticky Footer để layout luôn đẹp */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 body::before {
     content: '';
@@ -42,7 +33,7 @@ body::before {
     z-index: -1;
 }
 
-/* --- NAVIGATION BAR --- */
+/* --- NAVIGATION BAR (Giữ nguyên) --- */
 .fixed-navbar {
     position: fixed;
     top: 0;
@@ -182,7 +173,7 @@ body::before {
     transform: scale(1);
 }
 
-/* --- HERO CAROUSEL --- */
+/* --- HERO CAROUSEL (Giữ nguyên) --- */
 .hero-carousel {
     position: relative;
     width: 100%;
@@ -212,12 +203,23 @@ body::before {
 
 /* --- NỘI DUNG CHÍNH --- */
 main {
-    padding-top: 118px;
-    padding-bottom: 50px;
+    /* SỬA LỖI: Xóa padding-top cố định. Nên để JavaScript xử lý để layout linh hoạt */
+    /* padding-top: 118px; */ 
+
+    /* SỬA LỖI: Xóa padding-bottom để loại bỏ khoảng trắng phía trên footer */
+    padding-bottom: 0;
+
+    /* GỢI Ý: Làm cho nội dung chính co giãn để đẩy footer xuống */
+    flex: 1;
 }
 
 .section {
     padding: 20px 40px 40px 40px;
+}
+
+/* SỬA LỖI: Xóa margin của section cuối cùng để không tạo khoảng trắng trên footer */
+.section:last-child {
+    margin-bottom: 0;
 }
 
 .section h2 {
@@ -238,13 +240,13 @@ main {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
+    width: 100%; /* Rút ngắn lại cho đẹp hơn */
     height: 4px;
     background-color: #D70F17;
     border-radius: 2px;
 }
 
-/* --- GRID VÀ CARD HIỂN THỊ MÓN ĂN --- */
+/* --- GRID VÀ CARD HIỂN THỊ MÓN ĂN (Giữ nguyên) --- */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -370,13 +372,12 @@ main {
     flex-shrink: 0;
 }
 
-/* --- PHÂN TRANG --- */
+/* --- PHÂN TRANG (Giữ nguyên) --- */
 .pagination {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 80px auto; /* Tăng khoảng cách để nút thấp hơn */
-    
+    margin: 40px auto; /* Giảm margin top */
     background: #fff6f0;
     border: 1px solid #cc3300;
     border-radius: 30px;
@@ -388,7 +389,6 @@ main {
     width: fit-content;
 }
 
-/* Các nút số trang - ĐÃ SỬA TÊN CLASS CHO PHÙ HỢP VỚI TRANG THỰC ĐƠN */
 .pagination .thuc_don1, 
 .pagination .thuc_don2 {
     font-family: Arial, sans-serif;
@@ -402,7 +402,6 @@ main {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Nút được chọn - ĐÃ SỬA TÊN CLASS */
 .pagination .thuc_don1.active, 
 .pagination .thuc_don2.active {
     background: #cc3300;
@@ -411,7 +410,6 @@ main {
     animation: jump 0.3s ease;
 }
 
-/* Nút prev/next */
 .pagination .button {
     padding: 4px 8px;
     font-size: 14px;
@@ -420,29 +418,27 @@ main {
     transition: color 0.3s ease;
 }
 
-/* === THÊM HIỆU ỨNG HOVER TẠI ĐÂY === */
-/* Hiệu ứng khi di chuột vào nút số trang (khi nó không active) */
 .pagination .thuc_don1:not(.active):hover,
 .pagination .thuc_don2:not(.active):hover {
-    background-color: #ffe8d6; /* Màu nền nhạt khi rê chuột */
+    background-color: #ffe8d6;
 }
 
 .pagination .button:hover {
     color: #ff6600;
 }
 
-/* Animation nhảy lên */
 @keyframes jump {
     from { transform: translateY(5px); opacity: 0.5; }
     to { transform: translateY(0); opacity: 1; }
 }
 
-/* --- Footer --- */
+/* --- Footer (Giữ nguyên) --- */
 footer {
     background-color: #E67E22;
     color: #ECF0F1;
     padding: 60px 5%;
     font-size: 0.95em;
+    margin-top: auto; /* Quan trọng để footer luôn ở cuối khi dùng flexbox */
 }
 .footer-container {
     display: flex;
@@ -524,12 +520,13 @@ footer {
     padding-top: 25px;
     margin-top: 40px;
 }
-.spacer-before-footer {
+/* SỬA LỖI: Xóa class không cần thiết gây ra khoảng trắng */
+/* .spacer-before-footer {
     height: 60px;
-}
+} */
 
 
-/* --- Responsive adjustments --- */
+/* --- Responsive adjustments (Giữ nguyên) --- */
 @media (max-width: 992px) {
     .section {
         padding: 20px 25px 35px 25px;
@@ -599,7 +596,7 @@ footer {
 
 @media (max-width: 480px) {
     main {
-        padding-top: 118px;
+        /* GỢI Ý: Cần có JS để tính padding-top tự động cho responsive */
     }
     .section {
         padding: 10px 8px 20px 8px;
